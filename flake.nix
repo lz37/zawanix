@@ -1,5 +1,5 @@
 {
-  description = "zawanix";
+  description = "config of zerozawa's nix dev server";
   inputs = {
     systems.url = "github:nix-systems/x86_64-linux";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
