@@ -2,6 +2,10 @@
 
 适用于远程 vscode dev server 的 nix config。
 
-编程语言建议使用 `devenv` 或 `devbox` 管理，全局不添加相关配置。
+编程语言使用 `devenv` 或 `devbox` 进行项目级管理，全局不添加相关配置。
 
 创建 `./options/variable.nix`，并在其中配置相关变量
+
+替换 `hardware-configuration.nix` 中相关配置
+
+`nixos-rebuild` 时必须添加 `--impure` 参数，也可自行改成 pure
