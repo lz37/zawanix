@@ -4,7 +4,7 @@
   "nix.serverSettings": {
     "nixd":{
       "nixpkgs":{
-        "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }   "
+        "expr": "import (builtins.getFlake \"/home/zerozawa/nixos\").inputs.nixpkgs { }   "
       },
       "formatting": {
         // Which command you would like to do formatting
@@ -14,7 +14,7 @@
         // If this is omitted, default search path (<nixpkgs>) will be used.
         "nixos": { // This name "nixos" could be arbitrary.
           // The expression to eval, interpret it as option declarations.
-          "expr": "(builtins.getFlake \"/etc/nixos\").packages.x86_64-linux.nixosConfigurations.nixserver.options"
+          "expr": "(builtins.getFlake \"/home/zerozawa/nixos\").packages.x86_64-linux.nixosConfigurations.nixserver.options"
         },
       },
     }
