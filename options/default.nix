@@ -1,6 +1,7 @@
 { lib, ... }:
 
 {
+  # should be --impure
   imports = [
     /etc/nixos/options/variable.nix
   ];
