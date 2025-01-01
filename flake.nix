@@ -49,18 +49,21 @@
           };
           modules = [
             {
-              nixpkgs.overlays = [
-                (final: prev: {
-                  # 启用 NUR
-                  nur = import nur {
-                    nurpkgs = prev;
-                    pkgs = prev;
-                    repoOverrides = {
-                      xddxdd = import nur-xddxdd { pkgs = prev; };
+              nixpkgs = {
+                config.allowUnfree = true;
+                overlays = [
+                  (final: prev: {
+                    # 启用 NUR
+                    nur = import nur {
+                      nurpkgs = prev;
+                      pkgs = prev;
+                      repoOverrides = {
+                        xddxdd = import nur-xddxdd { pkgs = prev; };
+                      };
                     };
-                  };
-                })
-              ];
+                  })
+                ];
+              };
             }
             chaotic.nixosModules.default
             ./options

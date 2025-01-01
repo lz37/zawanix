@@ -8,4 +8,4 @@
 
 替换 `hardware-configuration.nix` 中相关配置
 
-`nixos-rebuild` 时必须添加 `--impure` 参数，也可自行改成 pure
+`nixos-rebuild` 时必须添加 `--impure` 参数，也可自行改成符合 pure 的配置

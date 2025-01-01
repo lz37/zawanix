@@ -16,7 +16,7 @@
       llt = "${pkgs.eza}/bin/eza -l --git --tree";
       lt = "${pkgs.eza}/bin/eza --tree --level=2";
       llm = "${pkgs.eza}/bin/eza -lbGF --git --sort=modified";
-      lld = "${pkgs.eza}/bin/eza -lbhHFGmuSa --group-directories-first";
+      lld = "${pkgs.eza}/bin/eza -lbhHGmuSa --group-directories-first";
     };
     history = {
       size = 10000;
