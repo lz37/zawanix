@@ -5,6 +5,7 @@
 
 {
   programs = {
+    firefox.enable = true;
     command-not-found.enable = false;
     bash.interactiveShellInit = ''
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh

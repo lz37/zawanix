@@ -3,8 +3,15 @@
 {
   services = {
     scx.enable = true;
-    qemuGuest.enable = true;
-    rpcbind.enable = true; # needed for NFS
+    displayManager.sddm.enable = true;
+    xserver={
+      enable = true;
+      xkb = {
+        layout = "cn";
+        variant = "";
+      };
+    };
+    printing.enable = true;
     openssh = {
       enable = true;
       openFirewall = true;
