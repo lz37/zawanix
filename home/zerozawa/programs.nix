@@ -2,6 +2,11 @@
 
 {
   programs = {
+    command-not-found.enable = false;
+    btop.enable = true;
+    bottom.enable = true;
+    bat.enable = true;
+    eza.enable = true;
     atuin = {
       enable = true;
       enableZshIntegration = true;

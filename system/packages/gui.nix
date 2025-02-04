@@ -33,7 +33,6 @@
     boxbuddy
     teams-for-linux
     figma-linux
-    vscode-fhs
     microsoft-edge
   ];
 }
