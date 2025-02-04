@@ -5,7 +5,6 @@
 
 {
   imports = [
-    ./grub.nix
     ./network.nix
     ./locale.nix
     ./programs.nix
