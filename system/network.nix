@@ -4,11 +4,7 @@
 }:
 
 let
-  router = config.zerozawa.servers.openwrt.ip;
-  interface = "ens18";
-  hostName = "nixserver";
-  ip = config.zerozawa.servers.nixserver.ip;
-  prefixLength = config.zerozawa.servers.nixserver.prefixLength;
+  hostName = "zawanix";
 in
 {
   networking = {

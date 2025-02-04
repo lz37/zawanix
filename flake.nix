@@ -42,7 +42,7 @@
     }:
     flake-utils.lib.eachDefaultSystem (system: {
       packages = {
-        nixosConfigurations.nixserver = nixpkgs.lib.nixosSystem {
+        nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit self;

@@ -4,27 +4,29 @@
 
 { pkgs, ... }:
 
-let
-  CN = "zh_CN.UTF-8";
-in
-
 {
+
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
+
   # Select internationalisation properties.
-  i18n.defaultLocale = CN;
+  i18n.defaultLocale = "zh_CN.UTF-8";
+
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = CN;
-    LC_IDENTIFICATION = CN;
-    LC_MEASUREMENT = CN;
-    LC_MONETARY = CN;
-    LC_NAME = CN;
-    LC_NUMERIC = CN;
-    LC_PAPER = CN;
-    LC_TELEPHONE = CN;
-    LC_TIME = CN;
+    LC_ADDRESS = "zh_CN.UTF-8";
+    LC_IDENTIFICATION = "zh_CN.UTF-8";
+    LC_MEASUREMENT = "zh_CN.UTF-8";
+    LC_MONETARY = "zh_CN.UTF-8";
+    LC_NAME = "zh_CN.UTF-8";
+    LC_NUMERIC = "zh_CN.UTF-8";
+    LC_PAPER = "zh_CN.UTF-8";
+    LC_TELEPHONE = "zh_CN.UTF-8";
+    LC_TIME = "zh_CN.UTF-8";
+    LC_ALL = "zh_CN.UTF-8";
+    LANGUAGE = "zh_CN:zh:en_US:en";
   };
 
+  # fonts
   fonts = {
     fontDir.enable = true;
     fontconfig.enable = true;
@@ -58,5 +60,30 @@ in
       wine64Packages.fonts
       montserrat
     ];
+    fontconfig = {
+      defaultFonts = {
+        emoji = [ "Twitter Color Emoji" ];
+        monospace = [ "meslo-lgs-nf" ];
+        sansSerif = [ "Source Han Sans SC" ];
+        # steam
+        serif = [ "WenQuanYi Zen Hei" ];
+      };
+    };
   };
+
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5 = {
+      #waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-rime
+        fcitx5-chinese-addons
+        fcitx5-mozc
+        fcitx5-gtk
+        fcitx5-lua
+      ];
+    };
+  };
+
 }

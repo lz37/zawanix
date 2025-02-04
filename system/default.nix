@@ -12,12 +12,12 @@
     ./services.nix
     ./zram.nix
     ./virtualisation.nix
-    ./fs.nix
     ./nix.nix
     ./users.nix
     ./chaotic.nix
     ./kernel.nix
     ./variables.nix
+    ./hyprland.nix
     ./packages
   ];
   system.stateVersion = config.zerozawa.nixos.version;
