@@ -8,6 +8,7 @@
     ./services.nix
     ./xdg.nix
     ./neovim.nix
+    ./vscode
   ];
   home = {
     stateVersion = config.zerozawa.nixos.version;

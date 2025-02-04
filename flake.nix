@@ -23,6 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =

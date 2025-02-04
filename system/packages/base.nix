@@ -39,15 +39,6 @@
     ## c/c++
     gnumake
     gcc
-    ## nix
-    nixfmt-rfc-style
-    nixpkgs-fmt
-    nix-du
-    nixbang
-    nix-script
-    nix-tree
-    nix-melt
-    nix-alien
     # waydroid 剪贴版
     wl-clipboard
     # kvm

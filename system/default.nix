@@ -20,6 +20,7 @@
     ./bootloader.nix
     ./packages
     ./flatpak.nix
+    ./opengl.nix
   ];
   system.stateVersion = config.zerozawa.nixos.version;
 
