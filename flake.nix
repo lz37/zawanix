@@ -1,8 +1,7 @@
 {
   description = "config of zerozawa's nix dev server";
   inputs = {
-    systems.url = "github:nix-systems/x86_64-linux";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
