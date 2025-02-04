@@ -1,11 +1,8 @@
 {
-  config,
+  hostName,
   ...
 }:
 
-let
-  hostName = "zawanix";
-in
 {
   networking = {
     inherit hostName;

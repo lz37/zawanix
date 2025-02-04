@@ -28,7 +28,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       nur,
       nur-xddxdd,
@@ -40,56 +39,64 @@
       nix-flatpak,
       nix-alien,
       ...
-    }:
-    flake-utils.lib.eachDefaultSystem (system: {
-      packages = {
-        nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit self;
-          };
-          modules = [
-            nix-flatpak.nixosModules.nix-flatpak
-            {
-              nixpkgs = {
-                config.allowUnfree = true;
-                overlays = [
-                  (final: prev: {
-                    # 启用 NUR
-                    nur = import nur {
-                      nurpkgs = prev;
-                      pkgs = prev;
-                      repoOverrides = {
-                        xddxdd = import nur-xddxdd { pkgs = prev; };
-                      };
-                    };
-                  })
-                  nix-alien.overlays.default
-                ];
-              };
-            }
-            ./options
-            nix-index-database.nixosModules.nix-index
-            { programs.nix-index-database.comma.enable = true; }
-            vscode-server.nixosModules.default
-            (
-              { ... }:
+    }@inputs:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        hostName = "zawanix";
+      in
+      {
+        packages = {
+          nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit inputs hostName;
+            };
+            modules = [
+              nix-flatpak.nixosModules.nix-flatpak
               {
-                services.vscode-server.enable = true;
+                nixpkgs = {
+                  config = {
+                    allowUnfree = true;
+                  };
+                  overlays = [
+                    (final: prev: {
+                      # 启用 NUR
+                      nur = import nur {
+                        nurpkgs = prev;
+                        pkgs = prev;
+                        repoOverrides = {
+                          xddxdd = import nur-xddxdd { pkgs = prev; };
+                        };
+                      };
+                    })
+                    nix-alien.overlays.default
+                  ];
+                };
               }
-            )
-            home-manager.nixosModules.home-manager
-            ./system
-            nixos-hardware.nixosModules.common-gpu-intel
-            nixos-hardware.nixosModules.common-cpu-intel
-            ./hardware-configuration.nix
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.zerozawa = import ./home/zerozawa;
-            }
-          ];
+              ./options
+              nix-index-database.nixosModules.nix-index
+              { programs.nix-index-database.comma.enable = true; }
+              vscode-server.nixosModules.default
+              (
+                { ... }:
+                {
+                  services.vscode-server.enable = true;
+                }
+              )
+              home-manager.nixosModules.home-manager
+              ./system
+              nixos-hardware.nixosModules.common-gpu-intel
+              nixos-hardware.nixosModules.common-cpu-intel
+              ./hardware-configuration.nix
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.zerozawa = import ./home/zerozawa;
+              }
+            ];
+          };
         };
-      };
-    });
+      }
+    );
 }

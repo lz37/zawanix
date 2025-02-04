@@ -9,6 +9,7 @@
     ./xdg.nix
     ./neovim.nix
     ./vscode
+    ./hyprland
   ];
   home = {
     stateVersion = config.zerozawa.nixos.version;
