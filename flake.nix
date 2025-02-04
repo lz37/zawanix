@@ -1,7 +1,7 @@
 {
   description = "config of zerozawa's nix dev server";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,10 +19,6 @@
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
@@ -36,7 +32,6 @@
       vscode-server,
       home-manager,
       nix-index-database,
-      chaotic,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -64,7 +59,6 @@
                 ];
               };
             }
-            chaotic.nixosModules.default
             ./options
             nix-index-database.nixosModules.nix-index
             { programs.nix-index-database.comma.enable = true; }

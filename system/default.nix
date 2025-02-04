@@ -14,7 +14,6 @@
     ./virtualisation.nix
     ./nix.nix
     ./users.nix
-    ./chaotic.nix
     ./kernel.nix
     ./variables.nix
     ./hyprland.nix
