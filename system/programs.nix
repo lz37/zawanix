@@ -5,7 +5,24 @@
 
 {
   programs = {
-    firefox.enable = true;
+    # steam
+    steam.enable = true;
+    # solve GTK themes are not applied in Wayland applications
+    dconf.enable = true;
+    # needed for `nix-alien-ld`
+    nix-ld.enable = true;
+    firefox = {
+      enable = true;
+      languagePacks = [ "zh-CN" ];
+      preferencesStatus = "user";
+      nativeMessagingHosts = {
+        # packages = [ pkgs.kdePackages.plasma-browser-integration ];
+      };
+    };
+    chromium = {
+      enable = true;
+      enablePlasmaBrowserIntegration = true;
+    };
     command-not-found.enable = false;
     bash.interactiveShellInit = ''
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
@@ -21,6 +38,17 @@
       enableSSHSupport = true;
     };
     mtr.enable = true;
-    #nix-ld.enable = true;
+    appimage = {
+      enable = true;
+      binfmt = true;
+      package = pkgs.appimage-run.override {
+        extraPkgs =
+          pkgs:
+          (with pkgs; [
+            libatomic_ops
+            bzip2
+          ]);
+      };
+    };
   };
 }

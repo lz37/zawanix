@@ -19,6 +19,7 @@
     ./audio.nix
     ./bootloader.nix
     ./packages
+    ./flatpak.nix
   ];
   system.stateVersion = config.zerozawa.nixos.version;
 

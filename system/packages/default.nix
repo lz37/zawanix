@@ -8,5 +8,7 @@
     ./tools.nix
     ./base.nix
     ./custom.nix
+    ./gui.nix
+    ./nur.nix
   ];
 }

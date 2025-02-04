@@ -7,6 +7,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +34,8 @@
       vscode-server,
       home-manager,
       nix-index-database,
+      nixos-hardware,
+      nix-flatpak,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -42,6 +46,7 @@
             inherit self;
           };
           modules = [
+            nix-flatpak.nixosModules.nix-flatpak
             {
               nixpkgs = {
                 config.allowUnfree = true;
@@ -71,6 +76,8 @@
             )
             home-manager.nixosModules.home-manager
             ./system
+            nixos-hardware.nixosModules.common-gpu-intel
+            nixos-hardware.nixosModules.common-cpu-intel
             ./hardware-configuration.nix
             {
               home-manager.useGlobalPkgs = true;
