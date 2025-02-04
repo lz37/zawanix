@@ -18,6 +18,7 @@
     ./variables.nix
     ./hyprland.nix
     ./audio.nix
+    ./bootloader.nix
     ./packages
   ];
   system.stateVersion = config.zerozawa.nixos.version;
