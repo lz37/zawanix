@@ -24,6 +24,7 @@
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland.url = "github:hyprwm/Hyprland";
+    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs =
@@ -38,6 +39,7 @@
       nixos-hardware,
       nix-flatpak,
       nix-alien,
+      vscode-extensions,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
@@ -47,7 +49,7 @@
       in
       {
         packages = {
-          nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
+          nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit inputs hostName;
@@ -60,6 +62,7 @@
                     allowUnfree = true;
                   };
                   overlays = [
+                    vscode-extensions.overlays.default
                     (final: prev: {
                       # 启用 NUR
                       nur = import nur {

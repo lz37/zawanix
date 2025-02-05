@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   system-exts = with pkgs.vscode-extensions; [
     ## remote

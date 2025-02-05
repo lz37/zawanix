@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 let
   wordSeparatorsStr = ''`~·!！@#$￥%^…&*()（）[]【】{}<>《》-—=+\|/、'‘’"“”:：;；,，.。?？'';
   prettierExtStr = "esbenp.prettier-vscode";
@@ -207,37 +207,6 @@ in
     javascript.updateImportsOnFileMove.enabled = "always";
     json.schemaDownload.enable = true;
     markdown-preview-enhanced.previewTheme = "atom-dark.css";
-    nix = {
-      serverPath = "nixd";
-      enableLanguageServer = true;
-      serverSettings = {
-        nil = {
-          formatting = {
-            command = [ "nixfmt" ];
-          };
-          nix = {
-            maxMemoryMB = null;
-            flake = {
-              autoArchive = true;
-              autoEvalInputs = true;
-            };
-          };
-        };
-        nixd = {
-          formatting = {
-            command = [ "nixfmt" ];
-          };
-          options = {
-            nixos = {
-              expr = "(builtins.getFlake \"/etc/nixos\").nixosConfigurations.zawanix.options";
-            };
-            home-manager = {
-              expr = "(builtins.getFlake \"/home/zerozawa/.config/home-manager\").homeConfigurations.zerozawa.options";
-            };
-          };
-        };
-      };
-    };
     redhat.telemetry.enabled = true;
     remote.SSH = {
       remotePlatform = {
@@ -248,6 +217,7 @@ in
       useLocalServer = false;
     };
     security.workspace.trust.untrustedFiles = "open";
+    sherlock.userId = config.zerozawa.vscode.sherlock.userId;
     terminal = {
       integrated = {
         fontFamily = "MesloLGS NF";

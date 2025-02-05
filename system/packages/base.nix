@@ -18,7 +18,6 @@
     btop
     fastfetch
     neovim
-    home-manager
     tree
     podman-compose
     openjpeg

@@ -21,6 +21,7 @@
     ./packages
     ./flatpak.nix
     ./opengl.nix
+    ./fs.nix
   ];
   system.stateVersion = config.zerozawa.nixos.version;
 
