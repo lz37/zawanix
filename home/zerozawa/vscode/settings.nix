@@ -128,7 +128,7 @@ in
     editor = {
       fontFamily = "Sarasa Mono CL";
       fontLigatures = true;
-      fontSize = 17;
+      fontSize = 16;
       inlineSuggest.enabled = true;
       minimap = {
         showSlider = "always";
@@ -221,7 +221,7 @@ in
     terminal = {
       integrated = {
         fontFamily = "MesloLGS NF";
-        fontSize = 16;
+        fontSize = 12;
         inheritEnv = false;
         wordSeparators = wordSeparatorsStr;
       };

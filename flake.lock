@@ -292,11 +292,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738741697,
-        "narHash": "sha256-F3/gglt0typLI/h4i+iXw9n6Y3ZZH42bx5riIU/6AsY=",
+        "lastModified": 1738741704,
+        "narHash": "sha256-+XVScrF7Yymk9659dFb/ikCIET7DblHBVgK3RTW8mQg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5997112695f3b02d3992764760fc6ddfef51fba3",
+        "rev": "3b6fde96d8b41a4a21cbacba8de7debf7ea78021",
         "type": "github"
       },
       "original": {
@@ -603,15 +603,16 @@
     },
     "nix-flatpak": {
       "locked": {
-        "lastModified": 1738175805,
-        "narHash": "sha256-fPjaARmK522JLJ7wxFebxG4eE/3HHSmuAA78iAZ+A7g=",
+        "lastModified": 1734128415,
+        "narHash": "sha256-HLwdVNxpuTsLlM3tCkpbQU6yCehdgf3kOS1G2SDlkzY=",
         "owner": "gmodena",
         "repo": "nix-flatpak",
-        "rev": "d4c75a33c4a7a16bf87cfd804fb5444a1ec53d49",
+        "rev": "8bdc2540da516006d07b04019eb57ae0781a04b3",
         "type": "github"
       },
       "original": {
         "owner": "gmodena",
+        "ref": "latest",
         "repo": "nix-flatpak",
         "type": "github"
       }
@@ -809,11 +810,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1738740669,
-        "narHash": "sha256-7yfzwG2JJHVgcGiUPukEcFNT1/kBky6t1FfSsb4My3s=",
+        "lastModified": 1738745493,
+        "narHash": "sha256-U5hpovoIoghu6YT5NcbHgKeYSZvojNL+u6IDJRFDHb0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c951ebf5f91cf9bfc9b8051142b473f49f7071fb",
+        "rev": "836344c82871bc5e8eca4231412beba2bec32c0d",
         "type": "github"
       },
       "original": {

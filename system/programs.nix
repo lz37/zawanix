@@ -11,6 +11,10 @@
     dconf.enable = true;
     # needed for `nix-alien-ld`
     nix-ld.enable = true;
+    kdeconnect = {
+      enable = true;
+      package = pkgs.kdePackages.kdeconnect-kde;
+    };
     firefox = {
       enable = true;
       languagePacks = [ "zh-CN" ];
@@ -22,12 +26,13 @@
     chromium = {
       enable = true;
       enablePlasmaBrowserIntegration = true;
+      plasmaBrowserIntegrationPackage = pkgs.kdePackages.plasma-browser-integration;
     };
     command-not-found.enable = false;
     bash.interactiveShellInit = ''
       source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
     '';
-    zsh={
+    zsh = {
       enable = true;
       interactiveShellInit = ''
         source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh

@@ -8,7 +8,7 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
       url = "github:nix-community/NUR";
