@@ -9,7 +9,7 @@
     (writeScriptBin "updatenixos" ''
       #!${pkgs.bash}/bin/bash
       ${pkgs.nix}/bin/nix flake update --flake ${config.zerozawa.nixos.path.rootRefrence}
-      sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure
+      sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --keep-going --fallback
     '')
   ];
 }

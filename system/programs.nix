@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 
@@ -13,7 +14,7 @@
     nix-ld.enable = true;
     kdeconnect = {
       enable = true;
-      package = pkgs.kdePackages.kdeconnect-kde;
+      package = lib.mkForce pkgs.kdePackages.kdeconnect-kde;
     };
     firefox = {
       enable = true;
@@ -26,7 +27,7 @@
     chromium = {
       enable = true;
       enablePlasmaBrowserIntegration = true;
-      plasmaBrowserIntegrationPackage = pkgs.kdePackages.plasma-browser-integration;
+      plasmaBrowserIntegrationPackage = lib.mkForce pkgs.kdePackages.plasma-browser-integration;
     };
     command-not-found.enable = false;
     bash.interactiveShellInit = ''

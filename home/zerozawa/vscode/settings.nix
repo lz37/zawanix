@@ -209,11 +209,7 @@ in
     markdown-preview-enhanced.previewTheme = "atom-dark.css";
     redhat.telemetry.enabled = true;
     remote.SSH = {
-      remotePlatform = {
-        "192.168.2.4" = "linux";
-        "192.168.2.11" = "linux";
-        "192.168.2.9" = "linux";
-      };
+      remotePlatform = config.zerozawa.vscode.remote.SSH.remotePlatform;
       useLocalServer = false;
     };
     security.workspace.trust.untrustedFiles = "open";

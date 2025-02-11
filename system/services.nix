@@ -2,10 +2,21 @@
 
 {
   services = {
-    displayManager.sddm.enable = true;
-    desktopManager.plasma6.enable = true;
+    dbus = {
+      apparmor = "disabled";
+      implementation = "dbus";
+    };
+    displayManager.sddm = {
+      enable = true;
+      # wayland.enable = true;
+      autoNumlock = false;
+    };
+    desktopManager.plasma6 = {
+      enable = true;
+      enableQt5Integration = true;
+    };
     spice-vdagentd.enable = true;
-    xserver={
+    xserver = {
       enable = true;
       xkb = {
         layout = "cn";

@@ -1,20 +1,20 @@
 { pkgs, ... }:
-let
-  system-exts = with pkgs.vscode-extensions; [
+
+{
+  programs.vscode.extensions = with pkgs.vscode-marketplace; [
     ## remote
     ms-vscode-remote.remote-ssh
     ms-vscode-remote.remote-containers
     ms-vsliveshare.vsliveshare
     ms-azuretools.vscode-docker
     eamodio.gitlens
-    vadimcn.vscode-lldb
-    ms-vscode.cpptools
-    xaver.clang-format
-    llvm-vs-code-extensions.vscode-clangd
-    ms-vscode.cmake-tools
-    twxs.cmake
-  ];
-  vscode-marketplace-exts = with pkgs.vscode-marketplace; [
+    # cpp
+    # vadimcn.vscode-lldb
+    # ms-vscode.cpptools
+    # xaver.clang-format
+    # llvm-vs-code-extensions.vscode-clangd
+    # ms-vscode.cmake-tools
+    # twxs.cmake
     # language
     ms-ceintl.vscode-language-pack-zh-hans
     # tools
@@ -88,7 +88,4 @@ let
     oderwat.indent-rainbow
     naumovs.color-highlight
   ];
-in
-{
-  programs.vscode.extensions = vscode-marketplace-exts ++ system-exts;
 }

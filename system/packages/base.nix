@@ -6,6 +6,7 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
+    busybox
     tcping-go
     mysql80
     lua
