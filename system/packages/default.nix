@@ -11,5 +11,6 @@
     ./gui.nix
     ./nur.nix
     ./plasma.nix
+    ./hardware.nix
   ];
 }

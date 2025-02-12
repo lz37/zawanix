@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -16,7 +17,7 @@
     ];
     shell = pkgs.zsh;
   };
-  
+
   services.samba-wsdd.enable = true;
   services.samba = {
     enable = true;
@@ -35,7 +36,7 @@
       };
       public = {
         browseable = "yes";
-        path = "/home/zerozawa/Public";
+        path = config.zerozawa.nixos.path.public;
         "writable" = "yes";
         "guest ok" = "yes";
         "public" = "yes";

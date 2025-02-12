@@ -7,7 +7,6 @@
   environment.systemPackages = with pkgs; [
     # cli
     nettools
-    linuxquota
     busybox
     tcping-go
     mysql80
@@ -33,9 +32,6 @@
     zip
     toolbox
     nmap
-    vulkan-loader
-    vulkan-headers
-    vulkan-tools
     # lang
     dart
     ## c/c++

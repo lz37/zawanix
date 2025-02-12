@@ -2,6 +2,7 @@
 
 {
   services = {
+    fwupd.enable = true;
     dbus = {
       apparmor = "disabled";
       implementation = "dbus";
