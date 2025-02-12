@@ -48,7 +48,13 @@
       system:
       let
         hostName = "zawanix";
-        pkgs-master = nixpkgs-master.legacyPackages.${system};
+        pkgs-config = {
+          allowUnfree = true;
+        };
+        pkgs-master = import nixpkgs-master {
+          inherit system;
+          config = pkgs-config;
+        };
       in
       {
         packages = {
@@ -61,9 +67,7 @@
               nix-flatpak.nixosModules.nix-flatpak
               {
                 nixpkgs = {
-                  config = {
-                    allowUnfree = true;
-                  };
+                  config = pkgs-config;
                   overlays = [
                     vscode-extensions.overlays.default
                     (final: prev: {
@@ -99,6 +103,9 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.users.zerozawa = import ./home/zerozawa;
+                home-manager.extraSpecialArgs = {
+                  inherit inputs hostName pkgs-master;
+                };
               }
             ];
           };

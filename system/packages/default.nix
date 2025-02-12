@@ -11,6 +11,5 @@
     ./gui.nix
     ./nur.nix
     ./plasma.nix
-    ./unixtools.nix
   ];
 }

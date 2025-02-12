@@ -6,6 +6,8 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
+    nettools
+    linuxquota
     busybox
     tcping-go
     mysql80
