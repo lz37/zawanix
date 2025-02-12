@@ -10,7 +10,6 @@
     thunderbird
     # qq
     # wechat-uos
-    sonixd
     mpv
     # telegram-desktop
     scrcpy

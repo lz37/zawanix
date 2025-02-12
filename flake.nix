@@ -2,6 +2,7 @@
   description = "config of zerozawa's nix dev server";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +31,7 @@
   outputs =
     {
       nixpkgs,
+      nixpkgs-master,
       nur,
       nur-xddxdd,
       flake-utils,
@@ -46,13 +48,14 @@
       system:
       let
         hostName = "zawanix";
+        pkgs-master = nixpkgs-master.legacyPackages.${system};
       in
       {
         packages = {
           nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
-              inherit inputs hostName;
+              inherit inputs hostName pkgs-master;
             };
             modules = [
               nix-flatpak.nixosModules.nix-flatpak

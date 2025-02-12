@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs-master, ... }:
 {
   imports = [
     ./extensions.nix
@@ -7,8 +7,9 @@
   ];
   programs.vscode = {
     enable = true;
-    enableUpdateCheck=false;
-    enableExtensionUpdateCheck=false;
-    mutableExtensionsDir=true;
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
+    mutableExtensionsDir = true;
+    package = pkgs-master.vscode;
   };
 }
