@@ -3,8 +3,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";
@@ -32,6 +33,7 @@
     {
       nixpkgs,
       nixpkgs-master,
+      nixpkgs-stable,
       nur,
       nur-xddxdd,
       flake-utils,
@@ -51,9 +53,29 @@
         pkgs-config = {
           allowUnfree = true;
         };
+        pkgs-overlays = [
+          vscode-extensions.overlays.default
+          (final: prev: {
+            # 启用 NUR
+            nur = import nur {
+              nurpkgs = prev;
+              pkgs = prev;
+              repoOverrides = {
+                xddxdd = import nur-xddxdd { pkgs = prev; };
+              };
+            };
+          })
+          nix-alien.overlays.default
+        ];
         pkgs-master = import nixpkgs-master {
           inherit system;
           config = pkgs-config;
+          overlays = pkgs-overlays;
+        };
+        pkgs-stable = import nixpkgs-stable {
+          inherit system;
+          config = pkgs-config;
+          overlays = pkgs-overlays;
         };
       in
       {
@@ -61,29 +83,41 @@
           nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
-              inherit inputs hostName pkgs-master;
+              inherit
+                inputs
+                hostName
+                pkgs-master
+                pkgs-stable
+                ;
             };
             modules = [
-              nix-flatpak.nixosModules.nix-flatpak
               {
                 nixpkgs = {
                   config = pkgs-config;
-                  overlays = [
-                    vscode-extensions.overlays.default
-                    (final: prev: {
-                      # 启用 NUR
-                      nur = import nur {
-                        nurpkgs = prev;
-                        pkgs = prev;
-                        repoOverrides = {
-                          xddxdd = import nur-xddxdd { pkgs = prev; };
-                        };
-                      };
-                    })
-                    nix-alien.overlays.default
+                  overlays = pkgs-overlays ++ [
+                    # (final: prev: {
+                    #   kdePackages = prev.kdePackages // {
+                    #     applet-window-buttons6 = prev.kdePackages.applet-window-buttons6.overrideAttrs (old: {
+                    #       version = "0.13.0-master";
+                    #       src = prev.fetchFromGitHub {
+                    #         owner = "moodyhunter";
+                    #         repo = "applet-window-buttons6";
+                    #         rev = "master";
+                    #         hash = "sha256-HnlgBQKT99vVkl6DWqMkN8Vz+QzzZBGj5tqOJ22VkJ8=";
+                    #       };
+                    #       patches = (old.patches or [ ]) ++ [
+                    #         (prev.fetchpatch {
+                    #           url = "https://github.com/moodyhunter/applet-window-buttons6/commit/e27cd7559581e84b559a5da2c7bc6ea5a3f5bf15.patch";
+                    #           hash = "sha256-1GwZh2ZR9+cB+4ggiwsNN1KT5m8tsi/AEGZK0Cx5sdw=";
+                    #         })
+                    #       ];
+                    #     });
+                    #   };
+                    # })
                   ];
                 };
               }
+              nix-flatpak.nixosModules.nix-flatpak
               ./options
               nix-index-database.nixosModules.nix-index
               { programs.nix-index-database.comma.enable = true; }
@@ -94,17 +128,22 @@
                   services.vscode-server.enable = true;
                 }
               )
-              home-manager.nixosModules.home-manager
               ./system
               nixos-hardware.nixosModules.common-gpu-intel
               nixos-hardware.nixosModules.common-cpu-intel
               ./hardware-configuration.nix
+              home-manager.nixosModules.home-manager
               {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.users.zerozawa = import ./home/zerozawa;
                 home-manager.extraSpecialArgs = {
-                  inherit inputs hostName pkgs-master;
+                  inherit
+                    inputs
+                    hostName
+                    pkgs-master
+                    pkgs-stable
+                    ;
                 };
               }
             ];

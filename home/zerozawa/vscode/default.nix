@@ -1,15 +1,13 @@
 { pkgs-master, ... }:
 {
   imports = [
-    ./extensions.nix
-    ./keybindings.nix
-    ./settings.nix
+    ./default
   ];
   programs.vscode = {
     enable = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    mutableExtensionsDir = true;
+    mutableExtensionsDir = false;
     package = pkgs-master.vscode;
   };
 }

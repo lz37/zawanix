@@ -4,7 +4,7 @@ let
   prettierExtStr = "esbenp.prettier-vscode";
 in
 {
-  programs.vscode.userSettings = {
+  programs.vscode.profiles.default.userSettings = {
     "[cpp]" = {
       editor.tabSize = 2;
     };

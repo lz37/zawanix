@@ -6,8 +6,20 @@
 
 {
   programs = {
+    adb.enable = true;
     # steam
-    steam.enable = true;
+    steam = {
+      enable = true;
+      gamescopeSession = {
+        enable = true;
+      };
+      extest = {
+        enable = true;
+      };
+      protontricks = {
+        enable = true;
+      };
+    };
     # solve GTK themes are not applied in Wayland applications
     dconf.enable = true;
     # needed for `nix-alien-ld`

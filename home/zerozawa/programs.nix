@@ -2,6 +2,7 @@
 
 {
   programs = {
+    lazygit.enable = true;
     command-not-found.enable = false;
     btop.enable = true;
     bottom.enable = true;
@@ -35,6 +36,7 @@
       package = pkgs.gitAndTools.gitFull;
       userName = config.zerozawa.git.userName;
       userEmail = config.zerozawa.git.userEmail;
+      signing.format = "openpgp";
       extraConfig = {
         credential = {
           helper = "store";

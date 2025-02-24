@@ -8,6 +8,10 @@
         name = "flathub";
         location = "https://mirror.sjtu.edu.cn/flathub";
       }
+      {
+        name = "flathub-origin";
+        location = "https://dl.flathub.org/repo/";
+      }
     ];
     packages = [
       # { appId = "com.visualstudio.code"; origin = "flathub"; }

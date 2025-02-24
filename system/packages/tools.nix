@@ -12,5 +12,6 @@
     fd
     translate-shell
     tldr
+    ventoy-full
   ];
 }

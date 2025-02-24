@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode.extensions = with pkgs.vscode-marketplace; [
+  programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
     ## remote
     ms-vscode-remote.remote-ssh
     ms-vscode-remote.remote-containers

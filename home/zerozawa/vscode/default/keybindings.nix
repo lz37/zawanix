@@ -1,6 +1,6 @@
 { ... }:
 {
-  programs.vscode.keybindings = [
+  programs.vscode.profiles.default.keybindings = [
     {
       key = "shift+alt+f";
       command = "editor.action.formatDocument";

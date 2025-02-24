@@ -12,6 +12,6 @@
     ./hyprland
   ];
   home = {
-    stateVersion = config.zerozawa.nixos.version;
+    stateVersion = config.zerozawa.nixos.home-manager-version;
   };
 }
