@@ -6,7 +6,6 @@
 {
   environment.systemPackages = with pkgs; [
     burpsuite
-    kate
     thunderbird
     # qq
     # wechat-uos

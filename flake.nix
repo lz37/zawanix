@@ -94,27 +94,7 @@
               {
                 nixpkgs = {
                   config = pkgs-config;
-                  overlays = pkgs-overlays ++ [
-                    # (final: prev: {
-                    #   kdePackages = prev.kdePackages // {
-                    #     applet-window-buttons6 = prev.kdePackages.applet-window-buttons6.overrideAttrs (old: {
-                    #       version = "0.13.0-master";
-                    #       src = prev.fetchFromGitHub {
-                    #         owner = "moodyhunter";
-                    #         repo = "applet-window-buttons6";
-                    #         rev = "master";
-                    #         hash = "sha256-HnlgBQKT99vVkl6DWqMkN8Vz+QzzZBGj5tqOJ22VkJ8=";
-                    #       };
-                    #       patches = (old.patches or [ ]) ++ [
-                    #         (prev.fetchpatch {
-                    #           url = "https://github.com/moodyhunter/applet-window-buttons6/commit/e27cd7559581e84b559a5da2c7bc6ea5a3f5bf15.patch";
-                    #           hash = "sha256-1GwZh2ZR9+cB+4ggiwsNN1KT5m8tsi/AEGZK0Cx5sdw=";
-                    #         })
-                    #       ];
-                    #     });
-                    #   };
-                    # })
-                  ];
+                  overlays = pkgs-overlays;
                 };
               }
               nix-flatpak.nixosModules.nix-flatpak
