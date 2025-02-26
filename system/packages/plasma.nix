@@ -12,15 +12,17 @@
       isoimagewriter
       # applet-window-buttons6
       kate
+      qtwebsockets
+      wallpaper-engine-plugin
     ])
     ++ (with pkgs; [
       plasmusic-toolbar
-      (kdePackages.applet-window-buttons6.overrideAttrs (old: {
-        version = "0.13.0-master";
+      (kdePackages.applet-window-buttons6.overrideAttrs (old: rec {
+        version = "0.14.0";
         src = fetchFromGitHub {
           owner = "moodyhunter";
           repo = "applet-window-buttons6";
-          rev = "master";
+          rev = "v${version}";
           hash = "sha256-HnlgBQKT99vVkl6DWqMkN8Vz+QzzZBGj5tqOJ22VkJ8=";
         };
       }))
