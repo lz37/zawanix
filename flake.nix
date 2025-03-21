@@ -53,6 +53,10 @@
         pkgs-config = {
           allowUnfree = true;
         };
+        pkgs-stable = import nixpkgs-stable {
+          inherit system;
+          config = pkgs-config;
+        };
         pkgs-overlays = [
           vscode-extensions.overlays.default
           (final: prev: {
@@ -64,15 +68,12 @@
                 xddxdd = import nur-xddxdd { pkgs = prev; };
               };
             };
+            electron_33-bin = pkgs-stable.electron_33-bin;
+            electron_33 = pkgs-stable.electron_33;
           })
           nix-alien.overlays.default
         ];
         pkgs-master = import nixpkgs-master {
-          inherit system;
-          config = pkgs-config;
-          overlays = pkgs-overlays;
-        };
-        pkgs-stable = import nixpkgs-stable {
           inherit system;
           config = pkgs-config;
           overlays = pkgs-overlays;

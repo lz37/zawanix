@@ -189,7 +189,8 @@ in
       trimTrailingWhitespace = true;
     };
     git.openRepositoryInParentFolders = "never";
-    "github.copilot.editor.enableAutoCompletions" = true;
+    github.copilot.editor.enableAutoCompletions = true;
+    gitlens.launchpad.indicator.enabled = false;
     go.toolsManagement.autoUpdate = true;
     http.proxySupport = "on";
     indentRainbow = {
@@ -235,6 +236,7 @@ in
     window = {
       zoomLevel = 1;
       titleBarStyle = "native";
+      customTitleBarVisibility = "never";
     };
   };
 

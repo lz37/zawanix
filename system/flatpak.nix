@@ -17,14 +17,6 @@
       # { appId = "com.visualstudio.code"; origin = "flathub"; }
       # { appId = "com.github.iwalton3.jellyfin-media-player"; origin = "flathub"; }
       {
-        appId = "com.qq.QQ";
-        origin = "flathub";
-      }
-      {
-        appId = "org.telegram.desktop";
-        origin = "flathub";
-      }
-      {
         appId = "com.tencent.WeChat";
         origin = "flathub";
       }
@@ -33,15 +25,15 @@
       #   origin = "flathub";
       # }
       {
-        appId = "cn.xfangfang.wiliwili";
-        origin = "flathub";
-      }
-      {
         appId = "com.github.tchx84.Flatseal";
         origin = "flathub";
       }
       {
         appId = "io.github.giantpinkrobots.flatsweep";
+        origin = "flathub";
+      }
+      {
+        appId = "me.timschneeberger.jdsp4linux";
         origin = "flathub";
       }
       # {

@@ -28,6 +28,14 @@
       enable = true;
       package = lib.mkForce pkgs.kdePackages.kdeconnect-kde;
     };
+    tmux = {
+      enable = true;
+      clock24 = true;
+      keyMode = "vi";
+    };
+    virt-manager = {
+      enable = true;
+    };
     firefox = {
       enable = true;
       languagePacks = [ "zh-CN" ];

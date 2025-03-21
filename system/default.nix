@@ -16,7 +16,6 @@
     ./users.nix
     ./kernel.nix
     ./variables.nix
-    ./hyprland.nix
     ./audio.nix
     ./bootloader.nix
     ./packages

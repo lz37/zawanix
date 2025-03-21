@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-master,
   ...
 }:
 
@@ -7,10 +8,11 @@
   environment.systemPackages = with pkgs; [
     burpsuite
     thunderbird
-    # qq
+    pkgs-master.qq
+    pkgs-master.wiliwili
+    telegram-desktop
     # wechat-uos
     mpv
-    # telegram-desktop
     scrcpy
     android-studio
     rio
@@ -21,7 +23,7 @@
     drawio
     # libreoffice-qt
     jellyfin-media-player
-    feishin
+    pkgs-master.feishin
     gimp
     pinta
     vlc
@@ -33,5 +35,6 @@
     figma-linux
     microsoft-edge
     kitty
+    # jamesdsp
   ];
 }

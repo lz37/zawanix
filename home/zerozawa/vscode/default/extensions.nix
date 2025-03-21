@@ -1,12 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-master, ... }:
 
 {
   programs.vscode.profiles.default.extensions = with pkgs.vscode-marketplace; [
     ## remote
-    ms-vscode-remote.remote-ssh
-    ms-vscode-remote.remote-containers
-    ms-vsliveshare.vsliveshare
-    ms-azuretools.vscode-docker
+    pkgs-master.vscode-extensions.ms-vscode-remote.remote-ssh
+    pkgs-master.vscode-extensions.ms-vscode-remote.remote-ssh-edit
+    pkgs-master.vscode-extensions.ms-vscode-remote.remote-containers
+    pkgs-master.vscode-extensions.ms-vsliveshare.vsliveshare
+    pkgs-master.vscode-extensions.ms-azuretools.vscode-docker
     eamodio.gitlens
     # cpp
     # vadimcn.vscode-lldb
@@ -20,7 +21,8 @@
     # tools
     formulahendry.code-runner
     github.vscode-github-actions
-    github.copilot
+    pkgs-master.vscode-extensions.github.copilot
+    pkgs-master.vscode-extensions.github.copilot-chat
     formulahendry.auto-rename-tag
     formulahendry.auto-close-tag
     christian-kohler.path-intellisense
