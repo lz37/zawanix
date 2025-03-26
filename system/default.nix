@@ -2,7 +2,9 @@
   config,
   ...
 }:
-
+let
+  version = import ../options/variable-pub.nix;
+in
 {
   imports = [
     ./bluetooth.nix
@@ -23,6 +25,6 @@
     ./opengl.nix
     ./fs.nix
   ];
-  system.stateVersion = config.zerozawa.nixos.version;
+  system.stateVersion = version.nixos;
 
 }

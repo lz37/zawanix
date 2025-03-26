@@ -1,6 +1,5 @@
 {
   hostName,
-  config,
   ...
 }:
 
@@ -12,18 +11,18 @@
     networkmanager.enable = false;
     useDHCP = false;
     defaultGateway = {
-      address = config.zerozawa.servers.openwrt.address;
+      address = "192.168.233.1";
       interface = "br0";
     };
-    nameservers = [ config.zerozawa.servers.openwrt.address ];
-    timeServers = [ config.zerozawa.servers.openwrt.address ];
+    nameservers = [ "192.168.233.1" ];
+    timeServers = [ "192.168.233.1" ];
     bridges = {
       "br0" = {
-        interfaces = [ config.zerozawa.nixos.network.wired-interface ];
+        interfaces = [ "enp1s0" ];
       };
     };
     interfaces = {
-      "${config.zerozawa.nixos.network.wired-interface}" = {
+      enp1s0 = {
         useDHCP = false;
         wakeOnLan = {
           enable = true;
@@ -36,7 +35,7 @@
         ipv4 = {
           addresses = [
             {
-              address = config.zerozawa.nixos.network.static-address;
+              address = "192.168.233.233";
               prefixLength = 24;
             }
           ];
