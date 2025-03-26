@@ -98,6 +98,7 @@
                       }
                     )
                     ./hardware
+                    ./network
                     ./system
                   ]
                   ++ (nixpkgs.lib.optionals isIntelGPU [
@@ -124,6 +125,13 @@
               isIntelGPU = true;
               hostName = "zawanix-work";
               ram = 32 * 1024;
+            });
+            zawanix-glap = nixpkgs.lib.nixosSystem (mkNixosConfig {
+              isIntelCPU = true;
+              isIntelGPU = true;
+              isNvidiaGPU = true;
+              hostName = "zawanix-glap";
+              ram = 16 * 1024;
             });
           };
       };

@@ -5,6 +5,7 @@
   modulesPath,
   hostName,
   isIntelCPU,
+  isNvidiaGPU,
   lib,
   ...
 }:
@@ -18,9 +19,11 @@
       (
         {
           "zawanix-work" = ./hostname/zawanix-work.nix;
+          "zawanix-glap" = ./hostname/zawanix-glap.nix;
         }
         ."${hostName}"
       )
     ]
-    ++ (lib.optionals isIntelCPU [ ./intel/cpu.nix ]);
+    ++ (lib.optionals isIntelCPU [ ./intel/cpu.nix ])
+    ++ (lib.optionals isNvidiaGPU [ ./nvidia/gpu.nix ]);
 }

@@ -4,7 +4,6 @@
 {
   imports = [
     ./bluetooth.nix
-    ./network.nix
     ./locale.nix
     ./programs.nix
     ./services.nix
