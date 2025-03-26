@@ -3,6 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 {
   modulesPath,
+  hostName,
   isIntelCPU,
   lib,
   ...
@@ -13,8 +14,13 @@
     [
       (modulesPath + "/installer/scan/not-detected.nix")
     ]
-    ++ (lib.optionals isIntelCPU [ "./intel/cpu.nix" ])
     ++ [
-      ./hostname
-    ];
+      (
+        {
+          "zawanix-work" = ./hostname/zawanix-work.nix;
+        }
+        ."${hostName}"
+      )
+    ]
+    ++ (lib.optionals isIntelCPU [ ./intel/cpu.nix ]);
 }
