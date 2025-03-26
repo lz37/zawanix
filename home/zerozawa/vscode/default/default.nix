@@ -2,11 +2,12 @@
 
 let
   merge-vscode-modules = import ../common/utils.nix;
+  merge-imports = merge-vscode-modules ({ inherit pkgs; } // inputs);
 in
 {
   programs.vscode.profiles = {
     default =
-      (merge-vscode-modules ({ inherit pkgs; } // inputs) [
+      (merge-imports [
         (import ../common/topics/base.nix)
         (import ../common/topics/gui.nix)
         (import ../common/topics/copilot.nix)
@@ -27,7 +28,7 @@ in
         enableExtensionUpdateCheck = false;
       };
     devcontainer = (
-      merge-vscode-modules ({ inherit pkgs; } // inputs) [
+      merge-imports [
         (import ../common/topics/base.nix)
         (import ../common/topics/gui.nix)
         (import ../common/topics/lang.nix)
