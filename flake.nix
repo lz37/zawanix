@@ -2,8 +2,6 @@
   description = "config of zerozawa's nix dev server";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,102 +30,103 @@
   outputs =
     {
       nixpkgs,
-      nixpkgs-master,
-      nixpkgs-stable,
-      nur,
-      nur-xddxdd,
       flake-utils,
-      vscode-server,
       home-manager,
-      nix-index-database,
-      nixos-hardware,
-      nix-flatpak,
-      nix-alien,
-      vscode-extensions,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        hostName = "zawanix";
-        pkgs-config = {
-          allowUnfree = true;
-        };
-        pkgs-stable = import nixpkgs-stable {
-          inherit system;
-          config = pkgs-config;
-        };
-        pkgs-overlays = [
-          vscode-extensions.overlays.default
-          (final: prev: {
-            # 启用 NUR
-            nur = import nur {
-              nurpkgs = prev;
-              pkgs = prev;
-              repoOverrides = {
-                xddxdd = import nur-xddxdd { pkgs = prev; };
-              };
-            };
-          })
-          nix-alien.overlays.default
-        ];
-        pkgs-master = import nixpkgs-master {
-          inherit system;
-          config = pkgs-config;
-          overlays = pkgs-overlays;
-        };
-      in
-      {
-        packages = {
-          nixosConfigurations.zawanix = nixpkgs.lib.nixosSystem {
-            inherit system;
-            specialArgs = {
-              inherit
-                inputs
-                hostName
-                pkgs-master
-                pkgs-stable
-                ;
-            };
-            modules = [
+    flake-utils.lib.eachDefaultSystem (system: {
+      packages = {
+        nixosConfigurations =
+          let
+            mkNixosConfig =
               {
-                nixpkgs = {
-                  config = pkgs-config;
-                  overlays = pkgs-overlays;
-                };
-              }
-              nix-flatpak.nixosModules.nix-flatpak
-              ./options
-              nix-index-database.nixosModules.nix-index
-              { programs.nix-index-database.comma.enable = true; }
-              vscode-server.nixosModules.default
-              (
-                { ... }:
-                {
-                  services.vscode-server.enable = true;
-                }
-              )
-              ./system
-              nixos-hardware.nixosModules.common-gpu-intel
-              nixos-hardware.nixosModules.common-cpu-intel
-              ./hardware-configuration.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.zerozawa = import ./home/zerozawa;
-                home-manager.extraSpecialArgs = {
+                hostName,
+                isNvidiaGPU ? false,
+                isIntelCPU ? false,
+                isIntelGPU ? false,
+                isVM ? false,
+                extraModules ? [ ],
+                ram ? 8 * 1024,
+              }:
+              let
+                specialArgs = {
                   inherit
-                    inputs
                     hostName
-                    pkgs-master
-                    pkgs-stable
+                    inputs
+                    isNvidiaGPU
+                    isIntelCPU
+                    isIntelGPU
+                    isVM
+                    ram
                     ;
                 };
-              }
-            ];
+              in
+              {
+                inherit system specialArgs;
+                modules =
+                  [
+                    {
+                      nixpkgs = {
+                        config = {
+                          allowUnfree = true;
+                        };
+                        overlays = [
+                          inputs.vscode-extensions.overlays.default
+                          (final: prev: {
+                            # 启用 NUR
+                            nur = import inputs.nur {
+                              nurpkgs = prev;
+                              pkgs = prev;
+                              repoOverrides = {
+                                xddxdd = import inputs.nur-xddxdd { pkgs = prev; };
+                              };
+                            };
+                          })
+                          inputs.nix-alien.overlays.default
+                        ];
+                      };
+                    }
+                    inputs.nix-flatpak.nixosModules.nix-flatpak
+                    ./options
+                    inputs.nix-index-database.nixosModules.nix-index
+                    { programs.nix-index-database.comma.enable = true; }
+                    inputs.vscode-server.nixosModules.default
+                    (
+                      { ... }:
+                      {
+                        services.vscode-server.enable = true;
+                      }
+                    )
+                    ./hardware
+                    ./system
+                  ]
+                  ++ (nixpkgs.lib.optionals isIntelGPU [
+                    inputs.nixos-hardware.nixosModules.common-gpu-intel
+                  ])
+                  ++ (nixpkgs.lib.optionals isIntelCPU [
+                    inputs.nixos-hardware.nixosModules.common-cpu-intel
+                  ])
+                  ++ [
+                    ./hardware-configuration.nix
+                    home-manager.nixosModules.home-manager
+                    {
+                      home-manager.useGlobalPkgs = true;
+                      home-manager.useUserPackages = true;
+                      home-manager.users.zerozawa = import ./home/zerozawa;
+                      home-manager.extraSpecialArgs = specialArgs;
+                    }
+                  ]
+                  ++ extraModules;
+              };
+          in
+          {
+            zawanix-work = nixpkgs.lib.nixosSystem (mkNixosConfig {
+              isIntelCPU = true;
+              isIntelGPU = true;
+              hostName = "zawanix-work";
+              ram = 32 * 1024;
+            });
           };
-        };
-      }
-    );
+      };
+    });
 }

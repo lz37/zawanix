@@ -1,4 +1,4 @@
-{ pkgs-master, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./default
@@ -6,6 +6,6 @@
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    package = pkgs-master.vscode;
+    package = pkgs.vscode;
   };
 }
