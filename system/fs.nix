@@ -1,4 +1,4 @@
-{ ram, ... }:
+{ ram, useTmpfs, ... }:
 
 {
   swapDevices = [
@@ -9,7 +9,7 @@
     }
   ];
   boot.tmp = {
-    useTmpfs = true;
-    tmpfsSize = "15%";
+    useTmpfs = useTmpfs;
+    cleanOnBoot = true;
   };
 }

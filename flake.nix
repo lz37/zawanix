@@ -42,9 +42,10 @@
               {
                 hostName,
                 isNvidiaGPU ? false,
-                isIntelCPU ? false,
                 isIntelGPU ? false,
+                isIntelCPU ? false,
                 isVM ? false,
+                useTmpfs ? false,
                 extraModules ? [ ],
                 ram ? 8 * 1024,
               }:
@@ -57,6 +58,7 @@
                     isIntelCPU
                     isIntelGPU
                     isVM
+                    useTmpfs
                     ram
                     ;
                 };
@@ -123,6 +125,7 @@
             zawanix-work = nixpkgs.lib.nixosSystem (mkNixosConfig {
               isIntelCPU = true;
               isIntelGPU = true;
+              useTmpfs = true;
               hostName = "zawanix-work";
               ram = 32 * 1024;
             });
@@ -130,6 +133,7 @@
               isIntelCPU = true;
               isIntelGPU = true;
               isNvidiaGPU = true;
+              useTmpfs = false;
               hostName = "zawanix-glap";
               ram = 16 * 1024;
             });
