@@ -29,24 +29,4 @@
     # @todo add more settings
     "extensions.experimental.affinity" = { };
   };
-  keybindings = [
-    {
-      key = "shift+alt+f";
-      command = "editor.action.formatDocument";
-      when = "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor";
-    }
-    {
-      key = "shift+alt+f";
-      command = "editor.action.formatDocument.none";
-      when = "editorTextFocus && !editorHasDocumentFormattingProvider && !editorReadonly";
-    }
-    {
-      key = "alt+n";
-      command = "explorer.newFile";
-    }
-    {
-      key = "shift+alt+n";
-      command = "explorer.newFolder";
-    }
-  ];
 }

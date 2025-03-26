@@ -5,8 +5,8 @@ let
 in
 {
   programs.vscode.profiles = {
-    default = (
-      merge-vscode-modules ({ inherit pkgs; } // inputs) [
+    default =
+      (merge-vscode-modules ({ inherit pkgs; } // inputs) [
         (import ../common/topics/base.nix)
         (import ../common/topics/gui.nix)
         (import ../common/topics/copilot.nix)
@@ -21,13 +21,19 @@ in
         (import ../common/topics/frontend/prettier.nix)
         (import ../common/topics/settingfile/yaml.nix)
         (import ../common/topics/settingfile/xml.nix)
-      ]
-    );
-    devcontainer=(
+      ])
+      // {
+        enableUpdateCheck = false;
+        enableExtensionUpdateCheck = false;
+      };
+    devcontainer = (
       merge-vscode-modules ({ inherit pkgs; } // inputs) [
         (import ../common/topics/base.nix)
         (import ../common/topics/gui.nix)
+        (import ../common/topics/lang.nix)
         (import ../common/topics/docker.nix)
+        (import ../common/topics/copilot.nix)
+        (import ../common/topics/gitlens.nix)
         (import ../common/topics/remote/devcontainer.nix)
       ]
     );

@@ -15,6 +15,4 @@ in
   keybindings = builtins.concatMap (item: item.keybindings) returns-fallback;
   extensions = builtins.concatMap (item: item.extensions) returns-fallback;
   userSettings = input.lib.mergeAttrsList (builtins.map (item: item.settings) returns-fallback);
-  enableUpdateCheck = false;
-  enableExtensionUpdateCheck = false;
 }
