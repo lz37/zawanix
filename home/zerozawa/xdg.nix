@@ -12,7 +12,7 @@
       download = lib.mkForce "${config.home.homeDirectory}/Downloads";
       music = lib.mkForce "${config.home.homeDirectory}/Music";
       pictures = lib.mkForce "${config.home.homeDirectory}/Pictures";
-      publicShare = lib.mkForce config.zerozawa.nixos.path.public;
+      publicShare = lib.mkForce (import ../../options/variable-pub.nix).path.public;
       templates = lib.mkForce "${config.home.homeDirectory}/Templates";
       videos = lib.mkForce "${config.home.homeDirectory}/Videos";
     };

@@ -1,10 +1,6 @@
 {
-  config,
   ...
 }:
-let
-  version = import ../options/variable-pub.nix;
-in
 {
   imports = [
     ./bluetooth.nix
@@ -25,6 +21,6 @@ in
     ./opengl.nix
     ./fs.nix
   ];
-  system.stateVersion = version.nixos;
+  system.stateVersion = (import ../options/variable-pub.nix).version.nixos;
 
 }

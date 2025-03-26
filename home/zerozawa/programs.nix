@@ -30,7 +30,7 @@
       enable = true;
       enableZshIntegration = true;
       config = {
-        whitelist.prefix = [ config.zerozawa.nixos.path.code ];
+        whitelist.prefix = [ (import ../../options/variable-pub.nix).path.code ];
       };
       nix-direnv.enable = true;
     };

@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   ...
 }:
 
@@ -36,7 +35,7 @@
         };
         public = {
           browseable = "yes";
-          path = config.zerozawa.nixos.path.public;
+          path = (import ../options/variable-pub.nix).path.public;
           "writable" = "yes";
           "guest ok" = "yes";
           "public" = "yes";

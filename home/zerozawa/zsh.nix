@@ -41,7 +41,13 @@
       enable = true;
       # Installations with additional options. For the list of options, please refer to Zplug README.
       plugins = [
-        { name = "romkatv/powerlevel10k"; tags = [ "as:theme" "depth:1" ]; }
+        {
+          name = "romkatv/powerlevel10k";
+          tags = [
+            "as:theme"
+            "depth:1"
+          ];
+        }
         { name = "fdellwing/zsh-bat"; }
         { name = "wbingli/zsh-wakatime"; }
         { name = "MichaelAquilina/zsh-you-should-use"; }
@@ -49,8 +55,7 @@
         { name = "nix-community/nix-zsh-completions"; }
       ];
     };
-    envExtra = ''
-    '';
+    envExtra = '''';
     initExtraFirst = ''
       (( ''${+commands[direnv]} )) && emulate zsh -c "$(direnv export zsh)"
       if [[ -r "${config.xdg.configHome}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
@@ -60,8 +65,8 @@
     '';
     initExtra = ''
       # p10k
-      # To customize prompt, run `p10k configure` or edit ${config.zerozawa.nixos.path.p10k}.
-      [[ ! -f ${config.zerozawa.nixos.path.p10k} ]] || source ${config.zerozawa.nixos.path.p10k}
+      # To customize prompt, run `p10k configure` or edit ${(import ../../options/variable-pub.nix).path.p10k}.
+      [[ ! -f ${(import ../../options/variable-pub.nix).path.p10k} ]] || source ${(import ../../options/variable-pub.nix).path.p10k}
     '';
   };
 }

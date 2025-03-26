@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   imports = [
@@ -13,6 +13,6 @@
     ./tmux.nix
   ];
   home = {
-    stateVersion = config.zerozawa.nixos.home-manager-version;
+    stateVersion = (import ../../options/variable-pub.nix).version.hm;
   };
 }

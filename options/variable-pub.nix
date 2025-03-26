@@ -1,6 +1,14 @@
 {
   version = rec {
     nixos = "25.05";
-    home-manager = nixos;
+    hm = nixos;
+  };
+  path = rec {
+    cfgRoot = "/etc/nixos";
+    p10k = "${cfgRoot}/profile/.p10k.zsh";
+    home = "/home/zerozawa";
+    code = "${home}/code";
+    codeSrc = "${code}/src";
+    public = "${home}/Public";
   };
 }
