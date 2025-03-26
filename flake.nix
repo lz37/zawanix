@@ -107,7 +107,6 @@
                     inputs.nixos-hardware.nixosModules.common-cpu-intel
                   ])
                   ++ [
-                    ./hardware-configuration.nix
                     home-manager.nixosModules.home-manager
                     {
                       home-manager.useGlobalPkgs = true;

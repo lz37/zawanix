@@ -3,15 +3,18 @@
 # to /etc/nixos/configuration.nix instead.
 {
   modulesPath,
-  hostName,
   isIntelCPU,
   lib,
   ...
 }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    "./hostname/${hostName}.nix"
-  ] ++ (lib.optionals isIntelCPU [ "./intel/cpu.nix" ]);
+  imports =
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
+    ]
+    ++ (lib.optionals isIntelCPU [ "./intel/cpu.nix" ])
+    ++ [
+      ./hostname
+    ];
 }
