@@ -1,12 +1,13 @@
-{ ... }:
+{ ... }@inputs:
+
+let
+  merge-vscode-modules = import ../common/utils.nix;
+in
 {
-  imports = [
-    ./extensions.nix
-    ./keybindings.nix
-    ./settings.nix
+  programs.vscode.profiles.default = merge-vscode-modules inputs [
+    import
+    ../common/topics/base.nix
+    import
+    ../common/topics/gui.nix
   ];
-  programs.vscode.profiles.default = {
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
-  };
 }
