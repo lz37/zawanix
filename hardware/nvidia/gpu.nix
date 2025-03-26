@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  config,
+  isIntelGPU,
+  isAmdGPU,
+  ...
+}:
 
 {
   hardware.graphics = {
@@ -30,7 +35,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     prime = {
-      reverseSync.enable = true;
+      reverseSync.enable = isIntelGPU || isAmdGPU;
     };
   };
 }

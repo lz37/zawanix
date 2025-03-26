@@ -44,6 +44,7 @@
                 isNvidiaGPU ? false,
                 isIntelGPU ? false,
                 isIntelCPU ? false,
+                isAmdGPU ? false,
                 isVM ? false,
                 useTmpfs ? false,
                 extraModules ? [ ],
@@ -57,6 +58,7 @@
                     isNvidiaGPU
                     isIntelCPU
                     isIntelGPU
+                    isAmdGPU
                     isVM
                     useTmpfs
                     ram
