@@ -6,7 +6,6 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
-    tmux
     nettools
     busybox
     tcping-go
@@ -41,14 +40,14 @@
     # waydroid 剪贴版
     wl-clipboard
     # kvm
-    virt-viewer
-    spice
-    spice-gtk
-    spice-protocol
+    # virt-viewer
+    # spice
+    # spice-gtk
+    # spice-protocol
     # win-virtio
     # win-spice
-    virtiofsd
-    virglrenderer
+    # virtiofsd
+    # virglrenderer
     # samba
     cifs-utils
     cachix
@@ -59,6 +58,5 @@
     # winetricks
     mihomo
     termsonic
-    wirelesstools
   ];
 }

@@ -8,6 +8,14 @@
     bottom.enable = true;
     bat.enable = true;
     eza.enable = true;
+    tmux = {
+      enable = true;
+      mouse = true;
+      clock24 = true;
+      keyMode = "vi";
+      shell = "${pkgs.zsh}/bin/zsh";
+      terminal = "screen-256color";
+    };
     atuin = {
       enable = true;
       enableZshIntegration = true;

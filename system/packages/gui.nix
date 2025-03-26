@@ -35,6 +35,6 @@
     figma-linux
     microsoft-edge
     kitty
-    # jamesdsp
+    pkgs-master.jamesdsp
   ];
 }

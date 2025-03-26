@@ -32,10 +32,10 @@
         appId = "io.github.giantpinkrobots.flatsweep";
         origin = "flathub";
       }
-      {
-        appId = "me.timschneeberger.jdsp4linux";
-        origin = "flathub";
-      }
+      # {
+      #   appId = "me.timschneeberger.jdsp4linux";
+      #   origin = "flathub";
+      # }
       # {
       #   appId = "io.github.Figma_Linux.figma_linux";
       #   origin = "flathub";

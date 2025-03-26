@@ -25,6 +25,12 @@
     interfaces = {
       "${config.zerozawa.nixos.network.wired-interface}" = {
         useDHCP = false;
+        wakeOnLan = {
+          enable = true;
+          policy = [
+            "magic"
+          ];
+        };
       };
       br0 = {
         ipv4 = {

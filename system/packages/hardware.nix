@@ -8,5 +8,6 @@
     dmidecode
     vrrtest
     linuxquota
+    wirelesstools
   ];
 }

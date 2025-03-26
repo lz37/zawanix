@@ -4,6 +4,7 @@ let
 in
 {
   hardware.graphics = {
+    enable = true;
     package = pkgs-unstable.mesa;
     # if you also want 32-bit support (e.g for Steam)
     enable32Bit = true;

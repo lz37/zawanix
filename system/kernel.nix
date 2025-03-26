@@ -18,6 +18,8 @@
       "nowatchdog"
       "modprobe.blacklist=sp5100_tco" # watchdog for AMD
       "modprobe.blacklist=iTCO_wdt" # watchdog for Intel
+      "intel_iommu=on"
+      "iommu=pt"
     ];
     # Needed For Some Steam Games
     kernel.sysctl = {

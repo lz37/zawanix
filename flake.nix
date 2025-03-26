@@ -68,8 +68,6 @@
                 xddxdd = import nur-xddxdd { pkgs = prev; };
               };
             };
-            electron_33-bin = pkgs-stable.electron_33-bin;
-            electron_33 = pkgs-stable.electron_33;
           })
           nix-alien.overlays.default
         ];
