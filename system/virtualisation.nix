@@ -1,6 +1,13 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  isNvidiaGPU,
+  lib,
+  ...
+}:
 
 {
+
+  imports = lib.optionals isNvidiaGPU [ ./nvidia-container-toolkit.nix ];
 
   virtualisation = {
     # docker
