@@ -6,6 +6,7 @@
     wakatime.vscode-wakatime
     streetsidesoftware.code-spell-checker
     christian-kohler.path-intellisense
+    mkhl.direnv
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";
