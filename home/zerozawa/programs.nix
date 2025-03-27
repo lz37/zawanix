@@ -51,6 +51,7 @@
         };
       };
     };
+    kitty.enable = true;
   };
 
 }

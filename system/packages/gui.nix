@@ -33,7 +33,6 @@
     teams-for-linux
     figma-linux
     microsoft-edge
-    kitty
     jamesdsp
   ];
 }
