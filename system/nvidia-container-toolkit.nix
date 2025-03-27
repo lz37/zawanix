@@ -7,8 +7,8 @@
   virtualisation = {
     docker = {
       daemon.settings = {
+        # --device=nvidia.com/gpu=all
         features.cdi = true;
-        default-runtime = "nvidia";
       };
     };
   };
