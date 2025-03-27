@@ -19,6 +19,7 @@
     ./flatpak.nix
     ./opengl.nix
     ./fs.nix
+    ./hyprland.nix
   ];
   system.stateVersion = (import ../options/variable-pub.nix).version.nixos;
 

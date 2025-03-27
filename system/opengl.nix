@@ -1,13 +1,13 @@
 { pkgs, inputs, ... }:
 let
-  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   hardware.graphics = {
     enable = true;
-    package = pkgs-unstable.mesa;
+    package = pkgs-hyprland.mesa;
     # if you also want 32-bit support (e.g for Steam)
     enable32Bit = true;
-    package32 = pkgs-unstable.pkgsi686Linux.mesa;
+    package32 = pkgs-hyprland.pkgsi686Linux.mesa;
   };
 }

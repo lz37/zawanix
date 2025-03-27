@@ -8,7 +8,6 @@
     p10k = "${cfgRoot}/profile/.p10k.zsh";
     home = "/home/zerozawa";
     code = "${home}/code";
-    codeSrc = "${code}/src";
     public = "${home}/Public";
   };
 }

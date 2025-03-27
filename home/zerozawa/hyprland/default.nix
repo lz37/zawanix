@@ -1,10 +1,10 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, ... }@others:
+
+let
+  system-hyprland-settings = import ../../../system/hyprland.nix ({ inherit inputs pkgs; } // others);
+in
 {
   wayland.windowManager.hyprland = {
-    enable = true;
-    # set the flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    inherit (system-hyprland-settings.programs.hyprland) enable package portalPackage;
   };
 }
