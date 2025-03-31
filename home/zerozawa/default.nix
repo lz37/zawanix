@@ -11,6 +11,7 @@
     ./vscode
     ./hyprland
     ./tmux.nix
+    ./fonts
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;
