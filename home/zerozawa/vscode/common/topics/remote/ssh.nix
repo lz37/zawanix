@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  extensions = with pkgs.vscode-extensions; [
+  extensions = with pkgs.vscode-marketplace; [
     ms-vscode-remote.remote-ssh
     ms-vscode-remote.remote-ssh-edit
   ];
