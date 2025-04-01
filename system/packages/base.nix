@@ -48,6 +48,7 @@
     # win-spice
     # virtiofsd
     # virglrenderer
+    quickemu
     # samba
     cifs-utils
     cachix
