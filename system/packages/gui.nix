@@ -12,6 +12,7 @@
       qq
       wiliwili
       telegram-desktop
+      wemeet
       # wechat-uos
       mpv
       scrcpy
@@ -37,6 +38,11 @@
       microsoft-edge
       jamesdsp
       freerdp3
+      # wine
+      # support both 32- and 64-bit applications
+      wineWowPackages.unstableFull
+      # winetricks
+      # protonplus
     ])
     ++ [
       inputs.winapps.packages."${pkgs.stdenv.hostPlatform.system}".winapps

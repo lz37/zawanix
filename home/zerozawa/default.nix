@@ -12,6 +12,7 @@
     ./hyprland
     ./tmux.nix
     ./fonts
+    ./winapps
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;

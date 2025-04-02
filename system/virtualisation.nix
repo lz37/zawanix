@@ -5,49 +5,11 @@
   ...
 }:
 
-let
-  HOME = "${(import ../options/variable-pub.nix).path.home}";
-in
-
 {
 
   imports = lib.optionals isNvidiaGPU [ ./nvidia-container-toolkit.nix ];
 
   virtualisation = {
-    oci-containers = {
-      backend = "docker";
-      containers = {
-        winapps = {
-          image = "ghcr.io/dockur/windows:latest";
-          environment = {
-            VERSION = "tiny11";
-            RAM_SIZE = "4G";
-            CPU_CORES = "4";
-            DISK_SIZE = "64G";
-            USERNAME = "zerozawa";
-            PASSWORD = "123456";
-            inherit HOME;
-          };
-          volumes = [
-            "winapps-data:/storage"
-            "${HOME}:/shared"
-            "${HOME}/oem:/oem"
-          ];
-          extraOptions = [
-            "--privileged"
-            "--device"
-            "/dev/kvm"
-            "--stop-timeout"
-            "120"
-          ];
-          ports = [
-            "8006:8006"
-            "3389:3389/udp"
-            "3389:3389/tcp"
-          ];
-        };
-      };
-    };
     # docker
     docker = {
       enable = true;

@@ -20,10 +20,10 @@
         appId = "com.tencent.WeChat";
         origin = "flathub";
       }
-      # {
-      #   appId = "com.tencent.wemeet";
-      #   origin = "flathub";
-      # }
+      {
+        appId = "com.tencent.wemeet";
+        origin = "flathub";
+      }
       {
         appId = "com.github.tchx84.Flatseal";
         origin = "flathub";

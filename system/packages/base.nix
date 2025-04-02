@@ -53,10 +53,6 @@
     cifs-utils
     cachix
     distrobox
-    # wine
-    # support both 32- and 64-bit applications
-    # wineWowPackages.waylandFull
-    # winetricks
     mihomo
     termsonic
   ];
