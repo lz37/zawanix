@@ -13,7 +13,6 @@
     ./tmux.nix
     ./fonts
     ./winapps
-    ./wine-desktops
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;
