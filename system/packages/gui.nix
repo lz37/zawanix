@@ -40,8 +40,8 @@
       freerdp3
       # wine
       # support both 32- and 64-bit applications
-      wineWowPackages.unstableFull
-      # winetricks
+      wineWowPackages.stagingFull
+      winetricks
       # protonplus
     ])
     ++ [
