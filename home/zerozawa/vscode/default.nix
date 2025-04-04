@@ -57,6 +57,18 @@ in
           (import ./common/topics/settingfile/dotenv.nix)
         ]
       );
+      noveler = (
+        merge-imports [
+          (import ./common/topics/base.nix)
+          (import ./common/topics/gui.nix)
+          (import ./common/topics/copilot.nix)
+          (import ./common/topics/gitlens.nix)
+          (import ./common/topics/lang.nix)
+          (import ./common/topics/nix.nix)
+          (import ./common/topics/frontend/base.nix)
+          (import ./common/topics/frontend/prettier.nix)
+        ]
+      );
       devcontainer = (
         merge-imports [
           (import ./common/topics/base.nix)

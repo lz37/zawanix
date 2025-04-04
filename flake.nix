@@ -2,6 +2,7 @@
   description = "config of zerozawa's nix dev server";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,6 +37,7 @@
       nixpkgs,
       flake-utils,
       home-manager,
+      nixpkgs-stable,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -88,6 +90,10 @@
                               repoOverrides = {
                                 xddxdd = import inputs.nur-xddxdd { pkgs = prev; };
                               };
+                            };
+                            stable = import nixpkgs-stable {
+                              inherit system;
+                              config.allowUnfree = true;
                             };
                           })
                           inputs.nix-alien.overlays.default
