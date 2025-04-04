@@ -67,6 +67,7 @@ in
           (import ./common/topics/nix.nix)
           (import ./common/topics/frontend/base.nix)
           (import ./common/topics/frontend/prettier.nix)
+          (import ./common/topics/ci-cd.nix)
         ]
       );
       devcontainer = (
