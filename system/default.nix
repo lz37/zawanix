@@ -8,7 +8,7 @@
     ./programs.nix
     ./services.nix
     ./zram.nix
-    ./virtualisation.nix
+    ./virtualisation
     ./nix.nix
     ./users.nix
     ./kernel.nix
