@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, commonVSCVars, ... }:
 
 {
   extensions = with pkgs.vscode-marketplace; [
@@ -30,7 +30,7 @@
     "editor.minimap.size" = "fill";
     "editor.renderWhitespace" = "all";
     "editor.scrollbar.verticalScrollbarSize" = 0;
-    "editor.wordSeparators" = (import ../common.nix).wordSeparatorsStr;
+    "editor.wordSeparators" = commonVSCVars.wordSeparatorsStr;
     "editor.wordWrap" = "bounded";
     "editor.wordWrapColumn" = 120;
     "editor.wrappingIndent" = "same";
@@ -39,10 +39,11 @@
     "terminal.integrated.fontFamily" = "MesloLGS NF";
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;
-    "terminal.integrated.wordSeparators" = (import ../common.nix).wordSeparatorsStr;
+    "terminal.integrated.wordSeparators" = commonVSCVars.wordSeparatorsStr;
     "workbench.colorTheme" = "Eva Dark Italic";
     "workbench.iconTheme" = "material-icon-theme";
     "workbench.editor.wrapTabs" = true;
+    "workbench.externalBrowser" = "${pkgs.microsoft-edge}/bin/microsoft-edge";
     "window.zoomLevel" = 1;
     "window.titleBarStyle" = "native";
     "window.customTitleBarVisibility" = "never";

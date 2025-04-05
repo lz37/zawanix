@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, commonVSCVars, ... }:
 let
-  prettierExtStr = (import ../../common.nix).prettierExtStr;
+  prettierExtStr = commonVSCVars.prettierExtStr;
 in
 {
   extensions = with pkgs.vscode-marketplace; [

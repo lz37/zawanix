@@ -1,7 +1,16 @@
 { pkgs, ... }@inputs:
 let
   merge-vscode-modules = import ./common/utils.nix;
-  merge-imports = merge-vscode-modules ({ inherit pkgs; } // inputs);
+  merge-imports = merge-vscode-modules (
+    {
+      inherit pkgs;
+      commonVSCVars = {
+        wordSeparatorsStr = ''`~·!！@#$￥%^…&*()（）[]【】{}<>《》-—=+\|/、'‘’"“”:：;；,，.。?？'';
+        prettierExtStr = "esbenp.prettier-vscode";
+      };
+    }
+    // inputs
+  );
 in
 {
   programs.vscode = {
@@ -48,6 +57,7 @@ in
         merge-imports [
           (import ./common/topics/base.nix)
           (import ./common/topics/gui.nix)
+          (import ./common/topics/markdown.nix)
           (import ./common/topics/copilot.nix)
           (import ./common/topics/gitlens.nix)
           (import ./common/topics/lang.nix)
