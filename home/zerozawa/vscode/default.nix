@@ -102,5 +102,13 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.vscode/extensions";
       force = true;
     };
+    ".vscode-server/data/Machine/settings.json"={
+      source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/settings.json";
+      force = true;
+    };
+    ".vscode-server/data/User/profiles" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/User/profiles";
+      force = true;
+    };
   };
 }
