@@ -1,7 +1,13 @@
 { ... }:
 {
   xdg.configFile = {
-    "winapps/winapps.conf".source = ./winapps.conf;
-    "winapps/compose.yaml".source = ./compose.yaml;
+    "winapps/winapps.conf" = {
+      source = ./winapps.conf;
+      force = true;
+    };
+    "winapps/compose.yaml" = {
+      source = ./compose.yaml;
+      force = true;
+    };
   };
 }
