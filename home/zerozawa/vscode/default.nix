@@ -70,6 +70,7 @@ let
       (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/ci-cd.nix)
+      (import ./common/topics/remote/ssh.nix)
     ];
   devcontainer =
     base
