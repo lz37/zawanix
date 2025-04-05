@@ -71,6 +71,8 @@ let
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/ci-cd.nix)
       (import ./common/topics/remote/ssh.nix)
+      (import ./common/topics/settingfile/toml.nix)
+      (import ./common/topics/settingfile/yaml.nix)
     ];
   devcontainer =
     base

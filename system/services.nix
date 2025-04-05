@@ -24,6 +24,11 @@
         variant = "";
       };
     };
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "startplasma-x11";
+      openFirewall = true;
+    };
     printing.enable = true;
     openssh = {
       enable = true;
