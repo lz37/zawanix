@@ -9,5 +9,6 @@
     home = "/home/zerozawa";
     code = "${home}/code";
     public = "${home}/Public";
+    downloads = "${home}/Downloads";
   };
 }

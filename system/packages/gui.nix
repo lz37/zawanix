@@ -38,6 +38,7 @@
       microsoft-edge
       jamesdsp
       freerdp3
+      podman-desktop
       # wine
       # support both 32- and 64-bit applications
       # wineWowPackages.stagingFull

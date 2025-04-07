@@ -11,6 +11,7 @@
   ] ++ (lib.optionals isNvidiaGPU [ ./nvidia-container-toolkit.nix ]);
 
   virtualisation = {
+    containers.enable = true;
     # docker
     docker = {
       enable = true;

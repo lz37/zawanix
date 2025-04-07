@@ -12,7 +12,7 @@
       createDirectories = true;
       desktop = lib.mkForce "${config.home.homeDirectory}/Desktop";
       documents = lib.mkForce "${config.home.homeDirectory}/Documents";
-      download = lib.mkForce "${config.home.homeDirectory}/Downloads";
+      download = lib.mkForce (import ../../options/variable-pub.nix).path.downloads;
       music = lib.mkForce "${config.home.homeDirectory}/Music";
       pictures = lib.mkForce "${config.home.homeDirectory}/Pictures";
       publicShare = lib.mkForce (import ../../options/variable-pub.nix).path.public;

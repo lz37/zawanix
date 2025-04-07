@@ -13,6 +13,7 @@
     ./tmux.nix
     ./fonts
     ./winapps
+    ./podman.nix
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;
