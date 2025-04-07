@@ -5,6 +5,7 @@
 
 {
   users.users.zerozawa = {
+    uid = (import ../options/variable-pub.nix).users.zerozawa.uid;
     isNormalUser = true;
     extraGroups = [
       "networkmanager"

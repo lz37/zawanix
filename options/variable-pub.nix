@@ -11,4 +11,9 @@
     public = "${home}/Public";
     downloads = "${home}/Downloads";
   };
+  users = {
+    zerozawa = {
+      uid = 1000;
+    };
+  };
 }
