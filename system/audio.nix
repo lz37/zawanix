@@ -1,4 +1,5 @@
 {
+  pkgs,
   ...
 }:
 
@@ -9,13 +10,27 @@
     pulseaudio.enable = false;
     pipewire = {
       enable = true;
+      audio.enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      socketActivation = true;
       # If you want to use JACK applications, uncomment this
       jack.enable = true;
       wireplumber = {
         enable = true;
+        configPackages = [
+          (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-bluez.conf" ''
+            monitor.bluez.properties = {
+              bluez5.roles = [ hsp_hs hsp_ag hfp_hf hfp_ag a2dp_sink a2dp_source bap_sink bap_source]
+              bluez5.codecs = [ sbc sbc_xq aac ldac aptx]
+              bluez5.enable-msbc = true
+              bluez5.enable-sbc-xq = true
+              bluez5.enable-hw-volume = true
+              bluez5.hfphsp-backend = "native"
+            }
+          '')
+        ];
         extraConfig = {
           "wh-1000xm3-ldac-hq" = {
             "monitor.bluez.rules" = [
@@ -38,9 +53,6 @@
           };
         };
       };
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
     };
   };
 }
