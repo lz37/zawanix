@@ -19,37 +19,50 @@
       jack.enable = true;
       wireplumber = {
         enable = true;
-        configPackages = [
-          (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-bluez.conf" ''
-            monitor.bluez.properties = {
-              bluez5.roles = [ hsp_hs hsp_ag hfp_hf hfp_ag a2dp_sink a2dp_source bap_sink bap_source]
-              bluez5.codecs = [ sbc sbc_xq aac ldac aptx]
-              bluez5.enable-msbc = true
-              bluez5.enable-sbc-xq = true
-              bluez5.enable-hw-volume = true
-              bluez5.hfphsp-backend = "native"
-            }
-          '')
-        ];
+        # https://github.com/TLATER/dotfiles/blob/a31d74856710936b398318062f0af6616d994eba/nixos-config/default.nix#L189
         extraConfig = {
-          "wh-1000xm3-ldac-hq" = {
+          "50-bluez" = {
             "monitor.bluez.rules" = [
               {
-                matches = [
-                  {
-                    # `pactl list sinks` 查看
-                    "device.name" = "~bluez_card.*";
-                    "media.name" = "FIIO UTWS5";
-                  }
-                ];
+                matches = [ { "device.name" = "~bluez_card.*"; } ];
                 actions = {
                   update-props = {
-                    # Set quality to high quality instead of the default of auto
                     "bluez5.a2dp.ldac.quality" = "hq";
+                    "bluez5.auto-connect" = [
+                      "a2dp_sink"
+                      "a2dp_source"
+                    ];
+                    "bluez5.hw-volume" = [
+                      "a2dp_sink"
+                      "a2dp_source"
+                    ];
                   };
                 };
               }
             ];
+            "monitor.bluez.properties" = {
+              "bluez5.roles" = [
+                "a2dp_sink"
+                "a2dp_source"
+                "bap_sink"
+                "bap_source"
+              ];
+              "bluez5.codecs" = [
+                "ldac"
+                "aptx"
+                "aptx_ll_duplex"
+                "aptx_ll"
+                "aptx_hd"
+                "opus_05_pro"
+                "opus_05_71"
+                "opus_05_51"
+                "opus_05"
+                "opus_05_duplex"
+                "aac"
+                "sbc_xq"
+              ];
+              "bluez5.hfphsp-backend" = "none";
+            };
           };
         };
       };

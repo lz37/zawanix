@@ -7,6 +7,7 @@
   ];
   settings = {
     "github.copilot.editor.enableAutoCompletions" = true;
+    "chat.agent.enabled" = true;
   };
   keybindings = [
     {
