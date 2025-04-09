@@ -13,7 +13,7 @@
       "docker"
       "podman"
       "kvm"
-      "libvirt"
+      "libvirtd"
       "adbusers"
     ];
     shell = "${(pkgs.writeScriptBin "choose-shell" ''

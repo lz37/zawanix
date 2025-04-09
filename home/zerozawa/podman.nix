@@ -16,6 +16,8 @@
           RPC_PORT = "6800";
           LISTEN_PORT = "6888";
           IPV6_MODE = "true";
+          PUID = "0";
+          PGID = "0";
         };
         image = "ghcr.io/p3terx/aria2-pro:latest";
         extraPodmanArgs = [
