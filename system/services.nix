@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services = {
@@ -7,10 +7,23 @@
       apparmor = "disabled";
       implementation = "dbus";
     };
-    displayManager.sddm = {
-      enable = true;
-      # wayland.enable = true;
-      autoNumlock = false;
+    displayManager = {
+      defaultSession = "plasma";
+      sddm = {
+        enable = true;
+        wayland = {
+          enable = true;
+          compositor = "kwin";
+        };
+        autoNumlock = true;
+        enableHidpi = true;
+        # sugarCandyNix = {
+        #   ScreenWidth = 1920;
+        #   ScreenHeight = 1080;
+        #   ScaleImageCropped = true;
+        #   FormPosition = "left";
+        # };
+      };
     };
     desktopManager.plasma6 = {
       enable = true;

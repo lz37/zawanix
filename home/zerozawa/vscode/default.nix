@@ -74,15 +74,17 @@ let
       (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/settingfile/yaml.nix)
     ];
-  devcontainer =
+  ssh =
     base
     ++ gui
     ++ lang
     ++ [
       (import ./common/topics/docker.nix)
       (import ./common/topics/remote/ssh.nix)
-      (import ./common/topics/remote/devcontainer.nix)
     ];
+  devcontainer = ssh ++ [
+    (import ./common/topics/remote/devcontainer.nix)
+  ];
 in
 {
   programs.vscode = {
@@ -97,6 +99,7 @@ in
       tailwind = (merge-imports tailwind);
       frontend = (merge-imports frontend);
       noveler = (merge-imports noveler);
+      ssh = (merge-imports ssh);
       devcontainer = (merge-imports devcontainer);
     };
   };
@@ -105,7 +108,7 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.vscode/extensions";
       force = true;
     };
-    ".vscode-server/data/Machine/settings.json"={
+    ".vscode-server/data/Machine/settings.json" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/settings.json";
       force = true;
     };

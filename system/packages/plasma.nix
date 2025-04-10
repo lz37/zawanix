@@ -19,5 +19,6 @@
     ++ (with pkgs; [
       plasmusic-toolbar
       vscode-runner
+      krunner-translator
     ]);
 }
