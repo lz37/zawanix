@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-extensions; [
+  extensions = with pkgs.stable.vscode-extensions; [
     github.copilot
     github.copilot-chat
   ];

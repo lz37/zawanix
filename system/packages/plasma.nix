@@ -18,5 +18,6 @@
     ])
     ++ (with pkgs; [
       plasmusic-toolbar
+      vscode-runner
     ]);
 }
