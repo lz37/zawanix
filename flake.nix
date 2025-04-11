@@ -30,7 +30,6 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland.url = "github:hyprwm/Hyprland";
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
   };
 
   outputs =
