@@ -30,11 +30,6 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland.url = "github:hyprwm/Hyprland";
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    sddm-sugar-candy-nix = {
-      url = "gitlab:Zhaith-Izaliel/sddm-sugar-candy-nix";
-      # Optional, by default this flake follows nixpkgs-unstable.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
   };
 
@@ -88,7 +83,6 @@
                         };
                         overlays = [
                           inputs.vscode-extensions.overlays.default
-                          inputs.sddm-sugar-candy-nix.overlays.default
                           (final: prev: {
                             # 启用 NUR
                             nur = import inputs.nur {
@@ -107,7 +101,6 @@
                         ];
                       };
                     }
-                    inputs.sddm-sugar-candy-nix.nixosModules.default
                     inputs.nix-flatpak.nixosModules.nix-flatpak
                     ./options
                     inputs.nix-index-database.nixosModules.nix-index

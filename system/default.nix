@@ -20,6 +20,7 @@
     ./opengl.nix
     ./fs.nix
     ./hyprland.nix
+    ./sddm
   ];
   system.stateVersion = (import ../options/variable-pub.nix).version.nixos;
 
