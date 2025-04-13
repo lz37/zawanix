@@ -45,6 +45,7 @@ let
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/frontend/tailwind.nix)
       (import ./common/topics/settingfile/dotenv.nix)
+      (import ./common/topics/remote/ssh.nix)
     ];
   frontend =
     base
