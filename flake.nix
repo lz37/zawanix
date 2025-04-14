@@ -30,6 +30,11 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland.url = "github:hyprwm/Hyprland";
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -38,6 +43,14 @@
       flake-utils,
       home-manager,
       nixpkgs-stable,
+      plasma-manager,
+      nix-flatpak,
+      nix-index-database,
+      vscode-server,
+      nix-alien,
+      nur-xddxdd,
+      nur,
+      vscode-extensions,nixos-hardware,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (system: {
@@ -81,14 +94,14 @@
                           allowUnfree = true;
                         };
                         overlays = [
-                          inputs.vscode-extensions.overlays.default
+                          vscode-extensions.overlays.default
                           (final: prev: {
                             # 启用 NUR
-                            nur = import inputs.nur {
+                            nur = import nur {
                               nurpkgs = prev;
                               pkgs = prev;
                               repoOverrides = {
-                                xddxdd = import inputs.nur-xddxdd { pkgs = prev; };
+                                xddxdd = import nur-xddxdd { pkgs = prev; };
                               };
                             };
                             stable = import nixpkgs-stable {
@@ -96,15 +109,15 @@
                               config.allowUnfree = true;
                             };
                           })
-                          inputs.nix-alien.overlays.default
+                          nix-alien.overlays.default
                         ];
                       };
                     }
-                    inputs.nix-flatpak.nixosModules.nix-flatpak
+                    nix-flatpak.nixosModules.nix-flatpak
                     ./options
-                    inputs.nix-index-database.nixosModules.nix-index
+                    nix-index-database.nixosModules.nix-index
                     { programs.nix-index-database.comma.enable = true; }
-                    inputs.vscode-server.nixosModules.default
+                    vscode-server.nixosModules.default
                     (
                       { ... }:
                       {
@@ -116,16 +129,17 @@
                     ./system
                   ]
                   ++ (nixpkgs.lib.optionals isIntelGPU [
-                    inputs.nixos-hardware.nixosModules.common-gpu-intel
+                    nixos-hardware.nixosModules.common-gpu-intel
                   ])
                   ++ (nixpkgs.lib.optionals isIntelCPU [
-                    inputs.nixos-hardware.nixosModules.common-cpu-intel
+                    nixos-hardware.nixosModules.common-cpu-intel
                   ])
                   ++ [
                     home-manager.nixosModules.home-manager
                     {
                       home-manager.useGlobalPkgs = true;
                       home-manager.useUserPackages = true;
+                      home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
                       home-manager.users.zerozawa = import ./home/zerozawa;
                       home-manager.extraSpecialArgs = specialArgs;
                     }

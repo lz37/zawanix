@@ -11,9 +11,6 @@
           BorderlessMaximizedWindows = true;
         };
       };
-      kdeglobals = {
-        Icons = "Zafiro-Icons-Dark";
-      };
     };
   };
   xdg.dataFile = {
