@@ -14,7 +14,7 @@
     ./fonts
     ./winapps
     ./podman.nix
-    ./kde.nix
+    ./theme.nix
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;
