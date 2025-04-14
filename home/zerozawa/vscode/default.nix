@@ -86,6 +86,7 @@ let
   devcontainer = ssh ++ [
     (import ./common/topics/remote/devcontainer.nix)
   ];
+  k8s = ssh ++ [ (import ./common/topics/k8s.nix) ];
 in
 {
   programs.vscode = {
@@ -102,6 +103,7 @@ in
       noveler = (merge-imports noveler);
       ssh = (merge-imports ssh);
       devcontainer = (merge-imports devcontainer);
+      k8s = (merge-imports k8s);
     };
   };
   home.file = {
