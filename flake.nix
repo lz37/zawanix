@@ -50,7 +50,8 @@
       nix-alien,
       nur-xddxdd,
       nur,
-      vscode-extensions,nixos-hardware,
+      vscode-extensions,
+      nixos-hardware,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (system: {
