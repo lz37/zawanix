@@ -15,10 +15,6 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur-xddxdd = {
-      url = "github:xddxdd/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     winapps = {
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,7 +44,6 @@
       nix-index-database,
       vscode-server,
       nix-alien,
-      nur-xddxdd,
       nur,
       vscode-extensions,
       nixos-hardware,
@@ -101,9 +96,6 @@
                             nur = import nur {
                               nurpkgs = prev;
                               pkgs = prev;
-                              repoOverrides = {
-                                xddxdd = import nur-xddxdd { pkgs = prev; };
-                              };
                             };
                             stable = import nixpkgs-stable {
                               inherit system;

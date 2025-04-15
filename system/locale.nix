@@ -76,7 +76,7 @@
     type = "fcitx5";
     enable = true;
     fcitx5 = {
-      #waylandFrontend = true;
+      waylandFrontend = true;
       plasma6Support = true;
       addons = with pkgs; [
         fcitx5-rime
