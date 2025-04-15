@@ -110,13 +110,6 @@
                     ./options
                     nix-index-database.nixosModules.nix-index
                     { programs.nix-index-database.comma.enable = true; }
-                    vscode-server.nixosModules.default
-                    (
-                      { ... }:
-                      {
-                        services.vscode-server.enable = true;
-                      }
-                    )
                     ./hardware
                     ./network
                     ./system
@@ -132,7 +125,10 @@
                     {
                       home-manager.useGlobalPkgs = true;
                       home-manager.useUserPackages = true;
-                      home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+                      home-manager.sharedModules = [
+                        plasma-manager.homeManagerModules.plasma-manager
+                        vscode-server.homeModules.default
+                      ];
                       home-manager.users.zerozawa = import ./home/zerozawa;
                       home-manager.extraSpecialArgs = specialArgs;
                     }

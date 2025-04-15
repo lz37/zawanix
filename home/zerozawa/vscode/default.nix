@@ -106,6 +106,7 @@ in
       k8s = (merge-imports k8s);
     };
   };
+  services.vscode-server.enable = true;
   home.file = {
     ".vscode-server/extensions" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.vscode/extensions";

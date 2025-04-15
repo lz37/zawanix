@@ -9,20 +9,20 @@
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
 
-  i18n = {
+  i18n = rec {
     # Select internationalisation properties.
     defaultLocale = "zh_CN.UTF-8";
     extraLocaleSettings = {
-      LC_ADDRESS = "zh_CN.UTF-8";
-      LC_IDENTIFICATION = "zh_CN.UTF-8";
-      LC_MEASUREMENT = "zh_CN.UTF-8";
-      LC_MONETARY = "zh_CN.UTF-8";
-      LC_NAME = "zh_CN.UTF-8";
-      LC_NUMERIC = "zh_CN.UTF-8";
-      LC_PAPER = "zh_CN.UTF-8";
-      LC_TELEPHONE = "zh_CN.UTF-8";
-      LC_TIME = "zh_CN.UTF-8";
-      LC_ALL = "zh_CN.UTF-8";
+      LC_ADDRESS = defaultLocale;
+      LC_IDENTIFICATION = defaultLocale;
+      LC_MEASUREMENT = defaultLocale;
+      LC_MONETARY = defaultLocale;
+      LC_NAME = defaultLocale;
+      LC_NUMERIC = defaultLocale;
+      LC_PAPER = defaultLocale;
+      LC_TELEPHONE = defaultLocale;
+      LC_TIME = defaultLocale;
+      LC_ALL = defaultLocale;
       LANGUAGE = "zh_CN:zh:en_US:en";
     };
   };

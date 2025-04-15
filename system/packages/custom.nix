@@ -8,7 +8,7 @@
     (writeScriptBin "updatenixos" ''
       #!${pkgs.bash}/bin/bash
       ${pkgs.nix}/bin/nix flake update --flake ${(import ../../options/variable-pub.nix).path.cfgRoot}
-      sudo ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --impure --keep-going --fallback
+      ${pkgs.nh}/bin/nh os switch ${(import ../../options/variable-pub.nix).path.cfgRoot} -- --impure --keep-going --fallback
     '')
   ];
 }

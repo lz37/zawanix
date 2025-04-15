@@ -20,5 +20,6 @@
       plasmusic-toolbar
       vscode-runner
       krunner-translator
+      application-title-bar
     ]);
 }
