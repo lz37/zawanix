@@ -14,7 +14,8 @@
     ./fonts
     ./winapps
     ./podman.nix
-    ./theme.nix
+    ./icon.nix
+    ./plasma
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;
