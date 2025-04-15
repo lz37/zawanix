@@ -41,7 +41,8 @@
     };
     # gc
     gc = {
-      automatic = true;
+      # programs.nh.clean.enable and nix.gc.automatic are both enabled. Please use one or the other to avoid conflict.
+      automatic = false;
       dates = "03:00";
       options = "--delete-older-than 5d";
     };

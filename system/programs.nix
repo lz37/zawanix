@@ -58,6 +58,14 @@
       enable = true;
       enableSSHSupport = true;
     };
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
+      };
+      flake = (import ../options/variable-pub.nix).path.cfgRoot;
+    };
     mtr.enable = true;
     appimage = {
       enable = true;

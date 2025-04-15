@@ -14,7 +14,10 @@
         environment = {
           RPC_SECRET = "aria2-pro";
           RPC_PORT = "6800";
-          LISTEN_PORT = "6888";
+          # no need for aria2 bt
+          # LISTEN_PORT = "6888";
+          UPDATE_TRACKERS = "false";
+          DISK_CACHE = "256M";
           IPV6_MODE = "true";
           PUID = "0";
           PGID = "0";

@@ -55,5 +55,6 @@
     distrobox
     mihomo
     termsonic
+    comma
   ];
 }
