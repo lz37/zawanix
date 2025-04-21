@@ -36,7 +36,7 @@
       teams-for-linux
       figma-linux
       microsoft-edge
-      jamesdsp
+      stable.jamesdsp
       freerdp3
       podman-desktop
       google-chrome
