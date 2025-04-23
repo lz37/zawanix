@@ -8,6 +8,7 @@
     ./history.nix
     ./oh-my-zsh.nix
     ./zplug.nix
+    ./initContent
   ];
   programs.zsh = {
     enable = true;
