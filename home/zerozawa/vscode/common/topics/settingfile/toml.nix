@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    tamasfe.even-better-toml
+  extensions = pkgs.nix4vscode.forVscode [
+    "tamasfe.even-better-toml"
   ];
   settings = {
     "[toml]" = {

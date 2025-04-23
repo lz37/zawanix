@@ -1,7 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    github.vscode-github-actions
+  extensions = pkgs.nix4vscode.forVscode [
+    "github.vscode-github-actions"
+    "gitlab.gitlab-workflow"
   ];
 }

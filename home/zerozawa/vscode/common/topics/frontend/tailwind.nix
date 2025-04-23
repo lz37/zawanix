@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    bradlc.vscode-tailwindcss
+  extensions = pkgs.nix4vscode.forVscode [
+    "bradlc.vscode-tailwindcss"
   ];
 }

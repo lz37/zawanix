@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    jetpack-io.devbox
+  extensions = pkgs.nix4vscode.forVscode [
+    "jetpack-io.devbox"
   ];
   settings = {
     "devbox.autoShellOnTerminal" = false;

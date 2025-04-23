@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-extensions; [
-    ms-vsliveshare.vsliveshare
+  extensions = pkgs.nix4vscode.forVscode [
+    "ms-vsliveshare.vsliveshare"
   ];
 }

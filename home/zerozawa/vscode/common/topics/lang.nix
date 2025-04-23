@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    ms-ceintl.vscode-language-pack-zh-hans
+  extensions = pkgs.nix4vscode.forVscode [
+    "ms-ceintl.vscode-language-pack-zh-hans"
   ];
 }

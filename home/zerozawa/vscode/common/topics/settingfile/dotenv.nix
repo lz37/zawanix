@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    mikestead.dotenv
+  extensions = pkgs.nix4vscode.forVscode [
+    "mikestead.dotenv"
   ];
 }

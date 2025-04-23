@@ -4,7 +4,7 @@
   imports = [
     ../../options
     ./programs.nix
-    ./zsh.nix
+    ./zsh
     ./services.nix
     ./xdg.nix
     ./neovim.nix

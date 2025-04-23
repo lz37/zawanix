@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    ms-kubernetes-tools.vscode-kubernetes-tools
+  extensions = pkgs.nix4vscode.forVscode [
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
   ];
 }

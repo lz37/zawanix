@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    redhat.vscode-yaml
+  extensions = pkgs.nix4vscode.forVscode [
+    "redhat.vscode-yaml"
   ];
   settings = {
     "[yaml]" = {

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    styled-components.vscode-styled-components
+  extensions = pkgs.nix4vscode.forVscode [
+    "styled-components.vscode-styled-components"
   ];
 }

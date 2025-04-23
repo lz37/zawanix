@@ -1,10 +1,10 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    yzhang.markdown-all-in-one
+  extensions = pkgs.nix4vscode.forVscode [
+    "yzhang.markdown-all-in-one"
     # shd101wyy.markdown-preview-enhanced
-    davidanson.vscode-markdownlint
+    "davidanson.vscode-markdownlint"
   ];
   settings = {
     # markdown-preview-enhanced.previewTheme = "atom-dark.css";

@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    eamodio.gitlens
+  extensions = pkgs.nix4vscode.forVscode [
+    "eamodio.gitlens"
   ];
   settings = {
     "gitlens.launchpad.indicator.enabled" = false;

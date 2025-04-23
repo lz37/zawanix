@@ -1,13 +1,13 @@
 { pkgs, commonVSCVars, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    usernamehw.errorlens
-    fisheva.eva-theme
-    pkief.material-icon-theme
-    oderwat.indent-rainbow
-    naumovs.color-highlight
-    adpyke.codesnap
+  extensions = pkgs.nix4vscode.forVscode [
+    "usernamehw.errorlens"
+    "fisheva.eva-theme"
+    "pkief.material-icon-theme"
+    "oderwat.indent-rainbow"
+    "naumovs.color-highlight"
+    "adpyke.codesnap"
   ];
   settings = {
     "accessibility.signalOptions.volume" = 0;

@@ -25,7 +25,10 @@
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     hyprland.url = "github:hyprwm/Hyprland";
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix4vscode = {
+      url = "github:nix-community/nix4vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +48,7 @@
       vscode-server,
       nix-alien,
       nur,
-      vscode-extensions,
+      nix4vscode,
       nixos-hardware,
       ...
     }@inputs:
@@ -90,7 +93,7 @@
                           allowUnfree = true;
                         };
                         overlays = [
-                          vscode-extensions.overlays.default
+                          nix4vscode.overlays.forVscode
                           (final: prev: {
                             # 启用 NUR
                             nur = import nur {

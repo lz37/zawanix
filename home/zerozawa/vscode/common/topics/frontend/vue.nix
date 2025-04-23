@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.vscode-marketplace; [
-    vue.volar
+  extensions = pkgs.nix4vscode.forVscode [
+    "vue.volar"
   ];
 }
