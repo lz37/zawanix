@@ -56,5 +56,6 @@
     mihomo
     termsonic
     comma
+    teleport.client
   ];
 }
