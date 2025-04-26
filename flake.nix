@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-teleport.url = "github:NixOS/nixpkgs/67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +42,7 @@
     nix-health.url = "github:juspay/nix-health?dir=module";
     flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
   };
 
   outputs =
@@ -53,6 +55,7 @@
       imports = [
         inputs.treefmt-nix.flakeModule
         inputs.nix-health.flakeModule
+        inputs.git-hooks-nix.flakeModule
       ];
       systems = lib.systems.flakeExposed;
       perSystem =
@@ -181,6 +184,7 @@
                   fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
                 in
                 ''
+                  ${config.pre-commit.installationScript}
                   if [ ! -d "${vscodeDir}" ]; then
                     ${pkgs.coreutils}/bin/mkdir ${vscodeDir}
                   fi
@@ -227,17 +231,24 @@
                   }' > ${vscodeDir}/settings.json
                 '';
               packages = with pkgs; [
-                nixfmt-rfc-style
-                inputs.nil.outputs.packages.${system}.nil
                 nix-health
               ];
             }
           );
+          pre-commit = {
+            settings = {
+              hooks = {
+                treefmt = {
+                  enable = true;
+                };
+              };
+            };
+          };
           # run by `nix fmt`
           treefmt = {
             projectRootFile = "flake.nix";
             programs = {
-              nixfmt-rfc-style.enable = true;
+              nixfmt.enable = true;
               shellcheck.enable = true;
             };
           };

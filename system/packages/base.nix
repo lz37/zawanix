@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 
@@ -55,6 +56,6 @@
     mihomo
     termsonic
     comma
-    teleport.client
+    inputs.nixpkgs-teleport.legacyPackages.${stdenv.hostPlatform.system}.teleport
   ];
 }
