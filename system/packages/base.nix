@@ -9,7 +9,6 @@
     nettools
     busybox
     tcping-go
-    mysql80
     lua
     ffmpeg
     rar

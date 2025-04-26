@@ -1,4 +1,4 @@
-{ pkgs,config, ... }:
+{ pkgs, config, ... }:
 {
   extensions = pkgs.nix4vscode.forVscode [
     "inlang.vs-code-extension"
