@@ -174,50 +174,58 @@
               inputsFrom = [
                 config.nix-health.outputs.devShell
               ];
-              shellHook = ''
-                echo '${
-                  builtins.toJSON {
-                    "nix.enableLanguageServer" = true;
-                    "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-                    "nix.serverSettings" = {
-                      "nil" = {
-                        "formatting" = {
-                          "command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-                        };
-                        "maxMemoryMB" = 4096;
-                        "nix" = {
-                          "autoArchive" = true;
-                          "autoEvalInputs" = true;
-                          "nixpkgsInputName" = "nixpkgs";
-                        };
-                      };
-                      "nixd" = {
-                        "nixpkgs" = {
-                          "expr" =
-                            "import (builtins.getFlake \"${(import ./options/variable-pub.nix).path.cfgRoot}\").inputs.nixpkgs { }";
-                        };
-                        "formatting" = {
-                          # Which command you would like to do formatting
-                          "command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-                        };
-                        "options" = {
-                          # Map of eval information
-                          # If this is omitted, default search path (<nixpkgs>) will be used.
-                          "nixos" = {
-                            # This name "nixos" could be arbitrary.
-                            # The expression to eval, interpret it as option declarations.
-                            "expr" =
-                              "(builtins.getFlake \"${(import ./options/variable-pub.nix).path.cfgRoot}\").legacyPackages.${system}.nixosConfigurations.${lib.trim (builtins.readFile /etc/hostname)}.options";
+              shellHook =
+                let
+                  inherit ((import ./options/variable-pub.nix).path) cfgRoot;
+                  vscodeDir = "${cfgRoot}/.vscode";
+                  fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+                in
+                ''
+                  if [ ! -d "${vscodeDir}" ]; then
+                    ${pkgs.coreutils}/bin/mkdir ${vscodeDir}
+                  fi
+                  ${pkgs.coreutils}/bin/echo '${
+                    builtins.toJSON {
+                      "nix.enableLanguageServer" = true;
+                      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+                      "nix.serverSettings" = {
+                        "nil" = {
+                          "formatting" = {
+                            "command" = [ fmt ];
                           };
-                          "flake-parts" = {
-                            "expr" = "(builtins.getFlake \"/etc/nixos\").debug.options";
+                          "maxMemoryMB" = 4096;
+                          "nix" = {
+                            "autoArchive" = true;
+                            "autoEvalInputs" = true;
+                            "nixpkgsInputName" = "nixpkgs";
                           };
                         };
+                        "nixd" = {
+                          "nixpkgs" = {
+                            "expr" = "import (builtins.getFlake \"${cfgRoot}\").inputs.nixpkgs { }";
+                          };
+                          "formatting" = {
+                            # Which command you would like to do formatting
+                            "command" = [ fmt ];
+                          };
+                          "options" = {
+                            # Map of eval information
+                            # If this is omitted, default search path (<nixpkgs>) will be used.
+                            "nixos" = {
+                              # This name "nixos" could be arbitrary.
+                              # The expression to eval, interpret it as option declarations.
+                              "expr" =
+                                "(builtins.getFlake \"${cfgRoot}\").legacyPackages.${system}.nixosConfigurations.${lib.trim (builtins.readFile /etc/hostname)}.options";
+                            };
+                            "flake-parts" = {
+                              "expr" = "(builtins.getFlake \"/etc/nixos\").debug.options";
+                            };
+                          };
+                        };
                       };
-                    };
-                  }
-                }' > ${(import ./options/variable-pub.nix).path.cfgRoot}/.vscode/settings.json
-              '';
+                    }
+                  }' > ${vscodeDir}/settings.json
+                '';
               packages = with pkgs; [
                 nixfmt-rfc-style
                 inputs.nil.outputs.packages.${system}.nil
