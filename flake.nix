@@ -174,9 +174,6 @@
           };
           devShells.default = (
             pkgs.mkShell {
-              inputsFrom = [
-                config.nix-health.outputs.devShell
-              ];
               shellHook =
                 let
                   inherit ((import ./options/variable-pub.nix).path) cfgRoot;
@@ -184,6 +181,7 @@
                   fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
                 in
                 ''
+                  ${config.nix-health.outputs.devShell.shellHook}
                   ${config.pre-commit.installationScript}
                   if [ ! -d "${vscodeDir}" ]; then
                     ${pkgs.coreutils}/bin/mkdir ${vscodeDir}
@@ -191,7 +189,7 @@
                   ${pkgs.coreutils}/bin/echo '${
                     builtins.toJSON {
                       "nix.enableLanguageServer" = true;
-                      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+                      "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
                       "nix.serverSettings" = {
                         "nil" = {
                           "formatting" = {
