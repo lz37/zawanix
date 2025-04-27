@@ -15,7 +15,5 @@ in
     fi
     ${pkgs.coreutils}/bin/mkdir -p ${fonts-dir}
     ${pkgs.coreutils}/bin/cp /run/current-system/sw/share/X11/fonts/* ${fonts-dir}/
-    ${pkgs.coreutils}/bin/chmod 544 ${fonts-dir}
-    ${pkgs.coreutils}/bin/chmod 444 ${fonts-dir}/*
   '';
 }
