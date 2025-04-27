@@ -11,7 +11,6 @@
     ./vscode
     ./hyprland
     ./tmux.nix
-    ./fonts
     ./winapps
     ./podman.nix
     ./icon.nix

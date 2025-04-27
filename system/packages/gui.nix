@@ -19,11 +19,11 @@
       android-studio
       rio
       # office
-      # onlyoffice-bin
+      onlyoffice-desktopeditors
       # calibre
       wpsoffice-cn
+      libreoffice-qt6-fresh
       drawio
-      # libreoffice-qt
       jellyfin-media-player
       feishin
       gimp

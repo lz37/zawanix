@@ -189,7 +189,8 @@
                   ${pkgs.coreutils}/bin/echo '${
                     builtins.toJSON {
                       "nix.enableLanguageServer" = true;
-                      "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
+                      # "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
+                      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
                       "nix.serverSettings" = {
                         "nil" = {
                           "formatting" = {

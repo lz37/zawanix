@@ -21,6 +21,7 @@
     ./fs.nix
     ./hyprland.nix
     ./sddm
+    ./fonts
   ];
   system.stateVersion = (import ../options/variable-pub.nix).version.nixos;
 
