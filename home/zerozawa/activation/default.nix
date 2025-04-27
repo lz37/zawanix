@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ../install-fonts.nix
+    ./install-fonts.nix
   ];
 }

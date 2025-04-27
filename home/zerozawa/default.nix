@@ -15,6 +15,7 @@
     ./podman.nix
     ./icon.nix
     ./plasma
+    ./activation
   ];
   home = {
     stateVersion = (import ../../options/variable-pub.nix).version.hm;

@@ -9,7 +9,7 @@ let
 in
 
 {
-  home.activation.install-fonts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.install-fonts = lib.hm.dag.entryAfter [ "installPackages" ] ''
     if [ -d "${fonts-dir}" ]; then
       ${pkgs.coreutils}/bin/rm -rf ${fonts-dir}
     fi
