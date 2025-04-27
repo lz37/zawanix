@@ -56,6 +56,6 @@
     mihomo
     termsonic
     comma
-    inputs.nixpkgs-teleport.legacyPackages.${stdenv.hostPlatform.system}.teleport
+    inputs.nixpkgs-teleport.legacyPackages.${stdenv.hostPlatform.system}.teleport.client
   ];
 }
