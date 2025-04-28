@@ -134,6 +134,7 @@
                         ./hardware
                         ./network
                         ./system
+                        ./mihomo
                       ]
                       ++ (lib.optionals isIntelGPU [
                         inputs.nixos-hardware.nixosModules.common-gpu-intel

@@ -26,6 +26,8 @@ in
         code = str;
         public = str;
         downloads = str;
+        private = str;
+        mihomoCfg = str;
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
       network = {
@@ -48,6 +50,9 @@ in
         sherlock.userId = str;
         remote.SSH.remotePlatform = mkOptionType lib.types.raw;
       };
+      mihomo = {
+        subscribe = str;
+      };
     };
   };
 
@@ -64,6 +69,8 @@ in
         code = "${home}/code";
         public = "${home}/Public";
         downloads = "${home}/Downloads";
+        private = "${cfgRoot}/private";
+        mihomoCfg = "${private}/clash.yaml";
       };
       users = {
         zerozawa = {
