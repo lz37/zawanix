@@ -22,7 +22,7 @@
       settings = {
         auto_sync = true;
         sync_frequency = "5m";
-        sync_address = config.zerozawa.nixos.atuin.server;
+        sync_address = config.zerozawa.atuin.server;
         search_mode = "prefix";
       };
     };

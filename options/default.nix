@@ -10,9 +10,9 @@ in
 
 {
   # should be --impure
-  # imports = [
-  #   /etc/nixos/private
-  # ];
+  imports = [
+    /etc/nixos/private
+  ];
   options = {
     zerozawa = {
       version = {
@@ -46,15 +46,17 @@ in
       };
       vscode = {
         sherlock.userId = str;
-        remote.SSH.remotePlatform = mkOptionType lib.types.setType;
+        remote.SSH.remotePlatform = mkOptionType lib.types.raw;
       };
     };
   };
 
   config = {
     zerozawa = rec {
-      version.nixos = "25.05";
-      version.home-manager-version = version.nixos;
+      version = {
+        nixos = "25.05";
+        home-manager-version = version.nixos;
+      };
       path = rec {
         cfgRoot = "/etc/nixos";
         p10k = "${cfgRoot}/profile/.p10k.zsh";

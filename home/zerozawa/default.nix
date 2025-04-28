@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../../options
     ./programs.nix
     ./zsh
     ./services.nix

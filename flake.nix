@@ -102,6 +102,7 @@
                     inherit system specialArgs;
                     modules =
                       [
+                        ./options
                         {
                           nixpkgs = {
                             config = {
@@ -125,7 +126,6 @@
                           };
                         }
                         inputs.nix-flatpak.nixosModules.nix-flatpak
-                        ./options
                         inputs.nix-index-database.nixosModules.nix-index
                         { programs.nix-index-database.comma.enable = true; }
                         ./hardware
@@ -222,7 +222,7 @@
                                 "(builtins.getFlake \"${cfgRoot}\").legacyPackages.${system}.nixosConfigurations.${lib.trim (builtins.readFile /etc/hostname)}.options";
                             };
                             "flake-parts" = {
-                              "expr" = "(builtins.getFlake \"/etc/nixos\").debug.options";
+                              "expr" = "(builtins.getFlake \"${cfgRoot}\").debug.options";
                             };
                           };
                         };

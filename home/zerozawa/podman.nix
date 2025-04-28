@@ -28,7 +28,7 @@
         ];
         volumes = [
           "${config.zerozawa.path.cfgRoot}/profile/aria2-pro:/config"
-          "${config.zerozawa.path.path.downloads}:/downloads"
+          "${config.zerozawa.path.downloads}:/downloads"
         ];
       };
     };
