@@ -173,12 +173,11 @@
                 });
               };
           };
-          imports = [ ./options ];
           devShells.default = (
             pkgs.mkShell {
               shellHook =
                 let
-                  inherit (config.zerozawa.path) cfgRoot;
+                  inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
                   vscodeDir = "${cfgRoot}/.vscode";
                   fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
                 in

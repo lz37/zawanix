@@ -13,19 +13,19 @@ in
   # imports = [
   #   /etc/nixos/private
   # ];
-  options = rec {
+  options = {
     zerozawa = {
-      nixos = {
-        version = str;
+      version = {
+        nixos = str;
         home-manager-version = str;
-        path = {
-          cfgRoot = str;
-          p10k = str;
-          home = str;
-          code = str;
-          public = str;
-          downloads = str;
-        };
+      };
+      path = {
+        cfgRoot = str;
+        p10k = str;
+        home = str;
+        code = str;
+        public = str;
+        downloads = str;
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
       network = {
@@ -49,17 +49,12 @@ in
         remote.SSH.remotePlatform = mkOptionType lib.types.setType;
       };
     };
-    perSystem = lib.attrsets.zipAttrsWith (name: values: values) (
-      builtins.map (system: { ${system} = zerozawa; }) lib.lib.systems.flakeExposed
-    );
   };
 
   config = {
-    zerozawa = {
-      version = rec {
-        nixos = "25.05";
-        home-manager-version = nixos;
-      };
+    zerozawa = rec {
+      version.nixos = "25.05";
+      version.home-manager-version = version.nixos;
       path = rec {
         cfgRoot = "/etc/nixos";
         p10k = "${cfgRoot}/profile/.p10k.zsh";
