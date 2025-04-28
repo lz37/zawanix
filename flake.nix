@@ -146,6 +146,7 @@
                           home-manager.sharedModules = [
                             inputs.plasma-manager.homeManagerModules.plasma-manager
                             inputs.vscode-server.homeModules.default
+                            ./options
                           ];
                           home-manager.users.zerozawa = import ./home/zerozawa;
                           home-manager.extraSpecialArgs = specialArgs;
@@ -172,11 +173,12 @@
                 });
               };
           };
+          imports = [ ./options ];
           devShells.default = (
             pkgs.mkShell {
               shellHook =
                 let
-                  inherit ((import ./options/variable-pub.nix).path) cfgRoot;
+                  inherit (config.zerozawa.path) cfgRoot;
                   vscodeDir = "${cfgRoot}/.vscode";
                   fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
                 in
@@ -189,8 +191,8 @@
                   ${pkgs.coreutils}/bin/echo '${
                     builtins.toJSON {
                       "nix.enableLanguageServer" = true;
-                      # "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
-                      "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
+                      "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
+                      # "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
                       "nix.serverSettings" = {
                         "nil" = {
                           "formatting" = {

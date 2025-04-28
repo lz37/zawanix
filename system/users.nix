@@ -1,11 +1,12 @@
 {
+  config,
   pkgs,
   ...
 }:
 
 {
   users.users.zerozawa = {
-    uid = (import ../options/variable-pub.nix).users.zerozawa.uid;
+    uid = config.zerozawa.users.zerozawa.uid;
     isNormalUser = true;
     extraGroups = [
       "networkmanager"
@@ -45,7 +46,7 @@
         };
         public = {
           browseable = "yes";
-          path = (import ../options/variable-pub.nix).path.public;
+          path = config.zerozawa.path.public;
           "writable" = "yes";
           "guest ok" = "yes";
           "public" = "yes";

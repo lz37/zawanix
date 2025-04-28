@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   services.podman = {
@@ -27,8 +27,8 @@
           "--network=host"
         ];
         volumes = [
-          "${(import ../../options/variable-pub.nix).path.cfgRoot}/profile/aria2-pro:/config"
-          "${(import ../../options/variable-pub.nix).path.downloads}:/downloads"
+          "${config.zerozawa.path.cfgRoot}/profile/aria2-pro:/config"
+          "${config.zerozawa.path.path.downloads}:/downloads"
         ];
       };
     };

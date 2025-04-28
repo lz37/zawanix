@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   imports = [
@@ -18,6 +18,6 @@
     ./activation
   ];
   home = {
-    stateVersion = (import ../../options/variable-pub.nix).version.hm;
+    stateVersion = config.zerozawa.version.home-manager-version;
   };
 }

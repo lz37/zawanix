@@ -1,4 +1,5 @@
 {
+  config,
   ...
 }:
 {
@@ -23,6 +24,6 @@
     ./sddm
     ./fonts
   ];
-  system.stateVersion = (import ../options/variable-pub.nix).version.nixos;
+  system.stateVersion = config.zerozawa.version.nixos;
 
 }
