@@ -1,12 +1,11 @@
 {
-  config,
   lib,
   ...
 }:
 
 {
   programs.zsh = {
-    initContent = lib.After ''
+    initContent = lib.mkAfter ''
       hitokoto
     '';
   };
