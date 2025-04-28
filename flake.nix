@@ -67,6 +67,9 @@
           system,
           ...
         }:
+        let
+          inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
+        in
         {
           legacyPackages = {
             nixosConfigurations =
@@ -177,7 +180,6 @@
             pkgs.mkShell {
               shellHook =
                 let
-                  inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
                   vscodeDir = "${cfgRoot}/.vscode";
                   fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
                 in
