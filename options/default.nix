@@ -70,7 +70,7 @@ in
         public = "${home}/Public";
         downloads = "${home}/Downloads";
         private = "${cfgRoot}/private";
-        mihomoCfg = "${private}/clash.yaml";
+        mihomoCfg = "${cfgRoot}/profile/mihomo.yaml";
       };
       users = {
         zerozawa = {

@@ -232,6 +232,12 @@
                       };
                     }
                   }' > ${vscodeDir}/settings.json
+                  NO_FORMAT="\033[0m"
+                  F_BOLD="\033[1m"
+                  C_DEEPPINK1="\033[38;5;199m"
+                  F_DIM="\033[2m"
+                  C_ORANGE1="\033[38;5;214m"
+                  ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_DEEPPINK1}ご主人様っ''${NO_FORMAT}、Ciallo ''${F_DIM}''${C_ORANGE1}～(∠・ω< )⌒★!''${NO_FORMAT}"
                 '';
               packages = with pkgs; [
                 nix-health

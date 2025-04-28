@@ -7,6 +7,7 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
+    jq
     nettools
     busybox
     tcping-go
@@ -53,7 +54,6 @@
     cifs-utils
     cachix
     distrobox
-    mihomo
     termsonic
     comma
     inputs.nixpkgs-teleport.legacyPackages.${stdenv.hostPlatform.system}.teleport.client

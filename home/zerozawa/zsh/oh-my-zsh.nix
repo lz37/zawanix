@@ -12,6 +12,7 @@
         "git"
         "sudo"
         "thefuck"
+        "hitokoto"
         "z"
       ];
     };
