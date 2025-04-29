@@ -58,11 +58,12 @@
         name = "MesloLGS NF";
       };
       shellIntegration = {
+        mode = "no-cursor";
         enableZshIntegration = true;
       };
       themeFile = "Monokai_Soda";
       extraConfig = ''
-        wayland_titlebar_color background
+        include ${config.zerozawa.path.kitty}
       '';
     };
   };

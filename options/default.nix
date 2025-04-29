@@ -21,6 +21,7 @@ in
       };
       path = {
         cfgRoot = str;
+        profile = str;
         p10k = str;
         home = str;
         code = str;
@@ -28,6 +29,7 @@ in
         downloads = str;
         private = str;
         mihomoCfg = str;
+        kitty = str;
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
       network = {
@@ -64,13 +66,15 @@ in
       };
       path = rec {
         cfgRoot = "/etc/nixos";
-        p10k = "${cfgRoot}/profile/.p10k.zsh";
+        profile = "${cfgRoot}/profile";
+        p10k = "${profile}/.p10k.zsh";
         home = "/home/zerozawa";
         code = "${home}/code";
         public = "${home}/Public";
         downloads = "${home}/Downloads";
         private = "${cfgRoot}/private";
-        mihomoCfg = "${cfgRoot}/profile/mihomo.yaml";
+        mihomoCfg = "${profile}/mihomo.yaml";
+        kitty = "${profile}/kitty.conf";
       };
       users = {
         zerozawa = {
