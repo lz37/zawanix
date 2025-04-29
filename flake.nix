@@ -49,6 +49,7 @@
     inputs:
     let
       inherit (inputs.nixpkgs) lib;
+      colorsh = (import ./common/color.sh.nix);
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
@@ -69,7 +70,6 @@
         }:
         let
           inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
-          color = (import ./common/color.sh.nix);
         in
         {
           legacyPackages = {
@@ -101,6 +101,7 @@
                         isLaptop
                         useTmpfs
                         ram
+                        colorsh
                         ;
                     };
                   in
@@ -236,7 +237,14 @@
                       };
                     }
                   }' > ${vscodeDir}/settings.json
-                  ${pkgs.coreutils}/bin/echo -e "${color.F_BOLD (color.C_GOLD3 "𝔡𝔦𝔯𝔢𝔫𝔳")}${color.F_UNDERLINED (color.C_MAGENTA3 "魔導結界")}・${color.F_BOLD (color.C_DODGERBLUE1 "異空覚醒！")}${color.F_DIM (color.C_ORANGE1 "(ﾟ▽ﾟ*)ﾉ⌒☆")}"
+                  ${pkgs.coreutils}/bin/echo -e "${
+                    colorsh.utils.chunibyo.gothic.kaomoji.unicode {
+                      gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
+                      scope = "魔導結界";
+                      action = "異空覚醒";
+                      kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
+                    }
+                  }"
                 '';
               packages = with pkgs; [
                 nix-health

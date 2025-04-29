@@ -17,15 +17,7 @@
       "libvirtd"
       "adbusers"
     ];
-    shell = "${(pkgs.writeScriptBin "choose-shell" ''
-      #!${pkgs.bash}/bin/bash
-      if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        SHELL="${pkgs.zsh}/bin/zsh";
-      else
-        SHELL="${pkgs.tmux}/bin/tmux";
-      fi
-      exec "$SHELL" "$@"
-    '')}/bin/choose-shell";
+    shell = "${pkgs.zsh}/bin/zsh";
   };
   services = {
     samba-wsdd.enable = true;

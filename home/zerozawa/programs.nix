@@ -51,7 +51,20 @@
         };
       };
     };
-    kitty.enable = true;
+    kitty = {
+      enable = true;
+      font = {
+        package = pkgs.meslo-lgs-nf;
+        name = "MesloLGS NF";
+      };
+      shellIntegration = {
+        enableZshIntegration = true;
+      };
+      themeFile = "Monokai_Soda";
+      extraConfig = ''
+        wayland_titlebar_color background
+      '';
+    };
   };
 
 }

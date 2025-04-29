@@ -9,11 +9,11 @@
     };
     containers = {
       winapps = {
-        autoStart = true;
+        autoStart = false;
         environment = {
           VERSION = "11";
           RAM_SIZE = "4G"; # RAM allocated to the Windows VM.
-          CPU_CORES = "2"; # CPU cores allocated to the Windows VM.
+          CPU_CORES = "4"; # CPU cores allocated to the Windows VM.
           DISK_SIZE = "64G"; # Size of the primary hard disk.
           #DISK2_SIZE: "32G" # Uncomment to add an additional hard disk to the Windows VM. Ensure it is mounted as a volume below.
           USERNAME = "zerozawa"; # Edit here to set a custom Windows username. The default is 'MyWindowsUser'.
@@ -24,12 +24,14 @@
         image = "ghcr.io/dockur/windows:latest";
         addCapabilities = [ "NET_ADMIN" ];
         volumes = [
-          "winapps-data:/storage"
+          "winappsdata:/storage"
           "${config.home.homeDirectory}:/shared"
         ];
         extraPodmanArgs = [
           "--device"
           "/dev/kvm"
+          "--device"
+          "/dev/net/tun"
           "--stop-timeout"
           "120"
         ];

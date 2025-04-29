@@ -6,7 +6,6 @@
 {
   environment.systemPackages =
     (with pkgs.kdePackages; [
-      yakuake
       kdecoration
       isoimagewriter
       applet-window-buttons6
