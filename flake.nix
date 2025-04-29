@@ -69,6 +69,7 @@
         }:
         let
           inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
+          color = (import ./common/color.sh.nix);
         in
         {
           legacyPackages = {
@@ -235,12 +236,7 @@
                       };
                     }
                   }' > ${vscodeDir}/settings.json
-                  NO_FORMAT="\033[0m"
-                  F_BOLD="\033[1m"
-                  C_DEEPPINK1="\033[38;5;199m"
-                  F_DIM="\033[2m"
-                  C_ORANGE1="\033[38;5;214m"
-                  ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_DEEPPINK1}ご主人様っ''${NO_FORMAT}、Ciallo ''${F_DIM}''${C_ORANGE1}～(∠・ω< )⌒★!''${NO_FORMAT}"
+                  ${pkgs.coreutils}/bin/echo -e "${color.F_BOLD (color.C_GOLD3 "𝔡𝔦𝔯𝔢𝔫𝔳")}${color.F_UNDERLINED (color.C_MAGENTA3 "魔導結界")}・${color.F_BOLD (color.C_DODGERBLUE1 "異空覚醒！")}${color.F_DIM (color.C_ORANGE1 "(ﾟ▽ﾟ*)ﾉ⌒☆")}"
                 '';
               packages = with pkgs; [
                 nix-health

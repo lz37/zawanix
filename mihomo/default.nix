@@ -6,16 +6,7 @@
   ...
 }:
 let
-  color.sh = ''
-    NO_FORMAT="\033[0m"
-    F_BOLD="\033[1m"
-    F_DIM="\033[2m"
-    F_UNDERLINED="\033[4m"
-    C_GOLD3="\033[38;5;142m"
-    C_ORANGE1="\033[38;5;214m"
-    C_MAGENTA3="\033[38;5;127m"
-    C_DODGERBLUE1="\033[38;5;33m"
-  '';
+  color = (import ../common/color.sh.nix);
   external-controller = "127.0.0.1:9090";
   tunChanger = enable: ''
     #!${pkgs.bash}/bin/bash
