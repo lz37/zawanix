@@ -1,31 +1,70 @@
 {
   config,
   pkgs,
+  lib,
+  isLaptop,
   ...
 }:
-{
-  environment.systemPackages = with pkgs; [
-    (writeScriptBin "subscribe.mihomo" ''
-      #!${pkgs.bash}/bin/bash
-      ${pkgs.curl}/bin/curl -L -o ${config.zerozawa.path.mihomoCfg} "${config.zerozawa.mihomo.subscribe}"
-      ${pkgs.yq}/bin/yq -i '.tun.enable = false' -y ${config.zerozawa.path.mihomoCfg}
-      sudo systemctl restart mihomo.service
-      NO_FORMAT="\033[0m"
-      F_BOLD="\033[1m"
-      C_DEEPPINK1="\033[38;5;199m"
-      F_UNDERLINED="\033[4m"
-      F_DIM="\033[2m"
-      C_RED="\033[38;5;9m"
-      C_YELLOW2="\033[48;5;190m"
-      C_ORANGE1="\033[38;5;214m"
-      ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_DEEPPINK1}ご主人様っ''${NO_FORMAT}、''${F_UNDERLINED}''${F_BOLD}''${F_DIM}''${C_RED}''${C_YELLOW2}Tunモード''${NO_FORMAT}停止しちゃいましたぁ''${F_DIM}''${C_ORANGE1}～♪(｡•̀ᴗ-)✧''${NO_FORMAT}"
-    '')
-  ];
-  services.mihomo = {
-    package = pkgs.mihomo;
-    tunMode = true;
-    enable = true;
-    webui = pkgs.metacubexd;
-    configFile = config.zerozawa.path.mihomoCfg;
+let
+  color.sh = ''
+    NO_FORMAT="\033[0m"
+    F_BOLD="\033[1m"
+    F_DIM="\033[2m"
+    F_UNDERLINED="\033[4m"
+    C_GOLD3="\033[38;5;142m"
+    C_ORANGE1="\033[38;5;214m"
+    C_MAGENTA3="\033[38;5;127m"
+    C_DODGERBLUE1="\033[38;5;33m"
+  '';
+  external-controller = "127.0.0.1:9090";
+  tunChanger = enable: ''
+    #!${pkgs.bash}/bin/bash
+    ${color.sh}
+    ${pkgs.curl}/bin/curl -H "Content-Type: application/json" -X PATCH -d '{"tun":{"enable":${lib.boolToString enable}}}' http://${external-controller}/configs
+    ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_GOLD3}𝔪𝔦𝔥𝔬𝔪𝔬''${NO_FORMAT}${
+      if enable then
+        ''
+          ''${F_UNDERLINED}''${C_MAGENTA3}霊子通路''${NO_FORMAT}・''${F_BOLD}''${C_DODGERBLUE1}次元門展開！''${NO_FORMAT}''${F_DIM}''${C_ORANGE1}( *¯ ³¯*)♡🌀''${NO_FORMAT}
+        ''
+      else
+        ''
+          ''${F_UNDERLINED}''${C_MAGENTA3}虚数回廊''${NO_FORMAT}・''${F_BOLD}''${C_DODGERBLUE1}強制封印！''${NO_FORMAT}''${F_DIM}''${C_ORANGE1}( ´Д\`)ﾉ≡💢🔒''${NO_FORMAT}
+        ''
+    }"
+  '';
+
+  mihomo = {
+    tun.open = (pkgs.writeScriptBin "mihomo.tun.open" (tunChanger true));
+    tun.close = (pkgs.writeScriptBin "mihomo.tun.close" (tunChanger false));
+    subscribe = (
+      pkgs.writeScriptBin "mihomo.subscribe" ''
+        #!${pkgs.bash}/bin/bash
+        ${color.sh}
+        ${pkgs.curl}/bin/curl -L -o ${config.zerozawa.path.mihomoCfg} "${config.zerozawa.mihomo.subscribe}"
+        ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_GOLD3}𝔪𝔦𝔥𝔬𝔪𝔬''${NO_FORMAT}''${F_UNDERLINED}''${C_MAGENTA3}魔導儀式書''${NO_FORMAT}・''${F_BOLD}''${C_DODGERBLUE1}完全降臨！''${NO_FORMAT}''${F_DIM}''${C_ORANGE1}( ✧Д✧)☛✨''${NO_FORMAT}"
+        ${pkgs.yq}/bin/yq -i '.tun.enable = false' -y ${config.zerozawa.path.mihomoCfg}
+        ${pkgs.yq}/bin/yq -i '."external-controller"="${external-controller}"' -y ${config.zerozawa.path.mihomoCfg}
+        ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_GOLD3}𝔪𝔦𝔥𝔬𝔪𝔬''${NO_FORMAT}''${F_UNDERLINED}''${C_MAGENTA3}禁忌結界''${NO_FORMAT}・''${F_BOLD}''${C_DODGERBLUE1}再構成完了！''${NO_FORMAT}''${F_DIM}''${C_ORANGE1}(‘∇’)ﾉ⌒☆爆''${NO_FORMAT}"
+        sudo systemctl restart mihomo.service
+        ${pkgs.coreutils}/bin/echo -e "''${F_BOLD}''${C_GOLD3}𝔪𝔦𝔥𝔬𝔪𝔬''${NO_FORMAT}''${F_UNDERLINED}''${C_MAGENTA3}蘇生儀式''${NO_FORMAT}・''${F_BOLD}''${C_DODGERBLUE1}全霊展開！''${NO_FORMAT}''${F_DIM}''${C_ORANGE1}( *´艸\`)ﾉ≡▦''${NO_FORMAT}"
+      ''
+    );
   };
-}
+in
+if isLaptop then
+  {
+    environment.systemPackages = with mihomo; [
+      subscribe
+      tun.open
+      tun.close
+    ];
+    services.mihomo = {
+      package = pkgs.mihomo;
+      tunMode = true;
+      enable = true;
+      webui = pkgs.zashboard;
+      configFile = config.zerozawa.path.mihomoCfg;
+    };
+  }
+else
+  { }

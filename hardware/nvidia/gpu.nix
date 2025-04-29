@@ -2,6 +2,7 @@
   config,
   isIntelGPU,
   isAmdGPU,
+  isLaptop,
   ...
 }:
 
@@ -38,7 +39,7 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.production;
     prime = {
-      sync.enable = isIntelGPU || isAmdGPU;
+      sync.enable = (isIntelGPU || isAmdGPU) && isLaptop;
     };
   };
 }

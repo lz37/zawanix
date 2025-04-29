@@ -82,6 +82,7 @@
                     isIntelCPU ? false,
                     isAmdGPU ? false,
                     isVM ? false,
+                    isLaptop ? false,
                     useTmpfs ? false,
                     extraModules ? [ ],
                     ram ? 8 * 1024,
@@ -96,6 +97,7 @@
                         isIntelGPU
                         isAmdGPU
                         isVM
+                        isLaptop
                         useTmpfs
                         ram
                         ;
@@ -172,6 +174,7 @@
                   isIntelGPU = true;
                   isNvidiaGPU = true;
                   useTmpfs = false;
+                  isLaptop = true;
                   hostName = "zawanix-glap";
                   ram = 16 * 1024;
                 });
