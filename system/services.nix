@@ -20,6 +20,7 @@
       };
     };
     xrdp = {
+      port = 33389;
       enable = true;
       defaultWindowManager = "startplasma-x11";
       openFirewall = true;

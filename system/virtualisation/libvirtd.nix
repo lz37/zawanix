@@ -4,6 +4,10 @@
 }:
 
 {
+  environment.systemPackages = with pkgs; [
+    quickemu
+    quickgui
+  ];
 
   virtualisation = {
     # kvm

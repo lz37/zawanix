@@ -1,6 +1,7 @@
 {
   isNvidiaGPU,
   lib,
+  pkgs,
   ...
 }:
 
@@ -9,6 +10,10 @@
   imports = [
     ./oci-containers.nix
   ] ++ (lib.optionals isNvidiaGPU [ ./nvidia-container-toolkit.nix ]);
+
+  environment.systemPackages = with pkgs; [
+    crun
+  ];
 
   virtualisation = {
     containers.enable = true;
