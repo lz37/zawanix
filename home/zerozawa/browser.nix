@@ -1,13 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs = {
     chromium = {
       enable = true;
-      commandLineArgs = [
-        "--enable-features=UseOzonePlatform"
-        "--ozone-platform=wayland"
-        "--enable-wayland-ime"
-      ];
       dictionaries = [
         pkgs.hunspellDictsChromium.en_US
       ];
@@ -29,6 +24,29 @@
         { id = "bgejgfcdaicmfbfphchgcdgnpnbcondb"; } # 扩展管理器
         { id = "gcalenpjmijncebpfijmoaglllgpjagf"; } # 篡改猴测试版
       ];
+    };
+    firefox = {
+      enable = true;
+      languagePacks = [
+        "en-US"
+        "zh-CN"
+      ];
+      policies = {
+        DefaultDownloadDirectory = "${config.zerozawa.path.downloads}";
+      };
+      profiles.default = {
+        isDefault = true;
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          pakkujs
+          enhanced-github
+          aria2-integration
+          react-devtools
+          vue-js-devtools
+          violentmonkey
+          header-editor
+          immersive-translate
+        ];
+      };
     };
   };
 }

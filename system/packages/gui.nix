@@ -32,7 +32,6 @@
       boxbuddy
       teams-for-linux
       figma-linux
-      microsoft-edge
       stable.jamesdsp
       freerdp3
       podman-desktop
