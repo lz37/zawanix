@@ -8,6 +8,7 @@
     ./history.nix
     ./oh-my-zsh.nix
     ./zplug.nix
+    ./syntaxHighlighting.nix
     ./initContent
   ];
   programs.zsh = {
@@ -16,6 +17,5 @@
     historySubstringSearch.enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
   };
 }
