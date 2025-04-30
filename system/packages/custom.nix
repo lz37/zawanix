@@ -7,7 +7,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    (writeScriptBin "updatenixos" ''
+    (writeScriptBin "zawanix.upgrade" ''
       #!${pkgs.bash}/bin/bash
       ${pkgs.nix}/bin/nix flake update --flake ${config.zerozawa.path.cfgRoot}
 

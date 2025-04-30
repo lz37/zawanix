@@ -70,6 +70,13 @@
     obs-studio = {
       enable = true;
       enableVirtualCamera = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs # need for wayland
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+        obs-vaapi
+        droidcam-obs
+      ];
     };
   };
 }

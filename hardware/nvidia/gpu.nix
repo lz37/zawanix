@@ -3,12 +3,14 @@
   isIntelGPU,
   isAmdGPU,
   isLaptop,
+  pkgs,
   ...
 }:
 
 {
   hardware.graphics = {
     enable = true;
+    extraPackages = with pkgs; [ nvidia-vaapi-driver ];
   };
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   # Load nvidia driver for Xorg and Wayland
@@ -37,9 +39,17 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-    prime = {
-      sync.enable = (isIntelGPU || isAmdGPU) && isLaptop;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    prime = rec {
+      reverseSync = rec {
+        enable = (isIntelGPU || isAmdGPU) && isLaptop;
+        setupCommands.enable = enable;
+      };
+      offload = {
+        enable = reverseSync.enable;
+        enableOffloadCmd = reverseSync.enable;
+      };
     };
+    dynamicBoost.enable = isLaptop;
   };
 }

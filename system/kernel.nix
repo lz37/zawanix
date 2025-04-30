@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   isIntelCPU,
   isVM,
   lib,
