@@ -59,15 +59,19 @@
     kitty = {
       enable = true;
       font = {
-        package = pkgs.meslo-lgs-nf;
-        name = "MesloLGS NF";
+        # package = pkgs.meslo-lgs-nf;
+        # name = "MesloLGS NF";
+        package = pkgs.nerd-fonts.fira-code;
+        name = "FiraCode Nerd Font Mono";
       };
       shellIntegration = {
         mode = "no-cursor";
         enableZshIntegration = true;
+        enableBashIntegration = true;
       };
       themeFile = "Monokai_Soda";
       extraConfig = ''
+        shell ${pkgs.tmux}/bin/tmux
         include ${config.zerozawa.path.kitty}
       '';
     };

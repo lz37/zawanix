@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 {
   # fonts
@@ -10,6 +10,7 @@
     fontDir.enable = true;
     fontconfig = {
       enable = true;
+      cache32Bit = true;
       defaultFonts = {
         emoji = [ "Twitter Color Emoji" ];
         monospace = [ "meslo-lgs-nf" ];
@@ -31,6 +32,7 @@
       hack-font
       jetbrains-mono
       ubuntu_font_family
+      nerd-fonts.fira-code
       meslo-lgs-nf # Meslo Nerd Font patched for Powerlevel10k
       wqy_zenhei
       twemoji-color-font
