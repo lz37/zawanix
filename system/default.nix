@@ -17,7 +17,6 @@
     ./audio.nix
     ./bootloader.nix
     ./packages
-    ./flatpak.nix
     ./opengl.nix
     ./fs.nix
     ./hyprland.nix

@@ -9,7 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
       url = "github:nix-community/NUR";
@@ -132,7 +131,6 @@
                             ];
                           };
                         }
-                        inputs.nix-flatpak.nixosModules.nix-flatpak
                         inputs.nix-index-database.nixosModules.nix-index
                         { programs.nix-index-database.comma.enable = true; }
                         ./hardware

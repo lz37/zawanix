@@ -20,9 +20,6 @@
       rio
       # office
       onlyoffice-desktopeditors
-      # calibre
-      wpsoffice-cn
-      # libreoffice-qt6-fresh
       drawio
       jellyfin-media-player
       feishin

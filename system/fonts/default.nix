@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   # fonts
@@ -43,10 +43,11 @@
       comic-relief
       caladea
       carlito
-      winePackages.fonts
-      wineWowPackages.fonts
-      wine64Packages.fonts
       montserrat
+      nur.repos.novel2430.latex-chinese-fonts
+      nur.repos.chillcicada.ttf-ms-win10-sc-sup
+      nur.repos.mikilio.ttf-ms-fonts
+      winePackages.fonts
     ];
   };
 }
