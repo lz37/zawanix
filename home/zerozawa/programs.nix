@@ -71,7 +71,7 @@
       };
       themeFile = "Monokai_Soda";
       extraConfig = ''
-        shell ${pkgs.tmux}/bin/tmux
+        shell ${pkgs.zsh}/bin/zsh
         include ${config.zerozawa.path.kitty}
       '';
     };
