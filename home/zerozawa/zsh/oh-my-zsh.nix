@@ -11,7 +11,6 @@
         "extract"
         "git"
         "sudo"
-        "thefuck"
         "hitokoto"
         "z"
       ];

@@ -2,6 +2,11 @@
 
 {
   programs = {
+    thefuck = {
+      alias = "fk";
+      enable = true;
+      enableZshIntegration = true;
+    };
     lazygit.enable = true;
     command-not-found.enable = false;
     btop.enable = true;

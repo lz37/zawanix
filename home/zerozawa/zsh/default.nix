@@ -16,6 +16,15 @@
     autocd = true;
     historySubstringSearch.enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    dotDir = ".config/zsh";
+    enableVteIntegration = true;
+    autosuggestion = {
+      enable = true;
+      strategy = [
+        "history"
+        "completion"
+        "match_prev_cmd"
+      ];
+    };
   };
 }
