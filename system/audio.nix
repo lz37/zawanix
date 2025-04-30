@@ -15,7 +15,6 @@
       pulse.enable = true;
       socketActivation = true;
       jack.enable = true;
-      # If you want to use JACK applications, uncomment this
       wireplumber = {
         enable = true;
         extraConfig = {
