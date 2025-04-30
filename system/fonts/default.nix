@@ -50,6 +50,10 @@
       nur.repos.chillcicada.ttf-ms-win10-sc-sup
       nur.repos.mikilio.ttf-ms-fonts
       winePackages.fonts
+      lxgw-wenkai
+      lxgw-neoxihei
+      lxgw-fusionkai
+      lxgw-wenkai-screen
     ];
   };
 }
