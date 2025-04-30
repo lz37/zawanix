@@ -15,7 +15,7 @@
     ./icon.nix
     ./plasma
     ./activation
-    ./chromium.nix
+    ./browser.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;
