@@ -14,8 +14,8 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       socketActivation = true;
-      # If you want to use JACK applications, uncomment this
       jack.enable = true;
+      # If you want to use JACK applications, uncomment this
       wireplumber = {
         enable = true;
         extraConfig = {

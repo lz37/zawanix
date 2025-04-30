@@ -26,7 +26,6 @@
       gimp
       pinta
       vlc
-      obs-studio
       dbeaver-bin
       remmina
       boxbuddy

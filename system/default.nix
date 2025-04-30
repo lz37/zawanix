@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   ...
 }:
 {
@@ -22,6 +23,7 @@
     ./hyprland.nix
     ./sddm
     ./fonts
+    ./xdg-portal.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
 
