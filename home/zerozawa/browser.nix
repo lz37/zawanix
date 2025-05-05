@@ -1,5 +1,9 @@
 { pkgs, config, ... }:
 {
+  home.packages = [
+    # vscode debugger
+    pkgs.chromium
+  ];
   programs = {
     chromium = {
       enable = true;

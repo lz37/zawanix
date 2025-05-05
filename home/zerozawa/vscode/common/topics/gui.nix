@@ -21,7 +21,7 @@
       "rgba(255,125,0,0.07)"
       "rgba(255,0,0,0.07)"
     ];
-    "editor.fontFamily" = "Sarasa Mono CL";
+    "editor.fontFamily" = "Sarasa Mono SC";
     "editor.fontLigatures" = true;
     "editor.fontSize" = 16;
     "editor.inlineSuggest.enabled" = true;
@@ -36,14 +36,16 @@
     "editor.wrappingIndent" = "same";
     "explorer.confirmDelete" = false;
     "explorer.confirmDragAndDrop" = false;
-    "terminal.integrated.fontFamily" = "MesloLGS NF";
+    "terminal.integrated.fontFamily" =
+      "FiraCode Nerd Font Mono,MesloLGS NF,LXGW WenKai Mono,Source Han Mono";
+    "terminal.integrated.fontLigatures.enabled" = true;
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;
     "terminal.integrated.wordSeparators" = commonVSCVars.wordSeparatorsStr;
     "workbench.colorTheme" = "Eva Dark Italic";
     "workbench.iconTheme" = "material-icon-theme";
     "workbench.editor.wrapTabs" = true;
-    "workbench.externalBrowser" = "${pkgs.microsoft-edge}/bin/microsoft-edge";
+    "workbench.externalBrowser" = "${pkgs.brave}/bin/brave";
     "window.zoomLevel" = 1;
     "window.titleBarStyle" = "native";
     "window.customTitleBarVisibility" = "never";

@@ -7,6 +7,7 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
+    xsel
     jq
     nettools
     busybox

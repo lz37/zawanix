@@ -1,47 +1,43 @@
 {
-  description = "config of zerozawa's nix dev server";
+  description = "config of zerozawa's nix desktop";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixpkgs-teleport.url = "github:NixOS/nixpkgs/67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
+    nixpkgs.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-24.11";
+    nixpkgs-teleport.url = "github:NixOS/nixpkgs?shallow=1&rev=67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager?shallow=1&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware?shallow=1&ref=master";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
-      url = "github:nix-community/NUR";
+      url = "github:nix-community/NUR?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     winapps = {
-      url = "github:winapps-org/winapps";
+      url = "github:winapps-org/winapps?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
-      url = "github:Mic92/nix-index-database";
+      url = "github:Mic92/nix-index-database?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
-    hyprland.url = "github:hyprwm/Hyprland";
+    vscode-server.url = "github:nix-community/nixos-vscode-server?shallow=1";
+    hyprland.url = "github:hyprwm/Hyprland?shallow=1";
     nix4vscode = {
-      url = "github:nix-community/nix4vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix2container = {
-      url = "github:nlewo/nix2container";
+      url = "github:nix-community/nix4vscode?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
-      url = "github:nix-community/plasma-manager";
+      url = "github:nix-community/plasma-manager?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nil.url = "github:oxalica/nil";
-    nix-health.url = "github:juspay/nix-health?dir=module";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    nil.url = "github:oxalica/nil?shallow=1";
+    nix-health.url = "github:juspay/nix-health?dir=module&shallow=1";
+    flake-parts.url = "github:hercules-ci/flake-parts?shallow=1";
+    treefmt-nix.url = "github:numtide/treefmt-nix?shallow=1";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix?shallow=1";
   };
 
   outputs =

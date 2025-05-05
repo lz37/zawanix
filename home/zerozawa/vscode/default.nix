@@ -87,6 +87,23 @@ let
     (import ./common/topics/remote/devcontainer.nix)
   ];
   k8s = ssh ++ [ (import ./common/topics/k8s.nix) ];
+  xd =
+    base
+    ++ gui
+    ++ lang
+    ++ copilot
+    ++ gitlens
+    ++ [
+      (import ./common/topics/nix.nix)
+      (import ./common/topics/frontend/base.nix)
+      (import ./common/topics/ci-cd.nix)
+      (import ./common/topics/settingfile/yaml.nix)
+      (import ./common/topics/settingfile/xml.nix)
+      (import ./common/topics/remote/ssh.nix)
+      (import ./common/topics/docker.nix)
+      (import ./common/topics/dotnet.nix)
+      (import ./common/topics/frontend/vue.nix)
+    ];
 in
 {
   programs.vscode = {
@@ -104,6 +121,7 @@ in
       ssh = (merge-imports ssh);
       devcontainer = (merge-imports devcontainer);
       k8s = (merge-imports k8s);
+      xd = (merge-imports xd);
     };
   };
   services.vscode-server.enable = true;
