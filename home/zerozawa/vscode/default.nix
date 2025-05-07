@@ -33,6 +33,19 @@ let
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
     ];
+  rust =
+    base
+    ++ gui
+    ++ lang
+    ++ copilot
+    ++ gitlens
+    ++ [
+      (import ./common/topics/rust.nix)
+      (import ./common/topics/nix.nix)
+      (import ./common/topics/settingfile/toml.nix)
+      (import ./common/topics/remote/ssh.nix)
+      (import ./common/topics/markdown.nix)
+    ];
   tailwind =
     base
     ++ gui
@@ -104,6 +117,7 @@ in
       ssh = (merge-imports ssh);
       devcontainer = (merge-imports devcontainer);
       k8s = (merge-imports k8s);
+      rust = (merge-imports rust);
     };
   };
   services.vscode-server.enable = true;
