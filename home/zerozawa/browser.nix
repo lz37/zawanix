@@ -27,6 +27,7 @@
         { id = "nhdogjmejiglipccpnnnanhbledajbpd"; } # Vue.js devtools
         { id = "bgejgfcdaicmfbfphchgcdgnpnbcondb"; } # 扩展管理器
         { id = "gcalenpjmijncebpfijmoaglllgpjagf"; } # 篡改猴测试版
+        { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; } # uBlock Origin Lite (cr你m什么时候s啊)
       ];
     };
     firefox = {
