@@ -10,7 +10,6 @@
     ./vscode
     ./hyprland
     ./tmux.nix
-    ./winapps
     ./podman.nix
     ./icon.nix
     ./plasma

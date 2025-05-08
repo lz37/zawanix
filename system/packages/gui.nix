@@ -1,12 +1,12 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 
 {
-  environment.systemPackages =
-    (with pkgs; [
+  environment.systemPackages = (
+    with pkgs;
+    [
       burpsuite
       thunderbird
       qq
@@ -19,7 +19,7 @@
       android-studio
       rio
       # office
-      onlyoffice-desktopeditors
+      # onlyoffice-desktopeditors
       drawio
       jellyfin-media-player
       feishin
@@ -36,12 +36,9 @@
       podman-desktop
       # wine
       # support both 32- and 64-bit applications
-      # wineWowPackages.stagingFull
-      # winetricks
+      wineWowPackages.stagingFull
+      winetricks
       # protonplus
-    ])
-    ++ [
-      inputs.winapps.packages."${pkgs.stdenv.hostPlatform.system}".winapps
-      inputs.winapps.packages."${pkgs.stdenv.hostPlatform.system}".winapps-launcher # optional
-    ];
+    ]
+  );
 }

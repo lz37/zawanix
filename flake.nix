@@ -14,10 +14,6 @@
       url = "github:nix-community/NUR?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    winapps = {
-      url = "github:winapps-org/winapps?shallow=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       url = "github:Mic92/nix-index-database?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
