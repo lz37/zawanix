@@ -46,5 +46,6 @@ in
     update
     rebuild
     upgrade
+    (pkgs.callPackage ./build/picacg.nix { }).package
   ];
 }
