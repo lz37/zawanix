@@ -100,6 +100,10 @@ let
     (import ./common/topics/remote/devcontainer.nix)
   ];
   k8s = ssh ++ [ (import ./common/topics/k8s.nix) ];
+  xd = default ++ [
+    (import ./common/topics/ci-cd.nix)
+    (import ./common/topics/python.nix)
+  ];
 in
 {
   programs.vscode = {
@@ -118,6 +122,7 @@ in
       devcontainer = (merge-imports devcontainer);
       k8s = (merge-imports k8s);
       rust = (merge-imports rust);
+      xd = (merge-imports xd);
     };
   };
   services.vscode-server.enable = true;
