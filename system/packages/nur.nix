@@ -10,7 +10,6 @@
     # linyinfeng.wemeet
     novel2430.wechat-universal-bwrap
     novel2430.wpsoffice-365
-    xddxdd.bilibili
     xddxdd.dingtalk
     # xddxdd.piliplus
   ];
