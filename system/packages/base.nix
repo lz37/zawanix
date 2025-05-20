@@ -9,6 +9,7 @@
     # cli
     xsel
     jq
+    yq
     nettools
     busybox
     tcping-go
@@ -32,6 +33,7 @@
     p7zip
     unzip
     zip
+    unar
     toolbox
     nmap
     # lang
