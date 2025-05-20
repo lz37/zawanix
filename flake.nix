@@ -2,7 +2,7 @@
   description = "config of zerozawa's nix desktop";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-25.05";
     nixpkgs-teleport.url = "github:NixOS/nixpkgs?shallow=1&rev=67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
     home-manager = {
       url = "github:nix-community/home-manager?shallow=1&ref=master";

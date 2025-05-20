@@ -61,7 +61,7 @@ in
   config = {
     zerozawa = rec {
       version = {
-        nixos = "25.05";
+        nixos = "25.11";
         home-manager-version = version.nixos;
       };
       path = rec {
