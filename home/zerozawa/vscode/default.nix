@@ -103,6 +103,7 @@ let
   xd = default ++ [
     (import ./common/topics/ci-cd.nix)
     (import ./common/topics/python.nix)
+    (import ./common/topics/base.nix)
   ];
 in
 {
