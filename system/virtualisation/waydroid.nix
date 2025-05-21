@@ -5,5 +5,8 @@
 
 {
   virtualisation.waydroid.enable = true;
-  environment.systemPackages = with pkgs; [ waydroid-helper ];
+  environment.systemPackages = [
+    pkgs.waydroid-helper
+    pkgs.fakeroot # need for waydroid-helper
+  ];
 }
