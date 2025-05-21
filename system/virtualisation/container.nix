@@ -9,6 +9,7 @@
 
   imports = [
     ./oci-containers.nix
+    ./waydroid.nix
   ] ++ (lib.optionals isNvidiaGPU [ ./nvidia-container-toolkit.nix ]);
 
   environment.systemPackages = with pkgs; [
@@ -39,7 +40,5 @@
         dns_enabled = true;
       };
     };
-    # waydroid
-    waydroid.enable = true;
   };
 }
