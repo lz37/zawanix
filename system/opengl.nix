@@ -1,6 +1,10 @@
-{ pkgs, inputs, ... }:
+{
+  inputs,
+  system,
+  ...
+}:
 let
-  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
 in
 {
   hardware.graphics = {

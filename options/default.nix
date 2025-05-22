@@ -41,16 +41,49 @@ in
       };
       servers = {
         openwrt = {
+          address = lib.mkOption {
+            type = lib.types.str;
+            default = null;
+          };
+        };
+        teleport = {
           address = str;
+          port = mkOptionType lib.types.int;
         };
       };
       git = {
         userName = str;
         userEmail = str;
       };
+      ssh = {
+        machines = lib.mkOption {
+          default = [ ];
+          type = lib.types.listOf (
+            lib.types.submodule {
+              options = {
+                host = str;
+                port = lib.mkOption {
+                  type = lib.types.nullOr lib.types.int;
+                  default = null;
+                };
+                user = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                };
+                type = mkOptionType (
+                  lib.types.enum [
+                    "linux"
+                    "macOS"
+                    "windows"
+                  ]
+                );
+              };
+            }
+          );
+        };
+      };
       vscode = {
         sherlock.userId = str;
-        remote.SSH.remotePlatform = mkOptionType lib.types.raw;
       };
       mihomo = {
         subscribe = str;

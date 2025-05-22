@@ -1,4 +1,7 @@
-{ config, ... }:
+{
+  config,
+  ...
+}:
 
 {
   imports = [
@@ -15,6 +18,7 @@
     ./plasma
     ./activation
     ./browser.nix
+    ./ssh.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

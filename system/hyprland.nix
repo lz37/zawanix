@@ -1,6 +1,10 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  system,
+  ...
+}:
 let
-  pkgs-hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
+  pkgs-hyprland = inputs.hyprland.packages.${system};
 in
 {
   programs.hyprland = {

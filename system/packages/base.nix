@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  system,
   ...
 }:
 
@@ -58,6 +59,6 @@
     distrobox
     termsonic
     comma
-    inputs.nixpkgs-teleport.legacyPackages.${stdenv.hostPlatform.system}.teleport.client
+    inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client
   ];
 }
