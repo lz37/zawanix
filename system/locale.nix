@@ -23,23 +23,22 @@
       LC_TELEPHONE = defaultLocale;
       LC_TIME = defaultLocale;
       LC_ALL = defaultLocale;
-      LANGUAGE = "zh_CN:zh:en_US:en";
+      LANGUAGE = defaultLocale;
     };
-  };
-
-  i18n.inputMethod = {
-    type = "fcitx5";
-    enable = true;
-    fcitx5 = {
-      waylandFrontend = true;
-      plasma6Support = true;
-      addons = with pkgs; [
-        fcitx5-rime
-        fcitx5-chinese-addons
-        fcitx5-mozc
-        fcitx5-gtk
-        fcitx5-lua
-      ];
+    inputMethod = {
+      type = "fcitx5";
+      enable = true;
+      fcitx5 = {
+        waylandFrontend = true;
+        plasma6Support = true;
+        addons = with pkgs; [
+          fcitx5-rime
+          fcitx5-chinese-addons
+          fcitx5-mozc
+          fcitx5-gtk
+          fcitx5-lua
+        ];
+      };
     };
   };
 
