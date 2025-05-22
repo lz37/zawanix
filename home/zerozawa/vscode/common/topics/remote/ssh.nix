@@ -12,7 +12,7 @@
   ];
   settings = {
     "remote.SSH.remotePlatform" = (
-      builtins.zipAttrsWith (key: values: values) (
+      builtins.listToAttrs (
         lib.map (
           {
             host,
@@ -20,7 +20,8 @@
             ...
           }:
           {
-            "${host}" = type;
+            name = host;
+            value = type;
           }
         ) config.zerozawa.ssh.machines
       )
