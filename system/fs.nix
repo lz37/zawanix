@@ -9,7 +9,7 @@
     }
   ];
   boot.tmp = {
-    useTmpfs = useTmpfs;
+    inherit useTmpfs;
     cleanOnBoot = true;
   };
 }

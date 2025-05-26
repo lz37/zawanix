@@ -37,28 +37,14 @@
     unar
     toolbox
     nmap
-    # lang
-    dart
-    ## c/c++
-    gnumake
-    gcc
     # waydroid 剪贴版
     wl-clipboard
-    # kvm
-    # virt-viewer
-    # spice
-    # spice-gtk
-    # spice-protocol
-    # win-virtio
-    # win-spice
-    # virtiofsd
-    # virglrenderer
-    # samba
     cifs-utils
     cachix
     distrobox
     termsonic
     comma
+    ipmitool
     inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client
   ];
 }
