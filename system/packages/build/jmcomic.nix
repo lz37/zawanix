@@ -5,8 +5,8 @@
   ...
 }:
 let
-  pname = "picacg-qt";
-  version = "v1.5.2";
+  pname = "JMComic-qt";
+  version = "v1.2.8";
   wrapper = ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.appimage-run}/bin/appimage-run -w $out/opt/${pname}
@@ -16,7 +16,7 @@ let
     Type=Application
     Name=${pname}
     Exec=${pkgs.appimage-run}/bin/appimage-run -w $out/opt/${pname}
-    Comment=PicACG
+    Comment=JMComic
     Icon=$out/opt/${pname}/.DirIcon
     Categories=Graphics;
   '';
@@ -25,7 +25,7 @@ in
   inherit pname version;
   package = stdenv.mkDerivation (
     let
-      appimage = "bika_${version}_linux_glibc2.38.AppImage";
+      appimage = "jmcomic_${version}_linux_glibc2.38.AppImage";
     in
     rec {
       inherit pname version;
@@ -35,7 +35,7 @@ in
       dontConfigure = true;
       src = fetchurl {
         url = "https://github.com/tonquer/${pname}/releases/download/${version}/${appimage}";
-        hash = "sha256-zAok08R9Xdx6z6JBGNoQlxPrSVvxkquYg9fgf8OMj1o=";
+        hash = "";
       };
       buildInputs = [
         pkgs.appimage-run

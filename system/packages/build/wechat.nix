@@ -17,13 +17,13 @@ let
     Comment=Wechat Desktop
     Comment[zh_CN]=微信桌面版
     Exec=${pkgs.appimage-run}/bin/appimage-run -w $out/opt/${pname}
-    Icon=$out/share/icons/hicolor/256x256/pixmaps/${pname}.png
+    Icon=$out/opt/${pname}/.DirIcon
     Name=${pname}
     Name[zh_CN]=微信
     StartupNotify=true
     Terminal=false
     Type=Application
-    X-AppImage-Version=4.0.1
+    X-AppImage-Version=${version}
   '';
 in
 {
@@ -42,7 +42,7 @@ in
       pkgs.appimage-run
     ];
     installPhase = ''
-      export TEMP_INSTALL=$(mktemp -d)
+      TEMP_INSTALL=$(mktemp -d)
       ${pkgs.appimage-run}/bin/appimage-run -x $TEMP_INSTALL $src
 
       mkdir -p $out/bin
@@ -51,9 +51,6 @@ in
 
       mkdir -p $out/share/applications
       echo "${desktop}" > $out/share/applications/${pname}.desktop
-
-      mkdir -p $out/share/icons/hicolor/256x256/pixmaps
-      cp $TEMP_INSTALL/wechat.png $out/share/icons/hicolor/256x256/pixmaps/${pname}.png
 
       mkdir -p $out/opt
       cp -r $TEMP_INSTALL $out/opt/${pname}
