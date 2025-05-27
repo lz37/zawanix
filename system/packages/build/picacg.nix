@@ -38,7 +38,7 @@ in
         hash = "sha256-zAok08R9Xdx6z6JBGNoQlxPrSVvxkquYg9fgf8OMj1o=";
       };
       buildInputs = [
-        pkgs.xorg.libxcb
+        pkgs.appimage-run
       ];
       installPhase = ''
         export TEMP_INSTALL=$(mktemp -d)

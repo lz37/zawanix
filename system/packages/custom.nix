@@ -47,5 +47,6 @@ in
     rebuild
     upgrade
     (pkgs.callPackage ./build/picacg.nix { }).package
+    (pkgs.callPackage ./build/wechat.nix { }).package
   ];
 }
