@@ -35,7 +35,7 @@ in
       dontConfigure = true;
       src = fetchurl {
         url = "https://github.com/tonquer/${pname}/releases/download/${version}/${appimage}";
-        hash = "";
+        hash = "sha256-KTut4OoIEF/rE+k/kg02Gjrpyko7sv8pLTFhWb6huqM=";
       };
       buildInputs = [
         pkgs.appimage-run
