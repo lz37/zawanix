@@ -37,8 +37,27 @@ let
       ${update}/bin/zawanix.update
       ${rebuild}/bin/zawanix.rebuild
     '';
+    system.packages =
+      let
+        packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+        sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+        formatted = builtins.concatStringsSep "\n" sortedUnique;
+      in
+      pkgs.writeScriptBin "zawanix.system.packages" ''
+        #!${pkgs.bash}/bin/bash
+        ${pkgs.coreutils}/bin/echo -e "${formatted}"
+        ${pkgs.coreutils}/bin/echo -e "${
+          colorsh.utils.chunibyo.gothic.kaomoji.unicode {
+            gothic = "𝔷𝔞𝔴𝔞𝔫𝔦𝔵";
+            scope = "魔導枢機院";
+            splitter = "";
+            action = "に登録された禁術${builtins.toString (builtins.length sortedUnique)}章";
+            kaomoji = "(⌒▽⌒)☆";
+            unicode = "⚙️🔥";
+          }
+        }"
+      '';
   };
-
 in
 
 {
@@ -46,6 +65,7 @@ in
     update
     rebuild
     upgrade
+    system.packages
     (pkgs.callPackage ./build/picacg.nix { }).package
     (pkgs.callPackage ./build/wechat.nix { }).package
     (pkgs.callPackage ./build/jmcomic.nix { }).package

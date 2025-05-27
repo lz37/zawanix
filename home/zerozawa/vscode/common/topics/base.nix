@@ -7,6 +7,7 @@
     "streetsidesoftware.code-spell-checker"
     "christian-kohler.path-intellisense"
     "mkhl.direnv"
+    "matthewnespor.vscode-color-identifiers-mode"
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";
@@ -28,6 +29,6 @@
     "security.workspace.trust.untrustedFiles" = "open";
     "redhat.telemetry.enabled" = true;
     # @todo add more settings
-    "extensions.experimental.affinity" = { };
+    # "extensions.experimental.affinity" = { };
   };
 }

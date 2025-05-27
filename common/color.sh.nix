@@ -17,8 +17,9 @@ let
           unicode ? "",
           scope,
           action,
+          splitter ? "・",
         }:
-        "${color.NO_FORMAT (color.F_BOLD (color.C_GOLD3 gothic))}${color.NO_FORMAT (color.F_UNDERLINED (color.C_MAGENTA3 scope))}・${color.NO_FORMAT (color.F_BOLD (color.C_DODGERBLUE1 "${action}！"))}${color.NO_FORMAT (color.F_DIM (color.C_ORANGE1 kaomoji))}${(unicode)}";
+        "${color.NO_FORMAT (color.F_BOLD (color.C_GOLD3 gothic))}${color.NO_FORMAT (color.F_UNDERLINED (color.C_MAGENTA3 scope))}${splitter}${color.NO_FORMAT (color.F_BOLD (color.C_DODGERBLUE1 "${action}！"))}${color.NO_FORMAT (color.F_DIM (color.C_ORANGE1 kaomoji))}${(unicode)}";
     };
   };
 in
