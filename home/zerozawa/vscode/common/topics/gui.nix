@@ -45,7 +45,7 @@
     "workbench.colorTheme" = "Eva Dark Italic";
     "workbench.iconTheme" = "material-icon-theme";
     "workbench.editor.wrapTabs" = true;
-    "workbench.externalBrowser" = "${pkgs.brave}/bin/brave";
+    "workbench.externalBrowser" = "${pkgs.vivaldi}/bin/vivaldi";
     "window.zoomLevel" = 1;
     "window.titleBarStyle" = "native";
     "window.customTitleBarVisibility" = "never";

@@ -7,11 +7,6 @@
 
 {
   programs = {
-    chromium = {
-      enable = true;
-      enablePlasmaBrowserIntegration = true;
-      plasmaBrowserIntegrationPackage = lib.mkForce pkgs.kdePackages.plasma-browser-integration;
-    };
     adb.enable = true;
     # steam
     steam = {
