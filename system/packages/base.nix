@@ -46,5 +46,6 @@
     comma
     ipmitool
     inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client
+    sshpass
   ];
 }

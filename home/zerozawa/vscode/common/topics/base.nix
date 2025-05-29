@@ -28,6 +28,7 @@
     "json.schemaDownload.enable" = true;
     "security.workspace.trust.untrustedFiles" = "open";
     "redhat.telemetry.enabled" = true;
+    "colorIdentifiersMode.method" = "hash";
     # @todo add more settings
     # "extensions.experimental.affinity" = { };
   };
