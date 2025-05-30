@@ -24,7 +24,7 @@ let
     ++ gitlens
     ++ [
       (import ./common/topics/docker.nix)
-      (import ./common/topics/markdown.nix)
+      (import ./common/topics/document/markdown.nix)
       (import ./common/topics/nix.nix)
       (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/remote/liveshare.nix)
@@ -44,7 +44,7 @@ let
       (import ./common/topics/nix.nix)
       (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/remote/ssh.nix)
-      (import ./common/topics/markdown.nix)
+      (import ./common/topics/document/markdown.nix)
     ];
   tailwind =
     base
@@ -67,7 +67,7 @@ let
     ++ copilot
     ++ gitlens
     ++ [
-      (import ./common/topics/markdown.nix)
+      (import ./common/topics/document/markdown.nix)
       (import ./common/topics/nix.nix)
       (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
@@ -104,6 +104,7 @@ let
     (import ./common/topics/ci-cd.nix)
     (import ./common/topics/python.nix)
     (import ./common/topics/bash.nix)
+    (import ./common/topics/document/drawio.nix)
   ];
 in
 {
