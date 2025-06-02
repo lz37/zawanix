@@ -1,18 +1,19 @@
 {
   pkgs,
-  inputs,
-  system,
+  lib,
   ...
 }:
 
 {
   environment.systemPackages = with pkgs; [
     # cli
+    exfatprogs
     xsel
     jq
     yq
     nettools
-    busybox
+    # busybox
+    (lib.hiPrio uutils-coreutils-noprefix)
     tcping-go
     lua
     ffmpeg
@@ -27,7 +28,6 @@
     tree
     podman-compose
     openjpeg
-    thefuck
     fortune
     wakatime
     translate-shell
@@ -45,7 +45,7 @@
     termsonic
     comma
     ipmitool
-    inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client
+    teleport.client
     sshpass
   ];
 }

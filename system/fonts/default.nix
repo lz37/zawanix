@@ -47,7 +47,7 @@
       carlito
       montserrat
       nur.repos.novel2430.latex-chinese-fonts
-      nur.repos.chillcicada.ttf-ms-win10-sc-sup
+      # nur.repos.chillcicada.ttf-ms-win10-sc-sup
       nur.repos.mikilio.ttf-ms-fonts
       winePackages.fonts
       lxgw-wenkai

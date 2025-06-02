@@ -95,7 +95,7 @@ in
     zerozawa = rec {
       version = {
         nixos = "25.11";
-        home-manager-version = "25.05";
+        home-manager-version = version.nixos;
       };
       path = rec {
         cfgRoot = "/etc/nixos";

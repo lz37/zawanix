@@ -2,10 +2,13 @@
 
 {
   programs = {
-    thefuck = {
-      alias = "fk";
+    pay-respects = {
       enable = true;
       enableZshIntegration = true;
+      options = [
+        "--alias"
+        "fk"
+      ];
     };
     lazygit.enable = true;
     command-not-found.enable = false;

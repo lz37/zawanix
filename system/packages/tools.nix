@@ -6,7 +6,6 @@
 {
   environment.systemPackages = with pkgs; [
     btop
-    thefuck
     fortune
     wakatime
     fd

@@ -14,6 +14,7 @@
       wallpaper-engine-plugin
       qtmultimedia
       koi
+      partitionmanager
     ])
     ++ (with pkgs; [
       plasmusic-toolbar
