@@ -31,18 +31,17 @@ let
         ++ [
           {
             "extensions.experimental.affinity" =
-              builtins.zipAttrsWith (name: values: (builtins.elemAt values 0))
-                (
-                  input.lib.imap0 (
-                    i: v:
-                    builtins.listToAttrs (
-                      input.lib.map (extension: {
-                        name = "${extension.vscodeExtPublisher}.${extension.vscodeExtName}";
-                        value = i + 1;
-                      }) v.extensions
-                    )
-                  ) returns-fallback
-                );
+              returns-fallback
+              |> input.lib.imap0 (
+                i: v:
+                v.extensions
+                |> input.lib.map (extension: {
+                  name = "${extension.vscodeExtPublisher}.${extension.vscodeExtName}";
+                  value = i + 1;
+                })
+                |> builtins.listToAttrs
+              )
+              |> builtins.zipAttrsWith (name: values: (builtins.elemAt values 0));
           }
         ]
       );

@@ -7,6 +7,11 @@
   ];
   settings = {
     "chat.agent.enabled" = true;
+    "chat.editor.wordWrap" = "on";
+    "chat.mcp.enabled" = true;
+    "chat.mcp.discovery.enabled" = true;
+    "chat.tools.autoApprove" = true;
+    "chat.useFileStorage" = true;
     "github.copilot.enable" = {
       "*" = true;
       "plaintext" = true;
