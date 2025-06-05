@@ -42,6 +42,7 @@ in
     CHROME_PATH = "${pkgs.chromium}/bin/chromium";
   };
   programs = {
+    google-chrome.enable = true;
     brave = chromium-common;
     vivaldi = chromium-common // {
       package = pkgs.vivaldi.override {
