@@ -1,8 +1,7 @@
 {
   config,
   lib,
-  inputs,
-  system,
+  pkgs,
   ...
 }:
 
@@ -36,9 +35,7 @@
       # Flags for all ${config.zerozawa.servers.teleport.address} hosts except the proxy
       Host *.${config.zerozawa.servers.teleport.address} !${config.zerozawa.servers.teleport.address}
         Port 3022
-        ProxyCommand ${
-          inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client
-        }/bin/tsh proxy ssh --cluster=${config.zerozawa.servers.teleport.address} --proxy=${config.zerozawa.servers.teleport.address}:${toString config.zerozawa.servers.teleport.port} %r@%h:%p
+        ProxyCommand ${pkgs.teleport.client}/bin/tsh proxy ssh --cluster=${config.zerozawa.servers.teleport.address} --proxy=${config.zerozawa.servers.teleport.address}:${toString config.zerozawa.servers.teleport.port} %r@%h:%p
       # End generated Teleport configuration
     '';
   };
