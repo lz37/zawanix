@@ -7,6 +7,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
       substituters = [
         # 中科大

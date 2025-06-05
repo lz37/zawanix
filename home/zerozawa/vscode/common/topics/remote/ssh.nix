@@ -12,19 +12,19 @@
   ];
   settings = {
     "remote.SSH.remotePlatform" = (
-      builtins.listToAttrs (
-        lib.map (
-          {
-            host,
-            type,
-            ...
-          }:
-          {
-            name = host;
-            value = type;
-          }
-        ) config.zerozawa.ssh.machines
+      config.zerozawa.ssh.machines
+      |> lib.map (
+        {
+          host,
+          type,
+          ...
+        }:
+        {
+          name = host;
+          value = type;
+        }
       )
+      |> builtins.listToAttrs
     );
     "remote.SSH.useLocalServer" = false;
   };

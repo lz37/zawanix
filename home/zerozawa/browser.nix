@@ -38,12 +38,17 @@ let
   };
 in
 {
+  home.sessionVariables = {
+    CHROME_PATH = "${pkgs.chromium}/bin/chromium";
+  };
   programs = {
-    chromium = {
-      enable = true;
-    };
     brave = chromium-common;
-    vivaldi = chromium-common;
+    vivaldi = chromium-common // {
+      package = pkgs.vivaldi.override {
+        proprietaryCodecs = true;
+        enableWidevine = true;
+      };
+    };
     firefox = {
       enable = true;
       languagePacks = [

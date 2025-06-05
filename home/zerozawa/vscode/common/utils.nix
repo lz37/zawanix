@@ -4,23 +4,24 @@ let
     let
       recursiveUpdateList =
         attrList: input.lib.foldl' (acc: item: input.lib.recursiveUpdate acc item) { } attrList;
-      returns = builtins.map (vscode-module: (vscode-module input)) vscode-modules;
-      returns-fallback = builtins.map (
-        item:
-        recursiveUpdateList [
-          {
-            keybindings = [ ];
-            settings = { };
-            extensions = [ ];
-            globalSnippets = { };
-            languageSnippets = { };
-            tasks = {
-              version = "2.0.0";
-            };
-          }
-          item
-        ]
-      ) returns;
+      returns-fallback =
+        builtins.map (vscode-module: (vscode-module input)) vscode-modules
+        |> builtins.map (
+          item:
+          recursiveUpdateList [
+            {
+              keybindings = [ ];
+              settings = { };
+              extensions = [ ];
+              globalSnippets = { };
+              languageSnippets = { };
+              tasks = {
+                version = "2.0.0";
+              };
+            }
+            item
+          ]
+        );
     in
     {
       keybindings = builtins.concatMap (item: item.keybindings) returns-fallback;

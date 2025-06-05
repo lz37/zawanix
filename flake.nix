@@ -4,7 +4,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-25.05";
     nixpkgs-teleport.url = "github:NixOS/nixpkgs?shallow=1&rev=67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
-    nixpkgs-vivaldi.url = "github:NixOS/nixpkgs?shallow=1&rev=edb3633f9100d9277d1c9af245a4e9337a980c07";
     home-manager = {
       url = "github:nix-community/home-manager?shallow=1&ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -121,14 +120,6 @@
                                   config.allowUnfree = true;
                                 };
                                 teleport.client = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client;
-                                vivaldi =
-                                  let
-                                    nixpkgs-vivaldi = import inputs.nixpkgs-vivaldi {
-                                      inherit system;
-                                      config.allowUnfree = true;
-                                    };
-                                  in
-                                  nixpkgs-vivaldi.vivaldi;
                               })
                               inputs.nix-alien.overlays.default
                             ];

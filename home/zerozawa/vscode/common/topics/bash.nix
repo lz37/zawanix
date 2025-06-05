@@ -8,4 +8,7 @@
     "timonwong.shellcheck"
     "foxundermoon.shell-format"
   ];
+  settings = {
+    "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
+  };
 }

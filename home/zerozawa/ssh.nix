@@ -11,22 +11,22 @@
     enable = true;
     extraConfig = ''
       ${
-        (lib.concatStrings (
-          lib.map (
-            {
-              host,
-              port, # optional
-              user, # optional
-              ...
-            }:
-            ''
-              Host ${host}
-                HostName ${host}
-                ${if port != null then "Port ${toString port}" else ""}
-                ${if user != null then "User ${user}" else ""}
-            ''
-          ) config.zerozawa.ssh.machines
-        ))
+        config.zerozawa.ssh.machines
+        |> lib.map (
+          {
+            host,
+            port, # optional
+            user, # optional
+            ...
+          }:
+          ''
+            Host ${host}
+              HostName ${host}
+              ${if port != null then "Port ${toString port}" else ""}
+              ${if user != null then "User ${user}" else ""}
+          ''
+        )
+        |> lib.concatStrings
       }
       # Common flags for all ${config.zerozawa.servers.teleport.address} hosts
       Host *.${config.zerozawa.servers.teleport.address} ${config.zerozawa.servers.teleport.address}
