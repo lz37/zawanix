@@ -7,9 +7,9 @@
 {
   environment.systemPackages = with pkgs; [
     # cli
-    bun # needed by cherry-studio
-    uv # needed by cherry-studio
-    nodePackages.nodejs # needed by cherry-studio
+    bun # needed by mcp
+    uv # needed by mcp
+    nodePackages.nodejs # needed by mcp
     exfatprogs
     xsel
     jq
