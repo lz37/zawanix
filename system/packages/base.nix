@@ -15,7 +15,7 @@
     jq
     yq
     nettools
-    # busybox
+    busybox
     (lib.hiPrio uutils-coreutils-noprefix)
     tcping-go
     lua
