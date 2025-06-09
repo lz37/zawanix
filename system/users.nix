@@ -5,19 +5,24 @@
 }:
 
 {
-  users.users.zerozawa = {
-    uid = config.zerozawa.users.zerozawa.uid;
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "podman"
-      "kvm"
-      "libvirtd"
-      "adbusers"
-    ];
-    shell = "${pkgs.zsh}/bin/zsh";
+  users.users = {
+    zerozawa = {
+      uid = config.zerozawa.users.zerozawa.uid;
+      isNormalUser = true;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "docker"
+        "podman"
+        "kvm"
+        "libvirtd"
+        "adbusers"
+        "video"
+        "render"
+        "xrdp"
+      ];
+      shell = "${pkgs.zsh}/bin/zsh";
+    };
   };
   services = {
     samba-wsdd.enable = true;

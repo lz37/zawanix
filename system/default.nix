@@ -23,6 +23,7 @@
     ./sddm
     ./fonts
     ./xdg-portal.nix
+    ./symlink.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
 

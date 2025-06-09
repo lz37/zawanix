@@ -66,12 +66,22 @@ let
   };
 in
 {
-  home.sessionVariables = {
-    CHROME_PATH = "${pkgs.chromium}/bin/chromium";
+  home = {
+    sessionVariables = {
+      CHROME_PATH = "${pkgs.chromium}/bin/chromium";
+    };
   };
   programs = {
     chromium = chromium-base;
-    google-chrome.enable = true;
+    google-chrome = {
+      enable = true;
+      package = pkgs.google-chrome.overrideAttrs (oldAttrs: {
+        postInstall = ''
+          dist=stable
+          ln -s $out/bin/google-chrome-$dist $out/bin/chrome
+        '';
+      });
+    };
     brave = chromium-common;
     vivaldi = chromium-common // {
       package = pkgs.vivaldi.override {
