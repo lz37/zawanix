@@ -6,7 +6,7 @@
 }:
 let
   pname = "JMComic-qt";
-  version = "v1.2.8";
+  version = "v1.2.9";
   wrapper = ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.appimage-run}/bin/appimage-run -w $out/opt/${pname}
@@ -25,7 +25,7 @@ in
   inherit pname version;
   package = stdenv.mkDerivation (
     let
-      appimage = "jmcomic_${version}_linux_glibc2.38.AppImage";
+      appimage = "jmcomic_${version}_linux-glibc2.38.AppImage";
     in
     rec {
       inherit pname version;
@@ -35,7 +35,7 @@ in
       dontConfigure = true;
       src = fetchurl {
         url = "https://github.com/tonquer/${pname}/releases/download/${version}/${appimage}";
-        hash = "sha256-KTut4OoIEF/rE+k/kg02Gjrpyko7sv8pLTFhWb6huqM=";
+        hash = "sha256-LgHR+HDfTb9Ur8p4Ibb8TUdLqwkK8wKynrKliYbEGSg=";
       };
       buildInputs = [
         pkgs.appimage-run
