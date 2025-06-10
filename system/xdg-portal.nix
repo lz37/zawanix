@@ -10,10 +10,6 @@
     {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-        kdePackages.xdg-desktop-portal-kde
-      ];
     }
     // (
       # can't work on kde or gnome, just on hyprland

@@ -53,6 +53,7 @@ let
     ++ copilot
     ++ gitlens
     ++ [
+      (import ./common/topics/document/markdown.nix)
       (import ./common/topics/nix.nix)
       (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
