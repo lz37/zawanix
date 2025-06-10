@@ -32,7 +32,7 @@ let
 in
 {
   inherit pname version;
-  package = stdenv.mkDerivation (rec {
+  package = stdenv.mkDerivation ({
     inherit pname version;
     dontBuild = true;
     dontUnpack = true;
@@ -45,9 +45,14 @@ in
     buildInputs = [
       pkgs.appimage-run
     ];
+    nativeBuildInputs = [
+      pkgs.appimage-run
+    ];
     installPhase = ''
+      runHook preInstall
+
       TEMP_INSTALL=$(mktemp -d)
-      ${pkgs.appimage-run}/bin/appimage-run -x $TEMP_INSTALL $src
+      appimage-run -x $TEMP_INSTALL $src
 
       mkdir -p $out/bin
       echo "${wrapper}" > $out/bin/${pname}
@@ -60,6 +65,8 @@ in
       cp -r $TEMP_INSTALL $out/opt/${pname}
 
       rm -rf $TEMP_INSTALL
+
+      runHook postInstall
     '';
   });
 }

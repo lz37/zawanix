@@ -6,7 +6,7 @@
 }:
 let
   pname = "picacg-qt";
-  version = "v1.5.2";
+  version = "1.5.2";
   wrapper = ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.appimage-run}/bin/appimage-run -w $out/opt/${pname}
@@ -25,25 +25,30 @@ in
   inherit pname version;
   package = stdenv.mkDerivation (
     let
-      appimage = "bika_${version}_linux_glibc2.38.AppImage";
+      appimage = "bika_v${version}_linux_glibc2.38.AppImage";
     in
-    rec {
+    {
       inherit pname version;
       dontBuild = true;
       dontUnpack = true;
       dontPatch = true;
       dontConfigure = true;
       src = fetchurl {
-        url = "https://github.com/tonquer/${pname}/releases/download/${version}/${appimage}";
+        url = "https://github.com/tonquer/${pname}/releases/download/v${version}/${appimage}";
         hash = "sha256-zAok08R9Xdx6z6JBGNoQlxPrSVvxkquYg9fgf8OMj1o=";
       };
       buildInputs = [
         pkgs.appimage-run
         pkgs.xorg.libxcb
       ];
+      nativeBuildInputs = [
+        pkgs.appimage-run
+      ];
       installPhase = ''
+        runHook preInstall
+
         TEMP_INSTALL=$(mktemp -d)
-        ${pkgs.appimage-run}/bin/appimage-run -x $TEMP_INSTALL $src
+        appimage-run -x $TEMP_INSTALL $src
 
         mkdir -p $out/bin
         echo "${wrapper}" > $out/bin/${pname}
@@ -56,6 +61,8 @@ in
         cp -r $TEMP_INSTALL $out/opt/${pname}
 
         rm -rf $TEMP_INSTALL
+
+        runHook postInstall
       '';
     }
   );
