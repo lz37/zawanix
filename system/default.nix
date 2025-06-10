@@ -19,7 +19,6 @@
     ./packages
     ./opengl.nix
     ./fs.nix
-    ./hyprland.nix
     ./sddm
     ./fonts
     ./xdg-portal.nix

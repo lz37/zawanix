@@ -5,7 +5,7 @@
     fwupd.enable = true;
     dbus = {
       apparmor = "disabled";
-      implementation = "dbus";
+      implementation = "broker";
     };
     desktopManager.plasma6 = {
       enable = true;

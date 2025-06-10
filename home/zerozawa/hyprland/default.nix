@@ -2,22 +2,15 @@
   inputs,
   pkgs,
   isNvidiaGPU,
+  system,
   lib,
   ...
 }@others:
+let
+  pkgs-hyprland = inputs.hyprland.packages.${system};
+in
 
 let
-  system-hyprland-settings = import ../../../system/hyprland.nix (
-    {
-      inherit
-        inputs
-        pkgs
-        isNvidiaGPU
-        lib
-        ;
-    }
-    // others
-  );
   mainMod = "SUPER";
   terminal = "${pkgs.kitty}/bin/kitty";
   fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
@@ -25,7 +18,9 @@ let
 in
 {
   wayland.windowManager.hyprland = {
-    inherit (system-hyprland-settings.programs.hyprland) enable package portalPackage;
+    enable = true;
+    package = pkgs-hyprland.hyprland;
+    portalPackage = pkgs-hyprland.xdg-desktop-portal-hyprland;
     xwayland.enable = true;
     # https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf
     settings = {
