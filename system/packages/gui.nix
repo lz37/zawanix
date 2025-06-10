@@ -18,6 +18,7 @@
     rio
     # office
     # onlyoffice-desktopeditors
+    libreoffice-qt6-fresh
     drawio
     jellyfin-media-player
     feishin
