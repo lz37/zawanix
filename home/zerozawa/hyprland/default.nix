@@ -2,13 +2,9 @@
   inputs,
   pkgs,
   isNvidiaGPU,
-  system,
   lib,
   ...
-}@others:
-let
-  pkgs-hyprland = inputs.hyprland.packages.${system};
-in
+}:
 
 let
   mainMod = "SUPER";
@@ -19,8 +15,8 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs-hyprland.hyprland;
-    portalPackage = pkgs-hyprland.xdg-desktop-portal-hyprland;
+    package = null;
+    portalPackage = null;
     xwayland.enable = true;
     # https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf
     settings = {

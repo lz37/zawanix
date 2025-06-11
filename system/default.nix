@@ -23,6 +23,7 @@
     ./fonts
     ./xdg-portal.nix
     ./symlink.nix
+    ./hyprland.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
 
