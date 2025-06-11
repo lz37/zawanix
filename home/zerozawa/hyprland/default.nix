@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   isNvidiaGPU,
   lib,
@@ -17,7 +16,6 @@ in
     enable = true;
     package = null;
     portalPackage = null;
-    xwayland.enable = true;
     # https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf
     settings = {
       general = {

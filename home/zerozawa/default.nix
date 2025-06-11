@@ -13,7 +13,7 @@
     ./xdg.nix
     ./neovim.nix
     ./vscode
-    # ./hyprland
+    ./hyprland
     ./tmux.nix
     ./podman.nix
     ./icon.nix

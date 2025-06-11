@@ -13,5 +13,7 @@ in
     package = pkgs-hyprland.hyprland;
     # make sure to also set the portal package, so that they are in sync
     portalPackage = pkgs-hyprland.xdg-desktop-portal-hyprland;
+    xwayland.enable = true;
+    withUWSM = true;
   };
 }
