@@ -1,9 +1,6 @@
 {
   pkgs,
   config,
-  isNvidiaGPU,
-  isIntelGPU,
-  isAmdGPU,
   lib,
   ...
 }@inputs:
