@@ -69,6 +69,7 @@ in
     chromium = chromium-base;
     google-chrome = {
       enable = true;
+      inherit (chromium-base) commandLineArgs;
       package = pkgs.google-chrome.overrideAttrs (oldAttrs: {
         postInstall = ''
           dist=stable

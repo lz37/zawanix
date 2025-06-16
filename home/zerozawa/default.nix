@@ -20,7 +20,6 @@
     ./plasma
     ./activation
     ./browser
-    ./browser/electron-flags.nix
     ./ssh.nix
   ];
   home = {
