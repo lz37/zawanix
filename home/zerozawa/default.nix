@@ -19,7 +19,8 @@
     ./icon.nix
     ./plasma
     ./activation
-    ./browser.nix
+    ./browser
+    ./browser/electron-flags.nix
     ./ssh.nix
   ];
   home = {

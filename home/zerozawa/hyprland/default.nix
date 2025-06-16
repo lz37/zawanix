@@ -18,6 +18,9 @@ in
     portalPackage = null;
     # https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf
     settings = {
+      exec-once = [
+        "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init"
+      ];
       general = {
         gaps_in = 5;
         gaps_out = 10;

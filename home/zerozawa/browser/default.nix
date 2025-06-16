@@ -35,14 +35,8 @@ let
     )
     |> lib.zipAttrsWith (name: values: (builtins.elemAt values 0));
   chromium-base = {
+    inherit (import ./common.nix) commandLineArgs;
     enable = true;
-    commandLineArgs = [
-      # wayland
-      "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
-      "--ozone-platform=wayland"
-      "--enable-wayland-ime"
-      "--wayland-text-input-version=3"
-    ];
     dictionaries = [
       pkgs.hunspellDictsChromium.en_US
     ];
