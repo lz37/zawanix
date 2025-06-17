@@ -1,40 +1,40 @@
 {
   description = "config of zerozawa's nix desktop";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs?shallow=1&ref=nixos-25.05";
-    nixpkgs-teleport.url = "github:NixOS/nixpkgs?shallow=1&rev=67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-teleport.url = "github:NixOS/nixpkgs/67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
     home-manager = {
-      url = "github:nix-community/home-manager?shallow=1&ref=master";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware?shallow=1&ref=master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
-      url = "github:nix-community/NUR?shallow=1";
+      url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
-      url = "github:Mic92/nix-index-database?shallow=1";
+      url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vscode-server.url = "github:nix-community/nixos-vscode-server?shallow=1";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nix4vscode = {
-      url = "github:nix-community/nix4vscode?shallow=1";
+      url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     plasma-manager = {
-      url = "github:nix-community/plasma-manager?shallow=1";
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nil.url = "github:oxalica/nil?shallow=1";
-    nix-health.url = "github:juspay/nix-health?dir=module&shallow=1";
-    flake-parts.url = "github:hercules-ci/flake-parts?shallow=1";
-    treefmt-nix.url = "github:numtide/treefmt-nix?shallow=1";
-    git-hooks-nix.url = "github:cachix/git-hooks.nix?shallow=1";
-    hyprland.url = "github:hyprwm/Hyprland?shallow=1";
-    waybar.url = "github:Alexays/Waybar?shallow=1&ref=master";
+    nil.url = "github:oxalica/nil";
+    nix-health.url = "github:juspay/nix-health?dir=module";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    hyprland.url = "github:hyprwm/Hyprland";
+    waybar.url = "github:Alexays/Waybar/master";
   };
 
   outputs =
@@ -117,8 +117,9 @@
                                   inherit system;
                                   config.allowUnfree = true;
                                 };
-                                teleport.client = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client;
-                                waybar = inputs.waybar.packages.${system}.waybar;
+                                inherit (inputs.nixpkgs-teleport.legacyPackages.${system}) teleport;
+                                inherit (inputs.waybar.packages.${system}) waybar;
+                                inherit (inputs.hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
                               })
                               inputs.nix-alien.overlays.default
                             ];
