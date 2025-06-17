@@ -1,12 +1,10 @@
 {
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "nil",
+  "nix.serverPath": "nixd",
   "nix.serverSettings": {
     "nil": {
       "formatting": {
-        "command": [
-          "nixfmt"
-        ]
+        "command": ["nixfmt"]
       },
       "maxMemoryMB": 4096,
       "nix": {
@@ -16,20 +14,21 @@
       }
     },
     "nixd": {
-      "formatting": {
-        "command": [
-          "nixfmt"
-        ]
-      },
       "nixpkgs": {
-        "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }"
+        "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
+      },
+      "formatting": {
+        "command": ["nixfmt"]
       },
       "options": {
-        "flake-parts": {
-          "expr": "(builtins.getFlake \"/etc/nixos\").debug.options"
-        },
         "nixos": {
-          "expr": "(builtins.getFlake \"/etc/nixos\").legacyPackages.x86_64-linux.nixosConfigurations.zawanix-work.options"
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options.home-manager.users.type.getSubOptions []"
+        },
+        "flake-parts": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).debug.options"
         }
       }
     }

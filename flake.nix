@@ -133,15 +133,17 @@
                       ++ [
                         inputs.home-manager.nixosModules.home-manager
                         {
-                          home-manager.useGlobalPkgs = true;
-                          home-manager.useUserPackages = true;
-                          home-manager.sharedModules = [
-                            inputs.plasma-manager.homeManagerModules.plasma-manager
-                            inputs.vscode-server.homeModules.default
-                            ./options
-                          ];
-                          home-manager.users.zerozawa = import ./home/zerozawa;
-                          home-manager.extraSpecialArgs = specialArgs;
+                          home-manager = {
+                            useGlobalPkgs = true;
+                            useUserPackages = true;
+                            sharedModules = [
+                              inputs.plasma-manager.homeManagerModules.plasma-manager
+                              inputs.vscode-server.homeModules.default
+                              ./options
+                            ];
+                            users.zerozawa = import ./home/zerozawa;
+                            extraSpecialArgs = specialArgs;
+                          };
                         }
                       ]
                       ++ extraModules;
@@ -180,12 +182,6 @@
                   }
                 }"
               '';
-              packages = with pkgs; [
-                nix-health
-                hyprls
-                nixfmt-rfc-style
-                inputs.nil.outputs.packages.${system}.nil
-              ];
             }
           );
           pre-commit = {

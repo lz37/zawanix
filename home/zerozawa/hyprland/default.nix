@@ -15,8 +15,12 @@ let
   vscode = "${pkgs.vscode}/bin/code ${chromium-args}";
 in
 {
+  home.packages = with pkgs; [
+    hyprls
+  ];
   programs.waybar = {
     enable = true;
+    package = pkgs.waybar-git;
   };
   wayland.windowManager.hyprland = {
     enable = true;
@@ -27,7 +31,7 @@ in
       exec-once = [
         "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init &"
         "${pkgs.kdePackages.kwallet}/bin/kwalletd6 &"
-        "${pkgs.waybar}/bin/waybar"
+        "${pkgs.waybar-git}/bin/waybar"
       ];
       bind = [
         "${mainMod}, Q, exec, ${terminal}"

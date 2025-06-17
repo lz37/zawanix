@@ -13,5 +13,9 @@
     nix-tree
     nix-melt
     nix-alien
+    nix-health
+    nil-git
+    nixd
+    nixfmt-rfc-style
   ];
 }

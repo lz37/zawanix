@@ -1,17 +1,13 @@
 {
-  inputs,
-  system,
+  pkgs,
   ...
 }:
-let
-  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
-in
 {
   hardware.graphics = {
     enable = true;
-    package = pkgs-hyprland.mesa;
+    package = pkgs.mesa-hyprland-git;
     # if you also want 32-bit support (e.g for Steam)
     enable32Bit = true;
-    package32 = pkgs-hyprland.pkgsi686Linux.mesa;
+    package32 = pkgs.pkgsi686Linux-hyprland-git.mesa;
   };
 }

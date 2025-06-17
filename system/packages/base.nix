@@ -48,7 +48,7 @@
     termsonic
     comma
     ipmitool
-    teleport.client
+    teleport-lock.client
     sshpass
     talosctl
   ];

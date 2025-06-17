@@ -1,7 +1,9 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   nix = {
+    # for nixd
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       # 实验性功能
       experimental-features = [
