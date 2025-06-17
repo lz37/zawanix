@@ -240,6 +240,7 @@
                 '';
               packages = with pkgs; [
                 nix-health
+                hyprls
               ];
             }
           );

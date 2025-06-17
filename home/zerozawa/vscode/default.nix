@@ -33,10 +33,22 @@ let
       (import ./common/topics/nix.nix)
       (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/remote/liveshare.nix)
-      (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
+    ];
+  nixos =
+    base
+    ++ gui
+    ++ lang
+    ++ copilot
+    ++ gitlens
+    ++ [
+      (import ./common/topics/docker.nix)
+      (import ./common/topics/document/markdown.nix)
+      (import ./common/topics/nix.nix)
+      (import ./common/topics/remote/ssh.nix)
+      (import ./common/topics/hyprland.nix)
     ];
   rust =
     base
@@ -131,6 +143,7 @@ in
       k8s = (merge-imports k8s);
       rust = (merge-imports rust);
       xd = (merge-imports xd);
+      nixos = (merge-imports nixos);
     };
   };
   services.vscode-server.enable = true;
