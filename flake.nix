@@ -19,7 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server?shallow=1";
-    hyprland.url = "github:hyprwm/Hyprland?shallow=1";
     nix4vscode = {
       url = "github:nix-community/nix4vscode?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +33,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts?shallow=1";
     treefmt-nix.url = "github:numtide/treefmt-nix?shallow=1";
     git-hooks-nix.url = "github:cachix/git-hooks.nix?shallow=1";
+    hyprland.url = "github:hyprwm/Hyprland?shallow=1";
+    waybar.url = "github:Alexays/Waybar?shallow=1&ref=master";
   };
 
   outputs =
@@ -59,9 +60,6 @@
           system,
           ...
         }:
-        let
-          inherit (((import ./options) { inherit lib; }).config.zerozawa.path) cfgRoot;
-        in
         {
           legacyPackages = {
             nixosConfigurations =
@@ -120,6 +118,7 @@
                                   config.allowUnfree = true;
                                 };
                                 teleport.client = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport.client;
+                                waybar = inputs.waybar.packages.${system}.waybar;
                               })
                               inputs.nix-alien.overlays.default
                             ];
@@ -176,71 +175,23 @@
           };
           devShells.default = (
             pkgs.mkShell {
-              shellHook =
-                let
-                  vscodeDir = "${cfgRoot}/.vscode";
-                  fmt = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-                in
-                ''
-                  ${config.nix-health.outputs.devShell.shellHook}
-                  ${config.pre-commit.installationScript}
-                  if [ ! -d "${vscodeDir}" ]; then
-                    ${pkgs.coreutils}/bin/mkdir ${vscodeDir}
-                  fi
-                  ${pkgs.coreutils}/bin/echo '${
-                    builtins.toJSON {
-                      "nix.enableLanguageServer" = true;
-                      "nix.serverPath" = "${inputs.nil.outputs.packages.${system}.nil}/bin/nil";
-                      # "nix.serverPath" = "${pkgs.nixd}/bin/nixd";
-                      "nix.serverSettings" = {
-                        "nil" = {
-                          "formatting" = {
-                            "command" = [ fmt ];
-                          };
-                          "maxMemoryMB" = 4096;
-                          "nix" = {
-                            "autoArchive" = true;
-                            "autoEvalInputs" = true;
-                            "nixpkgsInputName" = "nixpkgs";
-                          };
-                        };
-                        "nixd" = {
-                          "nixpkgs" = {
-                            "expr" = "import (builtins.getFlake \"${cfgRoot}\").inputs.nixpkgs { }";
-                          };
-                          "formatting" = {
-                            # Which command you would like to do formatting
-                            "command" = [ fmt ];
-                          };
-                          "options" = {
-                            # Map of eval information
-                            # If this is omitted, default search path (<nixpkgs>) will be used.
-                            "nixos" = {
-                              # This name "nixos" could be arbitrary.
-                              # The expression to eval, interpret it as option declarations.
-                              "expr" =
-                                "(builtins.getFlake \"${cfgRoot}\").legacyPackages.${system}.nixosConfigurations.${lib.trim (builtins.readFile /etc/hostname)}.options";
-                            };
-                            "flake-parts" = {
-                              "expr" = "(builtins.getFlake \"${cfgRoot}\").debug.options";
-                            };
-                          };
-                        };
-                      };
-                    }
-                  }' > ${vscodeDir}/settings.json
-                  ${pkgs.coreutils}/bin/echo -e "${
-                    colorsh.utils.chunibyo.gothic.kaomoji.unicode {
-                      gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
-                      scope = "魔導結界";
-                      action = "異空覚醒";
-                      kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
-                    }
-                  }"
-                '';
+              shellHook = ''
+                ${config.nix-health.outputs.devShell.shellHook}
+                ${config.pre-commit.installationScript}
+                ${pkgs.coreutils}/bin/echo -e "${
+                  colorsh.utils.chunibyo.gothic.kaomoji.unicode {
+                    gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
+                    scope = "魔導結界";
+                    action = "異空覚醒";
+                    kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
+                  }
+                }"
+              '';
               packages = with pkgs; [
                 nix-health
                 hyprls
+                nixfmt-rfc-style
+                inputs.nil.outputs.packages.${system}.nil
               ];
             }
           );

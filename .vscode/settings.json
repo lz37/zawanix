@@ -1,0 +1,37 @@
+{
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": [
+          "nixfmt"
+        ]
+      },
+      "maxMemoryMB": 4096,
+      "nix": {
+        "autoArchive": true,
+        "autoEvalInputs": true,
+        "nixpkgsInputName": "nixpkgs"
+      }
+    },
+    "nixd": {
+      "formatting": {
+        "command": [
+          "nixfmt"
+        ]
+      },
+      "nixpkgs": {
+        "expr": "import (builtins.getFlake \"/etc/nixos\").inputs.nixpkgs { }"
+      },
+      "options": {
+        "flake-parts": {
+          "expr": "(builtins.getFlake \"/etc/nixos\").debug.options"
+        },
+        "nixos": {
+          "expr": "(builtins.getFlake \"/etc/nixos\").legacyPackages.x86_64-linux.nixosConfigurations.zawanix-work.options"
+        }
+      }
+    }
+  }
+}
