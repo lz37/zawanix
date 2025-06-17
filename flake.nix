@@ -35,6 +35,22 @@
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     hyprland.url = "github:hyprwm/Hyprland";
     waybar.url = "github:Alexays/Waybar/master";
+    ags = {
+      url = "github:Aylur/ags/v1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    anyrun = {
+      url = "github:Kirottu/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    illogical-impulse = {
+      url = "github:bigsaltyfishes/end-4-dots";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        ags.follows = "ags";
+        anyrun.follows = "anyrun";
+      };
+    };
   };
 
   outputs =
@@ -100,31 +116,7 @@
                     modules =
                       [
                         ./options
-                        {
-                          nixpkgs = {
-                            config = {
-                              allowUnfree = true;
-                            };
-                            overlays = [
-                              inputs.nix4vscode.overlays.forVscode
-                              (final: prev: {
-                                # 启用 NUR
-                                nur = import inputs.nur {
-                                  nurpkgs = prev;
-                                  pkgs = prev;
-                                };
-                                stable = import inputs.nixpkgs-stable {
-                                  inherit system;
-                                  config.allowUnfree = true;
-                                };
-                                inherit (inputs.nixpkgs-teleport.legacyPackages.${system}) teleport;
-                                inherit (inputs.waybar.packages.${system}) waybar;
-                                inherit (inputs.hyprland.packages.${system}) hyprland xdg-desktop-portal-hyprland;
-                              })
-                              inputs.nix-alien.overlays.default
-                            ];
-                          };
-                        }
+                        ./nixpkgs.nix
                         inputs.nix-index-database.nixosModules.nix-index
                         { programs.nix-index-database.comma.enable = true; }
                         ./hardware

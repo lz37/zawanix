@@ -14,6 +14,8 @@
       gamescopeSession = {
         enable = true;
       };
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
       extest = {
         enable = true;
       };

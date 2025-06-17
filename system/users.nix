@@ -18,6 +18,7 @@
         "libvirtd"
         "adbusers"
         "video"
+        "input"
         "render"
         "xrdp"
       ];

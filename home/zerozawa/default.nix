@@ -9,7 +9,6 @@
   imports = [
     ./programs.nix
     ./zsh
-    ./services.nix
     ./xdg.nix
     ./neovim.nix
     ./vscode
