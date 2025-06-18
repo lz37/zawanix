@@ -1,10 +1,11 @@
-{ ... }:
+# https://github.com/bigsaltyfishes/end-4-dots/blob/main/modules/foot.nix
+{ pkgs, ... }:
 {
   programs.foot = {
     enable = true;
     settings = {
       main = {
-        shell = "zsh";
+        shell = "${pkgs.zsh}/bin/zsh";
         term = "xterm-256color";
         title = "foot";
         font = "SpaceMono Nerd Font:size=11";
