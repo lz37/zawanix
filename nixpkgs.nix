@@ -34,7 +34,7 @@
               extraPackages = with pkgs; [
                 gtksourceview
                 gtksourceview4
-                webkitgtk
+                webkitgtk_4_0
                 webp-pixbuf-loader
                 ydotool
               ];

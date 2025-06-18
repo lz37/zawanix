@@ -35,18 +35,9 @@
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     hyprland.url = "github:hyprwm/Hyprland";
     waybar.url = "github:Alexays/Waybar/master";
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    illogical-impulse = {
-      url = "github:bigsaltyfishes/end-4-dots";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    ags.url = "github:Aylur/ags";
+    anyrun.url = "github:Kirottu/anyrun";
+    illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
   };
 
   outputs =

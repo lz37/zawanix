@@ -9,9 +9,4 @@
     gradience
   ];
 
-  # AGS Configuration
-  home.file.".config/ags" = {
-    source = "${pkgs.illogical-impulse-ags}";
-    recursive = true;
-  };
 }
