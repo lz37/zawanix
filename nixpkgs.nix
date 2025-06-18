@@ -30,6 +30,7 @@
         pkgsi686Linux-hyprland-git = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system}.pkgsi686Linux;
         waybar-git = inputs.waybar.packages.${system}.waybar;
         nil-git = inputs.nil.outputs.packages.${system}.nil;
+        anyrun-git-pkgs = inputs.anyrun.packages.${system};
       })
       inputs.nix-alien.overlays.default
     ];
