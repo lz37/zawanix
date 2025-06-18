@@ -1,18 +1,10 @@
 { pkgs, ... }:
+let
+  hyprlock-background = ((import ./hyprlock-background.nix) { inherit pkgs; });
+in
 {
   home.packages = [
-    (pkgs.writeShellScriptBin "hyprlock-background" ''
-      #!${pkgs.bash}/bin/bash
-
-      # Find current background image path
-      image_path=$(swww query | awk -F 'image: ' '{print $2}')
-
-      if [ -f "$image_path" ]; then
-        rm -f /tmp/hyprlock-background.jpg
-        ${pkgs.imagemagick}/bin/convert "$image_path" /tmp/hyprlock-background.jpg
-      fi
-      wait && hyprlock
-    '')
+    hyprlock-background
   ];
   programs.hyprlock = {
     enable = true;

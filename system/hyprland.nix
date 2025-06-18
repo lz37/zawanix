@@ -7,8 +7,8 @@
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland-git;
-    package = pkgs.hyprland-git;
+    portalPackage = pkgs.hyprland-git-pkgs.xdg-desktop-portal-hyprland;
+    package = pkgs.hyprland-git-pkgs.hyprland;
   };
 
 }

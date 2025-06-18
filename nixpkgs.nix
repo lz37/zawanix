@@ -24,10 +24,8 @@
           illogical-impulse-oneui4-icons
           ;
         teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
-        hyprland-git = inputs.hyprland.packages.${system}.hyprland;
-        xdg-desktop-portal-hyprland-git = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
-        mesa-hyprland-git = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system}.mesa;
-        pkgsi686Linux-hyprland-git = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system}.pkgsi686Linux;
+        hyprland-git-pkgs = inputs.hyprland.packages.${system};
+        hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
         waybar-git = inputs.waybar.packages.${system}.waybar;
         nil-git = inputs.nil.outputs.packages.${system}.nil;
         anyrun-git-pkgs = inputs.anyrun.packages.${system};

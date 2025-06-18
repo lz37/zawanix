@@ -1,10 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  hyprlock-background = ((import ./hyprlock-background.nix) { inherit pkgs; });
+in
 {
   services.hypridle = {
     enable = true;
     settings = {
       general = {
-        lock_cmd = "pidof hyprlock || hyprlock-background";
+        lock_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${hyprlock-background}/bin/hyprlock-background";
         before_sleep_cmd = "loginctl lock-session";
       };
 
@@ -15,12 +18,12 @@
         }
         {
           timeout = 240;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-timeout = "${pkgs.hyprland-git-pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          on-resume = "${pkgs.hyprland-git-pkgs.hyprland}/bin/hyprctl dispatch dpms on";
         }
         {
           timeout = 540;
-          on-timeout = "pidof steam || systemctl suspend || loginctl suspend";
+          on-timeout = "${pkgs.procps}/bin/pidof steam || systemctl suspend || loginctl suspend";
         }
       ];
     };
