@@ -1,3 +1,4 @@
+# https://github.com/bigsaltyfishes/end-4-dots/blob/main/modules/anyrun.nix
 { pkgs, ... }:
 {
   programs.anyrun = {
