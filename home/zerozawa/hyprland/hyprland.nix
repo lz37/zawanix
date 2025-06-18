@@ -41,10 +41,6 @@ in
     style.name = "kvantum";
   };
 
-  # programs.waybar = {
-  #   enable = true;
-  #   package = pkgs.waybar-git;
-  # };
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
@@ -60,7 +56,6 @@ in
           "NIXOS_OZONE_WL,1"
           "XCURSOR_SIZE,24"
           "HYPRCURSOR_SIZE,24"
-          "GIO_EXTRA_MODULES, ${pkgs.gvfs}/lib/gio/modules:$GIO_EXTRA_MODULES"
           "QT_QPA_PLATFORM, wayland"
           "QT_QPA_PLATFORMTHEME, qt6ct"
         ];
@@ -69,7 +64,6 @@ in
         "${pkgs.kdePackages.kwallet}/bin/kwalletd6 &"
         "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         "${pkgs.swww}/bin/swww-daemon --format xrgb"
-        "${pkgs.waybar-git}/bin/waybar"
         "${pkgs.illogical-impulse-ags-launcher}/bin/illogical-impulse-ags-launcher"
         "${pkgs.fcitx5}/bin/fcitx5"
         "${pkgs.hypridle}/bin/hypridle"

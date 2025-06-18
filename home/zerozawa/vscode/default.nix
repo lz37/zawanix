@@ -150,15 +150,14 @@ in
   home = {
     activation.vscode-argv-patch = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       #!${pkgs.bash}/bin/bash
-      PATH=${pkgs.coreutils}/bin:${pkgs.nodejs}/bin:${pkgs.jq}/bin
       ARGV_JSON="${config.home.homeDirectory}/.vscode/argv.json"
       if [ ! -s "$ARGV_JSON" ]; then
         echo "File $ARGV_JSON does not exist. Skip"
         exit 0
       fi
       JSONFILE="$(cat $ARGV_JSON)"
-      JSON="$(node -e "console.log(JSON.stringify($JSONFILE))")"
-      EDITED_JSON="$(echo "$JSON" | jq '. + {"password-store": "kwallet6"}')"
+      JSON="$(${pkgs.nodejs}/bin/node -e "console.log(JSON.stringify($JSONFILE))")"
+      EDITED_JSON="$(echo "$JSON" | ${pkgs.jq}/bin/jq '. + {"password-store": "kwallet6"}')"
       echo -e "$EDITED_JSON" > $ARGV_JSON
     '';
     file = {
