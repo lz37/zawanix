@@ -36,7 +36,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     waybar.url = "github:Alexays/Waybar/master";
     ags = {
-      url = "github:Aylur/ags/v1";
+      url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     anyrun = {
@@ -45,11 +45,7 @@
     };
     illogical-impulse = {
       url = "github:bigsaltyfishes/end-4-dots";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        ags.follows = "ags";
-        anyrun.follows = "anyrun";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -140,6 +136,7 @@
                               inputs.plasma-manager.homeManagerModules.plasma-manager
                               inputs.vscode-server.homeModules.default
                               ./options
+                              inputs.ags.homeManagerModules.default
                             ];
                             users.zerozawa = import ./home/zerozawa;
                             extraSpecialArgs = specialArgs;

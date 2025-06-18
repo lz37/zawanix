@@ -4,12 +4,15 @@
 
 {
   imports = [
-    ./hyprland.nix
+    ./ags.nix
     ./anyrun.nix
-    ./foot.nix
     ./font.nix
+    ./foot.nix
     ./fuzzle.nix
-    # ./hypridle.nix
+    ./hypridle.nix
+    ./hyprland.nix
     ./hyprlock.nix
+    ./theme.nix
+    ./zsh.nix
   ];
 }

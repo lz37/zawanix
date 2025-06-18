@@ -1,4 +1,9 @@
-{ inputs, system, ... }:
+{
+  inputs,
+  system,
+  pkgs,
+  ...
+}:
 {
   nixpkgs = {
     config = {
@@ -23,6 +28,17 @@
           illogical-impulse-kvantum
           illogical-impulse-oneui4-icons
           ;
+        illogical-impulse-agsPackage =
+          inputs.illogical-impulse.inputs.ags.packages.${system}.default.override
+            {
+              extraPackages = with pkgs; [
+                gtksourceview
+                gtksourceview4
+                webkitgtk
+                webp-pixbuf-loader
+                ydotool
+              ];
+            };
         teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
         hyprland-git-pkgs = inputs.hyprland.packages.${system};
         hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
