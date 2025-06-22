@@ -19,7 +19,7 @@ in
     gtk.enable = true;
   };
 
-  home.file.".local/share/icons/MoreWaita" = {
+  xdg.dataFile."icons/MoreWaita" = {
     source = "${pkgs.morewaita-icon-theme}/share/icons";
   };
 }

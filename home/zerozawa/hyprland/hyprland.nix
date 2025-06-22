@@ -20,26 +20,25 @@ in
     ];
   };
   xdg.configFile = {
-    "hypr/shaders".source =
-      config.lib.file.mkOutOfStoreSymlink "${pkgs.illogical-impulse-hyprland-shaders}";
+    "hypr/shaders".source = "${pkgs.illogical-impulse-hyprland-shaders}";
     "hypr/hyprland/.keep".text = "";
-    "Kvantum" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${pkgs.illogical-impulse-kvantum}";
-      recursive = true;
-    };
+    # "Kvantum" = {
+    #   source = "${pkgs.illogical-impulse-kvantum}";
+    #   recursive = true;
+    # };
   };
-  gtk = {
-    enable = true;
-    iconTheme = {
-      package = pkgs.adwaita-icon-theme;
-      name = "Adwaita";
-    };
-  };
-  qt = {
-    enable = true;
-    platformTheme.name = "qt5ct";
-    style.name = "kvantum";
-  };
+  # gtk = {
+  #   enable = true;
+  #   iconTheme = {
+  #     package = pkgs.adwaita-icon-theme;
+  #     name = "Adwaita";
+  #   };
+  # };
+  # qt = {
+  #   enable = true;
+  #   platformTheme.name = "kde6";
+  #   style.name = "kvantum";
+  # };
 
   wayland.windowManager.hyprland = {
     enable = true;
