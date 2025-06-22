@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  extensions = with pkgs.stable.vscode-extensions; [
-    github.copilot
-    github.copilot-chat
+  extensions = pkgs.nix4vscode.forVscode [
+    "github.copilot"
+    "github.copilot-chat"
   ];
   settings = {
     "chat.agent.enabled" = true;
