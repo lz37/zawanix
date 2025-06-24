@@ -25,9 +25,6 @@
             inherit system;
             config.allowUnfree = true;
           };
-          waydroid = prev.waydroid.override {
-            python3Packages = prev.python312Packages;
-          };
           inherit (inputs.illogical-impulse.legacyPackages.${system})
             illogical-impulse-ags
             illogical-impulse-ags-launcher
