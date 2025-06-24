@@ -13,6 +13,16 @@
         "sudo"
         "hitokoto"
         "z"
+        "vscode"
+        "systemadmin"
+        "tmux"
+        "ssh"
+        "docker"
+        "kitty"
+        "history"
+        "eza"
+        "encode64"
+        "cp"
       ];
     };
   };

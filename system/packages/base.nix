@@ -50,6 +50,5 @@
     ipmitool
     teleport-lock.client
     sshpass
-    talosctl
   ];
 }
