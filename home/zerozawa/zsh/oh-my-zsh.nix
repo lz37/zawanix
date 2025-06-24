@@ -24,6 +24,7 @@
         "encode64"
         "cp"
         "sudo"
+        "copypath"
       ];
     };
   };

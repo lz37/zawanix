@@ -50,5 +50,6 @@
     ipmitool
     teleport-lock.client
     sshpass
+    rsync
   ];
 }
