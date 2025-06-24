@@ -23,6 +23,7 @@
         "eza"
         "encode64"
         "cp"
+        "sudo"
       ];
     };
   };
