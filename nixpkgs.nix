@@ -15,7 +15,7 @@
         let
           pkgs = prev;
         in
-        {
+        rec {
           # 启用 NUR
           nur = import inputs.nur {
             nurpkgs = prev;

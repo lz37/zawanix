@@ -30,7 +30,7 @@
     boxbuddy
     teams-for-linux
     figma-linux
-    stable.jamesdsp
+    jamesdsp
     freerdp3
     podman-desktop
     cherry-studio
