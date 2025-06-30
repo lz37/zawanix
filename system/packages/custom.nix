@@ -67,7 +67,6 @@ in
     upgrade
     system.packages
     (pkgs.callPackage ./build/picacg.nix { }).package
-    (pkgs.callPackage ./build/wechat.nix { }).package
     (pkgs.callPackage ./build/jmcomic.nix { }).package
   ];
 }

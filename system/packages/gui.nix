@@ -7,11 +7,11 @@
   environment.systemPackages = with pkgs; [
     burpsuite
     thunderbird
-    qq
+    master.qq
     wiliwili
     telegram-desktop
-    wemeet
-    # wechat-uos
+    master.wemeet
+    master.wechat
     mpv
     scrcpy
     android-studio

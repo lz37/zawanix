@@ -47,7 +47,6 @@
                   ydotool
                 ];
               };
-          qq = master.qq;
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           hyprland-git-pkgs = inputs.hyprland.packages.${system};
           hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
