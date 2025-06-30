@@ -2,6 +2,14 @@
 
 {
   services = {
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        gutenprint
+        hplip
+        splix
+      ];
+    };
     udisks2.enable = true;
     fwupd.enable = true;
     dbus = {
@@ -29,7 +37,6 @@
       defaultWindowManager = "startplasma-x11";
       openFirewall = true;
     };
-    printing.enable = true;
     openssh = {
       enable = true;
       openFirewall = true;
