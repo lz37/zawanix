@@ -25,6 +25,10 @@
             inherit system;
             config.allowUnfree = true;
           };
+          master = import inputs.nixpkgs-master {
+            inherit system;
+            config.allowUnfree = true;
+          };
           inherit (inputs.illogical-impulse.legacyPackages.${system})
             illogical-impulse-ags
             illogical-impulse-ags-launcher
@@ -43,6 +47,7 @@
                   ydotool
                 ];
               };
+          qq = master.qq;
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           hyprland-git-pkgs = inputs.hyprland.packages.${system};
           hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
