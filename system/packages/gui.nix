@@ -1,8 +1,11 @@
 {
   pkgs,
+  lib,
   ...
 }:
-
+let
+  inherit (import ./utils.nix { inherit pkgs lib; }) patchDesktop;
+in
 {
   environment.systemPackages = with pkgs; [
     burpsuite
@@ -12,6 +15,18 @@
     telegram-desktop
     master.wemeet
     master.wechat
+    (patchDesktop master.wechat "wechat"
+      [
+        "Exec=wechat %U"
+      ]
+      [
+        "Exec=wechat %U"
+        "XIM=fcitx"
+        "GTK_IM_MODULE=fcitx"
+        "QT_IM_MODULE=fcitx"
+        "XMODIFIERS=@im=fcitx"
+      ]
+    )
     mpv
     scrcpy
     android-studio
