@@ -35,6 +35,7 @@ in
       network = {
         wired-interface = str;
         static-address = str;
+        hosts = str;
       };
       atuin = {
         server = str;
