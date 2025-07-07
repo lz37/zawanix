@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 
@@ -38,6 +37,10 @@
         sync_address = config.zerozawa.atuin.server;
         search_mode = "prefix";
       };
+    };
+    mise = {
+      enable = true;
+      enableZshIntegration = true;
     };
     direnv = {
       enable = true;
