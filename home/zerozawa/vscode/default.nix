@@ -117,11 +117,14 @@ let
   devcontainer = ssh ++ [
     (import ./common/topics/remote/devcontainer.nix)
   ];
-  k8s = ssh ++ [
-    (import ./common/topics/k8s.nix)
-    (import ./common/topics/settingfile/yaml.nix)
-    (import ./common/topics/nix.nix)
-  ];
+  k8s =
+    ssh
+    ++ [
+      (import ./common/topics/k8s.nix)
+      (import ./common/topics/settingfile/yaml.nix)
+      (import ./common/topics/nix.nix)
+    ]
+    ++ copilot;
   xd = default ++ [
     (import ./common/topics/ci-cd.nix)
     (import ./common/topics/python.nix)
