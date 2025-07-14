@@ -21,52 +21,53 @@ let
   lang = [ (import ./common/topics/lang.nix) ];
   copilot = [ (import ./common/topics/copilot.nix) ];
   gitlens = [ (import ./common/topics/gitlens.nix) ];
-  default =
+  ssh =
     base
     ++ gui
     ++ lang
+    ++ [
+      (import ./common/topics/remote/ssh.nix)
+      (import ./common/topics/remote/common.nix)
+    ];
+  devcontainer = ssh ++ [
+    (import ./common/topics/remote/common.nix)
+    (import ./common/topics/remote/devcontainer.nix)
+  ];
+  default =
+    ssh
     ++ copilot
     ++ gitlens
     ++ [
       (import ./common/topics/docker.nix)
       (import ./common/topics/document/markdown.nix)
       (import ./common/topics/nix.nix)
-      (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/remote/liveshare.nix)
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
     ];
   nixos =
-    base
-    ++ gui
-    ++ lang
+    ssh
     ++ copilot
     ++ gitlens
     ++ [
       (import ./common/topics/docker.nix)
       (import ./common/topics/document/markdown.nix)
       (import ./common/topics/nix.nix)
-      (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/hyprland.nix)
     ];
   rust =
-    base
-    ++ gui
-    ++ lang
+    ssh
     ++ copilot
     ++ gitlens
     ++ [
       (import ./common/topics/rust.nix)
       (import ./common/topics/nix.nix)
       (import ./common/topics/settingfile/toml.nix)
-      (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/document/markdown.nix)
     ];
   tailwind =
-    base
-    ++ gui
-    ++ lang
+    ssh
     ++ copilot
     ++ gitlens
     ++ [
@@ -76,7 +77,6 @@ let
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/frontend/tailwind.nix)
       (import ./common/topics/settingfile/dotenv.nix)
-      (import ./common/topics/remote/ssh.nix)
     ];
   frontend =
     base
@@ -92,9 +92,7 @@ let
       (import ./common/topics/settingfile/dotenv.nix)
     ];
   noveler =
-    base
-    ++ gui
-    ++ lang
+    ssh
     ++ copilot
     ++ gitlens
     ++ [
@@ -102,21 +100,9 @@ let
       (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/remote/ssh.nix)
       (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/settingfile/yaml.nix)
     ];
-  ssh =
-    base
-    ++ gui
-    ++ lang
-    ++ [
-      (import ./common/topics/docker.nix)
-      (import ./common/topics/remote/ssh.nix)
-    ];
-  devcontainer = ssh ++ [
-    (import ./common/topics/remote/devcontainer.nix)
-  ];
   k8s =
     ssh
     ++ gitlens
