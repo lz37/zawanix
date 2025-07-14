@@ -119,6 +119,7 @@ let
   ];
   k8s =
     ssh
+    ++ gitlens
     ++ [
       (import ./common/topics/k8s.nix)
       (import ./common/topics/settingfile/yaml.nix)
