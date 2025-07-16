@@ -22,7 +22,7 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nix4vscode = {
       url = "github:nix-community/nix4vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";

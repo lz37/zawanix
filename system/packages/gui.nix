@@ -28,7 +28,7 @@ in
     drawio
     jellyfin-media-player
     feishin
-    gimp
+    gimp3
     pinta
     vlc
     dbeaver-bin
