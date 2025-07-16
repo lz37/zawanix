@@ -79,10 +79,7 @@ in
     };
     brave = chromium-common;
     vivaldi = chromium-common // {
-      package = pkgs.vivaldi.override {
-        proprietaryCodecs = true;
-        enableWidevine = true;
-      };
+      package = pkgs.vivaldi;
     };
     firefox = {
       enable = true;
