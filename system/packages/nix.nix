@@ -17,5 +17,6 @@
     nil-git
     nixd
     nixfmt-rfc-style
+    npins
   ];
 }
