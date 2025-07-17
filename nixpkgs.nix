@@ -9,7 +9,7 @@
       allowUnfree = true;
     };
     overlays = [
-      inputs.nix4vscode.overlays.forVscode
+      inputs.nix-vscode-extensions.overlays.default
       (
         final: prev:
         let
@@ -47,6 +47,15 @@
                   ydotool
                 ];
               };
+          vscode-selected = master.vscode;
+          vscode-selected-extensionsCompatible = (
+            (import inputs.nixpkgs-master {
+              inherit system;
+              config.allowUnfree = true;
+              overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+            }).forVSCodeVersion
+              vscode-selected.version
+          );
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           hyprland-git-pkgs = inputs.hyprland.packages.${system};
           hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};

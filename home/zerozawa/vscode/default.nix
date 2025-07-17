@@ -8,7 +8,7 @@ let
   merge-vscode-modules = import ./common/utils.nix;
   merge-imports = merge-vscode-modules (
     {
-      inherit pkgs;
+      inherit config lib pkgs;
       commonVSCVars = {
         wordSeparatorsStr = ''`~·!！@#$￥%^…&*()（）[]【】{}<>《》-—=+\|/、'‘’"“”:：;；,，.。?？'';
         prettierExtStr = "esbenp.prettier-vscode";
@@ -123,7 +123,7 @@ in
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    package = pkgs.vscode;
+    package = pkgs.vscode-selected;
     profiles = {
       default = (merge-imports default) // {
         enableUpdateCheck = false;

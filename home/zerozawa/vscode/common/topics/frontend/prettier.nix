@@ -3,8 +3,8 @@ let
   prettierExtStr = commonVSCVars.prettierExtStr;
 in
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "esbenp.prettier-vscode"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    esbenp.prettier-vscode
   ];
   settings = {
     "editor.defaultFormatter" = prettierExtStr;

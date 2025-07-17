@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "jnoortheen.nix-ide"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    jnoortheen.nix-ide
   ];
   settings = {
     "[nix]" = {

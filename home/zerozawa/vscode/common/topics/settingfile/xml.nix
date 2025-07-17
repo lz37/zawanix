@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "redhat.vscode-xml"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    redhat.vscode-xml
   ];
   settings = {
     "[xml]" = {

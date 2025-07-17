@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "ms-python.python"
-    "ms-python.black-formatter"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    ms-python.python
+    ms-python.black-formatter
   ];
   settings = {
     "[python]" = {

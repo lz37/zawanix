@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "ms-vsliveshare.vsliveshare"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    ms-vsliveshare.vsliveshare
   ];
 }

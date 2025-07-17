@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "golang.go"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    golang.go
   ];
   settings = {
     "go.toolsManagement.autoUpdate" = true;

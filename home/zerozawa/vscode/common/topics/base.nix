@@ -1,13 +1,13 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "tintinweb.vscode-inline-bookmarks"
-    "wakatime.vscode-wakatime"
-    "streetsidesoftware.code-spell-checker"
-    "christian-kohler.path-intellisense"
-    "mkhl.direnv"
-    "matthewnespor.vscode-color-identifiers-mode"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    tintinweb.vscode-inline-bookmarks
+    wakatime.vscode-wakatime
+    streetsidesoftware.code-spell-checker
+    christian-kohler.path-intellisense
+    mkhl.direnv
+    matthewnespor.vscode-color-identifiers-mode
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";

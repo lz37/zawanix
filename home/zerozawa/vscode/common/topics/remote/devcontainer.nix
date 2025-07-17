@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "ms-vscode-remote.remote-containers"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    ms-vscode-remote.remote-containers
   ];
   settings = {
     "dev.containers.copyGitConfig" = true;

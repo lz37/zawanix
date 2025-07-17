@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscode [
-    "ms-azuretools.vscode-containers"
-    "docker.docker"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    ms-azuretools.vscode-containers
+    docker.docker
   ];
   settings = {
     # "[dockercompose]" = {
