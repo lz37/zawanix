@@ -45,5 +45,7 @@ in
     wineWowPackages.stagingFull
     winetricks
     # protonplus
+    picacg-qt
+    jmcomic-qt
   ];
 }

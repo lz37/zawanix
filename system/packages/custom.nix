@@ -66,7 +66,5 @@ in
     rebuild
     upgrade
     system.packages
-    (pkgs.callPackage ./build/picacg.nix { }).package
-    (pkgs.callPackage ./build/jmcomic.nix { }).package
   ];
 }

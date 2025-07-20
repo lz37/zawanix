@@ -62,6 +62,9 @@
           waybar-git = inputs.waybar.packages.${system}.waybar;
           nil-git = inputs.nil.outputs.packages.${system}.nil;
           anyrun-git-pkgs = inputs.anyrun.packages.${system};
+          picacg-qt = (pkgs.callPackage ./nixpkgs-build/picacg.nix { }).package;
+          jmcomic-qt = (pkgs.callPackage ./nixpkgs-build/jmcomic.nix { }).package;
+          zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { }).package;
         }
       )
       inputs.nix-alien.overlays.default
