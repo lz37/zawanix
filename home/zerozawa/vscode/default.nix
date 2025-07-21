@@ -90,6 +90,7 @@ let
       (import ./common/topics/frontend/base.nix)
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/settingfile/dotenv.nix)
+      (import ./common/topics/settingfile/yaml.nix)
     ];
   noveler =
     ssh

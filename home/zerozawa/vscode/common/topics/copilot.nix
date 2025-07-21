@@ -3,7 +3,7 @@
 {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     github.copilot
-    github.copilot-chat
+    # github.copilot-chat
   ];
   settings = {
     "chat.agent.enabled" = true;
