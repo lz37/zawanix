@@ -79,7 +79,7 @@ let
       (import ./common/topics/settingfile/dotenv.nix)
     ];
   frontend =
-    base
+    ssh
     ++ gui
     ++ lang
     ++ copilot
