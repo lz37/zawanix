@@ -66,18 +66,7 @@ let
       (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/document/markdown.nix)
     ];
-  tailwind =
-    ssh
-    ++ copilot
-    ++ gitlens
-    ++ [
-      (import ./common/topics/document/markdown.nix)
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/frontend/base.nix)
-      (import ./common/topics/frontend/prettier.nix)
-      (import ./common/topics/frontend/tailwind.nix)
-      (import ./common/topics/settingfile/dotenv.nix)
-    ];
+
   frontend =
     ssh
     ++ gui
@@ -92,6 +81,13 @@ let
       (import ./common/topics/settingfile/dotenv.nix)
       (import ./common/topics/settingfile/yaml.nix)
     ];
+  tailwind = frontend ++ [
+    (import ./common/topics/frontend/tailwind.nix)
+  ];
+  styled = frontend ++ [
+    (import ./common/topics/frontend/styled-components.nix)
+  ];
+  tailwind_styled = tailwind ++ [ (import ./common/topics/frontend/styled-components.nix) ];
   noveler =
     ssh
     ++ copilot
@@ -139,6 +135,8 @@ in
       rust = (merge-imports rust);
       xd = (merge-imports xd);
       nixos = (merge-imports nixos);
+      styled = (merge-imports styled);
+      tailwind_styled = (merge-imports tailwind_styled);
     };
   };
   services.vscode-server.enable = true;
