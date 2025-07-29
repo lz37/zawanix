@@ -1,4 +1,5 @@
 {
+  config,
   ...
 }:
 
@@ -16,7 +17,7 @@
     autocd = true;
     historySubstringSearch.enable = true;
     enableCompletion = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     enableVteIntegration = true;
     autosuggestion = {
       enable = true;
