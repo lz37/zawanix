@@ -28,8 +28,6 @@
         # 回退
         "https://cache.nixos.org"
 
-        "https://cache.nixos.org"
-
         "https://nix-community.cachix.org"
         "https://hyprland.cachix.org"
         # "https://winapps.cachix.org/"
