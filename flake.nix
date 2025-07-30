@@ -21,6 +21,10 @@
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix4vscode = {
+      url = "github:nix-community/nix4vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,41 +102,40 @@
                   in
                   {
                     inherit system specialArgs;
-                    modules =
-                      [
-                        ./options
-                        ./nixpkgs.nix
-                        inputs.nix-index-database.nixosModules.nix-index
-                        { programs.nix-index-database.comma.enable = true; }
-                        ./hardware
-                        ./network
-                        ./system
-                        ./mihomo
-                      ]
-                      ++ (lib.optionals isIntelGPU [
-                        inputs.nixos-hardware.nixosModules.common-gpu-intel
-                      ])
-                      ++ (lib.optionals isIntelCPU [
-                        inputs.nixos-hardware.nixosModules.common-cpu-intel
-                      ])
-                      ++ [
-                        inputs.home-manager.nixosModules.home-manager
-                        {
-                          home-manager = {
-                            useGlobalPkgs = true;
-                            useUserPackages = true;
-                            sharedModules = [
-                              inputs.plasma-manager.homeManagerModules.plasma-manager
-                              inputs.vscode-server.homeModules.default
-                              ./options
-                              inputs.ags.homeManagerModules.default
-                            ];
-                            users.zerozawa = import ./home/zerozawa;
-                            extraSpecialArgs = specialArgs;
-                          };
-                        }
-                      ]
-                      ++ extraModules;
+                    modules = [
+                      ./options
+                      ./nixpkgs.nix
+                      inputs.nix-index-database.nixosModules.nix-index
+                      { programs.nix-index-database.comma.enable = true; }
+                      ./hardware
+                      ./network
+                      ./system
+                      ./mihomo
+                    ]
+                    ++ (lib.optionals isIntelGPU [
+                      inputs.nixos-hardware.nixosModules.common-gpu-intel
+                    ])
+                    ++ (lib.optionals isIntelCPU [
+                      inputs.nixos-hardware.nixosModules.common-cpu-intel
+                    ])
+                    ++ [
+                      inputs.home-manager.nixosModules.home-manager
+                      {
+                        home-manager = {
+                          useGlobalPkgs = true;
+                          useUserPackages = true;
+                          sharedModules = [
+                            inputs.plasma-manager.homeManagerModules.plasma-manager
+                            inputs.vscode-server.homeModules.default
+                            ./options
+                            inputs.ags.homeManagerModules.default
+                          ];
+                          users.zerozawa = import ./home/zerozawa;
+                          extraSpecialArgs = specialArgs;
+                        };
+                      }
+                    ]
+                    ++ extraModules;
                   };
               in
               {

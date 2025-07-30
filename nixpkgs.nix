@@ -10,6 +10,7 @@
     };
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
+      inputs.nix4vscode.overlays.default
       (
         final: prev:
         let

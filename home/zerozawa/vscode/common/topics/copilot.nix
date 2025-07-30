@@ -2,18 +2,15 @@
 
 {
   extensions =
-    (with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-      github.copilot
-    ])
-    ++ [
-      # 判断 attribute 'copilot-chat' 在 pkgs.vscode-selected-extensionsCompatible.vscode-marketplace.github 上是否存在 不存在则用 pkgs.vscode-marketplace.github.copilot-chat
-      (
-        if pkgs.vscode-selected-extensionsCompatible.vscode-marketplace.github ? copilot-chat then
-          pkgs.vscode-selected-extensionsCompatible.vscode-marketplace.github.copilot-chat
-        else
-          pkgs.vscode-marketplace.github.copilot-chat
-      )
-    ];
+    with pkgs.vscode-selected-extensionsCompatible;
+    (
+      (with vscode-marketplace; [
+        github.copilot
+      ])
+      ++ (with vscode-marketplace-release; [
+        github.copilot-chat
+      ])
+    );
   settings = {
     "chat.agent.enabled" = true;
     "chat.editor.wordWrap" = "on";
