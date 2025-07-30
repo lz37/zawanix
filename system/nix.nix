@@ -21,7 +21,7 @@
         # 中科院
         "https://mirror.iscas.ac.cn/nix-channels/store"
         # 清华
-        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
         # 北外
         # "https://mirrors.bfsu.edu.cn/nix-channels/store"
 
