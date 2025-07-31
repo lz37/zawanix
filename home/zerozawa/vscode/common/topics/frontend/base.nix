@@ -6,10 +6,12 @@
     formulahendry.auto-rename-tag
     formulahendry.auto-close-tag
     yoavbls.pretty-ts-errors
+    typescriptteam.native-preview
   ];
   settings = {
     "typescript.tsserver.maxTsServerMemory" = ram / 4;
     "typescript.updateImportsOnFileMove.enabled" = "always";
     "javascript.updateImportsOnFileMove.enabled" = "always";
+    "typescript.experimental.useTsgo" = true;
   };
 }
