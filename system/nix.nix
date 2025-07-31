@@ -26,7 +26,7 @@
         # "https://mirrors.bfsu.edu.cn/nix-channels/store"
 
         # 回退
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
 
         "https://nix-community.cachix.org"
         "https://hyprland.cachix.org"
