@@ -13,17 +13,19 @@
       ];
       substituters = lib.mkForce [
         # 南大
-        "https://mirror.nju.edu.cn/nix-channels/store"
-        # 中科大
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirror.nju.edu.cn/nix-channels/store?priority=10"
         # 上交
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        "https://mirror.sjtu.edu.cn/nix-channels/store?priority=11"
+        # 中科大
+        "https://mirrors.ustc.edu.cn/nix-channels/store?priority=11"
+        # 重庆邮电
+        "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12"
         # 中科院
-        "https://mirror.iscas.ac.cn/nix-channels/store"
+        "https://mirror.iscas.ac.cn/nix-channels/store?priority=13"
         # 清华
-        # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=14"
         # 北外
-        # "https://mirrors.bfsu.edu.cn/nix-channels/store"
+        "https://mirrors.bfsu.edu.cn/nix-channels/store?priority=15"
 
         # 回退
         # "https://cache.nixos.org"
@@ -33,6 +35,7 @@
         # "https://winapps.cachix.org/"
         "https://nix-gaming.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
+        "https://hydra.iohk.io"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -40,6 +43,7 @@
         # "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
       ];
       trusted-users = [
         "zerozawa"

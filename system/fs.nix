@@ -1,4 +1,4 @@
-{ ram, useTmpfs, ... }:
+{ ram, ... }:
 
 {
   swapDevices = [
@@ -9,7 +9,6 @@
     }
   ];
   boot.tmp = {
-    inherit useTmpfs;
     cleanOnBoot = true;
   };
 }

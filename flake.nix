@@ -78,7 +78,6 @@
                     isAmdGPU ? false,
                     isVM ? false,
                     isLaptop ? false,
-                    useTmpfs ? false,
                     extraModules ? [ ],
                     ram ? 8 * 1024,
                   }:
@@ -93,7 +92,6 @@
                         isAmdGPU
                         isVM
                         isLaptop
-                        useTmpfs
                         ram
                         colorsh
                         system
@@ -142,7 +140,6 @@
                 zawanix-work = lib.nixosSystem (mkNixosConfig {
                   isIntelCPU = true;
                   isIntelGPU = true;
-                  useTmpfs = true;
                   hostName = "zawanix-work";
                   ram = 32 * 1024;
                 });
@@ -150,7 +147,6 @@
                   isIntelCPU = true;
                   isIntelGPU = true;
                   isNvidiaGPU = true;
-                  useTmpfs = false;
                   isLaptop = true;
                   hostName = "zawanix-glap";
                   ram = 16 * 1024;

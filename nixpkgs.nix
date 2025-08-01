@@ -50,11 +50,14 @@
               };
           vscode-selected = master.vscode;
           vscode-selected-extensionsCompatible = (
-            (import inputs.nixpkgs-master {
-              inherit system;
-              config.allowUnfree = true;
-              overlays = [ inputs.nix-vscode-extensions.overlays.default ];
-            }).forVSCodeVersion
+            (
+              (import inputs.nixpkgs-master {
+                inherit system;
+                config.allowUnfree = true;
+                overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+              }).usingFixesFrom
+              pkgs
+            ).forVSCodeVersion
               vscode-selected.version
           );
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
