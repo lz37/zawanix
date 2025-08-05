@@ -44,7 +44,7 @@ in
     # support both 32- and 64-bit applications
     wineWowPackages.stagingFull
     winetricks
-    # protonplus
+    protonplus
     picacg-qt
     jmcomic-qt
   ];
