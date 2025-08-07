@@ -58,7 +58,7 @@ let
     TranslateVirtualKeyboardButton=""
   '';
   pname = "sddm-eucalyptus-drop";
-  version = "v2.0.0";
+  version = "2.0.0";
 in
 stdenv.mkDerivation rec {
   inherit pname version;
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitLab {
     owner = "Matt.Jolly";
     repo = pname;
-    rev = version;
+    rev = "v${version}";
     sha256 = "sha256-wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
   };
   propagatedUserEnvPkgs = [

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.sddm-eucalyptus-drop ];
+  environment.systemPackages = with pkgs; [ sddm-eucalyptus-drop ];
   services.displayManager = {
     defaultSession = "plasma";
     sddm = {
