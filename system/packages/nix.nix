@@ -18,5 +18,6 @@
     nixd
     nixfmt-rfc-style
     npins
+    nurl
   ];
 }

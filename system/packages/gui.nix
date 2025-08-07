@@ -47,5 +47,6 @@ in
     protonplus
     picacg-qt
     jmcomic-qt
+    wechat-web-devtools-linux
   ];
 }
