@@ -8,7 +8,7 @@ let
   version = "1.06.2504010-2";
   src = fetchurl {
     url = "https://github.com/msojocs/${pname}/releases/download/v${version}/WeChat_Dev_Tools_v${version}_x86_64_linux.AppImage";
-    # hash = "sha256-LgHR+HDfTb9Ur8p4Ibb8TUdLqwkK8wKynrKliYbEGSg=";
+    hash = "sha256-AQggXU24U+JAXmXKcbpYJKbfce/JVEH+dkHA0tBfvIw=";
   };
   appimageContents = appimageTools.extract {
     inherit pname version src;
@@ -17,6 +17,10 @@ in
 appimageTools.wrapAppImage {
   inherit pname version;
   src = appimageContents;
+  extraPkgs =
+    pkgs: with pkgs; [
+      xorg.libxshmfence
+    ];
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     cp ${appimageContents}/io.github.msojocs.wechat_devtools.desktop $out/share/applications/
