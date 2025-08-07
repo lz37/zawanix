@@ -10,7 +10,7 @@
 let
   theme-conf = ''
     [General]
-    Background="${pkgs.lib.cleanSource ../../assets/. + "/45916741_96947927_p0_Euoia_岁差.jpg"}"
+    Background="${pkgs.lib.cleanSource ../assets/. + "/45916741_96947927_p0_Euoia_岁差.jpg"}"
     DimBackgroundImage="0.0"
     ScaleImageCropped="true"
     ScreenWidth="3840"
@@ -60,26 +60,23 @@ let
   pname = "sddm-eucalyptus-drop";
   version = "v2.0.0";
 in
-{
+stdenv.mkDerivation rec {
   inherit pname version;
-  package = stdenv.mkDerivation rec {
-    inherit pname version;
-    dontBuild = true;
-    src = fetchFromGitLab {
-      owner = "Matt.Jolly";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
-    };
-    propagatedUserEnvPkgs = [
-      libsForQt5.qt5.qtgraphicaleffects
-      kdePackages.qtsvg
-      kdePackages.qtbase
-    ];
-    installPhase = ''
-      mkdir -p $out/share/sddm/themes/${pname}
-      echo '${theme-conf}' > $out/share/sddm/themes/${pname}/theme.conf
-      cp -Rn $src/* $out/share/sddm/themes/${pname}/
-    '';
+  dontBuild = true;
+  src = fetchFromGitLab {
+    owner = "Matt.Jolly";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
   };
+  propagatedUserEnvPkgs = [
+    libsForQt5.qt5.qtgraphicaleffects
+    kdePackages.qtsvg
+    kdePackages.qtbase
+  ];
+  installPhase = ''
+    mkdir -p $out/share/sddm/themes/${pname}
+    echo '${theme-conf}' > $out/share/sddm/themes/${pname}/theme.conf
+    cp -Rn $src/* $out/share/sddm/themes/${pname}/
+  '';
 }

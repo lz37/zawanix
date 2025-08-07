@@ -1,10 +1,7 @@
 { pkgs, ... }:
 
-let
-  sddm-eucalyptus-drop = pkgs.kdePackages.callPackage ./sddm-eucalyptus-drop.nix { };
-in
 {
-  environment.systemPackages = [ sddm-eucalyptus-drop.package ];
+  environment.systemPackages = [ pkgs.sddm-eucalyptus-drop ];
   services.displayManager = {
     defaultSession = "plasma";
     sddm = {
@@ -15,7 +12,7 @@ in
       };
       autoNumlock = true;
       enableHidpi = true;
-      theme = sddm-eucalyptus-drop.pname;
+      theme = pkgs.sddm-eucalyptus-drop.name;
     };
   };
 

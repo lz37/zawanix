@@ -69,6 +69,7 @@
           picacg-qt = (pkgs.callPackage ./nixpkgs-build/picacg.nix { });
           jmcomic-qt = (pkgs.callPackage ./nixpkgs-build/jmcomic.nix { });
           zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { });
+          sddm-eucalyptus-drop = (pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { });
         }
       )
       inputs.nix-alien.overlays.default
