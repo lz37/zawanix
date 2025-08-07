@@ -12,7 +12,7 @@
       };
       autoNumlock = true;
       enableHidpi = true;
-      theme = pkgs.sddm-eucalyptus-drop.name;
+      theme = pkgs.sddm-eucalyptus-drop.pname;
     };
   };
 
