@@ -17,6 +17,10 @@ in
 appimageTools.wrapAppImage {
   inherit pname version;
   src = appimageContents;
+  extraPkgs =
+    pkgs: with pkgs; [
+      xorg.libxcb
+    ];
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     cp ${appimageContents}/PicACG.desktop $out/share/applications/
