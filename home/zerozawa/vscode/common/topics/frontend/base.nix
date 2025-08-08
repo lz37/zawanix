@@ -12,7 +12,7 @@
     "typescript.tsserver.maxTsServerMemory" = ram / 4;
     "typescript.updateImportsOnFileMove.enabled" = "always";
     "javascript.updateImportsOnFileMove.enabled" = "always";
-    "typescript.experimental.useTsgo" = true;
+    # "typescript.experimental.useTsgo" = true;
     "typescript.experimental.expandableHover" = true;
     "typescript.tsserver.experimental.enableProjectDiagnostics" = true;
   };
