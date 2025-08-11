@@ -46,41 +46,19 @@ let
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
     ];
-  nixos =
-    ssh
-    ++ copilot
-    ++ gitlens
-    ++ [
-      (import ./common/topics/docker.nix)
-      (import ./common/topics/document/markdown.nix)
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/hyprland.nix)
-    ];
-  rust =
-    ssh
-    ++ copilot
-    ++ gitlens
-    ++ [
-      (import ./common/topics/rust.nix)
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/settingfile/toml.nix)
-      (import ./common/topics/document/markdown.nix)
-    ];
+  nixos = default ++ [
+    (import ./common/topics/hyprland.nix)
+  ];
+  rust = default ++ [
+    (import ./common/topics/rust.nix)
+    (import ./common/topics/settingfile/toml.nix)
+  ];
 
-  frontend =
-    ssh
-    ++ gui
-    ++ lang
-    ++ copilot
-    ++ gitlens
-    ++ [
-      (import ./common/topics/document/markdown.nix)
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/frontend/base.nix)
-      (import ./common/topics/frontend/prettier.nix)
-      (import ./common/topics/settingfile/dotenv.nix)
-      (import ./common/topics/settingfile/yaml.nix)
-    ];
+  frontend = default ++ [
+    (import ./common/topics/frontend/base.nix)
+    (import ./common/topics/frontend/prettier.nix)
+    (import ./common/topics/settingfile/dotenv.nix)
+  ];
   tailwind = frontend ++ [
     (import ./common/topics/frontend/tailwind.nix)
   ];
@@ -88,25 +66,16 @@ let
     (import ./common/topics/frontend/styled-components.nix)
   ];
   tailwind_styled = tailwind ++ [ (import ./common/topics/frontend/styled-components.nix) ];
-  noveler =
-    ssh
-    ++ copilot
-    ++ gitlens
-    ++ [
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/frontend/base.nix)
-      (import ./common/topics/frontend/prettier.nix)
-      (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/settingfile/toml.nix)
-      (import ./common/topics/settingfile/yaml.nix)
-    ];
+  noveler = default ++ [
+    (import ./common/topics/frontend/base.nix)
+    (import ./common/topics/frontend/prettier.nix)
+    (import ./common/topics/ci-cd.nix)
+    (import ./common/topics/settingfile/toml.nix)
+  ];
   k8s =
-    ssh
-    ++ gitlens
+    default
     ++ [
       (import ./common/topics/k8s.nix)
-      (import ./common/topics/settingfile/yaml.nix)
-      (import ./common/topics/nix.nix)
     ]
     ++ copilot;
   xd = default ++ [
@@ -114,6 +83,10 @@ let
     (import ./common/topics/python.nix)
     (import ./common/topics/bash.nix)
     (import ./common/topics/document/drawio.nix)
+  ];
+  python = default ++ [
+    (import ./common/topics/python.nix)
+    (import ./common/topics/settingfile/toml.nix)
   ];
 in
 {
@@ -137,6 +110,7 @@ in
       nixos = (merge-imports nixos);
       styled = (merge-imports styled);
       tailwind_styled = (merge-imports tailwind_styled);
+      python = (merge-imports python);
     };
   };
   services.vscode-server.enable = true;
