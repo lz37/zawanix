@@ -26,9 +26,8 @@ in
           if [ ! -d "${target_dir}" ]; then
             mkdir -p "${target_dir}";
           fi
-          if [ ! -L "${target}" ]; then
-            ln -s "${source}" "${target}";
-          fi
+          rm -f "${target}";
+          ln -s "${source}" "${target}";
         '';
       }
     );
