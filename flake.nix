@@ -40,6 +40,7 @@
     ags.url = "github:Aylur/ags";
     anyrun.url = "github:Kirottu/anyrun";
     illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs =
@@ -103,6 +104,7 @@
                     modules = [
                       ./options
                       ./nixpkgs.nix
+                      inputs.nix-flatpak.nixosModules.nix-flatpak
                       inputs.nix-index-database.nixosModules.nix-index
                       { programs.nix-index-database.comma.enable = true; }
                       ./hardware

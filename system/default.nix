@@ -24,6 +24,7 @@
     ./xdg-portal.nix
     ./symlink.nix
     ./hyprland.nix
+    ./flatpak.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
 

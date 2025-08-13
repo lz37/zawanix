@@ -13,7 +13,6 @@ in
     master.qq
     wiliwili
     telegram-desktop
-    master.wemeet
     master.wechat
     (patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
       ''Exec=XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
