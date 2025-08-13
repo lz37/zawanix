@@ -48,7 +48,7 @@
                   ydotool
                 ];
               };
-          vscode-selected = master.vscode;
+          vscode-selected = pkgs.vscode;
           vscode-selected-extensionsCompatible = (
             (
               (import inputs.nixpkgs-master {
