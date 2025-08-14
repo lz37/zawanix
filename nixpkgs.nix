@@ -48,7 +48,7 @@
                   ydotool
                 ];
               };
-          vscode-selected = master.vscode;
+          vscode-selected = (master.vscode.override { useVSCodeRipgrep = true; });
           vscode-selected-extensionsCompatible = (
             (pkgs.usingFixesFrom pkgs).forVSCodeVersion vscode-selected.version
           );
