@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.nix4vscode.forVscodeVersionPrerelease pkgs.vscode-selected.version [
+  extensions = pkgs.vscode-selected-extensionsCompatible-nix4vscode.forVscodePrerelease [
     "ms-ceintl.vscode-language-pack-zh-hans"
   ];
 }

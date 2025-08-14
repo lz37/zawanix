@@ -42,13 +42,17 @@
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;
     "terminal.integrated.wordSeparators" = commonVSCVars.wordSeparatorsStr;
-    "workbench.colorTheme" = "Eva Dark Italic";
+    # "workbench.colorTheme" = "Eva Dark Italic";
     "workbench.iconTheme" = "material-icon-theme";
     "workbench.editor.wrapTabs" = true;
     "workbench.externalBrowser" = "${pkgs.vivaldi}/bin/vivaldi";
     "window.zoomLevel" = 1;
     "window.titleBarStyle" = "native";
     "window.customTitleBarVisibility" = "never";
+    "window.autoDetectColorScheme" = true;
+    "workbench.preferredDarkColorTheme" = "Eva Dark Italic Bold";
+    "workbench.preferredLightColorTheme" = "Eva Light Italic Bold";
+    "window.controlsStyle" = "native";
   };
   keybindings = [
     {

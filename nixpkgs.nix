@@ -48,18 +48,20 @@
                   ydotool
                 ];
               };
-          vscode-selected = pkgs.vscode;
+          vscode-selected = master.vscode;
           vscode-selected-extensionsCompatible = (
-            (
-              (import inputs.nixpkgs-master {
-                inherit system;
-                config.allowUnfree = true;
-                overlays = [ inputs.nix-vscode-extensions.overlays.default ];
-              }).usingFixesFrom
-              pkgs
-            ).forVSCodeVersion
-              vscode-selected.version
+            (pkgs.usingFixesFrom pkgs).forVSCodeVersion vscode-selected.version
           );
+          vscode-selected-extensionsCompatible-nix4vscode =
+            let
+              inherit (vscode-selected) version;
+            in
+            (with pkgs.nix4vscode; {
+              forVscode = forVscodeVersion version;
+              forVscodePrerelease = forVscodeVersionPrerelease version;
+              forOpenVsx = forOpenVsxVersion version;
+              forOpenVsxPrerelease = forOpenVsxVersionPrerelease version;
+            });
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           hyprland-git-pkgs = inputs.hyprland.packages.${system};
           hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};

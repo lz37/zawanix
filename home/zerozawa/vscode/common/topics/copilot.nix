@@ -2,15 +2,12 @@
 
 {
   extensions =
-    with pkgs.vscode-selected-extensionsCompatible;
-    (
-      (with vscode-marketplace; [
-        github.copilot
-      ])
-      ++ (with vscode-marketplace-release; [
-        github.copilot-chat
-      ])
-    );
+    (with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+      github.copilot
+    ])
+    ++ (with pkgs.vscode-marketplace-release; [
+      github.copilot-chat
+    ]);
   settings = {
     "chat.agent.enabled" = true;
     "chat.editor.wordWrap" = "on";
