@@ -35,7 +35,6 @@ let
     )
     |> lib.zipAttrsWith (name: values: (builtins.elemAt values 0));
   chromium-base = {
-    inherit (import ./common.nix) commandLineArgs;
     enable = true;
     dictionaries = [
       pkgs.hunspellDictsChromium.en_US
@@ -69,7 +68,6 @@ in
     chromium = chromium-base;
     google-chrome = {
       enable = true;
-      inherit (chromium-base) commandLineArgs;
       package = pkgs.google-chrome.overrideAttrs (oldAttrs: {
         postInstall = ''
           dist=stable
@@ -79,7 +77,7 @@ in
     };
     brave = chromium-common;
     vivaldi = chromium-common // {
-      package = pkgs.vivaldi;
+      inherit (import ./common.nix) commandLineArgs;
     };
     firefox = {
       enable = true;
