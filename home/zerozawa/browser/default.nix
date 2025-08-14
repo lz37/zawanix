@@ -15,7 +15,7 @@ let
       reactdevtools = "fmkadmapgofadopljbjfkapdkoienihi"; # React Developer Tools
       videodownloadhelper = "lmjnegcaeklhafolokijcfjliaokphfk"; # Video DownloadHelper
       pakku = "jklfcpboamajpiikgkbjcnnnnooefbhh"; # pakku：哔哩哔哩弹幕过滤器
-      immersiveTranslate = "bpoadfkcbjbfhfodiogcnhhhpibjhbnh"; # 沉浸式翻译 - 网页翻译插件 | PDF翻译 | 免费
+      fluentRead = "djnlaiohfaaifbibleebjggkghlmcpcj"; # Open Immersive Translate 开源的沉浸式翻译。
       goFullPage = "fdpohaocaechififmbbbbbknoalclacl"; # GoFullPage - Full Page Screen Capture
       html5Outliner = "afoibpobokebhgfnknfndkgemglggomo"; # HTML5 Outliner
       headerEditor = "eningockdidmgiojffjmkdblpjocbhgh"; # Header Editor

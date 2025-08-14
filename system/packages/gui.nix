@@ -43,9 +43,11 @@ in
     # support both 32- and 64-bit applications
     wineWowPackages.stagingFull
     winetricks
+    lutris
     protonplus
     picacg-qt
     jmcomic-qt
     wechat-web-devtools-linux
+    mission-center
   ];
 }
