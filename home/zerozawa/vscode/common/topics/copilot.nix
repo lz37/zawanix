@@ -49,14 +49,14 @@
     "github.copilot.chat.summarizeAgentConversationHistory.enabled" = true;
     "github.copilot.chat.scopeSelection" = true;
     "github.copilot.chat.generateTests.codeLens" = true;
-    "remote.extensionKind" = {
-      "GitHub.copilot" = [
-        "ui"
-      ];
-      "GitHub.copilot-chat" = [
-        "ui"
-      ];
-    };
+    # "remote.extensionKind" = {
+    #   "GitHub.copilot" = [
+    #     "ui"
+    #   ];
+    #   "GitHub.copilot-chat" = [
+    #     "ui"
+    #   ];
+    # };
   };
   keybindings = [
     {

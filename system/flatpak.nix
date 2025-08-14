@@ -2,10 +2,11 @@
 
 {
   services.flatpak = {
-    enable = true;
+    enable = false;
     packages = [
-      "cn.feishu.Feishu"
-      "com.tencent.wemeet"
+      # "cn.feishu.Feishu"
+      # "com.github.tchx84.Flatseal"
+      # "io.github.giantpinkrobots.flatsweep"
     ];
     update = {
       onActivation = true;
