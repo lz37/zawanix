@@ -7,6 +7,10 @@
     ])
     ++ (with pkgs.vscode-marketplace-release; [
       github.copilot-chat
+    ])
+    ++ (pkgs.vscode-selected-extensionsCompatible-nix4vscode.forVscodePrerelease [
+      "ms-vscode.vscode-speech"
+      "ms-vscode.vscode-speech-language-pack-zh-cn"
     ]);
   settings = {
     "chat.agent.enabled" = true;
@@ -57,6 +61,7 @@
     #     "ui"
     #   ];
     # };
+    "accessibility.voice.speechLanguage" = "zh-CN";
   };
   keybindings = [
     {

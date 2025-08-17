@@ -13,7 +13,11 @@ in
     master.qq
     wiliwili
     telegram-desktop
-    master.feishu
+    (master.feishu.override {
+      commandLineArgs = ''
+        "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
+      '';
+    })
     master.wemeet
     master.wechat
     (patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
