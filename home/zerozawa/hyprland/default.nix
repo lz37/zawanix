@@ -7,11 +7,18 @@
 
 let
   mainMod = "SUPER";
-  terminal = "${pkgs.kitty}/bin/kitty";
-  fileManager = "${pkgs.kdePackages.dolphin}/bin/dolphin";
-  # menu="${pkgs.wofi}/bin/wofi --show drun";
+  terminal = lib.getExe pkgs.kitty;
+  fileManager = lib.getExe' pkgs.kdePackages.dolphin "dolphin";
+  browser = "${lib.getExe pkgs.vivaldi} ${lib.concatStringsSep " " (import ../browser/common.nix).commandLineArgs} --password-store=kwallet6";
+  vscode = lib.getExe pkgs.vscode-selected;
+  wpctl = lib.getExe' pkgs.kdePackages.dolphin "wpctl";
+  brightnessctl = lib.getExe pkgs.brightnessctl;
+  playerctl = lib.getExe pkgs.playerctl;
 in
 {
+  imports = [
+    ./waybar.nix
+  ];
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
@@ -132,24 +139,26 @@ in
         "${mainMod}, mouse_up, workspace, e-1"
         "${mainMod}, Q, exec, ${terminal}"
         "${mainMod}, E, exec, ${fileManager}"
+        "${mainMod}, B, exec, ${browser}"
+        "${mainMod}, C, exec, ${vscode}"
       ];
       bindm = [
         "${mainMod}, mouse:272, movewindow"
         "${mainMod}, mouse:273, resizewindow"
       ];
       bindel = [
-        ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-        ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+        ",XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
       ];
       bindl = [
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, ${playerctl} next"
+        ", XF86AudioPause, exec, ${playerctl} play-pause"
+        ", XF86AudioPlay, exec, ${playerctl} play-pause"
+        ", XF86AudioPrev, exec, ${playerctl} previous"
       ];
       windowrule = [
         "suppressevent maximize, class:.*"

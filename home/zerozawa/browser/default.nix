@@ -77,9 +77,10 @@ in
       });
     };
     brave = chromium-common;
-    vivaldi = chromium-common // {
+    vivaldi = {
       commandLineArgs = chromium-common.commandLineArgs ++ (import ./common.nix).commandLineArgs;
-    };
+    }
+    // chromium-common;
     firefox = {
       enable = true;
       languagePacks = [
