@@ -6,14 +6,8 @@
 }:
 
 let
+  and = x: "${x} &";
   mainMod = "SUPER";
-  terminal = lib.getExe pkgs.kitty;
-  fileManager = lib.getExe' pkgs.kdePackages.dolphin "dolphin";
-  browser = "${lib.getExe pkgs.vivaldi} ${lib.concatStringsSep " " (import ../browser/common.nix).commandLineArgs} --password-store=kwallet6";
-  vscode = lib.getExe pkgs.vscode-selected;
-  wpctl = lib.getExe' pkgs.kdePackages.dolphin "wpctl";
-  brightnessctl = lib.getExe pkgs.brightnessctl;
-  playerctl = lib.getExe pkgs.playerctl;
 in
 {
   imports = [
@@ -26,8 +20,9 @@ in
     # https://github.com/hyprwm/Hyprland/blob/main/example/hyprland.conf
     settings = {
       exec-once = [
-        "${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init &"
-        "${pkgs.kdePackages.kwallet}/bin/kwalletd6 &"
+        (and (lib.getExe' pkgs.kdePackages.kwallet-pam "pam_kwallet_init"))
+        (and (lib.getExe' pkgs.kdePackages.kwallet "kwalletd6"))
+        (and (lib.getExe pkgs.waybar-git))
       ];
       general = {
         gaps_in = 5;
@@ -137,29 +132,39 @@ in
         "${mainMod} SHIFT, S, movetoworkspace, special:magic"
         "${mainMod}, mouse_down, workspace, e+1"
         "${mainMod}, mouse_up, workspace, e-1"
-        "${mainMod}, Q, exec, ${terminal}"
-        "${mainMod}, E, exec, ${fileManager}"
-        "${mainMod}, B, exec, ${browser}"
-        "${mainMod}, C, exec, ${vscode}"
+        "${mainMod}, Q, exec, ${lib.getExe pkgs.kitty}"
+        "${mainMod}, E, exec, ${lib.getExe' pkgs.kdePackages.dolphin "dolphin"}"
+        "${mainMod}, B, exec, ${lib.getExe pkgs.vivaldi} ${lib.concatStringsSep " " (import ../browser/common.nix).commandLineArgs} --password-store=kwallet6"
+        "${mainMod}, C, exec, ${lib.getExe pkgs.vscode-selected}"
+        "ALT, F4, killactive"
       ];
       bindm = [
         "${mainMod}, mouse:272, movewindow"
         "${mainMod}, mouse:273, resizewindow"
       ];
-      bindel = [
-        ",XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-        ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
-        ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
-      ];
-      bindl = [
-        ", XF86AudioNext, exec, ${playerctl} next"
-        ", XF86AudioPause, exec, ${playerctl} play-pause"
-        ", XF86AudioPlay, exec, ${playerctl} play-pause"
-        ", XF86AudioPrev, exec, ${playerctl} previous"
-      ];
+      bindel =
+        let
+          wpctl = lib.getExe' pkgs.kdePackages.dolphin "wpctl";
+          brightnessctl = lib.getExe pkgs.brightnessctl;
+        in
+        [
+          ",XF86AudioRaiseVolume, exec, ${wpctl} set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+          ",XF86AudioLowerVolume, exec, ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+          ",XF86AudioMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
+          ",XF86AudioMicMute, exec, ${wpctl} set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+          ",XF86MonBrightnessUp, exec, ${brightnessctl} s 10%+"
+          ",XF86MonBrightnessDown, exec, ${brightnessctl} s 10%-"
+        ];
+      bindl =
+        let
+          playerctl = lib.getExe pkgs.playerctl;
+        in
+        [
+          ", XF86AudioNext, exec, ${playerctl} next"
+          ", XF86AudioPause, exec, ${playerctl} play-pause"
+          ", XF86AudioPlay, exec, ${playerctl} play-pause"
+          ", XF86AudioPrev, exec, ${playerctl} previous"
+        ];
       windowrule = [
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
