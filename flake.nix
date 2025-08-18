@@ -39,8 +39,8 @@
     waybar.url = "github:Alexays/Waybar/master";
     ags.url = "github:Aylur/ags";
     anyrun.url = "github:Kirottu/anyrun";
-    illogical-impulse.url = "github:bigsaltyfishes/end-4-dots";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    wezterm.url = "github:wez/wezterm?dir=nix";
   };
 
   outputs =
@@ -79,6 +79,7 @@
                     isAmdGPU ? false,
                     isVM ? false,
                     isLaptop ? false,
+                    isSSD ? false,
                     extraModules ? [ ],
                     ram ? 8 * 1024,
                   }:
@@ -93,6 +94,7 @@
                         isAmdGPU
                         isVM
                         isLaptop
+                        isSSD
                         ram
                         colorsh
                         system
@@ -112,12 +114,14 @@
                       ./system
                       ./mihomo
                     ]
-                    ++ (lib.optionals isIntelGPU [
-                      inputs.nixos-hardware.nixosModules.common-gpu-intel
-                    ])
-                    ++ (lib.optionals isIntelCPU [
-                      inputs.nixos-hardware.nixosModules.common-cpu-intel
-                    ])
+                    ++ (
+                      with inputs.nixos-hardware.nixosModules;
+                      [ ]
+                      ++ (lib.optional isIntelGPU common-gpu-intel)
+                      ++ (lib.optional isIntelCPU common-cpu-intel)
+                      ++ (lib.optional (isSSD && !isLaptop) common-pc)
+                      ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
+                    )
                     ++ [
                       inputs.home-manager.nixosModules.home-manager
                       {
@@ -142,6 +146,7 @@
                 zawanix-work = lib.nixosSystem (mkNixosConfig {
                   isIntelCPU = true;
                   isIntelGPU = true;
+                  isSSD = true;
                   hostName = "zawanix-work";
                   ram = 32 * 1024;
                 });
@@ -149,6 +154,7 @@
                   isIntelCPU = true;
                   isIntelGPU = true;
                   isNvidiaGPU = true;
+                  isSSD = true;
                   isLaptop = true;
                   hostName = "zawanix-glap";
                   ram = 16 * 1024;

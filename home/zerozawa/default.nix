@@ -12,7 +12,7 @@
     ./xdg.nix
     ./neovim.nix
     ./vscode
-    # ./hyprland
+    ./hyprland
     ./tmux.nix
     ./podman.nix
     ./icon.nix
@@ -20,6 +20,7 @@
     ./activation
     ./browser
     ./ssh.nix
+    ./kitty.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

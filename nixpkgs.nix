@@ -7,6 +7,9 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
+      packageOverrides = pkgs: {
+        intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+      };
     };
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
@@ -30,24 +33,6 @@
             inherit system;
             config.allowUnfree = true;
           };
-          inherit (inputs.illogical-impulse.legacyPackages.${system})
-            illogical-impulse-ags
-            illogical-impulse-ags-launcher
-            illogical-impulse-hyprland-shaders
-            illogical-impulse-kvantum
-            illogical-impulse-oneui4-icons
-            ;
-          illogical-impulse-agsPackage =
-            inputs.illogical-impulse.inputs.ags.packages.${system}.default.override
-              {
-                extraPackages = with pkgs; [
-                  gtksourceview
-                  gtksourceview4
-                  webkitgtk_4_0
-                  webp-pixbuf-loader
-                  ydotool
-                ];
-              };
           vscode-selected = (master.vscode.override { useVSCodeRipgrep = true; });
           vscode-selected-extensionsCompatible = (
             (pkgs.usingFixesFrom pkgs).forVSCodeVersion vscode-selected.version
@@ -73,6 +58,7 @@
           zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { });
           sddm-eucalyptus-drop = (pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { });
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
+          wezterm-git = inputs.wezterm.packages.${system}.default;
         }
       )
       inputs.nix-alien.overlays.default

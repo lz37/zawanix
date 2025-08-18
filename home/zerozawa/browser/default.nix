@@ -35,6 +35,7 @@ let
     )
     |> lib.zipAttrsWith (name: values: (builtins.elemAt values 0));
   chromium-base = {
+    commandLineArgs = [ "--password-store=kwallet6" ];
     enable = true;
     dictionaries = [
       pkgs.hunspellDictsChromium.en_US
@@ -77,7 +78,7 @@ in
     };
     brave = chromium-common;
     vivaldi = chromium-common // {
-      inherit (import ./common.nix) commandLineArgs;
+      commandLineArgs = chromium-common.commandLineArgs ++ (import ./common.nix).commandLineArgs;
     };
     firefox = {
       enable = true;
