@@ -14,6 +14,10 @@
         "fk"
       ];
     };
+    bash.enable = true;
+    fish = {
+      enable = true;
+    };
     lazygit.enable = true;
     command-not-found.enable = false;
     btop.enable = true;
@@ -79,12 +83,19 @@
         mode = "no-cursor";
         enableZshIntegration = true;
         enableBashIntegration = true;
+        enableFishIntegration = true;
       };
       themeFile = "Monokai_Soda";
       extraConfig = ''
         shell ${pkgs.zsh}/bin/zsh
         include ${config.zerozawa.path.kitty}
       '';
+    };
+    ripgrep-all = {
+      enable = true;
+    };
+    ripgrep = {
+      enable = true;
     };
   };
 

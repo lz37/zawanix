@@ -25,6 +25,7 @@
     ./symlink.nix
     ./hyprland.nix
     ./flatpak.nix
+    ./clamav-scanner.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
 
