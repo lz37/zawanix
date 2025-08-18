@@ -6,7 +6,7 @@
   ...
 }:
 {
-  hardware.graphics = rec {
+  hardware.graphics = {
     enable = true;
     package = pkgs.hyprland-git-nixpkgs-pkgs.mesa;
     # if you also want 32-bit support (e.g for Steam)
@@ -15,10 +15,7 @@
     extraPackages = lib.mkForce (
       with pkgs;
       (
-        [
-          package
-        ]
-        ++ (lib.optionals isNvidiaGPU [
+        (lib.optionals isNvidiaGPU [
           nvidia-vaapi-driver
           nv-codec-headers-12
           vaapiVdpau
@@ -36,8 +33,7 @@
     extraPackages32 = lib.mkForce (
       with pkgs.pkgsi686Linux;
       (
-        [ package32 ]
-        ++ (lib.optionals isNvidiaGPU [
+        (lib.optionals isNvidiaGPU [
           libvdpau-va-gl
           vaapiVdpau
         ])

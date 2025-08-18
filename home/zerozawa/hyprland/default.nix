@@ -23,6 +23,7 @@ in
         (and (lib.getExe' pkgs.kdePackages.kwallet-pam "pam_kwallet_init"))
         (and (lib.getExe' pkgs.kdePackages.kwallet "kwalletd6"))
         (and (lib.getExe pkgs.waybar-git))
+        (and (lib.getExe' pkgs.networkmanagerapplet "nm-applet"))
       ];
       general = {
         gaps_in = 5;
@@ -173,6 +174,9 @@ in
         (lib.optionals isNvidiaGPU [
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          "NVD_BACKEND,direct"
+          # "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
+          "AQ_FORCE_LINEAR_BLIT,0"
         ])
         ++ [
           "NIXOS_OZONE_WL,1"

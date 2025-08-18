@@ -41,6 +41,7 @@
     anyrun.url = "github:Kirottu/anyrun";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     wezterm.url = "github:wez/wezterm?dir=nix";
+    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
   };
 
   outputs =
