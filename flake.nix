@@ -37,11 +37,9 @@
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     hyprland.url = "github:hyprwm/Hyprland";
     waybar.url = "github:Alexays/Waybar/master";
-    ags.url = "github:Aylur/ags";
-    anyrun.url = "github:Kirottu/anyrun";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    wezterm.url = "github:wez/wezterm?dir=nix";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    makrennel-dots-hyprland-end-4.url = "github:Makrennel/dots-hyprland/nixos";
   };
 
   outputs =
@@ -133,7 +131,6 @@
                             inputs.plasma-manager.homeManagerModules.plasma-manager
                             inputs.vscode-server.homeModules.default
                             ./options
-                            inputs.ags.homeManagerModules.default
                           ];
                           users.zerozawa = import ./home/zerozawa;
                           extraSpecialArgs = specialArgs;
