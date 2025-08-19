@@ -15,6 +15,7 @@
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix4vscode.overlays.default
       inputs.nixpkgs-wayland.overlay
+      inputs.nix-alien.overlays.default
       (
         final: prev:
         let
@@ -66,19 +67,25 @@
             hyprland-shaders = illogical-impulse-hyprland-shaders;
             kvantum = illogical-impulse-kvantum;
             oneui4-icons = illogical-impulse-oneui4-icons;
-            agsPackage = default.override {
-              extraPackages = with pkgs; [
-                gtksourceview
-                gtksourceview4
-                webkitgtk_4_0
-                webp-pixbuf-loader
-                ydotool
-              ];
-            };
+            agsPackage =
+              let
+                pkgs = import inputs.illogical-impulse.inputs.nixpkgs {
+                  inherit system;
+                  config.allowUnfree = true;
+                };
+              in
+              inputs.illogical-impulse.inputs.ags.packages.${pkgs.system}.default.override {
+                extraPackages = with pkgs; [
+                  gtksourceview
+                  gtksourceview4
+                  webkitgtk_4_0
+                  webp-pixbuf-loader
+                  ydotool
+                ];
+              };
           };
         }
       )
-      inputs.nix-alien.overlays.default
     ];
   };
 }

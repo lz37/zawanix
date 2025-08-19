@@ -21,7 +21,7 @@ in
     master.wemeet
     master.wechat
     (patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
-      ''Exec=XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
+      ''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
     )
     mpv
     scrcpy

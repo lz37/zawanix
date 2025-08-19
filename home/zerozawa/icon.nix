@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.file = {
-    "ags/ags-launcher".source = "${pkgs.illogical-impulse.ags-launcher}";
-  };
   xdg.dataFile = {
     "icons/Zafiro-Icons-Dark" = {
       source = "${pkgs.zafiro-icons}/share/icons/Zafiro-icons-Dark";
