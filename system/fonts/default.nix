@@ -54,6 +54,19 @@
       lxgw-neoxihei
       lxgw-fusionkai
       lxgw-wenkai-screen
+      (google-fonts.override {
+        fonts = [
+          "Gabarito"
+          "Lexend"
+          "Chakra Petch"
+          "Crimson Text"
+          "Alfa Slab One"
+        ];
+      })
+      cascadia-code
+      material-symbols
+      fantasque-sans-mono
+      mononoki
     ];
   };
 }

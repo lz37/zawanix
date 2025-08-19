@@ -22,6 +22,7 @@
     ./ssh.nix
     ./kitty.nix
   ];
+  fonts.fontconfig.enable = true;
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;
     packages = [

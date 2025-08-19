@@ -8,5 +8,6 @@
     ./anyrun.nix
     ./hyprland.nix
     ./foot.nix
+    ./ags.nix
   ];
 }

@@ -60,6 +60,22 @@
           sddm-eucalyptus-drop = (pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { });
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
           wezterm-git = inputs.wezterm.packages.${system}.default;
+          illogical-impulse = with (inputs.illogical-impulse.legacyPackages.${system}); {
+            ags = illogical-impulse-ags;
+            ags-launcher = illogical-impulse-ags-launcher;
+            hyprland-shaders = illogical-impulse-hyprland-shaders;
+            kvantum = illogical-impulse-kvantum;
+            oneui4-icons = illogical-impulse-oneui4-icons;
+            agsPackage = default.override {
+              extraPackages = with pkgs; [
+                gtksourceview
+                gtksourceview4
+                webkitgtk_4_0
+                webp-pixbuf-loader
+                ydotool
+              ];
+            };
+          };
         }
       )
       inputs.nix-alien.overlays.default
