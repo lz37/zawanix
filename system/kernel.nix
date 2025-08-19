@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   isIntelCPU,
   isIntelGPU,
   isVM,
@@ -10,6 +11,7 @@
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
+    extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     supportedFilesystems = [
       "btrfs"
       "ext4"

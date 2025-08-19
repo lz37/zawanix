@@ -37,7 +37,8 @@
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     waybar.url = "github:Alexays/Waybar/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
+    stylix.url = "github:danth/stylix/master";
+    nvf.url = "github:notashelf/nvf";
   };
 
   outputs =
@@ -79,6 +80,7 @@
                     isSSD ? false,
                     extraModules ? [ ],
                     ram ? 8 * 1024,
+                    stylixImage,
                   }:
                   let
                     specialArgs = {
@@ -93,6 +95,7 @@
                         isLaptop
                         isSSD
                         ram
+                        stylixImage
                         colorsh
                         system
                         ;
@@ -106,6 +109,7 @@
                       inputs.nix-flatpak.nixosModules.nix-flatpak
                       inputs.nix-index-database.nixosModules.nix-index
                       { programs.nix-index-database.comma.enable = true; }
+                      inputs.stylix.nixosModules.stylix
                       ./hardware
                       ./network
                       ./system
@@ -123,14 +127,17 @@
                       inputs.home-manager.nixosModules.home-manager
                       {
                         home-manager = {
-                          useGlobalPkgs = true;
+                          useGlobalPkgs = false;
                           useUserPackages = true;
                           verbose = true;
                           backupFileExtension = "hm.bak";
                           sharedModules = [
                             inputs.plasma-manager.homeManagerModules.plasma-manager
                             inputs.vscode-server.homeModules.default
+                            inputs.stylix.homeModules.stylix
+                            inputs.nvf.homeManagerModules.default
                             ./options
+                            ./nixpkgs.nix
                           ];
                           users.zerozawa = import ./home/zerozawa;
                           extraSpecialArgs = specialArgs;
@@ -149,6 +156,7 @@
                       isSSD = true;
                       hostName = "zawanix-work";
                       ram = 32 * 1024;
+                      stylixImage = ./assets/wallpapers/45916741_96947927_p0.jpg;
                     };
                     zawanix-glap = mkNixosConfig {
                       isIntelCPU = true;
@@ -158,6 +166,7 @@
                       isLaptop = true;
                       hostName = "zawanix-glap";
                       ram = 16 * 1024;
+                      stylixImage = ./assets/wallpapers/45916741_96947927_p0.jpg;
                     };
                   };
                 in

@@ -25,8 +25,6 @@
     wget
     git
     zsh
-    btop
-    fastfetch
     neovim
     tree
     podman-compose

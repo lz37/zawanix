@@ -10,6 +10,12 @@
         splix
       ];
     };
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+    ipp-usb.enable = true;
     udisks2.enable = true;
     fwupd.enable = true;
     dbus = {

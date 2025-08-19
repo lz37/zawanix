@@ -12,7 +12,6 @@
         "git"
         "sudo"
         "hitokoto"
-        "z"
         "vscode"
         "systemadmin"
         "tmux"

@@ -10,7 +10,6 @@
     ./programs.nix
     ./zsh
     ./xdg.nix
-    ./neovim.nix
     ./vscode
     ./hyprland
     ./tmux.nix
@@ -21,6 +20,29 @@
     ./browser
     ./ssh.nix
     ./kitty.nix
+    ./fastfetch
+    ./zoxide.nix
+    ./tealdeer.nix
+    ./qt.nix
+    ./starship.nix
+    ./stylix.nix
+    ./swappy.nix
+    ./swaync.nix
+    ./btop.nix
+    ./obs-studio.nix
+    ./nvf.nix
+    ./lazygit.nix
+    ./bat.nix
+    ./bottom.nix
+    ./htop.nix
+    ./gtk.nix
+    ./git.nix
+    ./eza.nix
+    ./fzf.nix
+    ./cava.nix
+    ./yazi
+    ./wlogout
+    ./fuzzle.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

@@ -1,6 +1,7 @@
 {
   inputs,
   system,
+  stylixImage,
   ...
 }:
 {
@@ -14,7 +15,7 @@
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix4vscode.overlays.default
-      inputs.nixpkgs-wayland.overlay
+      inputs.nix-alien.overlays.default
       (
         final: prev:
         let
@@ -55,11 +56,12 @@
           picacg-qt = (pkgs.callPackage ./nixpkgs-build/picacg.nix { });
           jmcomic-qt = (pkgs.callPackage ./nixpkgs-build/jmcomic.nix { });
           zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { });
-          sddm-eucalyptus-drop = (pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { });
+          sddm-eucalyptus-drop = (
+            pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { inherit stylixImage; }
+          );
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
         }
       )
-      inputs.nix-alien.overlays.default
     ];
   };
 }

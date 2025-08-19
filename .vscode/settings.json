@@ -1,4 +1,5 @@
 {
+  "cSpell.enabled": false,
   "nix.enableLanguageServer": true,
   "nix.serverPath": "nixd",
   "nix.serverSettings": {

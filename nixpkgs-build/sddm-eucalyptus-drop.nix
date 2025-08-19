@@ -4,13 +4,14 @@
   fetchFromGitLab,
   libsForQt5,
   kdePackages,
+  stylixImage,
   ...
 }:
 
 let
   theme-conf = ''
     [General]
-    Background="${pkgs.lib.cleanSource ../assets/. + "/45916741_96947927_p0_Euoia_岁差.jpg"}"
+    Background="${pkgs.lib.cleanSource stylixImage}"
     DimBackgroundImage="0.0"
     ScaleImageCropped="true"
     ScreenWidth="3840"

@@ -1,11 +1,11 @@
 {
-  pkgs,
   config,
   ...
 }:
 
 {
   programs = {
+    gh.enable = true;
     pay-respects = {
       enable = true;
       enableZshIntegration = true;
@@ -18,20 +18,7 @@
     fish = {
       enable = true;
     };
-    lazygit.enable = true;
     command-not-found.enable = false;
-    btop.enable = true;
-    bottom.enable = true;
-    bat.enable = true;
-    eza.enable = true;
-    tmux = {
-      enable = true;
-      mouse = true;
-      clock24 = true;
-      keyMode = "vi";
-      shell = "${pkgs.zsh}/bin/zsh";
-      terminal = "screen-256color";
-    };
     atuin = {
       enable = true;
       enableZshIntegration = true;
@@ -49,23 +36,6 @@
         whitelist.prefix = [ config.zerozawa.path.code ];
       };
       nix-direnv.enable = true;
-    };
-    neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-    };
-    git = {
-      enable = true;
-      package = pkgs.gitAndTools.gitFull;
-      userName = config.zerozawa.git.userName;
-      userEmail = config.zerozawa.git.userEmail;
-      signing.format = "openpgp";
-      extraConfig = {
-        credential = {
-          helper = "store";
-        };
-      };
     };
     ripgrep-all = {
       enable = true;
