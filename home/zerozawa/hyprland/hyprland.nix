@@ -1,6 +1,7 @@
 {
   pkgs,
   isNvidiaGPU,
+  hostName,
   lib,
   ...
 }:
@@ -179,6 +180,26 @@ in
         "noanim, walker"
         "xray 1, .*"
       ];
+      monitorv2 = (
+        lib.optionals (hostName == "zawanix-work") [
+          {
+            output = "HDMI-A-1";
+            mode = "3840x2160@60";
+            position = "0x0";
+            scale = 2;
+            cm = "hdr";
+            bitdepth = 10;
+            sdr_min_luminance = 0.005;
+            sdr_max_luminance = 400;
+          }
+          {
+            output = "DP-3";
+            mode = "1920x1080@60";
+            position = "1920x0";
+            scale = 1;
+          }
+        ]
+      );
       env =
         (lib.optionals isNvidiaGPU [
           "LIBVA_DRIVER_NAME,nvidia"

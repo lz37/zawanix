@@ -7,5 +7,6 @@
     ./waybar.nix
     ./anyrun.nix
     ./hyprland.nix
+    ./foot.nix
   ];
 }
