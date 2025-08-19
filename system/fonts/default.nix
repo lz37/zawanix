@@ -54,6 +54,21 @@
       lxgw-neoxihei
       lxgw-fusionkai
       lxgw-wenkai-screen
+      nerd-fonts.caskaydia-cove
+      nerd-fonts.caskaydia-mono
+      nerd-fonts.mononoki
+      nerd-fonts.space-mono
+      fantasque-sans-mono
+      (google-fonts.override {
+        fonts = [
+          # Sans
+          "Gabarito"
+          "Lexend"
+          # Serif
+          "Chakra Petch"
+          "Crimson Text"
+        ];
+      })
     ];
   };
 }

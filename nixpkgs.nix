@@ -49,8 +49,6 @@
               forOpenVsxPrerelease = forOpenVsxVersionPrerelease version;
             });
           teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
-          hyprland-git-pkgs = inputs.hyprland.packages.${system};
-          hyprland-git-nixpkgs-pkgs = inputs.hyprland.inputs.nixpkgs.legacyPackages.${system};
           waybar-git = inputs.waybar.packages.${system}.waybar;
           nil-git = inputs.nil.outputs.packages.${system}.nil;
           anyrun-git-pkgs = inputs.anyrun.packages.${system};

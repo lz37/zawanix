@@ -11,4 +11,8 @@
   boot.tmp = {
     cleanOnBoot = true;
   };
+  services = {
+    envfs.enable = true;
+    gvfs.enable = true;
+  };
 }

@@ -35,15 +35,13 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    hyprland.url = "github:hyprwm/Hyprland";
     waybar.url = "github:Alexays/Waybar/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixpkgs-wayland.url = "github:nix-community/nixpkgs-wayland";
-    makrennel-dots-hyprland-end-4.url = "github:Makrennel/dots-hyprland/nixos";
   };
 
   outputs =
-    inputs:
+    { self, ... }@inputs:
     let
       inherit (inputs.nixpkgs) lib;
       colorsh = (import ./common/color.sh.nix);
@@ -127,6 +125,8 @@
                         home-manager = {
                           useGlobalPkgs = true;
                           useUserPackages = true;
+                          verbose = true;
+                          backupFileExtension = "hm.bak";
                           sharedModules = [
                             inputs.plasma-manager.homeManagerModules.plasma-manager
                             inputs.vscode-server.homeModules.default
@@ -140,24 +140,32 @@
                     ++ extraModules;
                   };
               in
-              {
-                zawanix-work = lib.nixosSystem (mkNixosConfig {
-                  isIntelCPU = true;
-                  isIntelGPU = true;
-                  isSSD = true;
-                  hostName = "zawanix-work";
-                  ram = 32 * 1024;
-                });
-                zawanix-glap = lib.nixosSystem (mkNixosConfig {
-                  isIntelCPU = true;
-                  isIntelGPU = true;
-                  isNvidiaGPU = true;
-                  isSSD = true;
-                  isLaptop = true;
-                  hostName = "zawanix-glap";
-                  ram = 16 * 1024;
-                });
-              };
+              (
+                let
+                  config = {
+                    zawanix-work = mkNixosConfig {
+                      isIntelCPU = true;
+                      isIntelGPU = true;
+                      isSSD = true;
+                      hostName = "zawanix-work";
+                      ram = 32 * 1024;
+                    };
+                    zawanix-glap = mkNixosConfig {
+                      isIntelCPU = true;
+                      isIntelGPU = true;
+                      isNvidiaGPU = true;
+                      isSSD = true;
+                      isLaptop = true;
+                      hostName = "zawanix-glap";
+                      ram = 16 * 1024;
+                    };
+                  };
+                in
+                {
+                  zawanix-work = lib.nixosSystem config.zawanix-work;
+                  zawanix-glap = lib.nixosSystem config.zawanix-glap;
+                }
+              );
           };
           devShells.default = (
             pkgs.mkShell {

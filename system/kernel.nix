@@ -10,7 +10,12 @@
 {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [
+      "btrfs"
+      "ext4"
+      "fat32"
+      "ntfs"
+    ];
     initrd = {
       enable = true;
       verbose = false;

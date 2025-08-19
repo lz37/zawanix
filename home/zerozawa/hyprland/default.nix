@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./waybar.nix
+    ./theme.nix
   ];
   wayland.windowManager.hyprland = {
     enable = true;
