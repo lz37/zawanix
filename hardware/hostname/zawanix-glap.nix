@@ -1,4 +1,6 @@
 {
+  isIntelGPU,
+  isNvidiaGPU,
   ...
 }:
 
@@ -17,9 +19,14 @@
       fsType = "ext4";
     };
   };
-  hardware.nvidia.prime = {
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:01:0:0";
-  };
+  hardware.nvidia.prime =
+    if (isIntelGPU && isNvidiaGPU) then
+      {
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:01:0:0";
+      }
+    else
+      {
+      };
 
 }

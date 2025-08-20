@@ -21,5 +21,6 @@
       vscode-runner
       krunner-translator
       application-title-bar
+      nur.repos.xddxdd.lyrica-plasmoid
     ]);
 }

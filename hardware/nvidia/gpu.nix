@@ -12,16 +12,16 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     # Modesetting is required.
-    modesetting.enable = true;
-    powerManagement = {
+    modesetting.enable = (isIntelGPU || isAmdGPU) && isLaptop;
+    powerManagement = rec {
       # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
       # Enable this if you have graphical corruption issues or application crashes after waking
       # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
       # of just the bare essentials.
-      enable = true;
+      enable = (isIntelGPU || isAmdGPU) && isLaptop;
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      finegrained = true;
+      finegrained = enable;
     };
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).

@@ -30,7 +30,7 @@ in
       "$modifier,M,exec,pavucontrol"
       "$modifier,Q,killactive,"
       "$modifier,P,pseudo,"
-      "$modifier,V,exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+      "$modifier,V,exec, ${lib.getExe pkgs.cliphist} list | ${lib.getExe pkgs.rofi-wayland} -dmenu | ${lib.getExe pkgs.cliphist} decode | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}"
       "$modifier SHIFT,I,togglesplit,"
       "$modifier,F,fullscreen,"
       "$modifier SHIFT,F,togglefloating,"

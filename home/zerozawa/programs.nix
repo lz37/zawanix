@@ -4,6 +4,9 @@
 }:
 
 {
+  services = {
+    mpris-proxy.enable = true;
+  };
   programs = {
     gh.enable = true;
     pay-respects = {

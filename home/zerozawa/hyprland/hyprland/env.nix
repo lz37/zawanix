@@ -4,7 +4,6 @@
     settings = {
       env = [
         "NIXOS_OZONE_WL, 1"
-        "NIXPKGS_ALLOW_UNFREE, 1"
         "XDG_CURRENT_DESKTOP, Hyprland"
         "XDG_SESSION_TYPE, wayland"
         "XDG_SESSION_DESKTOP, Hyprland"
@@ -35,8 +34,11 @@
       ++ (lib.optionals isNvidiaGPU [
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "__NV_PRIME_RENDER_OFFLOAD,1"
+        "GBM_BACKEND,nvidia-drm"
         "NVD_BACKEND,direct"
-        "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        # "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
         "AQ_FORCE_LINEAR_BLIT,0"
       ]);
     };

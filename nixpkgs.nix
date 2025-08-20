@@ -16,6 +16,7 @@
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix4vscode.overlays.default
       inputs.nix-alien.overlays.default
+      inputs.waybar.overlays.default
       (
         final: prev:
         let
@@ -58,6 +59,9 @@
           );
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
           waybar-vd = (pkgs.callPackage ./nixpkgs-build/waybar-vd.nix { });
+          hyprlandPlugins = pkgs.hyprlandPlugins // {
+            virtual-desktops = inputs.hyprland-virtual-desktops.packages.${system}.virtual-desktops;
+          };
         }
       )
     ];

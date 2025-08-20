@@ -15,6 +15,9 @@
     hyprland-qtutils # needed for banners and ANR messages
     hyprpicker
     swayimg
+    hyprcursor
+    playerctl
+    brightnessctl
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
@@ -131,7 +134,7 @@
       cursor = {
         sync_gsettings_theme = true;
         no_hardware_cursors = 2; # change to 1 if want to disable
-        enable_hyprcursor = false;
+        enable_hyprcursor = true;
         warp_on_change_workspace = 2;
         no_warps = true;
       };

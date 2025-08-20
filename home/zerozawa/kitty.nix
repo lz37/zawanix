@@ -78,7 +78,7 @@
       confirm_os_window_close = "0";
 
       # Color scheme settings
-      background_opacity = "0.4";
+      background_opacity = "0.6";
 
       window_padding_width = 4;
       tab_fade = 1;

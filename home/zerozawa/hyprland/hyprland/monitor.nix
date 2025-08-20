@@ -4,6 +4,9 @@ in
 {
   wayland.windowManager.hyprland = {
     settings = {
+      monitor = [
+        ", preferred, auto, 1"
+      ];
       monitorv2 = (
         lib.optionals (hostName == "zawanix-work") [
           {
@@ -29,17 +32,18 @@ in
             mode = "2560x1440@165";
             position = "0x0";
             scale = 1;
+            bitdepth = 12;
           }
-          {
-            output = "DP-1";
-            mode = "2560x1440@180";
-            position = "2560x0";
-            scale = 1;
-            cm = "hdr";
-            # bitdepth = 10;
-            sdr_min_luminance = 0.005;
-            sdr_max_luminance = 400;
-          }
+          # {
+          #   output = "DP-1";
+          #   mode = "preferred";
+          #   position = "2560x0";
+          #   scale = 1;
+          #   cm = "hdr";
+          #   # bitdepth = 10;
+          #   sdr_min_luminance = 0.005;
+          #   sdr_max_luminance = 400;
+          # }
         ])
       );
     };

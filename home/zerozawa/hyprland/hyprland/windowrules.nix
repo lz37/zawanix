@@ -72,7 +72,10 @@
         "keepaspectratio, title:^(Picture-in-Picture)$"
         "noblur, tag:games*"
         "fullscreen, tag:games*"
-        "fullscreen, class:Waydroid"
+        # "fullscreen, class:^([Ww]aydroid.*)$"
+        # "float, class:^([Ww]aydroid.*)$"
+        "opacity 0.0 override,class:xwaylandvideobridge"
+        "size 0% 0%, class:xwaylandvideobridge"
       ];
     };
   };

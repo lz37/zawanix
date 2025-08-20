@@ -41,6 +41,7 @@
       url = "git+file:/etc/nixos/private?shallow=1&ref=main";
       flake = false;
     };
+    waybar.url = "github:Alexays/Waybar";
     hyprland-virtual-desktops = {
       url = "github:levnikmyskin/hyprland-virtual-desktops";
       inputs.nixpkgs.follows = "nixpkgs";

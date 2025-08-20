@@ -37,7 +37,7 @@
     "explorer.confirmDelete" = false;
     "explorer.confirmDragAndDrop" = false;
     "terminal.integrated.fontFamily" =
-      "FiraCode Nerd Font Mono,MesloLGS NF,LXGW WenKai Mono,Source Han Mono";
+      "MesloLGS NF,FiraCode Nerd Font Mono,LXGW WenKai Mono,Source Han Mono";
     "terminal.integrated.fontLigatures.enabled" = true;
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;

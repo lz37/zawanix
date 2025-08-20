@@ -22,27 +22,45 @@ with lib;
           "show_empty" = false;
           "show_window_count" = true;
         };
+        "custom/waylrc" = {
+          exec = lib.getExe' pkgs.nur.repos.definfo.waylrc "waylrc";
+          return-type = "json";
+          escape = true;
+        };
+        "custom/kdeconnect" = {
+          tooltip = true;
+          format = "{icon}";
+          format-icons = "";
+          exec-on-event = "true";
+          on-click = "kdeconnect-app";
+          tooltip-format = "KDE Connect";
+        };
         modules-center = [
-          "cffi/virtual-desktops"
-          "hyprland/workspaces"
+          "cffi/virtual-desktops" # 正常
+          "hyprland/workspaces" # 正常
         ];
         layer = "top";
         position = "top";
         modules-left = [
-          "custom/startmenu"
-          "hyprland/window"
-          "pulseaudio"
-          "cpu"
-          "memory"
-          "idle_inhibitor"
+          "custom/startmenu" # 正常
+          "hyprland/window" # 正常
+          "pulseaudio" # 正常
+          "cpu" # 正常
+          "memory" # 正常
+          "disk" # 正常
+          "network" # 正常
+          "idle_inhibitor" # 正常
+          "custom/media" # 正常
         ];
         modules-right = [
-          "custom/hyprbindings"
-          "custom/notification"
-          "custom/exit"
-          "battery"
-          "tray"
-          "clock"
+          "custom/hyprbindings" # 正常
+          "custom/notification" # 正常
+          "custom/exit" # 正常
+          "battery" # 正常
+          "tray" # 正常
+          "bluetooth" # 正常
+          "custom/kdeconnect" # 正常
+          "clock" # 正常
         ];
 
         "hyprland/workspaces" = {
@@ -78,7 +96,7 @@ with lib;
           tooltip = true;
         };
         "disk" = {
-          format = " {free}";
+          format = "🖬 {free}";
           tooltip = true;
         };
         "network" = {
@@ -92,10 +110,42 @@ with lib;
           format-ethernet = " {bandwidthDownOctets}";
           format-wifi = "{icon} {signalStrength}%";
           format-disconnected = "󰤮";
-          tooltip = false;
+          tooltip = true;
         };
         "tray" = {
           spacing = 12;
+        };
+        bluetooth = {
+          format = "󰂯";
+          format-disabled = "󰂲";
+          format-connected = "󰂱 {device_alias}";
+          format-connected-battery = "󰂱 {device_alias} (󰥉 {device_battery_percentage}%)";
+          tooltip-format = "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected";
+          tooltip-format-disabled = "bluetooth off";
+          tooltip-format-connected = "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t({device_battery_percentage}%)";
+          max-length = 35;
+          # on-click = "fish -c bluetooth_toggle";
+          on-click = "${lib.getExe pkgs.overskride}";
+        };
+        "custom/media" = {
+          tooltip = false;
+          format = "{icon}󰎈";
+          restart-interval = 2;
+          return-type = "json";
+          format-icons = {
+            Playing = "";
+            Paused = "";
+          };
+          max-length = 35;
+          exec = ''playerctl -a metadata --format '{"text": "{{artist}} - {{markup_escape(title)}}", "tooltip": "<i><span color='#a6da95'>{{playerName}}</span></i>: <b><span color='#f5a97f'>{{artist}}</span> - <span color='#c6a0f6'>{{markup_escape(title)}}</span></b>", "alt": "{{status}}", "class": "{{status}}" }' -F'';
+          on-click = "playerctl play-pause";
+          on-click-right = "playerctl next";
+          on-click-middle = "playerctl prev";
+          on-scroll-up = "playerctl volume 0.05-";
+          on-scroll-down = "playerctl volume 0.05+";
+          smooth-scrolling-threshold = "0.1";
         };
         "pulseaudio" = {
           format = "{icon} {volume}% {format_source}";
@@ -121,7 +171,7 @@ with lib;
         };
         "custom/exit" = {
           tooltip = false;
-          format = "";
+          format = "⏻";
           on-click = "sleep 0.1 && wlogout";
         };
         "custom/startmenu" = {
@@ -183,7 +233,7 @@ with lib;
             "󰁹"
           ];
           on-click = "";
-          tooltip = false;
+          tooltip = true;
         };
       }
     ];
@@ -281,7 +331,7 @@ with lib;
         tooltip label {
           color: #${config.lib.stylix.colors.base08};
         }
-        #window, #pulseaudio, #cpu, #memory, #idle_inhibitor {
+        #custom-media, #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #network, #disk {
           font-weight: bold;
           margin: 4px 0px;
           margin-left: 7px;
@@ -298,8 +348,18 @@ with lib;
           padding: 0px 30px 0px 15px;
           border-radius: 0px 0px 40px 0px;
         }
-        #custom-hyprbindings, #network, #battery,
-        #custom-notification, #tray, #custom-exit {
+        #bluetooth.disabled {
+          color: #${config.lib.stylix.colors.base08};
+          background: #${config.lib.stylix.colors.base01};
+        }
+        #bluetooth.on {
+          color: #${config.lib.stylix.colors.base0B};
+        }
+        #bluetooth.connected {
+          color: #${config.lib.stylix.colors.base0C};
+        }
+        #custom-kdeconnect, #custom-kdeconnect, #custom-hyprbindings, #battery,
+        #custom-notification, #tray, #custom-exit, #bluetooth {
           font-weight: bold;
           background: #${config.lib.stylix.colors.base0F};
           color: #${config.lib.stylix.colors.base00};
