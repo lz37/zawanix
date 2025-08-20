@@ -46,7 +46,7 @@
     termsonic
     comma
     ipmitool
-    teleport-lock.client
+    teleport.client
     sshpass
     rsync
   ];

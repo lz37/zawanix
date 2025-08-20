@@ -1,6 +1,4 @@
 { ... }:
-let
-in
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -74,6 +72,7 @@ in
         "keepaspectratio, title:^(Picture-in-Picture)$"
         "noblur, tag:games*"
         "fullscreen, tag:games*"
+        "fullscreen, class:Waydroid"
       ];
     };
   };

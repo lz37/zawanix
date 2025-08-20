@@ -42,7 +42,9 @@
     ./cava.nix
     ./yazi
     ./wlogout
-    ./fuzzle.nix
+    ./scripts
+    ./mimelist.nix
+    ./rofi
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

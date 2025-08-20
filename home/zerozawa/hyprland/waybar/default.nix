@@ -4,7 +4,6 @@
 
 {
   imports = [
-    ./waybar
-    ./hyprland
+    ./waybar-curved.nix
   ];
 }

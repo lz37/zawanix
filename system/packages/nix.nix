@@ -14,7 +14,7 @@
     nix-melt
     nix-alien
     nix-health
-    nil-git
+    nil
     nixd
     nixfmt-rfc-style
     npins

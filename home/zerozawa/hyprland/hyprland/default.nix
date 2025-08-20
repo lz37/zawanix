@@ -11,5 +11,6 @@
     ./pyprland.nix
     ./windowrules.nix
     ./monitor.nix
+    ./plugins.nix
   ];
 }

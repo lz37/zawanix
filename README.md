@@ -7,5 +7,3 @@
 创建 `./options/variable.nix`，并在其中配置相关变量
 
 替换 `hardware-configuration.nix` 中相关配置
-
-`nixos-rebuild` 时必须添加 `--impure` 参数，也可自行改成符合 pure 的配置

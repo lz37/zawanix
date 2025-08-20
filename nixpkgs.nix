@@ -49,10 +49,7 @@
               forOpenVsx = forOpenVsxVersion version;
               forOpenVsxPrerelease = forOpenVsxVersionPrerelease version;
             });
-          teleport-lock = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
-          waybar-git = inputs.waybar.packages.${system}.waybar;
-          nil-git = inputs.nil.outputs.packages.${system}.nil;
-          anyrun-git-pkgs = inputs.anyrun.packages.${system};
+          teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           picacg-qt = (pkgs.callPackage ./nixpkgs-build/picacg.nix { });
           jmcomic-qt = (pkgs.callPackage ./nixpkgs-build/jmcomic.nix { });
           zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { });
@@ -60,6 +57,7 @@
             pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { inherit stylixImage; }
           );
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
+          waybar-vd = (pkgs.callPackage ./nixpkgs-build/waybar-vd.nix { });
         }
       )
     ];

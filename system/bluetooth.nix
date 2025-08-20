@@ -14,7 +14,4 @@
       };
     };
   };
-  environment.systemPackages = with pkgs; [
-    overskride
-  ];
 }

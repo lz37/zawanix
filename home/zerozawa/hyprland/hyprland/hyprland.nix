@@ -13,6 +13,8 @@
     ydotool
     hyprpolkitagent
     hyprland-qtutils # needed for banners and ANR messages
+    hyprpicker
+    swayimg
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"

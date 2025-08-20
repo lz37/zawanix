@@ -9,10 +9,6 @@ let
 in
 
 {
-  # should be --impure
-  imports = [
-    /etc/nixos/private
-  ];
   options = {
     zerozawa = {
       version = {

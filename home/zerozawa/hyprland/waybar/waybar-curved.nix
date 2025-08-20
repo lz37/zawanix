@@ -13,12 +13,21 @@ with lib;
   # Configure & Theme Waybar
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar-git;
+    package = pkgs.waybar;
     settings = [
       {
+        "cffi/virtual-desktops" = {
+          "module_path" = "${pkgs.waybar-vd}/libwaybar_vd.so";
+          "format" = "{name}";
+          "show_empty" = false;
+          "show_window_count" = true;
+        };
+        modules-center = [
+          "cffi/virtual-desktops"
+          "hyprland/workspaces"
+        ];
         layer = "top";
         position = "top";
-        modules-center = [ "hyprland/workspaces" ];
         modules-left = [
           "custom/startmenu"
           "hyprland/window"
@@ -179,6 +188,44 @@ with lib;
       }
     ];
     style = concatStrings [
+      ''
+        #waybar-vd {
+          color: #${config.lib.stylix.colors.base00};
+          background: #${config.lib.stylix.colors.base01};
+          margin: 4px 4px;
+          padding: 5px 5px;
+          border-radius: 16px;
+        }
+        #waybar-vd button {
+          font-weight: bold;
+          padding: 0px 5px;
+          margin: 0px 3px;
+          border-radius: 16px;
+          color: #${config.lib.stylix.colors.base00};
+          background: linear-gradient(45deg, #${config.lib.stylix.colors.base08}, #${config.lib.stylix.colors.base0D});
+          opacity: 0.5;
+          transition: ${betterTransition};
+        }
+        #waybar-vd button.vdesk-focused {
+          font-weight: bold;
+          padding: 0px 5px;
+          margin: 0px 3px;
+          border-radius: 16px;
+          color: #${config.lib.stylix.colors.base00};
+          background: linear-gradient(45deg, #${config.lib.stylix.colors.base08}, #${config.lib.stylix.colors.base0D});
+          transition: ${betterTransition};
+          opacity: 1.0;
+          min-width: 40px;
+        }
+        #waybar-vd button.hover {
+          font-weight: bold;
+          border-radius: 16px;
+          color: #${config.lib.stylix.colors.base00};
+          background: linear-gradient(45deg, #${config.lib.stylix.colors.base08}, #${config.lib.stylix.colors.base0D});
+          opacity: 0.8;
+          transition: ${betterTransition};
+        }
+      ''
       ''
         * {
           font-family: JetBrainsMono Nerd Font Mono;

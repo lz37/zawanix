@@ -21,7 +21,7 @@ let
     '';
     rebuild = pkgs.writeScriptBin "zawanix.rebuild" ''
       #!${pkgs.bash}/bin/bash
-      ${pkgs.nh}/bin/nh os switch ${config.zerozawa.path.cfgRoot} -- --impure --keep-going --fallback
+      ${pkgs.nh}/bin/nh os switch ${config.zerozawa.path.cfgRoot} -- --keep-going --fallback
       ${pkgs.coreutils}/bin/echo -e "${
         colorsh.utils.chunibyo.gothic.kaomoji.unicode {
           gothic = "𝔷𝔞𝔴𝔞𝔫𝔦𝔵";

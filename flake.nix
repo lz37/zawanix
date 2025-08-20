@@ -30,19 +30,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nil.url = "github:oxalica/nil";
     nix-health.url = "github:juspay/nix-health?dir=module";
     flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    waybar.url = "github:Alexays/Waybar/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     stylix.url = "github:danth/stylix/master";
     nvf.url = "github:notashelf/nvf";
+    zerozawa-private = {
+      url = "git+file:/etc/nixos/private?shallow=1&ref=main";
+      flake = false;
+    };
+    hyprland-virtual-desktops = {
+      url = "github:levnikmyskin/hyprland-virtual-desktops";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, ... }@inputs:
+    inputs:
     let
       inherit (inputs.nixpkgs) lib;
       colorsh = (import ./common/color.sh.nix);
@@ -84,6 +90,7 @@
                   }:
                   let
                     specialArgs = {
+                      rootPath = ./.;
                       inherit
                         hostName
                         inputs
@@ -105,6 +112,7 @@
                     inherit system specialArgs;
                     modules = [
                       ./options
+                      (inputs.zerozawa-private + "/default.nix")
                       ./nixpkgs.nix
                       inputs.nix-flatpak.nixosModules.nix-flatpak
                       inputs.nix-index-database.nixosModules.nix-index
@@ -137,6 +145,7 @@
                             inputs.stylix.homeModules.stylix
                             inputs.nvf.homeManagerModules.default
                             ./options
+                            (inputs.zerozawa-private + "/default.nix")
                             ./nixpkgs.nix
                           ];
                           users.zerozawa = import ./home/zerozawa;
