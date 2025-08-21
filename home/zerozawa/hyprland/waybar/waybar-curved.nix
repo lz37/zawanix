@@ -13,7 +13,10 @@ with lib;
   # Configure & Theme Waybar
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar;
+    package = pkgs.waybar.override {
+      mprisSupport = true;
+      withMediaPlayer = true;
+    };
     settings = [
       {
         "cffi/virtual-desktops" = {
@@ -46,13 +49,15 @@ with lib;
           "hyprland/window" # 正常
           "pulseaudio" # 正常
           "cpu" # 正常
-          "memory" # 正常
-          "disk" # 正常
-          "network" # 正常
+          # "memory" # 正常
+          # "disk" # 正常
+          # "network" # 正常
           "idle_inhibitor" # 正常
-          "custom/media" # 正常
+          # "custom/media" # 正常
+          "mpris" # 正常
         ];
         modules-right = [
+          "custom/waylrc"
           "custom/hyprbindings" # 正常
           "custom/notification" # 正常
           "custom/exit" # 正常
@@ -62,7 +67,18 @@ with lib;
           "custom/kdeconnect" # 正常
           "clock" # 正常
         ];
-
+        "mpris" = {
+          interval = 1;
+          "format" = "{player_icon} {dynamic}";
+          "format-paused" = "{status_icon} <i>{dynamic}</i>";
+          "player-icons" = {
+            "default" = "▶";
+            "mpv" = "🎵";
+          };
+          "status-icons" = {
+            "paused" = "⏸";
+          };
+        };
         "hyprland/workspaces" = {
           format = "{name}";
           format-icons = {
@@ -88,11 +104,13 @@ with lib;
         "memory" = {
           interval = 5;
           format = " {}%";
+          on-click = ''kitty "btop"'';
           tooltip = true;
         };
         "cpu" = {
           interval = 5;
           format = " {usage:2}%";
+          on-click = ''kitty "btop"'';
           tooltip = true;
         };
         "disk" = {
@@ -279,7 +297,7 @@ with lib;
       ''
         * {
           font-family: JetBrainsMono Nerd Font Mono;
-          font-size: 16px;
+          font-size: 12px;
           border-radius: 0px;
           border: none;
           min-height: 0px;
@@ -331,7 +349,7 @@ with lib;
         tooltip label {
           color: #${config.lib.stylix.colors.base08};
         }
-        #custom-media, #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #network, #disk {
+        #custom-media, #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #network, #disk, #mpris {
           font-weight: bold;
           margin: 4px 0px;
           margin-left: 7px;
@@ -348,17 +366,7 @@ with lib;
           padding: 0px 30px 0px 15px;
           border-radius: 0px 0px 40px 0px;
         }
-        #bluetooth.disabled {
-          color: #${config.lib.stylix.colors.base08};
-          background: #${config.lib.stylix.colors.base01};
-        }
-        #bluetooth.on {
-          color: #${config.lib.stylix.colors.base0B};
-        }
-        #bluetooth.connected {
-          color: #${config.lib.stylix.colors.base0C};
-        }
-        #custom-kdeconnect, #custom-kdeconnect, #custom-hyprbindings, #battery,
+        #custom-waylrc, #custom-kdeconnect, #custom-kdeconnect, #custom-hyprbindings, #battery,
         #custom-notification, #tray, #custom-exit, #bluetooth {
           font-weight: bold;
           background: #${config.lib.stylix.colors.base0F};
@@ -367,6 +375,19 @@ with lib;
           margin-right: 7px;
           border-radius: 10px 24px 10px 24px;
           padding: 0px 18px;
+        }
+        #bluetooth.disabled {
+          color: #${config.lib.stylix.colors.base08};
+          background: #${config.lib.stylix.colors.base01};
+        }
+        #bluetooth.on {
+          color: #${config.lib.stylix.colors.base0B};
+        }
+        #bluetooth.connected {
+          color: #${config.lib.stylix.colors.base00};
+        }
+        #bluetooth {
+          color: #${config.lib.stylix.colors.base0C};
         }
         #clock {
           font-weight: bold;

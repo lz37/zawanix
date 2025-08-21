@@ -16,7 +16,6 @@
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix4vscode.overlays.default
       inputs.nix-alien.overlays.default
-      inputs.waybar.overlays.default
       (
         final: prev:
         let

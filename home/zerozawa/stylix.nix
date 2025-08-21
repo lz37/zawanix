@@ -10,7 +10,7 @@
       ghostty.enable = false;
       qt = {
         enable = true;
-        platform = "qtct";
+        platform = "kde6";
       };
     };
   };
