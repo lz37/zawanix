@@ -77,6 +77,7 @@
         "float, title:^([Vv]ivaldi ((Settings)|(设置)).*)$"
         "float, class:wechat, title:预览"
         "float, class:QQ, title:(图片查看器|视频播放器)"
+        "float, title:^(DevTools - .*)$, initialClass:^(code|chromium-browser)$"
         "opacity 0.0 override, class:xwaylandvideobridge"
         "size 0% 0%, class:xwaylandvideobridge"
       ];
