@@ -1,4 +1,9 @@
-{ pkgs, commonVSCVars, ... }:
+{
+  pkgs,
+  commonVSCVars,
+  config,
+  ...
+}:
 
 {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
@@ -11,17 +16,18 @@
   ];
   settings = {
     "accessibility.signalOptions.volume" = 0;
-    "indentRainbow.errorColor" = "rgba(128,32,32,0.6)";
+    "indentRainbow.errorColor" = "#${config.lib.stylix.colors.base05}";
     "indentRainbow.colors" = [
-      "rgba(255,0,255,0.07)"
-      "rgba(0,0,255,0.07)"
-      "rgba(0,255,255,0.07)"
-      "rgba(0,255,0,0.07)"
-      "rgba(255,255,0,0.07)"
-      "rgba(255,125,0,0.07)"
-      "rgba(255,0,0,0.07)"
+      "#${config.lib.stylix.colors.base0F}4d"
+      "#${config.lib.stylix.colors.base0E}4d"
+      "#${config.lib.stylix.colors.base0D}4d"
+      "#${config.lib.stylix.colors.base0C}4d"
+      "#${config.lib.stylix.colors.base0B}4d"
+      "#${config.lib.stylix.colors.base0A}4d"
+      "#${config.lib.stylix.colors.base09}4d"
+      "#${config.lib.stylix.colors.base08}4d"
     ];
-    "editor.fontFamily" = "Sarasa Mono SC";
+    "editor.fontFamily" = "Sarasa Mono SC,JetBrainsMono Nerd Font Mono,monospace,Unifont";
     "editor.fontLigatures" = true;
     "editor.fontSize" = 16;
     "editor.inlineSuggest.enabled" = true;
@@ -37,7 +43,7 @@
     "explorer.confirmDelete" = false;
     "explorer.confirmDragAndDrop" = false;
     "terminal.integrated.fontFamily" =
-      "MesloLGS NF,FiraCode Nerd Font Mono,LXGW WenKai Mono,Source Han Mono";
+      "MesloLGS Nerd Font Mono,FiraCode Nerd Font Mono,LXGW WenKai Mono,Source Han Mono,JetBrainsMono Nerd Font Mono,monospace,Unifont";
     "terminal.integrated.fontLigatures.enabled" = true;
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;

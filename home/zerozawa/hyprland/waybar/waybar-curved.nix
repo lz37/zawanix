@@ -8,15 +8,11 @@ let
   betterTransition = "all 0.3s cubic-bezier(.55,-0.68,.48,1.682)";
   clock24h = true;
 in
-with lib;
 {
   # Configure & Theme Waybar
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar.override {
-      mprisSupport = true;
-      withMediaPlayer = true;
-    };
+    package = pkgs.waybar;
     settings = [
       {
         "cffi/virtual-desktops" = {
@@ -255,7 +251,7 @@ with lib;
         };
       }
     ];
-    style = concatStrings [
+    style = lib.concatStrings [
       ''
         #waybar-vd {
           color: #${config.lib.stylix.colors.base00};
@@ -296,7 +292,7 @@ with lib;
       ''
       ''
         * {
-          font-family: JetBrainsMono Nerd Font Mono;
+          font-family: "JetBrainsMono Nerd Font Mono", "LXGW WenKai Mono", monospace;
           font-size: 12px;
           border-radius: 0px;
           border: none;

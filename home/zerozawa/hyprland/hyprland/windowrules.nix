@@ -74,7 +74,10 @@
         "fullscreen, tag:games*"
         # "fullscreen, class:^([Ww]aydroid.*)$"
         # "float, class:^([Ww]aydroid.*)$"
-        "opacity 0.0 override,class:xwaylandvideobridge"
+        "float, title:^([Vv]ivaldi ((Settings)|(设置)).*)$"
+        "float, class:wechat, title:预览"
+        "float, class:QQ, title:(图片查看器|视频播放器)"
+        "opacity 0.0 override, class:xwaylandvideobridge"
         "size 0% 0%, class:xwaylandvideobridge"
       ];
     };
