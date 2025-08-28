@@ -26,7 +26,6 @@
       enable = true;
       fcitx5 = {
         waylandFrontend = true;
-        plasma6Support = true;
         addons = with pkgs; [
           fcitx5-rime
           fcitx5-chinese-addons

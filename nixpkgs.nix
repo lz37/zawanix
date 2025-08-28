@@ -1,17 +1,19 @@
 {
+  lib,
   inputs,
   system,
   stylixImage,
   ...
 }:
+let
+  config = {
+    allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
+    allowUnfree = true;
+  };
+in
 {
   nixpkgs = {
-    config = {
-      allowUnfree = true;
-      packageOverrides = pkgs: {
-        intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-      };
-    };
+    inherit config;
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix4vscode.overlays.default
@@ -28,12 +30,10 @@
             pkgs = prev;
           };
           stable = import inputs.nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
+            inherit system config;
           };
           master = import inputs.nixpkgs-master {
-            inherit system;
-            config.allowUnfree = true;
+            inherit system config;
           };
           vscode-selected = (master.vscode.override { useVSCodeRipgrep = true; });
           vscode-selected-extensionsCompatible = (
@@ -61,6 +61,7 @@
           hyprlandPlugins = pkgs.hyprlandPlugins // {
             virtual-desktops = inputs.hyprland-virtual-desktops.packages.${system}.virtual-desktops;
           };
+          intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
         }
       )
     ];

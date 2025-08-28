@@ -4,29 +4,47 @@
   pkgs,
   ...
 }:
-
+let
+  no = "no";
+in
 {
   programs.ssh = {
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        forwardAgent = false;
+        addKeysToAgent = no;
+        compression = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = false;
+        userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
+        controlMaster = no;
+        controlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
+        controlPersist = no;
+      };
+    }
+    // (
+      config.zerozawa.ssh.machines
+      |> lib.map (
+        {
+          host,
+          port, # optional
+          user, # optional
+          ...
+        }:
+        {
+          name = host;
+          value = {
+            hostname = host;
+            inherit port user;
+          };
+        }
+      )
+      |> builtins.listToAttrs
+    );
     enable = true;
     extraConfig = ''
-      ${
-        config.zerozawa.ssh.machines
-        |> lib.map (
-          {
-            host,
-            port, # optional
-            user, # optional
-            ...
-          }:
-          ''
-            Host ${host}
-              HostName ${host}
-              ${if port != null then "Port ${toString port}" else ""}
-              ${if user != null then "User ${user}" else ""}
-          ''
-        )
-        |> lib.concatStrings
-      }
       # Common flags for all ${config.zerozawa.servers.teleport.address} hosts
       Host *.${config.zerozawa.servers.teleport.address} ${config.zerozawa.servers.teleport.address}
         UserKnownHostsFile ${config.home.homeDirectory}/.tsh/known_hosts

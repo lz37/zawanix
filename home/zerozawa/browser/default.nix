@@ -60,9 +60,6 @@ let
   };
 in
 {
-  nixpkgs.config.permittedInsecurePackages = [
-    "immersive-translate-1.18.1"
-  ];
   home = {
     sessionVariables = {
       CHROME_PATH = "${pkgs.chromium}/bin/chromium";
