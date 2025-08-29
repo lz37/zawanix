@@ -45,6 +45,10 @@
       url = "github:levnikmyskin/hyprland-virtual-desktops";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    xlibre-overlay = {
+      url = "git+https://codeberg.org/takagemacoed/xlibre-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -110,50 +114,59 @@
                   in
                   {
                     inherit system specialArgs;
-                    modules = [
-                      ./options
-                      (inputs.zerozawa-private + "/default.nix")
-                      ./nixpkgs.nix
-                      inputs.nix-flatpak.nixosModules.nix-flatpak
-                      inputs.nix-index-database.nixosModules.nix-index
-                      { programs.nix-index-database.comma.enable = true; }
-                      inputs.stylix.nixosModules.stylix
-                      ./hardware
-                      ./network
-                      ./system
-                      ./mihomo
-                    ]
-                    ++ (
-                      with inputs.nixos-hardware.nixosModules;
-                      [ ]
-                      ++ (lib.optional isIntelGPU common-gpu-intel)
-                      ++ (lib.optional isIntelCPU common-cpu-intel)
-                      ++ (lib.optional (isSSD && !isLaptop) common-pc)
-                      ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
-                    )
-                    ++ [
-                      inputs.home-manager.nixosModules.home-manager
-                      {
-                        home-manager = {
-                          useGlobalPkgs = false;
-                          useUserPackages = true;
-                          verbose = true;
-                          backupFileExtension = "hm.bak";
-                          sharedModules = [
-                            inputs.plasma-manager.homeManagerModules.plasma-manager
-                            inputs.vscode-server.homeModules.default
-                            inputs.stylix.homeModules.stylix
-                            inputs.nvf.homeManagerModules.default
-                            ./options
-                            (inputs.zerozawa-private + "/default.nix")
-                            ./nixpkgs.nix
-                          ];
-                          users.zerozawa = import ./home/zerozawa;
-                          extraSpecialArgs = specialArgs;
-                        };
-                      }
-                    ]
-                    ++ extraModules;
+                    modules =
+                      (
+                        with inputs.nixos-hardware.nixosModules;
+                        [ ]
+                        ++ (lib.optional isIntelGPU common-gpu-intel)
+                        ++ (lib.optional isIntelCPU common-cpu-intel)
+                        ++ (lib.optional (isSSD && !isLaptop) common-pc)
+                        ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
+                      )
+                      ++ [
+                        ./options
+                        (inputs.zerozawa-private + "/default.nix")
+                        ./nixpkgs.nix
+                        inputs.nix-flatpak.nixosModules.nix-flatpak
+                        inputs.nix-index-database.nixosModules.nix-index
+                        { programs.nix-index-database.comma.enable = true; }
+                        inputs.stylix.nixosModules.stylix
+                        ./hardware
+                        ./network
+                        ./system
+                        ./mihomo
+                      ]
+                      ++ (
+                        with inputs.xlibre-overlay.nixosModules;
+                        [
+                          overlay-xlibre-xserver
+                          overlay-all-xlibre-drivers
+                        ]
+                        ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
+                      )
+                      ++ [
+                        inputs.home-manager.nixosModules.home-manager
+                        {
+                          home-manager = {
+                            useGlobalPkgs = false;
+                            useUserPackages = true;
+                            verbose = true;
+                            backupFileExtension = "hm.bak";
+                            sharedModules = [
+                              inputs.plasma-manager.homeManagerModules.plasma-manager
+                              inputs.vscode-server.homeModules.default
+                              inputs.stylix.homeModules.stylix
+                              inputs.nvf.homeManagerModules.default
+                              ./options
+                              (inputs.zerozawa-private + "/default.nix")
+                              ./nixpkgs.nix
+                            ];
+                            users.zerozawa = import ./home/zerozawa;
+                            extraSpecialArgs = specialArgs;
+                          };
+                        }
+                      ]
+                      ++ extraModules;
                   };
               in
               (

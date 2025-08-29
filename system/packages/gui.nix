@@ -54,5 +54,6 @@ in
     jmcomic-qt
     wechat-web-devtools-linux
     mission-center
+    x2goclient
   ];
 }

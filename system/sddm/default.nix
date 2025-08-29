@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [ sddm-eucalyptus-drop ];
   services.displayManager = {
-    defaultSession = "plasma";
+    defaultSession = "hyprland-uwsm";
     sddm = {
       enable = true;
       wayland = {

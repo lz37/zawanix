@@ -34,15 +34,18 @@
         variant = "";
       };
     };
-    xrdp = {
+    x2goserver = {
       enable = true;
-      audio.enable = true;
-      package = pkgs.xrdp.overrideAttrs (oldAttrs: {
-        configureFlags = oldAttrs.configureFlags ++ [ "--enable-glamor" ];
-      });
-      defaultWindowManager = "startplasma-x11";
-      openFirewall = true;
     };
+    # xrdp = {
+    #   enable = true;
+    #   audio.enable = true;
+    #   package = pkgs.xrdp.overrideAttrs (oldAttrs: {
+    #     configureFlags = oldAttrs.configureFlags ++ [ "--enable-glamor" ];
+    #   });
+    #   defaultWindowManager = "startplasma-x11";
+    #   openFirewall = true;
+    # };
     openssh = {
       enable = true;
       openFirewall = true;
