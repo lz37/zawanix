@@ -123,6 +123,14 @@
                         ++ (lib.optional (isSSD && !isLaptop) common-pc)
                         ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
                       )
+                      ++ (
+                        with inputs.xlibre-overlay.nixosModules;
+                        [
+                          overlay-xlibre-xserver
+                          overlay-all-xlibre-drivers
+                        ]
+                        ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
+                      )
                       ++ [
                         ./options
                         (inputs.zerozawa-private + "/default.nix")
@@ -136,14 +144,6 @@
                         ./system
                         ./mihomo
                       ]
-                      ++ (
-                        with inputs.xlibre-overlay.nixosModules;
-                        [
-                          overlay-xlibre-xserver
-                          overlay-all-xlibre-drivers
-                        ]
-                        ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
-                      )
                       ++ [
                         inputs.home-manager.nixosModules.home-manager
                         {
@@ -153,7 +153,7 @@
                             verbose = true;
                             backupFileExtension = "hm.bak";
                             sharedModules = [
-                              inputs.plasma-manager.homeManagerModules.plasma-manager
+                              inputs.plasma-manager.homeModules.plasma-manager
                               inputs.vscode-server.homeModules.default
                               inputs.stylix.homeModules.stylix
                               inputs.nvf.homeManagerModules.default

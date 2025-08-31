@@ -126,6 +126,10 @@
         };
       };
 
+      experimental = {
+        xx_color_management_v4 = true;
+      };
+
       ecosystem = {
         no_donation_nag = true;
         no_update_news = false;

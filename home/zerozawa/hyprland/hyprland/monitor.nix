@@ -1,6 +1,4 @@
 { lib, hostName, ... }:
-let
-in
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -28,22 +26,24 @@ in
         ]
         ++ (lib.optionals (hostName == "zawanix-glap") [
           {
-            output = "eDP-1";
+            output = "desc:California Institute of Technology 0x1509";
             mode = "2560x1440@165";
             position = "0x0";
+            cm = "edid";
             scale = 1;
             bitdepth = 12;
           }
-          # {
-          #   output = "DP-1";
-          #   mode = "preferred";
-          #   position = "2560x0";
-          #   scale = 1;
-          #   cm = "hdr";
-          #   # bitdepth = 10;
-          #   sdr_min_luminance = 0.005;
-          #   sdr_max_luminance = 400;
-          # }
+          {
+            output = "desc:SAC G52 0000000000000";
+            mode = "2560x1440@180";
+            position = "2560x0";
+            scale = 1;
+            cm = "hdr";
+            bitdepth = 8;
+            vrr = true;
+            sdr_min_luminance = 0.005;
+            sdr_max_luminance = 400;
+          }
         ])
       );
     };
