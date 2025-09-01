@@ -131,7 +131,8 @@ in
         };
         bluetooth = {
           format = "󰂯";
-          format-disabled = "󰂲";
+          # format-disabled = "󰂲";
+          format-disabled = "";
           format-connected = "󰂱 {device_alias}";
           format-connected-battery = "󰂱 {device_alias} (󰥉 {device_battery_percentage}%)";
           tooltip-format = "{controller_alias}\t{controller_address} ({status})\n\n{num_connections} connected";
@@ -371,19 +372,6 @@ in
           margin-right: 7px;
           border-radius: 10px 24px 10px 24px;
           padding: 0px 18px;
-        }
-        #bluetooth.disabled {
-          color: #${config.lib.stylix.colors.base08};
-          background: #${config.lib.stylix.colors.base01};
-        }
-        #bluetooth.on {
-          color: #${config.lib.stylix.colors.base0B};
-        }
-        #bluetooth.connected {
-          color: #${config.lib.stylix.colors.base00};
-        }
-        #bluetooth {
-          color: #${config.lib.stylix.colors.base0C};
         }
         #clock {
           font-weight: bold;
