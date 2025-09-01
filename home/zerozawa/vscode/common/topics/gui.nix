@@ -2,6 +2,7 @@
   pkgs,
   commonVSCVars,
   config,
+  lib,
   ...
 }:
 
@@ -27,7 +28,7 @@
       "#${config.lib.stylix.colors.base09}4d"
       "#${config.lib.stylix.colors.base08}4d"
     ];
-    "editor.fontFamily" = "Sarasa Mono SC,JetBrainsMono Nerd Font Mono,monospace,Unifont";
+    "editor.fontFamily" = lib.mkForce "Sarasa Mono SC,JetBrainsMono Nerd Font Mono,monospace,Unifont";
     "editor.fontLigatures" = true;
     "editor.fontSize" = 16;
     "editor.inlineSuggest.enabled" = true;

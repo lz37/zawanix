@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  rootPath,
   ...
 }:
 {
@@ -28,8 +29,8 @@
       source = ../../../../assets/wallpapers;
       recursive = true;
     };
-    ".face.icon".source = ./face.jpg;
-    ".config/face.jpg".source = ./face.jpg;
+    ".face.icon".source = rootPath + "/assets/face.jpg";
+    ".config/face.jpg".source = rootPath + "/assets/face.jpg";
   };
   wayland.windowManager.hyprland = {
     enable = true;

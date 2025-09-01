@@ -30,7 +30,6 @@ let
       (import ./common/topics/remote/common.nix)
     ];
   devcontainer = ssh ++ [
-    (import ./common/topics/remote/common.nix)
     (import ./common/topics/remote/devcontainer.nix)
   ];
   default =
@@ -53,22 +52,14 @@ let
     (import ./common/topics/rust.nix)
     (import ./common/topics/settingfile/toml.nix)
   ];
-
   frontend = default ++ [
-    (import ./common/topics/frontend/base.nix)
     (import ./common/topics/frontend/prettier.nix)
     (import ./common/topics/settingfile/dotenv.nix)
-  ];
-  tailwind = frontend ++ [
     (import ./common/topics/frontend/tailwind.nix)
-  ];
-  styled = frontend ++ [
+    (import ./common/topics/frontend/base.nix)
     (import ./common/topics/frontend/styled-components.nix)
   ];
-  tailwind_styled = tailwind ++ [ (import ./common/topics/frontend/styled-components.nix) ];
-  noveler = default ++ [
-    (import ./common/topics/frontend/base.nix)
-    (import ./common/topics/frontend/prettier.nix)
+  noveler = frontend ++ [
     (import ./common/topics/ci-cd.nix)
     (import ./common/topics/settingfile/toml.nix)
   ];
@@ -99,7 +90,6 @@ in
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
       };
-      tailwind = (merge-imports tailwind);
       frontend = (merge-imports frontend);
       noveler = (merge-imports noveler);
       ssh = (merge-imports ssh);
@@ -108,8 +98,6 @@ in
       rust = (merge-imports rust);
       xd = (merge-imports xd);
       nixos = (merge-imports nixos);
-      styled = (merge-imports styled);
-      tailwind_styled = (merge-imports tailwind_styled);
       python = (merge-imports python);
     };
   };
@@ -142,5 +130,4 @@ in
       };
     };
   };
-
 }

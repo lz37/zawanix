@@ -25,7 +25,6 @@
     ./tealdeer.nix
     ./qt.nix
     ./starship.nix
-    ./stylix.nix
     ./swappy.nix
     ./swaync.nix
     ./btop.nix

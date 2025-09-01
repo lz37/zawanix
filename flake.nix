@@ -139,6 +139,7 @@
                         inputs.nix-index-database.nixosModules.nix-index
                         { programs.nix-index-database.comma.enable = true; }
                         inputs.stylix.nixosModules.stylix
+                        ./stylix/nixos.nix
                         ./hardware
                         ./network
                         ./system
@@ -155,7 +156,6 @@
                             sharedModules = [
                               inputs.plasma-manager.homeModules.plasma-manager
                               inputs.vscode-server.homeModules.default
-                              inputs.stylix.homeModules.stylix
                               inputs.nvf.homeManagerModules.default
                               ./options
                               (inputs.zerozawa-private + "/default.nix")
@@ -178,7 +178,7 @@
                       isSSD = true;
                       hostName = "zawanix-work";
                       ram = 32 * 1024;
-                      stylixImage = ./assets/wallpapers/45916741_96947927_p0.jpg;
+                      stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
                     };
                     zawanix-glap = mkNixosConfig {
                       isIntelCPU = true;
@@ -188,7 +188,7 @@
                       isLaptop = true;
                       hostName = "zawanix-glap";
                       ram = 16 * 1024;
-                      stylixImage = ./assets/wallpapers/45916741_96947927_p0.jpg;
+                      stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
                     };
                   };
                 in

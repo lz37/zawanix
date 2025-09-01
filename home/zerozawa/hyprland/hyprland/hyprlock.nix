@@ -1,5 +1,6 @@
 {
   lib,
+  rootPath,
   stylixImage,
   ...
 }:
@@ -22,7 +23,7 @@
       ];
       image = [
         {
-          path = builtins.toString (lib.cleanSource ./face.jpg);
+          path = builtins.toString (lib.cleanSource (rootPath + "/assets/face.jpg"));
           size = 150;
           border_size = 4;
           border_color = "rgb(0C96F9)";

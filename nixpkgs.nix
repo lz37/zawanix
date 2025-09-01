@@ -2,7 +2,6 @@
   lib,
   inputs,
   system,
-  stylixImage,
   ...
 }:
 let
@@ -53,9 +52,7 @@ in
           picacg-qt = (pkgs.callPackage ./nixpkgs-build/picacg.nix { });
           jmcomic-qt = (pkgs.callPackage ./nixpkgs-build/jmcomic.nix { });
           zsh-url-highlighter = (pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix { });
-          sddm-eucalyptus-drop = (
-            pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { inherit stylixImage; }
-          );
+          sddm-eucalyptus-drop = (pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix { });
           wechat-web-devtools-linux = (pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix { });
           waybar-vd = (pkgs.callPackage ./nixpkgs-build/waybar-vd.nix { });
           hyprlandPlugins = pkgs.hyprlandPlugins // {
