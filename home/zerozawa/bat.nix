@@ -1,9 +1,9 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
+  stylix.targets.bat.enable = true;
   programs.bat = {
     enable = true;
     config = {
@@ -13,12 +13,13 @@
       style = "full";
       # Bat has other thems as well
       # ansi,Catppuccin,base16,base16-256,GitHub,Nord,etc
-      theme = lib.mkForce "Dracula";
+      # theme = lib.mkForce "Dracula";
     };
     extraPackages = with pkgs.bat-extras; [
       batman
       batpipe
       batgrep
+      batdiff
     ];
   };
   home.sessionVariables = {

@@ -7,6 +7,7 @@
   services = {
     mpris-proxy.enable = true;
   };
+  stylix.targets.fish.enable = true;
   programs = {
     gh.enable = true;
     pay-respects = {

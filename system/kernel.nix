@@ -9,6 +9,7 @@
 }:
 
 {
+  stylix.targets.console.enable = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];

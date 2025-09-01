@@ -45,6 +45,7 @@
     ./mimelist.nix
     ./rofi
     ./mpv.nix
+    ./fcitx5.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;
