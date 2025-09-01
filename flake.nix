@@ -49,6 +49,7 @@
       url = "git+https://codeberg.org/takagemacoed/xlibre-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs =
@@ -138,6 +139,7 @@
                         inputs.nix-flatpak.nixosModules.nix-flatpak
                         inputs.nix-index-database.nixosModules.nix-index
                         { programs.nix-index-database.comma.enable = true; }
+                        inputs.chaotic.nixosModules.default
                         inputs.stylix.nixosModules.stylix
                         ./stylix/nixos.nix
                         ./hardware
@@ -154,6 +156,7 @@
                             verbose = true;
                             backupFileExtension = "hm.bak";
                             sharedModules = [
+                              inputs.chaotic.homeManagerModules.default
                               inputs.plasma-manager.homeModules.plasma-manager
                               inputs.vscode-server.homeModules.default
                               inputs.nvf.homeManagerModules.default

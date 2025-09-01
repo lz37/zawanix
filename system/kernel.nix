@@ -11,7 +11,7 @@
 {
   stylix.targets.console.enable = true;
   boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_cachyos;
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     supportedFilesystems = [
       "btrfs"

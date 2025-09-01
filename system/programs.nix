@@ -19,6 +19,11 @@
       extest = {
         enable = true;
       };
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+        proton-cachyos
+        proton-ge-custom
+      ];
       protontricks = {
         enable = true;
       };

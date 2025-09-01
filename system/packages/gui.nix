@@ -12,7 +12,7 @@ in
     thunderbird
     master.qq
     wiliwili
-    telegram-desktop
+    telegram-desktop_git
     (master.feishu.override {
       commandLineArgs = ''
         "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"

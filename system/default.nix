@@ -26,6 +26,7 @@
     ./hyprland.nix
     ./flatpak.nix
     ./clamav-scanner.nix
+    ./chaotic.nix
   ];
   system.stateVersion = config.zerozawa.version.nixos;
   documentation.nixos.enable = false;

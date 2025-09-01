@@ -42,12 +42,13 @@
     wl-clipboard
     cifs-utils
     cachix
-    distrobox
+    distrobox_git
     termsonic
     comma
     ipmitool
     teleport.client
     sshpass
     rsync
+    lan-mouse_git
   ];
 }
