@@ -6,6 +6,8 @@
 {
 
   programs.zsh = {
-    initContent = lib.mkBefore '''';
+    initContent = lib.mkBefore ''
+      autoload zcalc
+    '';
   };
 }

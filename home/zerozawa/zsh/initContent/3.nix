@@ -18,6 +18,7 @@
       zstyle ':omz:plugins:eza' 'size-prefix' binary
       zstyle ':omz:plugins:eza' 'hyperlink' yes
       hitokoto
+      autoload zcalc
     '';
   };
 }
