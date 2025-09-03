@@ -57,5 +57,6 @@ in
     x2goclient
     qalculate-qt
     qalculate-gtk
+    lrcget
   ];
 }

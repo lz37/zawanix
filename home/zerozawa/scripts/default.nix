@@ -1,18 +1,21 @@
 {
   pkgs,
   ...
-}:
+}@inputs:
+let
+  common-args = {
+    inherit pkgs;
+  }
+  // inputs;
+in
 {
   home.packages = [
-    (import ./emopicker9000.nix { inherit pkgs; })
-    (import ./keybinds.nix { inherit pkgs; })
-    (import ./task-waybar.nix { inherit pkgs; })
-    (import ./squirtle.nix { inherit pkgs; })
-    (import ./wallsetter.nix {
-      inherit pkgs;
-    })
-    (import ./web-search.nix { inherit pkgs; })
-    (import ./rofi-launcher.nix { inherit pkgs; })
-    (import ./screenshootin.nix { inherit pkgs; })
+    (import ./emopicker9000.nix common-args)
+    (import ./keybinds.nix common-args)
+    (import ./task-waybar.nix common-args)
+    (import ./wallsetter.nix common-args)
+    (import ./web-search.nix common-args)
+    (import ./rofi-launcher.nix common-args)
+    (import ./screenshootin.nix common-args)
   ];
 }

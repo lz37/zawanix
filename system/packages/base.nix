@@ -50,5 +50,7 @@
     sshpass
     rsync
     lan-mouse_git
+    flac
+    exiftool
   ];
 }
