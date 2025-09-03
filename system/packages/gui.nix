@@ -55,5 +55,7 @@ in
     wechat-web-devtools-linux
     mission-center
     x2goclient
+    qalculate-qt
+    qalculate-gtk
   ];
 }

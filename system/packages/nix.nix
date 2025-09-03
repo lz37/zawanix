@@ -19,5 +19,6 @@
     nixfmt-rfc-style
     npins
     nurl
+    mcp-nixos
   ];
 }
