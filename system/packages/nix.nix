@@ -20,5 +20,6 @@
     npins
     nurl
     mcp-nixos
+    nvd
   ];
 }

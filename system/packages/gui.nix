@@ -58,5 +58,7 @@ in
     qalculate-qt
     qalculate-gtk
     lrcget
+    waylyrics
+    caffeine-ng
   ];
 }
