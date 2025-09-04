@@ -36,6 +36,11 @@ in
       atuin = {
         server = str;
       };
+      navidrome = {
+        url = str;
+        username = str;
+        password = str;
+      };
       servers = {
         openwrt = {
           address = lib.mkOption {

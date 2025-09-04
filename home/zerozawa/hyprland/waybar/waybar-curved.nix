@@ -22,7 +22,7 @@ in
           "show_window_count" = true;
         };
         "custom/waylrc" = {
-          exec = lib.getExe' pkgs.nur.repos.definfo.waylrc "waylrc";
+          exec = ''${lib.getExe' pkgs.waylrc "waylrc"} -p Feishin --external-lrc-provider=navidrome --navidrome-server-url="${config.zerozawa.navidrome.url}" --navidrome-username=${config.zerozawa.navidrome.username} --navidrome-password=${config.zerozawa.navidrome.password}'';
           return-type = "json";
           escape = true;
         };

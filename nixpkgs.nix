@@ -59,6 +59,7 @@ in
             virtual-desktops = inputs.hyprland-virtual-desktops.packages.${system}.virtual-desktops;
           };
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+          waylrc = inputs.waylrc.packages.${system}.waylrc;
         }
       )
     ];

@@ -10,4 +10,9 @@
       llvm-vs-code-extensions.lldb-dap
     ]
   );
+  settings = {
+    "[rust]" = {
+      "editor.defaultFormatter" = "rust-lang.rust-analyzer";
+    };
+  };
 }
