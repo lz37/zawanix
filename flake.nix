@@ -50,7 +50,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    waylrc.url = "github:lz37/waylrc/master";
+    waylrc = {
+      url = "github:lz37/waylrc/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
   outputs =

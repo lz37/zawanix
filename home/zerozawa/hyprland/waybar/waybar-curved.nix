@@ -22,7 +22,7 @@ in
           "show_window_count" = true;
         };
         "custom/waylrc" = {
-          exec = ''${lib.getExe' pkgs.waylrc "waylrc"} -p Feishin --external-lrc-provider=navidrome --navidrome-server-url="${config.zerozawa.navidrome.url}" --navidrome-username=${config.zerozawa.navidrome.username} --navidrome-password=${config.zerozawa.navidrome.password}'';
+          exec = ''${lib.getExe pkgs.waylrc} -p Feishin --external-lrc-provider=navidrome --external-lrc-provider=netease-cloud-music --navidrome-server-url="${config.zerozawa.navidrome.url}" --navidrome-username=${config.zerozawa.navidrome.username} --navidrome-password=${config.zerozawa.navidrome.password}'';
           return-type = "json";
           escape = true;
         };
@@ -50,10 +50,11 @@ in
           # "network" # 正常
           "idle_inhibitor" # 正常
           # "custom/media" # 正常
-          "mpris" # 正常
+          # "mpris" # 正常
+          "custom/waylrc" # 正常
         ];
         modules-right = [
-          "custom/waylrc"
+          # "custom/waylrc" # 正常
           "custom/hyprbindings" # 正常
           "custom/notification" # 正常
           "custom/exit" # 正常
@@ -346,7 +347,7 @@ in
         tooltip label {
           color: #${config.lib.stylix.colors.base08};
         }
-        #custom-media, #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #network, #disk, #mpris {
+        #custom-media, #window, #pulseaudio, #cpu, #memory, #idle_inhibitor, #network, #disk, #mpris, #custom-waylrc {
           font-weight: bold;
           margin: 4px 0px;
           margin-left: 7px;
@@ -363,7 +364,7 @@ in
           padding: 0px 30px 0px 15px;
           border-radius: 0px 0px 40px 0px;
         }
-        #custom-waylrc, #custom-kdeconnect, #custom-kdeconnect, #custom-hyprbindings, #battery,
+        #custom-kdeconnect, #custom-kdeconnect, #custom-hyprbindings, #battery,
         #custom-notification, #tray, #custom-exit, #bluetooth {
           font-weight: bold;
           background: #${config.lib.stylix.colors.base0F};
