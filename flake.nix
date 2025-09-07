@@ -50,6 +50,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nixos-cli.url = "github:nix-community/nixos-cli";
     waylrc = {
       url = "github:lz37/waylrc/master";
       inputs = {
@@ -148,6 +149,7 @@
                         { programs.nix-index-database.comma.enable = true; }
                         inputs.chaotic.nixosModules.default
                         inputs.stylix.nixosModules.stylix
+                        inputs.nixos-cli.nixosModules.nixos-cli
                         ./stylix/nixos.nix
                         ./hardware
                         ./network

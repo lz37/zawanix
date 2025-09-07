@@ -60,6 +60,8 @@
         TCPKeepAlive yes
       '';
     };
+    nixos-cli = {
+      enable = true;
+    };
   };
-
 }
