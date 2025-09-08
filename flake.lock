@@ -923,6 +923,21 @@
         "type": "github"
       }
     },
+    "nixos-facter-modules": {
+      "locked": {
+        "lastModified": 1756491981,
+        "narHash": "sha256-lXyDAWPw/UngVtQfgQ8/nrubs2r+waGEYIba5UX62+k=",
+        "owner": "nix-community",
+        "repo": "nixos-facter-modules",
+        "rev": "c1b29520945d3e148cd96618c8a0d1f850965d8c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-facter-modules",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1757103352,
@@ -1312,6 +1327,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nix4vscode": "nix4vscode",
         "nixos-cli": "nixos-cli",
+        "nixos-facter-modules": "nixos-facter-modules",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-master": "nixpkgs-master",
@@ -1731,10 +1747,10 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1757006256,
-        "narHash": "sha256-CAS03G1yMfAIZRZVZlUzvu3seNhs5JI+8G8c3LkgMic=",
+        "lastModified": 1757315899,
+        "narHash": "sha256-u1SwEEBNKg4mwFdulzFlmEO5LJYMKNC6mT6AHM9F6XE=",
         "ref": "main",
-        "rev": "6abfc07c5837e765c3dfa6d96f817b77f3648e33",
+        "rev": "b1c6bb3a2e0c9984efd81934facf45bc1ba6362b",
         "shallow": true,
         "type": "git",
         "url": "file:/etc/nixos/private"

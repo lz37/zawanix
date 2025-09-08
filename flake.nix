@@ -10,6 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
       url = "github:nix-community/NUR";
@@ -102,11 +103,14 @@
                     stylixImage,
                   }:
                   let
+                    facterJson = (inputs.zerozawa-private + "/facters/${hostName}.json");
+                    facter = builtins.fromJSON (builtins.readFile facterJson);
                     specialArgs = {
                       rootPath = ./.;
                       inherit
                         hostName
                         inputs
+                        facter
                         isNvidiaGPU
                         isIntelCPU
                         isIntelGPU
@@ -123,62 +127,65 @@
                   in
                   {
                     inherit system specialArgs;
-                    modules =
-                      (
-                        with inputs.nixos-hardware.nixosModules;
-                        [ ]
-                        ++ (lib.optional isIntelGPU common-gpu-intel)
-                        ++ (lib.optional isIntelCPU common-cpu-intel)
-                        ++ (lib.optional (isSSD && !isLaptop) common-pc)
-                        ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
-                      )
-                      ++ (
-                        with inputs.xlibre-overlay.nixosModules;
-                        [
-                          overlay-xlibre-xserver
-                          overlay-all-xlibre-drivers
-                        ]
-                        ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
-                      )
-                      ++ [
-                        ./options
-                        (inputs.zerozawa-private + "/default.nix")
-                        ./nixpkgs.nix
-                        inputs.nix-flatpak.nixosModules.nix-flatpak
-                        inputs.nix-index-database.nixosModules.nix-index
-                        { programs.nix-index-database.comma.enable = true; }
-                        inputs.chaotic.nixosModules.default
-                        inputs.stylix.nixosModules.stylix
-                        inputs.nixos-cli.nixosModules.nixos-cli
-                        ./stylix/nixos.nix
-                        ./hardware
-                        ./network
-                        ./system
-                        ./mihomo
+                    modules = [
+                      inputs.nixos-facter-modules.nixosModules.facter
+                      { config.facter.reportPath = facterJson; }
+                    ]
+                    ++ (
+                      with inputs.nixos-hardware.nixosModules;
+                      [ ]
+                      ++ (lib.optional isIntelGPU common-gpu-intel)
+                      ++ (lib.optional isIntelCPU common-cpu-intel)
+                      ++ (lib.optional (isSSD && !isLaptop) common-pc)
+                      ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
+                    )
+                    ++ (
+                      with inputs.xlibre-overlay.nixosModules;
+                      [
+                        overlay-xlibre-xserver
+                        overlay-all-xlibre-drivers
                       ]
-                      ++ [
-                        inputs.home-manager.nixosModules.home-manager
-                        {
-                          home-manager = {
-                            useGlobalPkgs = false;
-                            useUserPackages = true;
-                            verbose = true;
-                            backupFileExtension = "hm.bak";
-                            sharedModules = [
-                              inputs.chaotic.homeManagerModules.default
-                              inputs.plasma-manager.homeModules.plasma-manager
-                              inputs.vscode-server.homeModules.default
-                              inputs.nvf.homeManagerModules.default
-                              ./options
-                              (inputs.zerozawa-private + "/default.nix")
-                              ./nixpkgs.nix
-                            ];
-                            users.zerozawa = import ./home/zerozawa;
-                            extraSpecialArgs = specialArgs;
-                          };
-                        }
-                      ]
-                      ++ extraModules;
+                      ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
+                    )
+                    ++ [
+                      ./options
+                      (inputs.zerozawa-private + "/default.nix")
+                      ./nixpkgs.nix
+                      inputs.nix-flatpak.nixosModules.nix-flatpak
+                      inputs.nix-index-database.nixosModules.nix-index
+                      { programs.nix-index-database.comma.enable = true; }
+                      inputs.chaotic.nixosModules.default
+                      inputs.stylix.nixosModules.stylix
+                      inputs.nixos-cli.nixosModules.nixos-cli
+                      ./stylix/nixos.nix
+                      ./hardware
+                      ./network
+                      ./system
+                      ./mihomo
+                    ]
+                    ++ [
+                      inputs.home-manager.nixosModules.home-manager
+                      {
+                        home-manager = {
+                          useGlobalPkgs = false;
+                          useUserPackages = true;
+                          verbose = true;
+                          backupFileExtension = "hm.bak";
+                          sharedModules = [
+                            inputs.chaotic.homeManagerModules.default
+                            inputs.plasma-manager.homeModules.plasma-manager
+                            inputs.vscode-server.homeModules.default
+                            inputs.nvf.homeManagerModules.default
+                            ./options
+                            (inputs.zerozawa-private + "/default.nix")
+                            ./nixpkgs.nix
+                          ];
+                          users.zerozawa = import ./home/zerozawa;
+                          extraSpecialArgs = specialArgs;
+                        };
+                      }
+                    ]
+                    ++ extraModules;
                   };
               in
               (

@@ -1,8 +1,7 @@
 {
   "servers": {
-    "browsermcp": {
-      "command": "npx",
-      "args": ["@browsermcp/mcp@latest"]
+    "nixos": {
+      "command": "mcp-nixos"
     }
   }
 }
