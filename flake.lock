@@ -1747,10 +1747,10 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1757315899,
-        "narHash": "sha256-u1SwEEBNKg4mwFdulzFlmEO5LJYMKNC6mT6AHM9F6XE=",
+        "lastModified": 1757324750,
+        "narHash": "sha256-crLSoflBWNJ1eBEH5V1mKZUZRdBYR6lHqJVPqfj5XeU=",
         "ref": "main",
-        "rev": "b1c6bb3a2e0c9984efd81934facf45bc1ba6362b",
+        "rev": "392ddfbd94497ea510a4cc786846fea492a5385b",
         "shallow": true,
         "type": "git",
         "url": "file:/etc/nixos/private"
