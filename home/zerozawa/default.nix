@@ -46,6 +46,7 @@
     ./rofi
     ./mpv.nix
     ./fcitx5.nix
+    ./autostart.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

@@ -1,13 +1,13 @@
 { pkgs, ... }:
 
 {
-  extensions = pkgs.vscode-selected-extensionsCompatible-nix4vscode.forVscodePrerelease [
-    "ms-python.python"
-    "ms-python.black-formatter"
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    ms-python.python
+    ms-python.pylint
   ];
   settings = {
     "[python]" = {
-      "editor.defaultFormatter" = "ms-python.black-formatter";
+      "editor.defaultFormatter" = "ms-python.pylint";
       "editor.formatOnType" = true;
     };
     "python.terminal.activateEnvironment" = false;

@@ -36,11 +36,11 @@ in
           };
           vscode-selected = (master.vscode.override { useVSCodeRipgrep = true; });
           vscode-selected-extensionsCompatible = (
-            (pkgs.usingFixesFrom pkgs).forVSCodeVersion vscode-selected.version
+            (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
           );
           vscode-selected-extensionsCompatible-nix4vscode =
             let
-              inherit (vscode-selected) version;
+              version = lib.getVersion vscode-selected;
             in
             (with pkgs.nix4vscode; {
               forVscode = forVscodeVersion version;

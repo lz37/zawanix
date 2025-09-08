@@ -8,6 +8,7 @@
       rust-lang.rust-analyzer
       dustypomerleau.rust-syntax
       llvm-vs-code-extensions.lldb-dap
+      cordx56.rustowl-vscode
     ]
   );
   settings = {
