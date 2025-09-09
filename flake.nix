@@ -251,10 +251,7 @@
 				treefmt = {
 					projectRootFile = "flake.nix";
 					programs = {
-						nixfmt = {
-							enable = true;
-							package = pkgs.alejandra;
-						};
+						alejandra.enable = true;
 						shellcheck.enable = true;
 					};
 				};
