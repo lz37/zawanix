@@ -1,7 +1,5 @@
-{ ... }:
-
-{
-  imports = [
-    ./install-fonts.nix
-  ];
+{...}: {
+	imports = [
+		./install-fonts.nix
+	];
 }

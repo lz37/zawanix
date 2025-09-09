@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-    mikestead.dotenv
-  ];
+{pkgs, ...}: {
+	extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+		mikestead.dotenv
+	];
 }

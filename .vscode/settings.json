@@ -5,7 +5,7 @@
   "nix.serverSettings": {
     "nil": {
       "formatting": {
-        "command": ["nixfmt"]
+        "command": ["alejandra"]
       },
       "maxMemoryMB": 4096,
       "nix": {
@@ -19,7 +19,7 @@
         "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
       },
       "formatting": {
-        "command": ["nixfmt"]
+        "command": ["alejandra"]
       },
       "options": {
         "nixos": {

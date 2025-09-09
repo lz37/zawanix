@@ -1,10 +1,6 @@
-{
-  ...
-}:
-{
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-  };
+{...}: {
+	xdg.portal = {
+		enable = true;
+		xdgOpenUsePortal = true;
+	};
 }

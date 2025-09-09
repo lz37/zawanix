@@ -1,10 +1,6 @@
-{
-  ...
-}:
-
-{
-  imports = [
-    ./waybar
-    ./hyprland
-  ];
+{...}: {
+	imports = [
+		./waybar
+		./hyprland
+	];
 }

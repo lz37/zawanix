@@ -1,19 +1,16 @@
-{ pkgs, ... }:
-
-{
-  extensions = (
-    with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace;
-    [
-      fill-labs.dependi
-      rust-lang.rust-analyzer
-      dustypomerleau.rust-syntax
-      llvm-vs-code-extensions.lldb-dap
-      cordx56.rustowl-vscode
-    ]
-  );
-  settings = {
-    "[rust]" = {
-      "editor.defaultFormatter" = "rust-lang.rust-analyzer";
-    };
-  };
+{pkgs, ...}: {
+	extensions = (
+		with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+			fill-labs.dependi
+			rust-lang.rust-analyzer
+			dustypomerleau.rust-syntax
+			llvm-vs-code-extensions.lldb-dap
+			cordx56.rustowl-vscode
+		]
+	);
+	settings = {
+		"[rust]" = {
+			"editor.defaultFormatter" = "rust-lang.rust-analyzer";
+		};
+	};
 }

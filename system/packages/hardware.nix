@@ -1,13 +1,8 @@
-{
-  pkgs,
-  ...
-}:
-
-{
-  environment.systemPackages = with pkgs; [
-    dmidecode
-    vrrtest
-    linuxquota
-    wirelesstools
-  ];
+{pkgs, ...}: {
+	environment.systemPackages = with pkgs; [
+		dmidecode
+		vrrtest
+		linuxquota
+		wirelesstools
+	];
 }

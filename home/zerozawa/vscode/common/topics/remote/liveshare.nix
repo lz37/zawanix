@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-    ms-vsliveshare.vsliveshare
-  ];
+{pkgs, ...}: {
+	extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+		ms-vsliveshare.vsliveshare
+	];
 }
