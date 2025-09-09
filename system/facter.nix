@@ -1,10 +1,11 @@
 {hostName, ...}: {
-	config =
-		{
-			zawanix-work = {
-				facter.detected.dhcp.enable = false;
-			};
-			zawanix-glap = {};
-		}
-    ."${hostName}";
+	facter = {
+		detected = {
+			dhcp.enable =
+				{
+					zawanix-work = false;
+					zawanix-glap = true;
+				}."${hostName}";
+		};
+	};
 }
