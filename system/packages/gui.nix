@@ -8,18 +8,18 @@ in {
 	environment.systemPackages = with pkgs; [
 		burpsuite
 		thunderbird
-		master.qq
+		qq
 		wiliwili
 		telegram-desktop_git
-		(master.feishu.override {
+		(feishu.override {
 				commandLineArgs = ''
 					"\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
 				'';
 			})
-		master.wemeet
-		master.wechat
+		wemeet
+		wechat
 		(
-			patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
+			patchDesktop wechat "wechat" ''^Exec=wechat %U''
 			''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
 		)
 		scrcpy
