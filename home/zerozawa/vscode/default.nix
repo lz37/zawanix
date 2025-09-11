@@ -52,6 +52,7 @@
 		++ [
 			(import ./common/topics/hyprland.nix)
 		];
+	go = default ++ [(import ./common/topics/go.nix)];
 	rust =
 		default
 		++ [
@@ -114,6 +115,7 @@ in {
 			xd = merge-imports xd;
 			nixos = merge-imports nixos;
 			python = merge-imports python;
+			go = merge-imports go;
 		};
 	};
 	services.vscode-server.enable = true;

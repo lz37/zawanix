@@ -13,7 +13,6 @@ in {
 		inherit config;
 		overlays = [
 			inputs.nix-vscode-extensions.overlays.default
-			inputs.nix4vscode.overlays.default
 			inputs.nix-alien.overlays.default
 			(
 				final: prev: let
@@ -37,14 +36,6 @@ in {
 					vscode-selected-extensionsCompatible = (
 						(pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
 					);
-					vscode-selected-extensionsCompatible-nix4vscode = let
-						version = lib.getVersion vscode-selected;
-					in (with pkgs.nix4vscode; {
-							forVscode = forVscodeVersion version;
-							forVscodePrerelease = forVscodeVersionPrerelease version;
-							forOpenVsx = forOpenVsxVersion version;
-							forOpenVsxPrerelease = forOpenVsxVersionPrerelease version;
-						});
 					teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
 					picacg-qt = pkgs.callPackage ./nixpkgs-build/picacg.nix {};
 					jmcomic-qt = pkgs.callPackage ./nixpkgs-build/jmcomic.nix {};
