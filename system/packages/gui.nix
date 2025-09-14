@@ -8,16 +8,16 @@ in {
 	environment.systemPackages = with pkgs; [
 		burpsuite
 		thunderbird
-		qq
+		master.qq
 		wiliwili
 		telegram-desktop_git
-		(feishu.override {
+		(master.feishu.override {
 				commandLineArgs = ''
 					"\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
 				'';
 			})
-		wemeet
-		wechat
+		master.wemeet
+		master.wechat
 		(
 			patchDesktop wechat "wechat" ''^Exec=wechat %U''
 			''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
@@ -29,7 +29,7 @@ in {
 		# onlyoffice-desktopeditors
 		libreoffice-qt6-fresh
 		drawio
-		jellyfin-media-player
+		stable.jellyfin-media-player
 		feishin
 		gimp3
 		pinta

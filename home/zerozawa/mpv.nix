@@ -10,6 +10,11 @@
 		];
 		config = {
 			autoload-files = "yes";
+			profile = "high-quality";
+			vo = "gpu-next";
+			target-colorspace-hint = "yes";
+			gpu-api = "vulkan";
+			gpu-context = "waylandvk";
 		};
 	};
 }
