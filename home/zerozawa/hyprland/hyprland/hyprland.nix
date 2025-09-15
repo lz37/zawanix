@@ -44,9 +44,9 @@
 			enable = true;
 		};
 		settings = {
-			xwayland = {
-				force_zero_scaling = true;
-			};
+			# xwayland = {
+			# 	force_zero_scaling = true;
+			# };
 			input = {
 				kb_layout = "us";
 				kb_options = [

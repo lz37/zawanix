@@ -8,5 +8,6 @@
 		./nur.nix
 		./plasma.nix
 		./hardware.nix
+		./game-editor.nix
 	];
 }
