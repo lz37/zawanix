@@ -63,6 +63,13 @@
 				flake-parts.follows = "flake-parts";
 			};
 		};
+		hypr-dynamic-cursors = {
+			url = "github:VirtCode/hypr-dynamic-cursors";
+			inputs = {
+				nixpkgs.follows = "nixpkgs";
+				# inputs.hyprland.follows = "hyprland";
+			};
+		};
 	};
 
 	outputs = inputs: let

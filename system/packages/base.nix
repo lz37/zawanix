@@ -27,7 +27,6 @@
 		tree
 		podman-compose
 		openjpeg
-		fortune
 		wakatime
 		translate-shell
 		p7zip

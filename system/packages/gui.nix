@@ -59,5 +59,6 @@ in {
 		lrcget
 		waylyrics
 		caffeine-ng
+		ventoy-full-gtk
 	];
 }

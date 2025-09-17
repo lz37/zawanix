@@ -42,11 +42,17 @@ in {
 					zsh-url-highlighter = pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix {};
 					sddm-eucalyptus-drop = pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix {};
 					wechat-web-devtools-linux = pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix {};
+					mikusays = pkgs.callPackage ./nixpkgs-build/mikusays.nix {};
 					waybar-vd = pkgs.callPackage ./nixpkgs-build/waybar-vd.nix {};
 					hyprlandPlugins =
 						pkgs.hyprlandPlugins
 						// {
 							virtual-desktops = inputs.hyprland-virtual-desktops.packages.${system}.virtual-desktops;
+							hypr-dynamic-cursors =
+								inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors.overrideAttrs (old: {
+										# 依赖 wlroots
+										nativeBuildInputs = pkgs.hyprland.nativeBuildInputs ++ (with pkgs; [hyprland gcc14]);
+									});
 						};
 					intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
 					waylrc = inputs.waylrc.packages.${system}.waylrc;

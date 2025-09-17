@@ -4,7 +4,9 @@
 	config,
 	lib,
 	...
-}: {
+}: let
+	browser = ''${lib.getExe pkgs.vivaldi} ${lib.concatStringsSep " " (import ../../../browser/common.nix).commandLineArgs} --password-store=kwallet6'';
+in {
 	extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
 		usernamehw.errorlens
 		fisheva.eva-theme
@@ -49,7 +51,7 @@
 		# "workbench.colorTheme" = "Eva Dark Italic";
 		"workbench.iconTheme" = "material-icon-theme";
 		"workbench.editor.wrapTabs" = true;
-		"workbench.externalBrowser" = "${pkgs.vivaldi}/bin/vivaldi";
+		"workbench.externalBrowser" = browser;
 		"window.zoomLevel" = 1;
 		"window.titleBarStyle" = "native";
 		"window.customTitleBarVisibility" = "never";

@@ -4,5 +4,5 @@ pkgs.writeShellScriptBin "rofi-launcher" ''
 	if pidof rofi > /dev/null; then
 	  pkill rofi
 	fi
-	${pkgs.rofi-wayland}/bin/rofi -show drun
+	${pkgs.rofi}/bin/rofi -show drun
 ''
