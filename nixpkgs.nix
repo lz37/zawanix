@@ -44,6 +44,7 @@ in {
 					wechat-web-devtools-linux = pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix {};
 					mikusays = pkgs.callPackage ./nixpkgs-build/mikusays.nix {};
 					waybar-vd = pkgs.callPackage ./nixpkgs-build/waybar-vd.nix {};
+					image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
 					hyprlandPlugins =
 						pkgs.hyprlandPlugins
 						// {

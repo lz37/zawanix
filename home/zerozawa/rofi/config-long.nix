@@ -1,8 +1,23 @@
-{...}: {
+{
+	stylixImage,
+	pkgs,
+	...
+}: let
+	img-height = 200;
+	img-width = 750;
+	pkg-for-rofi-long =
+		pkgs.image-cut {
+			pname = "pkg-for-rofi-long.png";
+			image = stylixImage;
+			height = img-height;
+			width = img-width;
+			basedOn = "width";
+		};
+in {
 	home.file.".config/rofi/config-long.rasi".text = ''
 		@import "~/.config/rofi/config.rasi"
 		window {
-		  width: 750px;
+		  width: ${toString img-width}px;
 		  border-radius: 20px;
 		}
 		mainbox {
@@ -12,7 +27,7 @@
 		inputbar {
 		  padding: 75px 40px;
 		  background-color: transparent;
-		  background-image: url("~/Pictures/Wallpapers/Rainnight.jpg", width);
+		  background-image: url("${pkg-for-rofi-long}", width);
 		  text-color: @foreground;
 		  children: [ "textbox-prompt-colon", "entry" ];
 		}

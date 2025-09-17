@@ -1,8 +1,20 @@
 {
 	pkgs,
 	config,
+	stylixImage,
 	...
-}: {
+}: let
+	img-height = 500;
+	img-width = 500;
+	pkg-for-rofi-main =
+		pkgs.image-cut {
+			pname = "pkg-for-rofi-main.png";
+			image = stylixImage;
+			height = img-height;
+			width = img-width;
+			basedOn = "height";
+		};
+in {
 	programs = {
 		rofi = {
 			enable = true;
@@ -33,7 +45,7 @@
 				};
 				"window" = {
 					transparency = "real";
-					width = mkLiteral "1000px";
+					width = mkLiteral "${builtins.toString (img-width * 2)}px";
 					location = mkLiteral "center";
 					anchor = mkLiteral "center";
 					fullscreen = false;
@@ -58,7 +70,7 @@
 				"imagebox" = {
 					padding = mkLiteral "20px";
 					background-color = mkLiteral "transparent";
-					background-image = mkLiteral ''url("~/Pictures/Wallpapers/Rainnight.jpg", height)'';
+					background-image = mkLiteral ''url("${pkg-for-rofi-main}", height)'';
 					orientation = mkLiteral "vertical";
 					children =
 						map mkLiteral [

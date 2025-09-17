@@ -49,5 +49,6 @@
 		lan-mouse_git
 		flac
 		exiftool
+		imagemagick
 	];
 }
