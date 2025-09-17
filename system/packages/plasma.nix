@@ -10,6 +10,7 @@
 				qtmultimedia
 				koi
 				partitionmanager
+				krdc
 			])
 		++ (with pkgs; [
 				plasmusic-toolbar
