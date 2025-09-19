@@ -45,6 +45,7 @@ in {
 					mikusays = pkgs.callPackage ./nixpkgs-build/mikusays.nix {};
 					waybar-vd = pkgs.callPackage ./nixpkgs-build/waybar-vd.nix {};
 					image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
+					fortune-mod-zh = pkgs.callPackage ./nixpkgs-build/fortune-mod-zh.nix {};
 					hyprlandPlugins =
 						pkgs.hyprlandPlugins
 						// {
