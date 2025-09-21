@@ -34,9 +34,8 @@
 		++ [
 			(import ./common/topics/remote/devcontainer.nix)
 		];
-	default =
+	no-ai =
 		ssh
-		++ copilot
 		++ gitlens
 		++ [
 			(import ./common/topics/docker.nix)
@@ -47,6 +46,7 @@
 			(import ./common/topics/settingfile/yaml.nix)
 			(import ./common/topics/settingfile/xml.nix)
 		];
+	default = no-ai ++ copilot;
 	nixos =
 		default
 		++ [
@@ -94,6 +94,7 @@
 			(import ./common/topics/python.nix)
 			(import ./common/topics/settingfile/toml.nix)
 		];
+	xmake = default ++ [(import ./common/topics/cpp/xmake.nix)];
 in {
 	programs.vscode = {
 		enable = true;
@@ -116,6 +117,7 @@ in {
 			nixos = merge-imports nixos;
 			python = merge-imports python;
 			go = merge-imports go;
+			xmake = merge-imports xmake;
 		};
 	};
 	services.vscode-server.enable = true;
