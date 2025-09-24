@@ -8,6 +8,10 @@
 				splix
 			];
 		};
+		glances = {
+			enable = true;
+			openFirewall = true;
+		};
 		avahi = {
 			enable = true;
 			nssmdns4 = true;
