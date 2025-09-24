@@ -24,6 +24,23 @@
 			fcitx5 = {
 				waylandFrontend = true;
 				addons = with pkgs; [
+					(fcitx5-rime.override
+						{
+							librime =
+								(librime.override {
+										plugins = [librime-lua librime-octagram];
+									}).overrideAttrs (old: {
+										buildInputs = (old.buildInputs or []) ++ [luajit];
+									});
+							rimeDataPkgs =
+								[rime-data]
+								++ (with pkgs.nur.repos; (with xddxdd; [
+											rime-ice
+											rime-moegirl
+											rime-zhwiki
+											rime-dict
+										]));
+						})
 					fcitx5-rime
 					fcitx5-chinese-addons
 					fcitx5-mozc

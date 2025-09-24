@@ -1,6 +1,7 @@
 {
 	inputs,
 	lib,
+	pkgs,
 	...
 }: {
 	nix = {
@@ -40,15 +41,17 @@
 					"https://nixpkgs-wayland.cachix.org"
 					"https://watersucks.cachix.org"
 					"https://numtide.cachix.org"
+					pkgs.nur.repos.xddxdd._meta.atticUrl
 				];
 			trusted-public-keys = [
 				"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
 				"hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-				# "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="za
+				# "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="
 				"nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
 				"nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
 				"watersucks.cachix.org-1:6gadPC5R8iLWQ3EUtfu3GFrVY7X6I4Fwz/ihW25Jbv8="
 				"numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+				pkgs.nur.repos.xddxdd._meta.atticPublicKey
 			];
 			trusted-users = [
 				"zerozawa"

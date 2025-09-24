@@ -15,6 +15,7 @@ let
 							tasks = {
 								version = "2.0.0";
 							};
+							mcp = {};
 						}
 						item
 					]
@@ -22,6 +23,7 @@ let
 	in {
 		keybindings = builtins.concatMap (item: item.keybindings) returns-fallback;
 		extensions = builtins.concatMap (item: item.extensions) returns-fallback;
+		userMcp.servers = recursiveUpdateList (builtins.map (item: item.mcp) returns-fallback);
 		userSettings =
 			recursiveUpdateList (
 				(builtins.map (item: item.settings) returns-fallback)

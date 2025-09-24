@@ -1,7 +1,4 @@
 {
   "servers": {
-    "nixos": {
-      "command": "mcp-nixos"
-    }
   }
 }

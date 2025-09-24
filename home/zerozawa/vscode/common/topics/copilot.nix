@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+	pkgs,
+	lib,
+	...
+}: {
 	extensions =
 		(with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
 				github.copilot
@@ -59,4 +63,9 @@
 			when = "editorTextFocus && github.copilot.activated && !commentEditorFocused";
 		}
 	];
+	mcp = {
+		nixos = {
+			command = lib.getExe pkgs.mcp-nixos;
+		};
+	};
 }
