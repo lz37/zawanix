@@ -2162,10 +2162,10 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1757388499,
-        "narHash": "sha256-qA6OOJkwMZCbxUNk7nxsDVBA9S8o0p9PPDDirzDmx1k=",
+        "lastModified": 1758792502,
+        "narHash": "sha256-F8Txv5kHGIzUTpDN+fFgmPG1jqfZODyv59Zd54HeCkw=",
         "ref": "main",
-        "rev": "1d6f38f2589309c7c8e8f14a3682b53b07c1bdef",
+        "rev": "12584b83c9caa30da205c39ce67a8ab22707a08f",
         "shallow": true,
         "type": "git",
         "url": "file:/etc/nixos/private"
