@@ -11,33 +11,90 @@
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
-    fcitx5 = with pkgs; {
-      addons = [
-        (fcitx5-rime.override
-          {
-            librime =
-              (librime.override {
-                plugins = [librime-lua librime-octagram];
-              }).overrideAttrs (old: {
-                buildInputs = (old.buildInputs or []) ++ [luajit];
-              });
-            rimeDataPkgs =
-              [rime-data]
-              ++ (with pkgs.nur.repos; (with xddxdd; [
-                rime-ice # 这里postinstall添加词库
-                rime-moegirl
-                rime-zhwiki
-                rime-dict
-              ]));
-          })
-        fcitx5-rime
-        fcitx5-chinese-addons
-        fcitx5-mozc
-        fcitx5-gtk
-        fcitx5-lua
-      ];
+    fcitx5 = {
+      addons =
+        [
+          (pkgs.fcitx5-rime.override
+            {
+              librime = with pkgs;
+                (pkgs.librime.override {
+                  plugins = [librime-lua librime-octagram];
+                }).overrideAttrs (old: {
+                  buildInputs = (old.buildInputs or []) ++ [luajit];
+                });
+              rimeDataPkgs = [
+                (pkgs.nur.repos.xddxdd.rime-ice.overrideAttrs
+                  (old: let
+                    dicts_to_added = [
+                      [pkgs.nur.repos.xddxdd.rime-zhwiki ["zhwiki"]]
+                      [pkgs.nur.repos.xddxdd.rime-moegirl ["moegirl"]]
+                      [
+                        pkgs.nur.repos.xddxdd.rime-dict
+                        [
+                          "luna_pinyin.anime"
+                          "luna_pinyin.classical"
+                          "luna_pinyin.diet"
+                          "luna_pinyin.history"
+                          "luna_pinyin.music"
+                          "luna_pinyin.practical"
+                          "luna_pinyin.basis"
+                          "luna_pinyin.cn_en"
+                          "luna_pinyin.game"
+                          "luna_pinyin.idiom"
+                          "luna_pinyin.name"
+                          "luna_pinyin.sougou"
+                          "luna_pinyin.biaoqing"
+                          "luna_pinyin.computer"
+                          "luna_pinyin.gd"
+                          "luna_pinyin.moba"
+                          "luna_pinyin.net"
+                          "luna_pinyin.website"
+                          "luna_pinyin.chat"
+                          "luna_pinyin.daily"
+                          "luna_pinyin.hanyu"
+                          "luna_pinyin.movie"
+                          "luna_pinyin.poetry"
+                        ]
+                      ]
+                      [pkgs.rime-data ["luna_pinyin" "pinyin_simp"]]
+                    ];
+                  in {
+                    buildInputs =
+                      (old.buildInputs or [])
+                      ++ (map (d: lib.elemAt d 0) dicts_to_added);
+                    postInstall = lib.concatMapStrings (x: x + "\n") [
+                      (lib.concatMapStrings (d: let
+                        dict_pkg = lib.elemAt d 0;
+                        dict_pkg_name = lib.getName dict_pkg;
+                        dict_files = lib.elemAt d 1;
+                      in
+                        lib.concatMapStrings (dict_file: ''
+                          if [ ! -d $out/share/rime-data/${dict_pkg_name} ]; then
+                            mkdir -p $out/share/rime-data/${dict_pkg_name};
+                          fi
+                          ln -s ${dict_pkg}/share/rime-data/${dict_file}.dict.yaml $out/share/rime-data/${dict_pkg_name}/${dict_file}.dict.yaml
+                          sed -i '/^\.\.\./i\  - ${dict_pkg_name}/${dict_file}' $out/share/rime-data/rime_ice.dict.yaml
+                        '')
+                        dict_files)
+                      dicts_to_added)
+                      # $out/share/rime-data/rime_ice.dict.yaml 中的 `# - cn_dicts/41448` 改为 `- cn_dicts/41448`
+                      ''
+                        sed -i 's/^  # - cn_dicts\/41448\(.*\)$/  - cn_dicts\/41448\1/' $out/share/rime-data/rime_ice.dict.yaml
+                      ''
+                    ];
+                  }))
+              ];
+            })
+        ]
+        ++ (with pkgs; [
+          fcitx5-rime
+          fcitx5-chinese-addons
+          fcitx5-mozc
+          fcitx5-gtk
+          fcitx5-lua
+        ]);
       waylandFrontend = true;
-      fcitx5-with-addons = kdePackages.fcitx5-with-addons;
+      fcitx5-with-addons = pkgs.kdePackages.fcitx5-with-addons;
       ignoreUserConfig = false;
       settings = let
         No = "No";

@@ -10,8 +10,8 @@
     nodePackages.nodejs # needed by mcp
     exfatprogs
     xsel
+    yq-go
     jq
-    yq
     nettools
     busybox
     (lib.hiPrio uutils-coreutils-noprefix)
