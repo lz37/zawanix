@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./install-fonts.nix
+    ./fcitx5.nix
   ];
 }

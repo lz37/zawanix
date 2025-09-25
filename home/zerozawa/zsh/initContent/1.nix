@@ -1,8 +1,7 @@
 {lib, ...}: {
-	programs.zsh = {
-		initContent =
-			lib.mkBefore ''
-				autoload zcalc
-			'';
-	};
+  programs.zsh = {
+    initContent = lib.mkBefore ''
+      autoload zcalc
+    '';
+  };
 }

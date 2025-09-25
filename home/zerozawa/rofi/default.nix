@@ -1,6 +1,6 @@
 {...}: {
-	imports = [
-		./config-long.nix
-		./rofi.nix
-	];
+  imports = [
+    ./config-long.nix
+    ./rofi.nix
+  ];
 }

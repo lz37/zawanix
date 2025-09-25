@@ -1,8 +1,8 @@
 {...}: {
-	programs.plasma.configFile.krunnerrc = {
-		General = {
-			FreeFloating = true;
-			historyBehavior = "ImmediateCompletion";
-		};
-	};
+  programs.plasma.configFile.krunnerrc = {
+    General = {
+      FreeFloating = true;
+      historyBehavior = "ImmediateCompletion";
+    };
+  };
 }

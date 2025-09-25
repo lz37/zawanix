@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-	extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-		vue.volar
-	];
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    vue.volar
+  ];
 }

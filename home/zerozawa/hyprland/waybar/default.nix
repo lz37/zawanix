@@ -1,5 +1,5 @@
 {...}: {
-	imports = [
-		./waybar-curved.nix
-	];
+  imports = [
+    ./waybar-curved.nix
+  ];
 }
