@@ -57,6 +57,14 @@
                         ]
                       ]
                       [pkgs.rime-data ["luna_pinyin" "pinyin_simp"]]
+                      [
+                        (pkgs.nur.repos.xddxdd.rime-custom-pinyin-dictionary.overrideAttrs (old: {
+                          postInstall = ''
+                            echo -e "---\nname: CustomPinyinDictionary\nversion: \"0.0\"\nsort: by_weight\nuse_preset_vocabulary: true\n..." | cat - $out/share/rime-data/CustomPinyinDictionary.dict.yaml > temp && mv temp $out/share/rime-data/CustomPinyinDictionary.dict.yaml
+                          '';
+                        }))
+                        ["CustomPinyinDictionary"]
+                      ]
                     ];
                   in {
                     buildInputs =
