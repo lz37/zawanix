@@ -50,5 +50,6 @@
     flac
     exiftool
     imagemagick
+    opencc
   ];
 }

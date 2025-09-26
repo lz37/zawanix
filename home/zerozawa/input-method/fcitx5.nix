@@ -36,7 +36,7 @@
                         [pkgs.nur.repos.xddxdd.rime-zhwiki ["zhwiki"]]
                         [pkgs.nur.repos.xddxdd.rime-moegirl ["moegirl"]]
                         [
-                          pkgs.nur.repos.xddxdd.rime-dict
+                          pkgs.nur.repos.xddxdd.rime-dict # opencc -i ./test.yaml -o ./test.yaml -c t2s.json 转换成简体
                           [
                             "luna_pinyin.anime"
                             "luna_pinyin.classical"
