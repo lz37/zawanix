@@ -1,9 +1,5 @@
 {pkgs, ...}: {
   gtk = {
-    theme = {
-      package = pkgs.fluent-gtk-theme;
-      name = "Fluent-Dark";
-    };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
