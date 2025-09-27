@@ -35,9 +35,8 @@
                       dicts_to_added = [
                         [pkgs.nur.repos.xddxdd.rime-zhwiki ["zhwiki"]]
                         [pkgs.nur.repos.xddxdd.rime-moegirl ["moegirl"]]
-                        [
-                          pkgs.nur.repos.xddxdd.rime-dict # opencc -i ./test.yaml -o ./test.yaml -c t2s.json 转换成简体
-                          [
+                        (let
+                          fileNames = [
                             "luna_pinyin.anime"
                             "luna_pinyin.classical"
                             "luna_pinyin.diet"
@@ -61,8 +60,22 @@
                             "luna_pinyin.hanyu"
                             "luna_pinyin.movie"
                             "luna_pinyin.poetry"
-                          ]
-                        ]
+                          ];
+                        in [
+                          (pkgs.nur.repos.xddxdd.rime-dict.overrideAttrs (old: {
+                            nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.opencc];
+                            postInstall = ''
+                              for f in ${lib.concatStringsSep " " fileNames}; do
+                                if [ -f $out/share/rime-data/$f.dict.yaml ]; then
+                                  mv $out/share/rime-data/$f.dict.yaml $out/share/rime-data/$f.dict.yaml.bak
+                                  opencc -i $out/share/rime-data/$f.dict.yaml.bak -o $out/share/rime-data/$f.dict.yaml -c t2s.json
+                                  rm $out/share/rime-data/$f.dict.yaml.bak
+                                fi
+                              done
+                            '';
+                          }))
+                          fileNames
+                        ])
                         [pkgs.rime-data ["luna_pinyin" "pinyin_simp"]]
                         [
                           pkgs.nur.repos.xddxdd.rime-custom-pinyin-dictionary
