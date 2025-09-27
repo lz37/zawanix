@@ -53,12 +53,13 @@ in {
     "workbench.editor.wrapTabs" = true;
     "workbench.externalBrowser" = browser;
     "window.zoomLevel" = 1;
-    "window.titleBarStyle" = "native";
+    # "window.titleBarStyle" = "native";
     "window.customTitleBarVisibility" = "never";
     "window.autoDetectColorScheme" = true;
     "workbench.preferredDarkColorTheme" = "Eva Dark Italic Bold";
     "workbench.preferredLightColorTheme" = "Eva Light Italic Bold";
-    "window.controlsStyle" = "native";
+    "workbench.experimental.share.enabled" = true;
+    # "window.controlsStyle" = "native";
   };
   keybindings = [
     {
