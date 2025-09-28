@@ -6,4 +6,9 @@
     xaver.clang-format
     # ms-vscode.cpptools
   ];
+  settings = {
+    "[cpp]" = {
+      "editor.defaultFormatter" = "xaver.clang-format";
+    };
+  };
 }
