@@ -93,7 +93,9 @@
       (import ./common/topics/python.nix)
       (import ./common/topics/settingfile/toml.nix)
     ];
-  xmake = default ++ [(import ./common/topics/cpp/xmake.nix)];
+  xmake-no-ai = no-ai ++ [(import ./common/topics/cpp/xmake.nix)];
+  xmake = xmake-no-ai ++ copilot;
+  leetcode = xmake-no-ai ++ [(import ./common/topics/leetcode.nix)];
 in {
   programs.vscode = {
     enable = true;
@@ -101,7 +103,7 @@ in {
     package = pkgs.vscode-selected;
     profiles = {
       default =
-        (merge-imports default)
+        (merge-imports (default ++ [(import ./common/topics/leetcode.nix)]))
         // {
           enableUpdateCheck = false;
           enableExtensionUpdateCheck = false;
@@ -117,6 +119,7 @@ in {
       python = merge-imports python;
       go = merge-imports go;
       xmake = merge-imports xmake;
+      leetcode = merge-imports leetcode;
     };
   };
   services.vscode-server.enable = true;

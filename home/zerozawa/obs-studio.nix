@@ -9,6 +9,10 @@
       obs-move-transition
       obs-composite-blur
       obs-backgroundremoval
+      waveform
+      obs-vaapi
+      obs-tuna
+      obs-advanced-masks
     ];
   };
 }

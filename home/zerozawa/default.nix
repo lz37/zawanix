@@ -43,7 +43,6 @@
     ./mimelist.nix
     ./rofi
     ./mpv.nix
-    ./fcitx5.nix
     ./autostart.nix
     ./input-method
   ];

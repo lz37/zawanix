@@ -3,4 +3,9 @@
     github.vscode-github-actions
     gitlab.gitlab-workflow
   ];
+  settings = {
+    "[github-actions-workflow]" = {
+      "editor.defaultFormatter" = "redhat.vscode-yaml";
+    };
+  };
 }

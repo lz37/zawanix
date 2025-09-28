@@ -13,7 +13,7 @@ in {
     pkief.material-icon-theme
     oderwat.indent-rainbow
     naumovs.color-highlight
-    adpyke.codesnap
+    huibizhang.codesnap-plus
   ];
   settings = {
     "accessibility.signalOptions.volume" = 0;

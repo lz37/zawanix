@@ -3,6 +3,7 @@
     tboox.xmake-vscode
     llvm-vs-code-extensions.vscode-clangd
     vadimcn.vscode-lldb
-    ms-vscode.cpptools
+    xaver.clang-format
+    # ms-vscode.cpptools
   ];
 }
