@@ -4,10 +4,10 @@
   ...
 }: let
   pname = "wechat-web-devtools-linux";
-  version = "1.06.2504010-2";
+  version = "1.06.2504030-1";
   src = fetchurl {
     url = "https://github.com/msojocs/${pname}/releases/download/v${version}/WeChat_Dev_Tools_v${version}_x86_64_linux.AppImage";
-    hash = "sha256-AQggXU24U+JAXmXKcbpYJKbfce/JVEH+dkHA0tBfvIw=";
+    hash = "sha256-Wm2VMrynZ9l5nzTRRIrcXpsqKGGx3X+fgLbZCKU7Ysc=";
   };
   appimageContents = appimageTools.extract {
     inherit pname version src;

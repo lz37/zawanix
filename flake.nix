@@ -21,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    nixpkgs-for-nix-vscode-extensions.url = "github:NixOS/nixpkgs/0cc09391d851ec12e1dcbb8d105a75ab6344432b";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -40,8 +41,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    stylix.url = "github:danth/stylix/master";
-    nvf.url = "github:notashelf/nvf";
+    stylix = {
+      url = "github:danth/stylix/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nur.follows = "nur";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     zerozawa-private = {
       url = "git+file:/etc/nixos/private?shallow=1&ref=main";
       flake = false;
