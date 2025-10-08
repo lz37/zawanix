@@ -32,6 +32,7 @@ in {
       "$modifier SHIFT,I,togglesplit,"
       "$modifier,F,fullscreen,"
       "$modifier SHIFT,F,togglefloating,"
+      "$modifier CONTROL,F,fullscreenstate, 0 3"
       "$modifier ALT,F,workspaceopt, allfloat"
       "$modifier SHIFT,C,exit,"
       "$modifier SHIFT,V,exec,code"
