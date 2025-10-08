@@ -23,6 +23,7 @@
       extensionManager = "bgejgfcdaicmfbfphchgcdgnpnbcondb"; # 扩展管理器
       tampermonkey = "gcalenpjmijncebpfijmoaglllgpjagf"; # 篡改猴测试版
       ublockOriginLite = "ddkjiahejlhfcafbddmgiahcphecmpfh"; # uBlock Origin Lite (cr你m什么时候s啊)
+      hide-scrollbar = "mljepckcnbghmcdmaebjhejiplcngbkm"; # Hide Scrollbar
     }
     |> lib.mapAttrsToList (
       name: id: {
