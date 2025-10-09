@@ -1,5 +1,8 @@
 {pkgs, ...}: {
   stylix.targets.mpv.enable = true;
+  home.packages = with pkgs; [
+    jellyfin-mpv-shim
+  ];
   programs.mpv = {
     enable = true;
     scripts = with pkgs.mpvScripts; [
