@@ -31,9 +31,7 @@ in {
           };
           vscode-selected = master.vscode.override {useVSCodeRipgrep = true;};
           vscode-selected-extensionsCompatible = (
-            (pkgs.usingFixesFrom (import inputs.nixpkgs-for-nix-vscode-extensions {
-              inherit system config;
-            })).forVSCodeVersion (lib.getVersion vscode-selected)
+            (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
           );
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           picacg-qt = pkgs.callPackage ./nixpkgs-build/picacg.nix {};
@@ -56,14 +54,15 @@ in {
             };
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           waylrc = inputs.waylrc.packages.${system}.waylrc;
-          libvdpau-va-gl = stable.libvdpau-va-gl;
-          intel-compute-runtime = stable.intel-compute-runtime;
+          # libvdpau-va-gl = stable.libvdpau-va-gl;
+          intel-graphics-compiler = master.intel-graphics-compiler;
+          # intel-compute-runtime = stable.intel-compute-runtime;
           lutris = stable.lutris;
-          pkgsi686Linux =
-            pkgs.pkgsi686Linux
-            // {
-              libvdpau-va-gl = stable.pkgsi686Linux.libvdpau-va-gl;
-            };
+          # pkgsi686Linux =
+          #   pkgs.pkgsi686Linux
+          #   // {
+          #     libvdpau-va-gl = stable.pkgsi686Linux.libvdpau-va-gl;
+          #   };
           qq = master.qq;
           feishu = master.feishu.override {
             commandLineArgs = ''
