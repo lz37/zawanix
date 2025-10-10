@@ -8,11 +8,7 @@
     # "shd101wyy.markdown-preview-enhanced"
     davidanson.vscode-markdownlint
     bierner.markdown-mermaid
-    (yzane.markdown-pdf.overrideAttrs (oldAttrs: {
-      postInstall = ''
-        jq '.contributes.configuration.properties."markdown-pdf.executablePath".default = "${lib.getExe pkgs.chromium}"' $out/$installPrefix/package.json | sponge $out/$installPrefix/package.json
-      '';
-    }))
+    yzane.markdown-pdf
   ];
   settings = {
     # markdown-preview-enhanced.previewTheme = "atom-dark.css";

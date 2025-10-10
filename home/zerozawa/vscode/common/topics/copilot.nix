@@ -7,7 +7,7 @@
     (with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
       github.copilot
     ])
-    ++ (with pkgs.vscode-marketplace-release; [
+    ++ (with pkgs.vscode-selected-extensionsCompatible.open-vsx; [
       github.copilot-chat
     ]);
   settings = {
