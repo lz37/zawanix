@@ -54,15 +54,8 @@ in {
             };
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           waylrc = inputs.waylrc.packages.${system}.waylrc;
-          # libvdpau-va-gl = stable.libvdpau-va-gl;
           intel-graphics-compiler = master.intel-graphics-compiler;
-          # intel-compute-runtime = stable.intel-compute-runtime;
           lutris = stable.lutris;
-          # pkgsi686Linux =
-          #   pkgs.pkgsi686Linux
-          #   // {
-          #     libvdpau-va-gl = stable.pkgsi686Linux.libvdpau-va-gl;
-          #   };
           qq = master.qq;
           feishu = master.feishu.override {
             commandLineArgs = ''

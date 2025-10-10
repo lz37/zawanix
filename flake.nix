@@ -21,7 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-    # nixpkgs-for-nix-vscode-extensions.url = "github:NixOS/nixpkgs/0cc09391d851ec12e1dcbb8d105a75ab6344432b";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
