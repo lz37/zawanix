@@ -7,7 +7,7 @@
     scratchpads.term = {
       animation = "fromTop";
       command = "kitty --class kitty-dropterm";
-      unfocus = "hide";
+      # unfocus = "hide";
       class = "kitty-dropterm";
       size = "70% 70%";
       margin = "15%";

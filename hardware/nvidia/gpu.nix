@@ -32,7 +32,7 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
     prime = {
       offload = rec {
         enable = (isIntelGPU || isAmdGPU) && isLaptop;
