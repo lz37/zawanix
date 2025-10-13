@@ -3,8 +3,47 @@
   isNvidiaGPU,
   hostName,
   config,
+  lib,
   ...
-}: {
+}: let
+  renderOption = option:
+    rec {
+      int = toString option;
+      float = int;
+      bool = lib.hm.booleans.yesNo option;
+      string = option;
+    }
+    .${
+      builtins.typeOf option
+    };
+  renderOptionValue = value: let
+    rendered = renderOption value;
+    length = toString (builtins.stringLength rendered);
+  in "%${length}%${rendered}";
+  renderOptions = lib.generators.toKeyValue {
+    mkKeyValue = lib.generators.mkKeyValueDefault {mkValueString = renderOptionValue;} "=";
+    listsAsDuplicateKeys = true;
+  };
+  renderProfiles = lib.generators.toINI {
+    mkKeyValue = lib.generators.mkKeyValueDefault {mkValueString = renderOptionValue;} "=";
+    listsAsDuplicateKeys = true;
+  };
+  renderDefaultProfiles = profiles: renderOptions {profile = lib.concatStringsSep "," profiles;};
+  mpv-common = {
+    config = let
+      yes = "yes";
+      no = "no";
+    in {
+      autoload-files = yes;
+      target-colorspace-hint = yes;
+      osc = no;
+      border = no;
+      profile = "high-quality";
+    };
+    defaultProfiles = ["high-quality"];
+    profiles = {};
+  };
+in {
   stylix.targets.mpv.enable = true;
   xdg.configFile = let
     mpv-scripts = pkgs.buildEnv {
@@ -22,8 +61,11 @@
     "mpv/fonts".source = "${mpv-scripts}/share/fonts";
     "jellyfin-mpv-shim/fonts".source = "${mpv-scripts}/share/fonts";
     "jellyfin-mpv-shim/scripts".source = "${mpv-scripts}/share/mpv/scripts";
-    "jellyfin-mpv-shim/input.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/input.conf";
-    "jellyfin-mpv-shim/mpv.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/mpv.conf";
+    "jellyfin-mpv-shim/mpv.conf".text = ''
+      ${lib.optionalString (mpv-common.defaultProfiles != []) (renderDefaultProfiles mpv-common.defaultProfiles)}
+      ${lib.optionalString (mpv-common.config != {}) (renderOptions mpv-common.config)}
+      ${lib.optionalString (mpv-common.profiles != {}) (renderProfiles mpv-common.profiles)}
+    '';
     "jellyfin-mpv-shim/script-opts".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/script-opts";
     "jellyfin-mpv-shim/conf.json".source = pkgs.stdenv.mkDerivation {
       src = (pkgs.formats.json {}).generate "jellyfin-mpv-shim.config.json" {
@@ -115,7 +157,7 @@
         "subtitle_size" = 100;
         "svp_enable" = false;
         "svp_socket" = null;
-        "svp_url" = "http=//127.0.0.1=9901/";
+        "svp_url" = "http://127.0.0.1:9901/";
         "sync_attempts" = 5;
         "sync_max_delay_skip" = 300;
         "sync_max_delay_speed" = 50;
@@ -159,25 +201,20 @@
   programs.mpv = let
     inherit (pkgs) anime4k;
   in {
+    inherit (mpv-common) defaultProfiles profiles;
     enable = true;
     package = pkgs.mpv;
-    config = let
-      yes = "yes";
-      no = "no";
-    in {
-      autoload-files = yes;
-      target-colorspace-hint = yes;
-      osc = no;
-      border = no;
-      profile = "high-quality";
-      vo = "gpu-next";
-      gpu-api = "vulkan";
-      gpu-context = "waylandvk";
-      glsl-shaders =
-        if isNvidiaGPU
-        then "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-        else "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_S.glsl";
-    };
+    config =
+      mpv-common.config
+      // {
+        vo = "gpu-next";
+        gpu-api = "vulkan";
+        gpu-context = "waylandvk";
+        glsl-shaders =
+          if isNvidiaGPU
+          then "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
+          else "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_S.glsl";
+      };
     bindings =
       if isNvidiaGPU
       then {

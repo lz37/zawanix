@@ -50,6 +50,7 @@
     default
     ++ [
       (import ./common/topics/hyprland.nix)
+      (import ./common/topics/ci-cd.nix)
     ];
   go = default ++ [(import ./common/topics/go.nix)];
   rust =
