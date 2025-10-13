@@ -6,6 +6,7 @@
   lib,
   ...
 }: let
+  inherit (pkgs) anime4k;
   renderOption = option:
     rec {
       int = toString option;
@@ -34,13 +35,39 @@
       yes = "yes";
       no = "no";
     in {
+      # https://hooke007.github.io/index.html
+      input-ipc-server = "/tmp/mpvsocket";
       autoload-files = yes;
       target-colorspace-hint = yes;
       osc = no;
       border = no;
-      profile = "high-quality";
+      # svp
+      hwdec = "auto-copy";
+      hwdec-codecs = "all";
+      hr-seek-framedrop = no;
+      cache = yes;
+      # svp
+      demuxer-max-bytes = "128MiB";
+      cache-on-disk = no;
+      cache-secs = 8;
+      # icc-profile-auto = yes;
+      # video-sync = "display-resample";
+      # interpolation = yes;
+      # vf-append = "format=gamma=gamma2.2";
+      # icc-cache-dir = "~~/icc_cache";
+      # gpu-shader-cache-dir = "~~/shaders_cache";
+      # audio-file-auto = "fuzzy";
+      # audio-pitch-correction = yes;
+      # audio-exclusive = no;
+      # audio-device = "auto";
+      volume = 100;
+      volume-max = 200;
+      glsl-shaders =
+        if isNvidiaGPU
+        then "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
+        else "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_S.glsl";
     };
-    defaultProfiles = ["high-quality"];
+    defaultProfiles = ["gpu-hq"];
     profiles = {};
   };
 in {
@@ -67,6 +94,7 @@ in {
       ${lib.optionalString (mpv-common.profiles != {}) (renderProfiles mpv-common.profiles)}
     '';
     "jellyfin-mpv-shim/script-opts".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/script-opts";
+    "jellyfin-mpv-shim/input.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/input.conf";
     "jellyfin-mpv-shim/conf.json".source = pkgs.stdenv.mkDerivation {
       src = (pkgs.formats.json {}).generate "jellyfin-mpv-shim.config.json" {
         "allow_transcode_to_h265" = false;
@@ -142,7 +170,7 @@ in {
         "seek_up" = 60;
         "seek_v_exact" = false;
         "shader_pack_custom" = false;
-        "shader_pack_enable" = true;
+        "shader_pack_enable" = false;
         "shader_pack_profile" = "anime4k-fast-ca";
         "shader_pack_remember" = true;
         "shader_pack_subtype" = "lq";
@@ -196,11 +224,11 @@ in {
   home = {
     packages = with pkgs; [
       jellyfin-mpv-shim
+      svp
+      vapoursynth
     ];
   };
-  programs.mpv = let
-    inherit (pkgs) anime4k;
-  in {
+  programs.mpv = {
     inherit (mpv-common) defaultProfiles profiles;
     enable = true;
     package = pkgs.mpv;
@@ -210,10 +238,6 @@ in {
         vo = "gpu-next";
         gpu-api = "vulkan";
         gpu-context = "waylandvk";
-        glsl-shaders =
-          if isNvidiaGPU
-          then "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
-          else "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_S.glsl";
       };
     bindings =
       if isNvidiaGPU
