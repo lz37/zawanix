@@ -146,7 +146,7 @@ in {
         "media_keys" = true;
         "menu_mouse" = true;
         "mpv_ext" = true;
-        "mpv_ext_ipc" = null;
+        "mpv_ext_ipc" = mpv-common.config.input-ipc-server;
         "mpv_ext_no_ovr" = false;
         "mpv_ext_path" = lib.getExe pkgs.mpv;
         "mpv_ext_start" = true;
