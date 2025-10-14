@@ -145,10 +145,10 @@ in {
         "media_key_seek" = false;
         "media_keys" = true;
         "menu_mouse" = true;
-        "mpv_ext" = false;
+        "mpv_ext" = true;
         "mpv_ext_ipc" = null;
         "mpv_ext_no_ovr" = false;
-        "mpv_ext_path" = "";
+        "mpv_ext_path" = lib.getExe pkgs.mpv;
         "mpv_ext_start" = true;
         "mpv_log_level" = "info";
         "notify_updates" = false;
