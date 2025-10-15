@@ -2079,10 +2079,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1760523126,
-        "narHash": "sha256-k+/MksIzS78SS4heeaSqWB1LpLdkqwaFPsxGpPAL5TY=",
+        "lastModified": 1760531025,
+        "narHash": "sha256-GTaC9vrhFdqFT+HcXhys5zQiV3P0hnF7xiXq8GbGycY=",
         "ref": "main",
-        "rev": "a899eae1bbb6b9361e726c2499b9292ebd5393f6",
+        "rev": "8cb388983976e0c11ad457a3d95f3f92d7aec01c",
         "shallow": true,
         "type": "git",
         "url": "file:/etc/nixos/nur"
