@@ -89,6 +89,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    nix_version_search_cli.url = "github:jeff-hykin/nix_version_search_cli";
   };
 
   outputs = inputs: let

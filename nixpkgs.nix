@@ -47,6 +47,7 @@ in {
             };
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           waylrc = inputs.waylrc.packages.${system}.waylrc;
+          nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
           qq = master.qq;
           feishu = master.feishu.override {
             commandLineArgs = ''

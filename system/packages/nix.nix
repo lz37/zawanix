@@ -19,5 +19,6 @@
     nixpkgs-lint
     alejandra
     treefmt
+    nix_version_search_cli
   ];
 }
