@@ -45,9 +45,6 @@ in {
     winetricks
     lutris
     protonplus
-    picacg-qt
-    jmcomic-qt
-    wechat-web-devtools-linux
     mission-center
     qalculate-qt
     qalculate-gtk

@@ -14,7 +14,7 @@ in {
     settings = [
       {
         "cffi/virtual-desktops" = {
-          "module_path" = "${pkgs.waybar-vd}/libwaybar_vd.so";
+          "module_path" = "${pkgs.nur.repos.zerozawa.waybar-vd}/lib/libwaybar_vd.so";
           "format" = "{name}";
           "show_empty" = false;
           "show_window_count" = true;

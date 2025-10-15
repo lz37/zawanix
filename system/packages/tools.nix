@@ -7,7 +7,7 @@
         postFixup =
           old.postFixup
           + ''
-            cp -r ${fortune-mod-zh}/share/fortune/* $out/share/games/fortunes/
+            cp -r ${nur.repos.zerozawa.fortune-mod-zh}/share/fortune/* $out/share/games/fortunes/
           '';
       }))
     wakatime
@@ -15,6 +15,5 @@
     translate-shell
     tldr
     ventoy-full
-    mikusays
   ];
 }

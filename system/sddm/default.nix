@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  theme = pkgs.sddm-eucalyptus-drop.override {
+  theme = pkgs.nur.repos.zerozawa.sddm-eucalyptus-drop.override {
     overrideTheme =
       {
         Background = "${pkgs.lib.cleanSource stylixImage}";

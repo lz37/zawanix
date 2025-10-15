@@ -83,6 +83,12 @@
         # inputs.hyprland.follows = "hyprland";
       };
     };
+    zerozawa-nur = {
+      url = "git+file:/etc/nixos/nur?shallow=1&ref=main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = inputs: let

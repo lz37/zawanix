@@ -3,7 +3,7 @@
     name = "zsh-syntax-highlighting-with-url-highlighter";
     paths = with pkgs; [
       zsh-syntax-highlighting
-      zsh-url-highlighter
+      nur.repos.zerozawa.zsh-url-highlighter
     ];
   };
 in {

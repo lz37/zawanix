@@ -1614,6 +1614,7 @@
         "vscode-server": "vscode-server",
         "waylrc": "waylrc",
         "xlibre-overlay": "xlibre-overlay",
+        "zerozawa-nur": "zerozawa-nur",
         "zerozawa-private": "zerozawa-private"
       }
     },
@@ -2070,6 +2071,28 @@
       "parent": [
         "xlibre-overlay"
       ]
+    },
+    "zerozawa-nur": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760523126,
+        "narHash": "sha256-k+/MksIzS78SS4heeaSqWB1LpLdkqwaFPsxGpPAL5TY=",
+        "ref": "main",
+        "rev": "a899eae1bbb6b9361e726c2499b9292ebd5393f6",
+        "shallow": true,
+        "type": "git",
+        "url": "file:/etc/nixos/nur"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "file:/etc/nixos/nur"
+      }
     },
     "zerozawa-private": {
       "flake": false,

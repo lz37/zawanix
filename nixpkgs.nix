@@ -22,6 +22,7 @@ in {
           nur = import inputs.nur {
             nurpkgs = prev;
             pkgs = prev;
+            repoOverrides = {zerozawa = import inputs.zerozawa-nur {inherit pkgs;};};
           };
           stable = import inputs.nixpkgs-stable {
             inherit system config;
@@ -34,15 +35,7 @@ in {
             (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
           );
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
-          picacg-qt = pkgs.callPackage ./nixpkgs-build/picacg.nix {};
-          jmcomic-qt = pkgs.callPackage ./nixpkgs-build/jmcomic.nix {};
-          zsh-url-highlighter = pkgs.callPackage ./nixpkgs-build/zsh-url-highlighter.nix {};
-          sddm-eucalyptus-drop = pkgs.callPackage ./nixpkgs-build/sddm-eucalyptus-drop.nix {};
-          wechat-web-devtools-linux = pkgs.callPackage ./nixpkgs-build/wechat-web-devtools-linux.nix {};
-          mikusays = pkgs.callPackage ./nixpkgs-build/mikusays.nix {};
-          waybar-vd = pkgs.callPackage ./nixpkgs-build/waybar-vd.nix {};
           image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
-          fortune-mod-zh = pkgs.callPackage ./nixpkgs-build/fortune-mod-zh.nix {};
           hyprlandPlugins =
             pkgs.hyprlandPlugins
             // {
