@@ -12,7 +12,6 @@
     ./hyprland
     ./tmux.nix
     ./podman.nix
-    ./icon.nix
     ./plasma
     ./activation
     ./browser
@@ -21,10 +20,7 @@
     ./fastfetch
     ./zoxide.nix
     ./tealdeer.nix
-    ./qt.nix
-    ./starship.nix
     ./swappy.nix
-    ./swaync.nix
     ./btop.nix
     ./obs-studio.nix
     ./nvf.nix
@@ -32,7 +28,7 @@
     ./bat.nix
     ./bottom.nix
     ./htop.nix
-    ./gtk.nix
+    ./theme.nix
     ./git.nix
     ./eza.nix
     ./fzf.nix
@@ -45,6 +41,7 @@
     ./mpv.nix
     ./autostart.nix
     ./input-method
+    ./dms.nix
   ];
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;

@@ -57,6 +57,7 @@ in {
           wemeet = master.wemeet;
           wechat = master.wechat;
           jellyfin-media-player = stable.jellyfin-media-player;
+          quickshell = inputs.quickshell.packages.${system}.quickshell;
         }
       )
     ];

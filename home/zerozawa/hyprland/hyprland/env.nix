@@ -7,6 +7,8 @@
     settings = {
       env =
         [
+          "QT_QPA_PLATFORMTHEME, qt6ct"
+          "QT_QPA_PLATFORMTHEME_QT6, qt6ct"
           "NIXOS_OZONE_WL, 1"
           "XDG_CURRENT_DESKTOP, Hyprland"
           "XDG_SESSION_TYPE, wayland"

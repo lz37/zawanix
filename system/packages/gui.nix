@@ -46,7 +46,6 @@ in {
     lutris
     protonplus
     mission-center
-    qalculate-qt
     qalculate-gtk
     lrcget
     waylyrics

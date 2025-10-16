@@ -6,6 +6,7 @@
   image-editor = "gimp.desktop";
   # torrent = "transmission-gtk.desktop";
 in {
+  xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = rec {
     enable = true;
     associations.added = defaultApplications;

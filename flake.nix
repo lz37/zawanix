@@ -90,6 +90,21 @@
       };
     };
     nix_version_search_cli.url = "github:jeff-hykin/nix_version_search_cli";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        quickshell.follows = "quickshell";
+      };
+    };
+    dms-plugins = {
+      url = "github:AvengeMedia/dms-plugins";
+      flake = false;
+    };
   };
 
   outputs = inputs: let
@@ -202,6 +217,7 @@
                         inputs.nvf.homeManagerModules.default
                         ./options
                         (inputs.zerozawa-private + "/default.nix")
+                        inputs.dankMaterialShell.homeModules.dankMaterialShell.default
                         ./nixpkgs.nix
                       ];
                       users.zerozawa = import ./home/zerozawa;

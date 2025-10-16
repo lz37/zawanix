@@ -1,15 +1,23 @@
-{pkgs, ...}: {
-  xdg.dataFile = {
-    "icons/Zafiro-Icons-Dark" = {
-      source = "${pkgs.zafiro-icons}/share/icons/Zafiro-icons-Dark";
-      force = true;
-    };
-    "icons/Zafiro-Icons-Light" = {
-      source = "${pkgs.zafiro-icons}/share/icons/Zafiro-icons-Light";
-      force = true;
-    };
-    "icons/MoreWaita" = {
-      source = "${pkgs.morewaita-icon-theme}/share/icons/MoreWaita";
-    };
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  icons = with pkgs; [
+    (lib.hiPrio zafiro-icons)
+    morewaita-icon-theme
+    colloid-icon-theme
+    papirus-icon-theme
+  ];
+  icons-matome = pkgs.buildEnv {
+    name = "icons-matome";
+    paths = icons;
   };
+  icons-path = "${icons-matome}/share/icons";
+in {
+  home = {
+    packages = icons;
+    file.".icons".source = icons-path;
+  };
+  xdg.dataFile."icons".source = icons-path;
 }

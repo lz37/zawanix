@@ -18,7 +18,7 @@
       enableBashIntegration = true;
       enableFishIntegration = true;
     };
-    themeFile = "Monokai_Soda";
+    # themeFile = "Monokai_Soda";
     settings = {
       shell = lib.getExe pkgs.zsh;
       # Font settings
@@ -91,6 +91,7 @@
 
     # Mouse mappings
     extraConfig = ''
+      include dank-theme.conf
       # Mouse mappings
       mouse_map middle release ungrabbed paste_from_selection
       mouse_map left press ungrabbed mouse_selection normal
