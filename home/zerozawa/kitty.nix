@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   programs.kitty = {
@@ -91,7 +92,7 @@
 
     # Mouse mappings
     extraConfig = ''
-      include dank-theme.conf
+      include ${config.xdg.configHome}/kitty/dank-theme.conf
       # Mouse mappings
       mouse_map middle release ungrabbed paste_from_selection
       mouse_map left press ungrabbed mouse_selection normal

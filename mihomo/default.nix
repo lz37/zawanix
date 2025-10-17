@@ -86,7 +86,7 @@ in
       tun.off
     ];
     services.mihomo = {
-      package = pkgs.mihomo;
+      package = pkgs.nur.repos.zerozawa.mihomo-smart;
       tunMode = true;
       enable = true;
       webui = pkgs.zashboard;
