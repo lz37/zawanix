@@ -45,9 +45,6 @@
       enable = true;
     };
     settings = {
-      source = [
-        "${config.xdg.configHome}/hypr/hyprland/colors.conf"
-      ];
       # xwayland = {
       # 	force_zero_scaling = true;
       # };
