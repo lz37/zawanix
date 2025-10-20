@@ -4,7 +4,10 @@
   ...
 }: {
   extensions = with pkgs; ((with vscode-selected-extensionsCompatible.vscode-marketplace; [
-      github.copilot
+      (github.copilot.overrideAttrs (old: {
+        buildInputs = (old.buildInputs or []) ++ [libcxx];
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [autoPatchelfHook];
+      }))
     ])
     ++ (with vscode-marketplace-release; [
       github.copilot-chat

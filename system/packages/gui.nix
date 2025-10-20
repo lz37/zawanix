@@ -51,5 +51,7 @@ in {
     waylyrics
     caffeine-ng
     ventoy-full-gtk
+    wayvnc
+    ndi
   ];
 }
