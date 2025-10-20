@@ -4,5 +4,6 @@
   ];
   settings = {
     "gitlens.launchpad.indicator.enabled" = false;
+    "gitlens.ai.model" = "vscode";
   };
 }
