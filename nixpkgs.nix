@@ -2,11 +2,13 @@
   lib,
   inputs,
   system,
+  isNvidiaGPU,
   ...
 }: let
   config = {
     allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
     allowUnfree = true;
+    cudaSupport = isNvidiaGPU;
   };
 in {
   nixpkgs = {
