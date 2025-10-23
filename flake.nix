@@ -56,7 +56,7 @@
       };
     };
     zerozawa-private = {
-      url = "git+file:/etc/nixos/private?shallow=1&ref=main";
+      url = "git+ssh://git@github.com/lz37/zawanix-private";
       flake = false;
     };
     hyprland-virtual-desktops = {
@@ -84,7 +84,7 @@
       };
     };
     zerozawa-nur = {
-      url = "git+file:/etc/nixos/nur?shallow=1&ref=main";
+      url = "github:lz37/nur";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

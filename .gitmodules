@@ -1,6 +1,0 @@
-[submodule "private"]
-	path = private
-	url = https://github.com/lz37/zawanix-private.git
-[submodule "nur"]
-	path = nur
-	url = git@github.com:lz37/nur.git

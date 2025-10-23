@@ -2392,17 +2392,15 @@
       "locked": {
         "lastModified": 1760681590,
         "narHash": "sha256-gwXRkn7WJvPxDQvduwjx0jFzKdzfW5miMJQWP64iF48=",
-        "ref": "main",
+        "owner": "lz37",
+        "repo": "nur",
         "rev": "e61afd5360df9c7ad8b5622206e07a84c30576d9",
-        "shallow": true,
-        "type": "git",
-        "url": "file:/etc/nixos/nur"
+        "type": "github"
       },
       "original": {
-        "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "file:/etc/nixos/nur"
+        "owner": "lz37",
+        "repo": "nur",
+        "type": "github"
       }
     },
     "zerozawa-private": {
@@ -2410,17 +2408,15 @@
       "locked": {
         "lastModified": 1761154079,
         "narHash": "sha256-3BFZth5VZDCNfZsarja3TIT7sFKFCxO+7a41umLhRzI=",
-        "ref": "main",
+        "ref": "refs/heads/main",
         "rev": "a9909b308dfa59789e12288025c4af7fa0572a86",
-        "shallow": true,
+        "revCount": 16,
         "type": "git",
-        "url": "file:/etc/nixos/private"
+        "url": "ssh://git@github.com/lz37/zawanix-private"
       },
       "original": {
-        "ref": "main",
-        "shallow": true,
         "type": "git",
-        "url": "file:/etc/nixos/private"
+        "url": "ssh://git@github.com/lz37/zawanix-private"
       }
     }
   },
