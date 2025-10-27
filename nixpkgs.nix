@@ -60,6 +60,12 @@ in {
           wechat = master.wechat;
           jellyfin-media-player = stable.jellyfin-media-player;
           quickshell = inputs.quickshell.packages.${system}.quickshell;
+          scx = master.scx;
+          kdePackages =
+            pkgs.kdePackages
+            // {
+              wallpaper-engine-plugin = stable.kdePackages.wallpaper-engine-plugin;
+            };
         }
       )
     ];
