@@ -51,6 +51,7 @@
     # Needed For Some Steam Games
     kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
+      "fs.file-max" = 1024 * 1024 * 2;
     };
     plymouth = {
       enable = true;
