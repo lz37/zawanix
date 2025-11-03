@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  amd64Microarchs,
   ...
 }: {
   nix = {
@@ -13,6 +14,10 @@
         "nix-command"
         "flakes"
         "pipe-operators"
+      ];
+      system-features = [
+        "big-parallel"
+        "gccarch-${lib.strings.replaceStrings ["_"] ["-"] amd64Microarchs}"
       ];
       substituters = lib.mkForce [
         # 上交

@@ -10,7 +10,7 @@ in {
     thunderbird
     qq
     wiliwili
-    telegram-desktop_git
+    telegram-desktop
     feishu
     wemeet
     wechat
@@ -36,7 +36,7 @@ in {
     teams-for-linux
     figma-linux
     jamesdsp
-    freerdp3
+    freerdp
     podman-desktop
     cherry-studio
     # wine

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  amd64Microarchs,
   ...
 }: {
   programs = {
@@ -14,14 +15,13 @@
       };
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
-      extest = {
-        enable = true;
-      };
-      extraCompatPackages = with pkgs; [
-        proton-ge-bin
-        proton-cachyos
-        proton-ge-custom
-      ];
+      extest.enable = true;
+      extraCompatPackages =
+        (with pkgs; [
+          proton-ge-bin
+          proton-ge-custom
+        ])
+        ++ [pkgs."proton-cachyos_${amd64Microarchs}"];
       protontricks = {
         enable = true;
       };

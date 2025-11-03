@@ -18,7 +18,7 @@
     hyprcursor
     playerctl
     brightnessctl
-    qt6ct
+    kdePackages.qt6ct
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"

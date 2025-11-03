@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   # fonts
   fonts = {
@@ -29,15 +26,15 @@
         sarasa-gothic # 更纱黑体
         hack-font
         jetbrains-mono
-        ubuntu_font_family
+        ubuntu-sans
         meslo-lgs-nf # Meslo Nerd Font patched for Powerlevel10k
         wqy_zenhei
         twemoji-color-font
         # microsoft fonts
         corefonts
-        vistafonts
-        vistafonts-chs
-        vistafonts-cht
+        vista-fonts
+        vista-fonts-chs
+        vista-fonts-cht
         gelasio
         comic-relief
         caladea

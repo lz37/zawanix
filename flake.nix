@@ -140,6 +140,7 @@
               extraModules ? [],
               ram ? 8 * 1024,
               stylixImage,
+              amd64Microarchs ? "x86_64_v3",
             }: let
               facterJson = inputs.zerozawa-private + "/facters/${hostName}.json";
               facter = builtins.fromJSON (builtins.readFile facterJson);
@@ -160,6 +161,7 @@
                   stylixImage
                   colorsh
                   system
+                  amd64Microarchs
                   ;
               };
             in {

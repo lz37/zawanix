@@ -4,4 +4,5 @@
     package = pkgs.scx.full;
     scheduler = "scx_rusty";
   };
+  chaotic.nyx.cache.enable = true;
 }

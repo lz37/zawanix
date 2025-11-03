@@ -3,6 +3,7 @@
   inputs,
   system,
   isNvidiaGPU,
+  amd64Microarchs,
   ...
 }: let
   config = {
@@ -20,6 +21,7 @@ in {
         final: prev: let
           pkgs = prev;
         in rec {
+          pkgs___amd64Microarchs = pkgs."pkgs${amd64Microarchs}";
           # 启用 NUR
           nur = import inputs.nur {
             nurpkgs = prev;
@@ -61,6 +63,9 @@ in {
           jellyfin-media-player = stable.jellyfin-media-player;
           quickshell = inputs.quickshell.packages.${system}.quickshell;
           scx = master.scx;
+          distrobox = pkgs.distrobox_git;
+          lan-mouse = pkgs.lan-mouse_git;
+          telegram-desktop = pkgs.telegram-desktop_git;
           kdePackages =
             pkgs.kdePackages
             // {

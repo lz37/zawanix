@@ -27,7 +27,6 @@
     tree
     podman-compose
     openjpeg
-    wakatime
     translate-shell
     p7zip
     unzip
@@ -39,14 +38,14 @@
     wl-clipboard
     cifs-utils
     cachix
-    distrobox_git
+    distrobox
     termsonic
     comma
     ipmitool
     teleport.client
     sshpass
     rsync
-    lan-mouse_git
+    lan-mouse
     flac
     exiftool
     imagemagick

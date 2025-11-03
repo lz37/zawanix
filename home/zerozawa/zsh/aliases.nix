@@ -1,8 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.zsh = {
     shellAliases = {
-      find = "${pkgs.fd}/bin/fd";
-      wakatime = "${pkgs.wakatime}/bin/wakatime-cli";
+      find = lib.getExe pkgs.fd;
+      wakatime = lib.getExe pkgs.wakatime-cli;
     };
   };
 }

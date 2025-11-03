@@ -10,7 +10,7 @@
             cp -r ${nur.repos.zerozawa.fortune-mod-zh}/share/fortune/* $out/share/games/fortunes/
           '';
       }))
-    wakatime
+    wakatime-cli
     fd
     translate-shell
     tldr
