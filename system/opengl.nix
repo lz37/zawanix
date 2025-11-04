@@ -16,7 +16,7 @@
         (lib.optionals isNvidiaGPU [
           nvidia-vaapi-driver
           nv-codec-headers-12
-          vaapiVdpau
+          libva-vdpau-driver
           libvdpau-va-gl
         ])
         ++ (lib.optionals isIntelGPU [
@@ -31,7 +31,7 @@
       with pkgs.pkgsi686Linux; (
         (lib.optionals isNvidiaGPU [
           libvdpau-va-gl
-          vaapiVdpau
+          libva-vdpau-driver
         ])
         ++ (lib.optionals isIntelGPU [
           intel-media-driver
