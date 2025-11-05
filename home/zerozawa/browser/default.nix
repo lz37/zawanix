@@ -83,6 +83,7 @@ in {
       };
     firefox = {
       enable = true;
+      package = pkgs.firefox-bin;
       languagePacks = [
         "en-US"
         "zh-CN"
