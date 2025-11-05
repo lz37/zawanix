@@ -12,7 +12,6 @@ in {
     wiliwili
     telegram-desktop
     feishu
-    wemeet
     wechat
     (
       patchDesktop wechat "wechat" ''^Exec=wechat %U''

@@ -20,7 +20,7 @@
     ./xdg-portal.nix
     ./symlink.nix
     ./hyprland.nix
-    ./flatpak.nix
+    ./other-packages.nix
     ./clamav-scanner.nix
     ./chaotic.nix
     ./facter.nix
