@@ -6,6 +6,7 @@
   ...
 }: {
   programs = {
+    gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-qt;
     adb.enable = true;
     # steam
     steam = {

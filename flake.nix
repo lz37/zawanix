@@ -63,10 +63,6 @@
       url = "github:levnikmyskin/hyprland-virtual-desktops";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xlibre-overlay = {
-      url = "git+https://codeberg.org/takagemacoed/xlibre-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixos-cli.url = "github:nix-community/nixos-cli";
     waylrc = {
@@ -178,14 +174,6 @@
                     ++ (lib.optional isIntelCPU common-cpu-intel)
                     ++ (lib.optional (isSSD && !isLaptop) common-pc)
                     ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
-                )
-                ++ (
-                  with inputs.xlibre-overlay.nixosModules;
-                    [
-                      overlay-xlibre-xserver
-                      overlay-all-xlibre-drivers
-                    ]
-                    ++ (lib.optional isNvidiaGPU nvidia-ignore-ABI)
                 )
                 ++ [
                   ./options

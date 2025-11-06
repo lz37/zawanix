@@ -1,5 +1,10 @@
 {pkgs, ...}: {
   services = {
+    xrdp = {
+      enable = true;
+      audio.enable = true;
+      defaultWindowManager = "xfce4-session";
+    };
     printing = {
       enable = true;
       drivers = with pkgs; [
@@ -33,6 +38,12 @@
       xkb = {
         layout = "cn";
         variant = "";
+      };
+      desktopManager = {
+        xfce = {
+          enable = true;
+          enableWaylandSession = true;
+        };
       };
     };
     openssh = {
