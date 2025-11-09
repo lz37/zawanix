@@ -56,12 +56,8 @@
       };
     };
     zerozawa-private = {
-      url = "git+ssh://git@github.com/lz37/zawanix-private";
+      url = "git+ssh://git@github.com/lz37/zawanix-private?ref=main";
       flake = false;
-    };
-    hyprland-virtual-desktops = {
-      url = "github:levnikmyskin/hyprland-virtual-desktops";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixos-cli.url = "github:nix-community/nixos-cli";
@@ -72,15 +68,8 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # inputs.hyprland.follows = "hyprland";
-      };
-    };
     zerozawa-nur = {
-      url = "github:lz37/nur";
+      url = "github:lz37/nur/main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

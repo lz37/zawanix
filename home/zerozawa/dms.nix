@@ -5,7 +5,11 @@
 }: {
   programs.dankMaterialShell = {
     enable = true;
-    enableSystemd = false;
+    systemd = {
+      enable = false;
+      restartIfChanged = false;
+    };
+    enableSystemMonitoring = true;
     enableVPN = false;
     quickshell.package = pkgs.quickshell.withModules (with pkgs.kdePackages; [
       kirigami

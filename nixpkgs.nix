@@ -40,15 +40,6 @@ in {
           );
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
-          hyprlandPlugins =
-            pkgs.hyprlandPlugins
-            // {
-              virtual-desktops = inputs.hyprland-virtual-desktops.packages.${system}.virtual-desktops;
-              hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors.overrideAttrs (old: {
-                # 依赖 wlroots
-                nativeBuildInputs = pkgs.hyprland.nativeBuildInputs ++ (with pkgs; [hyprland gcc14]);
-              });
-            };
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           waylrc = inputs.waylrc.packages.${system}.waylrc;
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
@@ -65,7 +56,6 @@ in {
           scx = master.scx;
           distrobox = pkgs.distrobox_git;
           lan-mouse = pkgs.lan-mouse_git;
-          telegram-desktop = pkgs.telegram-desktop_git;
           kdePackages =
             pkgs.kdePackages
             // {
