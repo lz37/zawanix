@@ -17,7 +17,7 @@
             scale = 2;
             cm = "hdr";
             bitdepth = 10;
-            vrr = true;
+            vrr = false;
             # 亮度
             sdrbrightness = 1.4;
             # 饱和度
@@ -47,7 +47,7 @@
             scale = 1;
             cm = "hdr";
             bitdepth = 8;
-            vrr = true;
+            vrr = false;
             # 亮度
             sdrbrightness = 1.4;
             # 饱和度
