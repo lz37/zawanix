@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-    tboox.xmake-vscode
+    ms-vscode.cmake-tools
+    twxs.cmake
   ];
 }

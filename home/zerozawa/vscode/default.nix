@@ -94,9 +94,12 @@
       (import ./common/topics/python.nix)
       (import ./common/topics/settingfile/toml.nix)
     ];
-  xmake-no-ai = no-ai ++ [(import ./common/topics/cpp/xmake.nix)];
+  cpp-base = no-ai ++ [(import ./common/topics/cpp/base.nix) (import ./common/topics/cpp/clang.nix)];
+  qt = cpp-base ++ [(import ./common/topics/cpp/qt.nix)];
+  xmake-no-ai = qt ++ [(import ./common/topics/cpp/xmake.nix)];
   xmake = xmake-no-ai ++ copilot;
   leetcode = xmake-no-ai ++ [(import ./common/topics/leetcode.nix)];
+  cmake = cpp-base ++ [(import ./common/topics/cpp/cmake.nix)] ++ copilot;
 in {
   programs.vscode = {
     enable = true;
@@ -121,6 +124,7 @@ in {
       go = merge-imports go;
       xmake = merge-imports xmake;
       leetcode = merge-imports leetcode;
+      cmake = merge-imports cmake;
     };
   };
   services.vscode-server.enable = true;
