@@ -5,6 +5,18 @@
   lib,
   ...
 }: {
+  environment = {
+    systemPackages = with pkgs; [
+      clinfo
+      ocl-icd
+      gpu-viewer
+    ];
+    # OpenCL 环境变量
+    variables = {
+      OCL_ICD_VENDORS = "/run/opengl-driver/etc/OpenCL/vendors";
+    };
+  };
+
   hardware.graphics = {
     enable = true;
     package = pkgs.mesa;
@@ -24,6 +36,8 @@
           intel-ocl
           intel-compute-runtime
           (pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu)
+          # OpenCL 支持相关包
+          ocl-icd
         ])
       )
     );

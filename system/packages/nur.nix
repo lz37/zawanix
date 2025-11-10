@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   environment.systemPackages = with pkgs.nur.repos; ((with xddxdd; [
       dingtalk
     ])
@@ -10,5 +14,6 @@
       picacg-qt
       JMComic-qt
       wechat-web-devtools-linux
+      Fladder
     ]));
 }
