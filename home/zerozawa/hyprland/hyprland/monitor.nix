@@ -36,9 +36,7 @@
             output = "desc:California Institute of Technology 0x1509";
             mode = "2560x1440@165.00";
             position = "0x0";
-            cm = "edid";
             scale = 1;
-            bitdepth = 10;
           }
           {
             output = "desc:SAC G52 0000000000000";

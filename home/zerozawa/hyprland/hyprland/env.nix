@@ -45,7 +45,10 @@
           "NVD_BACKEND,direct"
           "WLR_NO_HARDWARE_CURSORS,1"
           # "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
-          "AQ_FORCE_LINEAR_BLIT,0"
+          # 修复 EGL 崩溃问题
+          "AQ_FORCE_LINEAR_BLIT,1" # 设为0副屏会卡但兼容会好
+          # 强制使用 NVIDIA EGL
+          "EGL_PLATFORM,wayland"
         ]);
     };
   };

@@ -10,6 +10,7 @@ in {
     bind = [
       "$modifier,Return,exec,${terminal}"
       # dms
+      "$modifier,Tab,exec,dms ipc call hypr toggleOverview"
       "$modifier SHIFT,Return,exec,dms ipc call spotlight toggle"
       "$modifier,V,exec, dms ipc call clipboard toggle"
       "$modifier,M,exec,dms ipc call processlist toggle"

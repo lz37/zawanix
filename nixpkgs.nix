@@ -43,6 +43,12 @@ in {
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           waylrc = inputs.waylrc.packages.${system}.waylrc;
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
+          unstable-hyprland = {
+            packages = inputs.hyprland.packages.${system};
+            pkgs = import inputs.hyprland.inputs.nixpkgs {
+              inherit system config;
+            };
+          };
           qq = master.qq;
           feishu = master.feishu.override {
             commandLineArgs = ''

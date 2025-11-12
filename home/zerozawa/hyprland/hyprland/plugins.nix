@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprlandPlugins; [
-      hyprwinwrap
+      # hyprwinwrap
       # hypr-dynamic-cursors
     ];
     settings = {
@@ -56,24 +56,24 @@
       #   };
       # };
       plugin = {
-        virtual-desktops = {
-          names = "1:coding, 2:internet, 3:chats, 4:games";
-          cycleworkspaces = 1;
-          rememberlayout = "size";
-          notifyinit = 0;
-          verbose_logging = 0;
-        };
-        hyprwinwrap = rec {
-          class = "kitty-bg";
-          # you can also use title
-          title = class;
-          # you can add the position of the window in a percentage
-          pos_x = 25;
-          pos_y = 30;
-          # you can add the size of the window in a percentage
-          size_x = 40;
-          size_y = 70;
-        };
+        # virtual-desktops = {
+        #   names = "1:coding, 2:internet, 3:chats, 4:games";
+        #   cycleworkspaces = 1;
+        #   rememberlayout = "size";
+        #   notifyinit = 0;
+        #   verbose_logging = 0;
+        # };
+        # hyprwinwrap = rec {
+        #   class = "kitty-bg";
+        #   # you can also use title
+        #   title = class;
+        #   # you can add the position of the window in a percentage
+        #   pos_x = 25;
+        #   pos_y = 30;
+        #   # you can add the size of the window in a percentage
+        #   size_x = 40;
+        #   size_y = 70;
+        # };
       };
     };
   };

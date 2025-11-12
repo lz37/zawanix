@@ -89,6 +89,7 @@
       url = "github:AvengeMedia/dms-plugins";
       flake = false;
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = inputs: let

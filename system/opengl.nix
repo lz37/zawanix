@@ -19,10 +19,10 @@
 
   hardware.graphics = {
     enable = true;
-    package = pkgs.mesa;
+    package = pkgs.unstable-hyprland.pkgs.mesa;
     # if you also want 32-bit support (e.g for Steam)
     enable32Bit = true;
-    package32 = pkgs.pkgsi686Linux.mesa;
+    package32 = pkgs.unstable-hyprland.pkgs.pkgsi686Linux.mesa;
     extraPackages = (
       with pkgs; (
         (lib.optionals isNvidiaGPU [

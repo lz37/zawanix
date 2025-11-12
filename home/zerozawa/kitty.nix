@@ -41,7 +41,7 @@
 
       # Scrollback settings
       scrollback_lines = "4000";
-      scrollback_indicator_opacity = "1.0";
+      scrollbar = "never";
       scrollback_pager = "less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER";
       scrollback_pager_history_size = "0";
       scrollback_fill_enlarged_window = "no";

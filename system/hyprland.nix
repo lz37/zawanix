@@ -3,7 +3,7 @@
     enable = true;
     xwayland.enable = true;
     withUWSM = true;
-    portalPackage = pkgs.xdg-desktop-portal-hyprland;
-    package = pkgs.hyprland;
+    package = pkgs.unstable-hyprland.packages.hyprland;
+    portalPackage = pkgs.unstable-hyprland.packages.xdg-desktop-portal-hyprland;
   };
 }
