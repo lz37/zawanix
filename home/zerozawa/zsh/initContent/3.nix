@@ -12,7 +12,7 @@
       zstyle ':omz:plugins:eza' 'color-scale-mode' fixed
       zstyle ':omz:plugins:eza' 'size-prefix' binary
       zstyle ':omz:plugins:eza' 'hyperlink' yes
-      hitokoto
+      fortune hitokoto
       eval "$(dms completion zsh)"
     '';
   };
