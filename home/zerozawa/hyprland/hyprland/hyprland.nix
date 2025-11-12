@@ -45,9 +45,10 @@
       enable = true;
     };
     settings = {
-      # xwayland = {
-      # 	force_zero_scaling = true;
-      # };
+      xwayland = {
+        force_zero_scaling = true;
+        create_abstract_socket = true;
+      };
       input = {
         kb_layout = "us";
         kb_options = [
