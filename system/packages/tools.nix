@@ -21,5 +21,6 @@
     translate-shell
     tldr
     ventoy-full
+    lolcat
   ];
 }

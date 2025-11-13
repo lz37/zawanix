@@ -48,6 +48,23 @@ in {
             pkgs = import inputs.hyprland.inputs.nixpkgs {
               inherit system config;
             };
+            plugins = {
+              inherit (inputs.split-monitor-workspaces.packages.${system}) split-monitor-workspaces;
+              inherit (inputs.hypr-dynamic-cursors.packages.${system}) hypr-dynamic-cursors;
+              inherit (inputs.hyprfocus.packages.${system}) hyprfocus;
+              inherit
+                (inputs.hyprland-plugins.packages.${system})
+                borders-plus-plus
+                csgo-vulkan-fix
+                hyprbars
+                hyprexpo
+                # hyprfocus
+                hyprscrolling
+                hyprtrails
+                hyprwinwrap
+                xtra-dispatchers
+                ;
+            };
           };
           qq = master.qq;
           feishu = master.feishu.override {
