@@ -6,6 +6,8 @@
     christian-kohler.path-intellisense
     mkhl.direnv
     matthewnespor.vscode-color-identifiers-mode
+    ms-vscode.wasm-wasi-core
+    fill-labs.dependi
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";

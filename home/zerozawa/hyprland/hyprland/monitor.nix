@@ -46,12 +46,8 @@
             cm = "hdr";
             bitdepth = 10;
             vrr = false;
-            # 亮度
-            sdrbrightness = 1.4;
-            # 饱和度
-            sdrsaturation = 1.0;
             sdr_min_luminance = 0.005;
-            sdr_max_luminance = 90;
+            sdr_max_luminance = 280;
             max_luminance = 300;
           }
           {
@@ -62,10 +58,9 @@
             cm = "hdr";
             bitdepth = 10;
             vrr = false;
-            # 亮度
-            sdrbrightness = 1.2;
-            # 饱和度
-            sdrsaturation = 1.0;
+            sdr_min_luminance = 0.005;
+            sdr_max_luminance = 240;
+            max_luminance = 400;
           }
         ])
       );
