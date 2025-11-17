@@ -34,6 +34,14 @@ in {
           master = import inputs.nixpkgs-master {
             inherit system config;
           };
+          nodecuda = import inputs.nixpkgs {
+            inherit system;
+            config =
+              config
+              // {
+                cudaSupport = false;
+              };
+          };
           vscode-selected = master.vscode.override {useVSCodeRipgrep = true;};
           vscode-selected-extensionsCompatible = (
             (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
@@ -66,24 +74,7 @@ in {
                 ;
             };
           };
-          qq = master.qq;
-          feishu = master.feishu.override {
-            commandLineArgs = ''
-              "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
-            '';
-          };
-          wemeet = master.wemeet;
-          wechat = master.wechat;
-          jellyfin-media-player = stable.jellyfin-media-player;
           quickshell = inputs.quickshell.packages.${system}.quickshell;
-          scx = master.scx;
-          distrobox = pkgs.distrobox_git;
-          lan-mouse = pkgs.lan-mouse_git;
-          kdePackages =
-            pkgs.kdePackages
-            // {
-              wallpaper-engine-plugin = stable.kdePackages.wallpaper-engine-plugin;
-            };
         }
       )
     ];

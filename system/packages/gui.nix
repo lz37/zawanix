@@ -7,14 +7,18 @@
 in {
   environment.systemPackages = with pkgs; [
     burpsuite
-    thunderbird
-    qq
+    nodecuda.thunderbird
+    master.qq
     wiliwili
     telegram-desktop
-    feishu
-    wechat
+    (master.feishu.override {
+      commandLineArgs = ''
+        "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
+      '';
+    })
+    master.wechat
     (
-      patchDesktop wechat "wechat" ''^Exec=wechat %U''
+      patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
       ''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
     )
     scrcpy
@@ -24,14 +28,16 @@ in {
     # onlyoffice-desktopeditors
     libreoffice-qt6-fresh
     drawio
-    jellyfin-media-player
+    stable.jellyfin-media-player
     feishin
     gimp3
     pinta
     vlc
     dbeaver-bin
     remmina
-    boxbuddy
+    (boxbuddy.override {
+      distrobox = distrobox_git;
+    })
     teams-for-linux
     figma-linux
     jamesdsp

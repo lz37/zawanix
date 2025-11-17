@@ -34,10 +34,11 @@
     };
     "desc:California Institute of Technology 0x1509" = {
       SDR = {
-        mode = "1920x1080@60.00";
-        position = "1920x0";
+        mode = "2560x1440@165.00";
+        position = "0x0";
         scale = 1;
-        bitdepth = 8;
+        bitdepth = 10;
+        cm = "wide";
       };
     };
     "desc:SAC G52 0000000000000" = rec {
@@ -46,7 +47,7 @@
         // {
           cm = "hdr";
           sdr_min_luminance = 0.005;
-          sdr_max_luminance = 280;
+          # sdr_max_luminance = 280;
           max_luminance = 300;
         };
       SDR = {
