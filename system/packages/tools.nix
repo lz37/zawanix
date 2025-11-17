@@ -22,5 +22,6 @@
     tldr
     ventoy-full
     lolcat
+    bili-live-tool
   ];
 }

@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   programs.obs-studio = {
-    # a=pkgs.obs-studio;
     enable = true;
     package = pkgs.obs-studio;
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
+      obs-websocket
       obs-pipewire-audio-capture
       obs-vkcapture
       obs-source-clone
