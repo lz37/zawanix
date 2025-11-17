@@ -15,6 +15,14 @@
       obs-vaapi
       obs-tuna
       obs-advanced-masks
+      obs-vnc
+      obs-rgb-levels
+      obs-media-controls
+      obs-markdown
+      obs-command-source
+      obs-aitum-multistream
+      input-overlay
+      pixel-art
     ];
   };
 }

@@ -18,10 +18,9 @@
             cm = "hdr";
             bitdepth = 10;
             vrr = false;
-            # 亮度
-            sdrbrightness = 1.4;
-            # 饱和度
-            sdrsaturation = 1.0;
+            sdr_min_luminance = 0.005;
+            sdr_max_luminance = 360;
+            max_luminance = 400;
           }
           {
             output = "desc:Dell Inc. DELL P2314H HMJ1V66S787S";
