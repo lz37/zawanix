@@ -11,17 +11,18 @@
         SDR
         // {
           cm = "hdr";
-          vrr = false;
+          bitdepth = 10;
           sdr_min_luminance = 0.005;
-          sdr_max_luminance = 360;
           max_luminance = 400;
+          sdrbrightness = 1.4;
         };
       SDR = {
         mode = "3840x2160@60.00";
         position = "0x0";
         scale = 2;
-        cm = "wide";
-        bitdepth = 10;
+        cm = "srgb";
+        bitdepth = 8;
+        vrr = false;
       };
     };
     "desc:Dell Inc. DELL P2314H HMJ1V66S787S" = {
@@ -37,8 +38,8 @@
         mode = "2560x1440@165.00";
         position = "0x0";
         scale = 1;
-        bitdepth = 10;
-        cm = "wide";
+        bitdepth = 8;
+        cm = "srgb";
       };
     };
     "desc:SAC G52 0000000000000" = rec {
@@ -46,16 +47,17 @@
         SDR
         // {
           cm = "hdr";
+          bitdepth = 10;
           sdr_min_luminance = 0.005;
-          # sdr_max_luminance = 280;
           max_luminance = 300;
+          sdrbrightness = 1.4;
         };
       SDR = {
         mode = "2560x1440@180.00";
         position = "2560x0";
         scale = 1;
-        cm = "wide";
-        bitdepth = 10;
+        cm = "srgb";
+        bitdepth = 8;
         vrr = false;
       };
     };
@@ -64,16 +66,17 @@
         SDR
         // {
           cm = "hdr";
+          bitdepth = 10;
           sdr_min_luminance = 0.005;
-          sdr_max_luminance = 240;
           max_luminance = 400;
+          sdrbrightness = 1.2;
         };
       SDR = {
         mode = "3440x1440@165.00";
         position = "2560x0";
         scale = 1;
-        cm = "wide";
-        bitdepth = 10;
+        cm = "srgb";
+        bitdepth = 8;
         vrr = false;
       };
     };
