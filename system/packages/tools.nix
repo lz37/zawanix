@@ -22,5 +22,7 @@
     tldr
     ventoy-full
     lolcat
+    bili-live-tool
+    github-copilot-cli
   ];
 }
