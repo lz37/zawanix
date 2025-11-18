@@ -59,14 +59,23 @@
       (import ./common/topics/rust.nix)
       (import ./common/topics/settingfile/toml.nix)
     ];
-  frontend =
+  frontend-base =
     default
     ++ [
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/settingfile/dotenv.nix)
       (import ./common/topics/frontend/tailwind.nix)
       (import ./common/topics/frontend/base.nix)
+    ];
+  frontend =
+    frontend-base
+    ++ [
       (import ./common/topics/frontend/styled-components.nix)
+    ];
+  vue =
+    frontend-base
+    ++ [
+      (import ./common/topics/frontend/vue.nix)
     ];
   noveler =
     frontend
@@ -125,6 +134,7 @@ in {
       xmake = merge-imports xmake;
       leetcode = merge-imports leetcode;
       cmake = merge-imports cmake;
+      vue = merge-imports vue;
     };
   };
   services.vscode-server.enable = true;
