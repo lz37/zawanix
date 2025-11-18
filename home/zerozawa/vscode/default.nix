@@ -77,11 +77,12 @@
     ++ [
       (import ./common/topics/frontend/vue.nix)
     ];
-  noveler =
+  novelsaga =
     frontend
     ++ [
       (import ./common/topics/ci-cd.nix)
       (import ./common/topics/settingfile/toml.nix)
+      (import ./common/topics/rust.nix)
     ];
   k8s =
     default
@@ -123,7 +124,7 @@ in {
           enableExtensionUpdateCheck = false;
         };
       frontend = merge-imports frontend;
-      noveler = merge-imports noveler;
+      novelsaga = merge-imports novelsaga;
       ssh = merge-imports ssh;
       devcontainer = merge-imports devcontainer;
       k8s = merge-imports k8s;
