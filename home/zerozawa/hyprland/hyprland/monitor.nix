@@ -49,7 +49,7 @@
           cm = "hdr";
           bitdepth = 10;
           sdr_min_luminance = 0.005;
-          sdr_max_luminance = 280;
+          sdr_max_luminance = 300;
           max_luminance = 300;
         };
       SDR = {
