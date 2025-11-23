@@ -1,6 +1,6 @@
 {config, ...}: {
   services.podman = {
-    enable = false;
+    enable = true;
     autoUpdate = {
       enable = true;
       onCalendar = "*-*-* 12,21:00:00";
