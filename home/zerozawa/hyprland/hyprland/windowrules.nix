@@ -307,6 +307,12 @@ in {
           opacity = "0.0 override";
           size = "0% 0%";
         }
+        {
+          match = {
+            class = "kitty-dropterm";
+          };
+          float = true;
+        }
       ];
     };
   };
