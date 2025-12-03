@@ -46,6 +46,7 @@
         "https://nixpkgs-wayland.cachix.org"
         "https://watersucks.cachix.org"
         "https://numtide.cachix.org"
+        "https://devenv.cachix.org"
         pkgs.nur.repos.xddxdd._meta.atticUrl
       ];
       trusted-public-keys = [
@@ -57,6 +58,7 @@
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "watersucks.cachix.org-1:6gadPC5R8iLWQ3EUtfu3GFrVY7X6I4Fwz/ihW25Jbv8="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         pkgs.nur.repos.xddxdd._meta.atticPublicKey
       ];
       trusted-users = [
