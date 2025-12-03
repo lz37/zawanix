@@ -2,7 +2,7 @@
   description = "config of zerozawa's nix desktop";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-teleport.url = "github:NixOS/nixpkgs/67d2b8200c828903b36a6dd0fb952fe424aa0606"; # 17.4.2
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
@@ -41,7 +41,7 @@
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     stylix = {
-      url = "github:danth/stylix/master";
+      url = "github:nix-community/stylix/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nur.follows = "nur";

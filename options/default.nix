@@ -7,6 +7,9 @@
 in {
   options = {
     zerozawa = {
+      zerotier = {
+        id = str;
+      };
       version = {
         nixos = str;
         home-manager-version = str;
@@ -92,7 +95,7 @@ in {
   config = {
     zerozawa = rec {
       version = {
-        nixos = "25.11";
+        nixos = "26.05";
         home-manager-version = version.nixos;
       };
       path = rec {

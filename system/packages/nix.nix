@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     nixbang
     devbox
-    devenv
     nix-du
     nix-script
     nix-tree

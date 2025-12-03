@@ -46,6 +46,7 @@
     ./ghostty.nix
     ./wezterm.nix
   ];
+  stylix.enableReleaseChecks = false;
   home = {
     stateVersion = config.zerozawa.version.home-manager-version;
     packages = [
