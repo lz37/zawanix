@@ -58,5 +58,6 @@ in {
     ventoy-full-gtk
     wayvnc
     ndi
+    discord
   ];
 }

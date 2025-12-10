@@ -104,13 +104,33 @@
       (import ./common/topics/python.nix)
       (import ./common/topics/settingfile/toml.nix)
     ];
-  cpp-base = no-ai ++ [(import ./common/topics/cpp/base.nix) (import ./common/topics/cpp/clang.nix)];
+  cpp-base =
+    no-ai
+    ++ [
+      # (import ./common/topics/cpp/base.nix)
+      (import ./common/topics/cpp/clang.nix)
+    ];
   qt = cpp-base ++ [(import ./common/topics/cpp/qt.nix)];
   xmake-no-ai = qt ++ [(import ./common/topics/cpp/xmake.nix)];
   xmake = xmake-no-ai ++ copilot;
   leetcode = xmake-no-ai ++ [(import ./common/topics/leetcode.nix)];
   cmake = cpp-base ++ [(import ./common/topics/cpp/cmake.nix)] ++ copilot;
   novel = default ++ [(import ./common/topics/novel.nix)];
+  java-base =
+    default
+    ++ [
+      (import ./common/topics/java/base.nix)
+    ];
+  spring =
+    java-base
+    ++ [
+      (import ./common/topics/java/spring.nix)
+    ];
+  kotlin =
+    spring
+    ++ [
+      (import ./common/topics/java/kotlin.nix)
+    ];
 in {
   programs.vscode = {
     enable = true;
@@ -138,6 +158,8 @@ in {
       cmake = merge-imports cmake;
       vue = merge-imports vue;
       novel = merge-imports novel;
+      kotlin = merge-imports kotlin;
+      spring = merge-imports spring;
     };
   };
   services.vscode-server.enable = true;

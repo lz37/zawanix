@@ -9,8 +9,12 @@
 }: {
   stylix.targets.console.enable = true;
   boot = {
-    kernelPackages = pkgs.linuxPackages_cachyos.cachyOverride {mArch = "GENERIC_V${lib.strings.substring 8 1 amd64Microarchs}";};
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+    kernelPackages = pkgs.linuxPackages_cachyos.cachyOverride {
+      mArch = "GENERIC_V${lib.strings.substring 8 1 amd64Microarchs}";
+    };
+    extraModulePackages = [
+      config.boot.kernelPackages.v4l2loopback
+    ];
     supportedFilesystems = [
       "btrfs"
       "ext4"
