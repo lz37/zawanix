@@ -1,7 +1,7 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs.nur.repos; ((with xddxdd; [
-      dingtalk
-    ])
+  environment.systemPackages = with pkgs.nur.repos; ([
+      pkgs.nocuda.nur.repos.xddxdd.dingtalk
+    ]
     ++ (with novel2430; [
       wpsoffice-365
     ])

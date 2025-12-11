@@ -34,13 +34,21 @@ in {
           master = import inputs.nixpkgs-master {
             inherit system config;
           };
-          nodecuda = import inputs.nixpkgs {
+          nocuda = import inputs.nixpkgs {
             inherit system;
             config =
               config
               // {
                 cudaSupport = false;
               };
+            overlays = [
+              (final: prev: {
+                nur = import inputs.nur {
+                  nurpkgs = prev;
+                  pkgs = prev;
+                };
+              })
+            ];
           };
           vscode-selected = master.vscode.override {useVSCodeRipgrep = true;};
           vscode-selected-extensionsCompatible = (

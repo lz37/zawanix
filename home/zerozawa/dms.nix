@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   isNvidiaGPU,
   lib,
   config,
@@ -38,13 +37,6 @@ in {
       kirigami-addons
       kirigami-gallery
     ]);
-    plugins = with inputs; {
-      WallpaperWatcherDaemon.src = "${dankMaterialShell}/PLUGINS/WallpaperWatcherDaemon";
-      DankActions.src = "${dms-plugins}/DankActions";
-      DankBatteryAlerts.src = "${dms-plugins}/DankBatteryAlerts";
-      DankHooks.src = "${dms-plugins}/DankHooks";
-      DankPomodoroTimer.src = "${dms-plugins}/DankPomodoroTimer";
-    };
   };
   systemd.user.services = let
     kitten = conf: exec: ''

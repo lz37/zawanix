@@ -85,10 +85,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    dms-plugins = {
-      url = "github:AvengeMedia/dms-plugins";
-      flake = false;
-    };
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";

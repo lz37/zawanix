@@ -3,7 +3,7 @@
     enable = true;
     image = stylixImage;
     autoEnable = false;
-    enableReleaseChecks = false;
+    #enableReleaseChecks = false;
     homeManagerIntegration = {
       autoImport = true;
       followSystem = true;

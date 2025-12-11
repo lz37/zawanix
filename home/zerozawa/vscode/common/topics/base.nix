@@ -8,6 +8,7 @@
     matthewnespor.vscode-color-identifiers-mode
     ms-vscode.wasm-wasi-core
     fill-labs.dependi
+    ultram4rine.vscode-choosealicense
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";

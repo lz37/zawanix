@@ -7,7 +7,7 @@
 in {
   environment.systemPackages = with pkgs; [
     burpsuite
-    nodecuda.thunderbird
+    nocuda.thunderbird
     master.qq
     wiliwili
     telegram-desktop
