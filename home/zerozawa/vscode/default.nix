@@ -83,6 +83,7 @@
       (import ./common/topics/ci-cd.nix)
       (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/rust.nix)
+      (import ./common/topics/settingfile/json5.nix)
     ];
   k8s =
     default

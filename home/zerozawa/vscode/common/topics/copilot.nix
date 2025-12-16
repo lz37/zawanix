@@ -9,8 +9,8 @@
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [autoPatchelfHook];
       }))
     ])
-    ++ (with vscode-marketplace-release; [
-      github.copilot-chat
+    ++ (vscode-selected-extensionsCompatible.forVscode [
+      "github.copilot-chat"
     ]));
   settings = {
     "chat.agent.enabled" = true;

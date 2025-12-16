@@ -21,6 +21,7 @@ in {
       patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
       ''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
     )
+    master.wemeet
     scrcpy
     android-studio
     rio

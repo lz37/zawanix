@@ -17,6 +17,7 @@ in {
     overlays = [
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix-alien.overlays.default
+      inputs.nix4vscode.overlays.default
       (
         final: prev: let
           pkgs = prev;
@@ -51,9 +52,16 @@ in {
             ];
           };
           vscode-selected = master.vscode.override {useVSCodeRipgrep = true;};
-          vscode-selected-extensionsCompatible = (
-            (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
-          );
+          vscode-selected-extensionsCompatible =
+            (
+              (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
+            )
+            // {
+              forVscode = pkgs.nix4vscode.forVscodeVersion (lib.getVersion vscode-selected);
+              forVscodePrerelease = pkgs.nix4vscode.forVscodeVersionPrerelease (lib.getVersion vscode-selected);
+              forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
+              forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
+            };
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};

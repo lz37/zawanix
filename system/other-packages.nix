@@ -4,7 +4,7 @@
     flatpak = {
       enable = true;
       packages = [
-        "com.tencent.wemeet"
+        # "com.tencent.wemeet"
         "com.github.tchx84.Flatseal"
         "io.github.giantpinkrobots.flatsweep"
       ];
