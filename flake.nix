@@ -212,7 +212,7 @@
                         inputs.nvf.homeManagerModules.default
                         ./options
                         (inputs.zerozawa-private + "/default.nix")
-                        inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+                        inputs.dankMaterialShell.homeModules.dank-material-shell
                         ./nixpkgs.nix
                       ];
                       users.zerozawa = import ./home/zerozawa;

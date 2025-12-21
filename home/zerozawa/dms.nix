@@ -24,7 +24,7 @@
       font_size 18.0
     '');
 in {
-  programs.dankMaterialShell = {
+  programs.dank-material-shell = {
     enable = true;
     systemd = {
       enable = true;
