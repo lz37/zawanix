@@ -7,6 +7,9 @@
 in {
   options = {
     zerozawa = {
+      github = {
+        access-token = str;
+      };
       zerotier = {
         id = str;
       };

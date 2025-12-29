@@ -3,11 +3,15 @@
   lib,
   pkgs,
   amd64Microarchs,
+  config,
   ...
 }: {
   nix = {
     # for nixd
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    extraOptions = ''
+      access-tokens = github.com=${config.zerozawa.github.access-token}
+    '';
     settings = {
       # 实验性功能
       experimental-features = [
