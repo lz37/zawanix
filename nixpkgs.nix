@@ -51,7 +51,10 @@ in {
               })
             ];
           };
-          vscode-selected = master.vscode.override {useVSCodeRipgrep = true;};
+          vscode-selected = master.vscode.override {
+            useVSCodeRipgrep = true;
+            commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
+          };
           vscode-selected-extensionsCompatible =
             (
               (pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected)
