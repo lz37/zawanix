@@ -61,13 +61,6 @@
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixos-cli.url = "github:nix-community/nixos-cli";
-    waylrc = {
-      url = "github:lz37/waylrc/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     zerozawa-nur = {
       url = "github:lz37/nur/main";
       inputs = {
@@ -84,6 +77,10 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
+    };
+    dms-plugin-registry={
+      url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix4vscode = {
       url = "github:nix-community/nix4vscode";
@@ -213,6 +210,7 @@
                         ./options
                         (inputs.zerozawa-private + "/default.nix")
                         inputs.dankMaterialShell.homeModules.dank-material-shell
+                        inputs.dms-plugin-registry.modules.default
                         ./nixpkgs.nix
                       ];
                       users.zerozawa = import ./home/zerozawa;

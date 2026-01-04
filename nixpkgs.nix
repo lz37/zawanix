@@ -66,9 +66,7 @@ in {
               forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
             };
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
-          image-cut = input: pkgs.callPackage ./nixpkgs-build/image-cut.nix input;
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
-          waylrc = inputs.waylrc.packages.${system}.waylrc;
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
           unstable-hyprland = {
             packages = inputs.hyprland.packages.${system};

@@ -4,6 +4,7 @@
   lib,
   config,
   hostName,
+  isLaptop,
   ...
 }: let
   # minimal kitty background config used by the panels
@@ -24,6 +25,13 @@
       font_size 18.0
     '');
 in {
+  home.packages = with pkgs; [
+    (grimblast.override {
+      hyprland = unstable-hyprland.packages.hyprland;
+    })
+    linux-wallpaperengine
+    python3
+  ];
   programs.dank-material-shell = {
     enable = true;
     systemd = {
@@ -32,6 +40,34 @@ in {
     };
     enableSystemMonitoring = true;
     enableVPN = false;
+    plugins =
+      {
+        desktopCommand.enable = true;
+        gitmojiLauncher.enable = true;
+        mediaPlayer.enable = true;
+        hyprlandSubmap.enable = true;
+        wallpaperDiscovery.enable = true;
+        alarmClock.enable = true;
+        linuxWallpaperEngine.enable = true;
+        nixMonitor.enable = true;
+        wallpaperShufflerPlugin.enable = true;
+        dankActions.enable = true;
+        dankHooks.enable = true;
+        dankBatteryAlerts.enable = true;
+        dockerManager.enable = true;
+        webSearch.enable = true;
+        emojiLauncher.enable = true;
+        commandRunner.enable = true;
+        calculator.enable = true;
+        grimblast.enable = true;
+      }
+      // (
+        if isLaptop
+        then {
+          powerUsagePlugin.enable = true;
+        }
+        else {}
+      );
     quickshell.package = pkgs.quickshell.withModules (with pkgs.kdePackages; [
       kirigami
       kirigami-addons

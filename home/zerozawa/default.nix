@@ -35,9 +35,7 @@
     ./cava.nix
     ./yazi
     ./wlogout
-    ./scripts
     ./mimelist.nix
-    ./rofi
     ./mpv.nix
     ./autostart.nix
     ./input-method

@@ -89,7 +89,7 @@ in
       package = pkgs.nur.repos.zerozawa.mihomo-smart;
       tunMode = true;
       enable = true;
-      webui = pkgs.zashboard;
+      webui = pkgs.metacubexd;
       configFile = config.zerozawa.path.mihomoCfg;
     };
   }

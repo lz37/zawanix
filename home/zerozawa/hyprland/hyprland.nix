@@ -26,7 +26,7 @@
   # Place Files Inside Home Directory
   home.file = {
     "Pictures/Wallpapers" = {
-      source = ../../../../assets/wallpapers;
+      source = ../../../assets/wallpapers;
       recursive = true;
     };
     ".face.icon".source = rootPath + "/assets/face.jpg";
@@ -80,7 +80,6 @@
       };
 
       general = {
-        "$modifier" = "SUPER";
         layout = "dwindle";
         gaps_in = 6;
         gaps_out = 8;

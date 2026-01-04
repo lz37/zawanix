@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   extensions = with pkgs; ((with vscode-selected-extensionsCompatible.vscode-marketplace; [
       (github.copilot.overrideAttrs (old: {
         buildInputs = (old.buildInputs or []) ++ [libcxx];
@@ -65,9 +61,4 @@
       when = "editorTextFocus && github.copilot.activated && !commentEditorFocused";
     }
   ];
-  mcp = {
-    nixos = {
-      command = lib.getExe pkgs.mcp-nixos;
-    };
-  };
 }
