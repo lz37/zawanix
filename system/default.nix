@@ -22,7 +22,6 @@
     ./hyprland.nix
     ./other-packages.nix
     ./clamav-scanner.nix
-    ./chaotic.nix
     ./facter.nix
     ./zerotier.nix
   ];

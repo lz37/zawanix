@@ -51,6 +51,7 @@
         "https://watersucks.cachix.org"
         "https://numtide.cachix.org"
         "https://devenv.cachix.org"
+        "https://forkprince.cachix.org"
         pkgs.nur.repos.xddxdd._meta.garnixUrl
       ];
       trusted-public-keys = [
@@ -63,6 +64,7 @@
         "watersucks.cachix.org-1:6gadPC5R8iLWQ3EUtfu3GFrVY7X6I4Fwz/ihW25Jbv8="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
         pkgs.nur.repos.xddxdd._meta.garnixPublicKey
       ];
       trusted-users = [

@@ -59,7 +59,7 @@
       url = "git+ssh://git@github.com/lz37/zawanix-private?ref=main";
       flake = false;
     };
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nixos-cli.url = "github:nix-community/nixos-cli";
     zerozawa-nur = {
       url = "github:lz37/nur/main";
@@ -185,7 +185,6 @@
                   inputs.nix-flatpak.nixosModules.nix-flatpak
                   inputs.nix-index-database.nixosModules.nix-index
                   {programs.nix-index-database.comma.enable = true;}
-                  inputs.chaotic.nixosModules.default
                   inputs.stylix.nixosModules.stylix
                   inputs.nixos-cli.nixosModules.nixos-cli
                   ./stylix/nixos.nix
@@ -203,7 +202,6 @@
                       verbose = true;
                       backupFileExtension = "hm.bak";
                       sharedModules = [
-                        inputs.chaotic.homeManagerModules.default
                         inputs.plasma-manager.homeModules.plasma-manager
                         inputs.vscode-server.homeModules.default
                         inputs.nvf.homeManagerModules.default

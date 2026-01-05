@@ -3,7 +3,6 @@
   inputs,
   system,
   isNvidiaGPU,
-  amd64Microarchs,
   ...
 }: let
   config = {
@@ -18,11 +17,11 @@ in {
       inputs.nix-vscode-extensions.overlays.default
       inputs.nix-alien.overlays.default
       inputs.nix4vscode.overlays.default
+      inputs.nix-cachyos-kernel.overlays.pinned
       (
         final: prev: let
           pkgs = prev;
         in rec {
-          pkgs___amd64Microarchs = pkgs."pkgs${amd64Microarchs}";
           # 启用 NUR
           nur = import inputs.nur {
             nurpkgs = prev;

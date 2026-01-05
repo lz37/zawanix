@@ -3,7 +3,7 @@
     if builtins.typeOf rule == "string"
     then rule
     else let
-      serializeMatch = match: let
+      serializeMatch = _match: let
         serializePair = key: value:
           if builtins.typeOf value == "bool"
           then "match:${key} ${
@@ -15,7 +15,7 @@
       in
         builtins.concatStringsSep ", " (
           builtins.filter (x: x != "") (
-            builtins.map (k: serializePair k (match.${k})) (builtins.attrNames match)
+            map (k: serializePair k (_match.${k})) (builtins.attrNames _match)
           )
         );
       serializeAction = action: let
@@ -31,11 +31,11 @@
         }";
       in
         builtins.concatStringsSep ", " (
-          builtins.map (k: serializePair k (action.${k})) (builtins.attrNames action)
+          map (k: serializePair k (action.${k})) (builtins.attrNames action)
         );
-    in "${serializeMatch rule.match}, ${serializeAction (builtins.removeAttrs rule ["match"])}";
+    in "${serializeMatch rule.match}, ${serializeAction (removeAttrs rule ["match"])}";
   to_legacyRules = rules:
-    builtins.map to_legacyRule rules;
+    map to_legacyRule rules;
 in {
   wayland.windowManager.hyprland = {
     settings = {

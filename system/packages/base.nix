@@ -38,14 +38,13 @@
     wl-clipboard
     cifs-utils
     cachix
-    distrobox_git
+    distrobox
     termsonic
     comma
     ipmitool
     teleport.client
     sshpass
     rsync
-    lan-mouse_git
     flac
     exiftool
     imagemagick

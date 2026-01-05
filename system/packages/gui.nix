@@ -36,9 +36,7 @@ in {
     vlc
     dbeaver-bin
     remmina
-    (boxbuddy.override {
-      distrobox = distrobox_git;
-    })
+    boxbuddy
     teams-for-linux
     figma-linux
     jamesdsp
