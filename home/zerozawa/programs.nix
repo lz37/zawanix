@@ -4,6 +4,18 @@
   };
   stylix.targets.fish.enable = true;
   programs = {
+    cargo={
+      enable=true;
+      settings ={
+        source={
+          crates-io.replace-with = "ustc";
+          ustc.registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/";
+        };
+        registries={
+          ustc.index = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/";
+        };
+      };
+    };
     nix-search-tv = {
       enable = true;
       enableTelevisionIntegration = true;

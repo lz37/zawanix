@@ -40,7 +40,7 @@
         # "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12"
 
         # 回退
-        "https://cache.nixos.org"
+        # "https://cache.nixos.org"
 
         "https://zerozawa.cachix.org"
         "https://nix-community.cachix.org"
