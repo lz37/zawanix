@@ -23,7 +23,6 @@ in {
     )
     master.wemeet
     scrcpy
-    android-studio
     rio
     # office
     # onlyoffice-desktopeditors

@@ -49,5 +49,6 @@
     exiftool
     imagemagick
     opencc
+    android-tools
   ];
 }
