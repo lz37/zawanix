@@ -16,7 +16,7 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       extest.enable = true;
-      extraCompatPackages = [pkgs.nur.repos.forkprince."proton-cachyos-v${lib.strings.substring 8 1 amd64Microarchs}-bin"];
+      extraCompatPackages = [pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 amd64Microarchs}"];
       protontricks = {
         enable = true;
       };

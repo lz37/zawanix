@@ -68,5 +68,11 @@
     nixos-cli = {
       enable = true;
     };
+    sunshine = {
+      enable = true;
+      autoStart = true;
+      openFirewall = true;
+      capSysAdmin = true;
+    };
   };
 }

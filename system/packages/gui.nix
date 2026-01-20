@@ -28,7 +28,7 @@ in {
     # onlyoffice-desktopeditors
     libreoffice-qt6-fresh
     drawio
-    stable.jellyfin-media-player
+    jellyfin-media-player
     feishin
     gimp3
     pinta

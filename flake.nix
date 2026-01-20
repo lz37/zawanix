@@ -78,7 +78,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    dms-plugin-registry={
+    dms-plugin-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -231,7 +231,7 @@
                 };
                 zawanix-glap = mkNixosConfig {
                   isIntelCPU = true;
-                  isIntelGPU = true;
+                  isIntelGPU = false;
                   isNvidiaGPU = true;
                   isSSD = true;
                   isLaptop = true;

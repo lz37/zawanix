@@ -10,7 +10,7 @@
     nix-health
     nil
     nixd
-    nixfmt-rfc-style
+    nixfmt
     npins
     nurl
     stable.mcp-nixos

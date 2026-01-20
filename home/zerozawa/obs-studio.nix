@@ -10,7 +10,7 @@
       obs-source-clone
       obs-move-transition
       obs-composite-blur
-      obs-backgroundremoval
+      # obs-backgroundremoval
       waveform
       obs-vaapi
       obs-tuna

@@ -3,6 +3,7 @@
   config,
   isIntelCPU,
   isIntelGPU,
+  isNvidiaGPU,
   lib,
   ...
 }: {
@@ -48,6 +49,9 @@
       ++ (lib.optionals isIntelCPU [
         "intel_iommu=on"
         "iommu=pt"
+      ])
+      ++ (lib.optionals isNvidiaGPU [
+        "nvidia_drm.modeset=1"
       ]);
     consoleLogLevel = 3;
     # Needed For Some Steam Games

@@ -50,5 +50,6 @@
     imagemagick
     opencc
     android-tools
+    libva-utils
   ];
 }
