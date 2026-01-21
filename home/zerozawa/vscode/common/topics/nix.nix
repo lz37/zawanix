@@ -13,7 +13,7 @@
   };
   mcp = {
     nixos = {
-      command = lib.getExe pkgs.stable.mcp-nixos;
+      command = lib.getExe pkgs.mcp-nixos;
     };
   };
 }

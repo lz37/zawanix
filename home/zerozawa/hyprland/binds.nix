@@ -129,7 +129,20 @@ in {
 
     bindm = [
       "SUPER, mouse:272, movewindow"
+      "SUPER, Control_L, movewindow"
       "SUPER, mouse:273, resizewindow"
+      "SUPER, ALT_L, resizewindow"
+    ];
+
+    gesture = [
+      "4, horizontal, workspace"
+      "4, up, dispatcher, exec, dms ipc call hypr closeOverview"
+      "4, down, dispatcher, exec, dms ipc call hypr openOverview"
+      "3, down, mod: ALT, close"
+      "3, down, dispatcher, exec, pypr show term"
+      "3, up, dispatcher, exec, pypr hide term"
+      "3, pinchin, dispatcher, fullscreen, 0 set"
+      "3, pinchout, dispatcher, fullscreen, 0 unset"
     ];
   };
 }
