@@ -43,6 +43,7 @@
     ./clock-rs.nix
     ./ghostty.nix
     ./wezterm.nix
+    ./ai
   ];
   stylix.enableReleaseChecks = false;
   home = {

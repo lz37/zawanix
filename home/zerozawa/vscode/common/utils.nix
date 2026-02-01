@@ -21,6 +21,7 @@ let
           ]
       );
   in {
+    enableMcpIntegration = true;
     keybindings = builtins.concatMap (item: item.keybindings) returns-fallback;
     extensions = builtins.concatMap (item: item.extensions) returns-fallback;
     userMcp.servers = recursiveUpdateList (builtins.map (item: item.mcp) returns-fallback);

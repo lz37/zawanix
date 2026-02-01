@@ -10,7 +10,7 @@
     # for nixd
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     extraOptions = ''
-      access-tokens = github.com=${config.zerozawa.github.access-token}
+      access-tokens = github.com=${config.zerozawa.github.access-token.pat}
     '';
     settings = {
       # 实验性功能

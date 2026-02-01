@@ -4,6 +4,7 @@
         buildInputs = (old.buildInputs or []) ++ [libcxx];
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [autoPatchelfHook];
       }))
+      sst-dev.opencode
     ])
     ++ (vscode-selected-extensionsCompatible.forVscode [
       "github.copilot-chat"

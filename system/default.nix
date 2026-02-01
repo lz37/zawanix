@@ -18,7 +18,6 @@
     ./sddm
     ./fonts
     ./xdg-portal.nix
-    ./symlink.nix
     ./hyprland.nix
     ./other-packages.nix
     ./clamav-scanner.nix

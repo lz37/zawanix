@@ -18,7 +18,7 @@
   gui = [(import ./common/topics/gui.nix)];
   base = [(import ./common/topics/base.nix)];
   lang = [(import ./common/topics/lang.nix)];
-  copilot = [(import ./common/topics/copilot.nix)];
+  ai = [(import ./common/topics/ai.nix)];
   gitlens = [(import ./common/topics/gitlens.nix)];
   ssh =
     base
@@ -45,7 +45,7 @@
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
     ];
-  default = no-ai ++ copilot;
+  default = no-ai ++ ai;
   nixos =
     default
     ++ [
@@ -90,7 +90,7 @@
     ++ [
       (import ./common/topics/k8s.nix)
     ]
-    ++ copilot;
+    ++ ai;
   xd =
     default
     ++ [
@@ -113,9 +113,9 @@
     ];
   qt = cpp-base ++ [(import ./common/topics/cpp/qt.nix)];
   xmake-no-ai = qt ++ [(import ./common/topics/cpp/xmake.nix)];
-  xmake = xmake-no-ai ++ copilot;
+  xmake = xmake-no-ai ++ ai;
   leetcode = xmake-no-ai ++ [(import ./common/topics/leetcode.nix)];
-  cmake = cpp-base ++ [(import ./common/topics/cpp/cmake.nix)] ++ copilot;
+  cmake = cpp-base ++ [(import ./common/topics/cpp/cmake.nix)] ++ ai;
   novel = default ++ [(import ./common/topics/novel.nix)];
   java-base =
     default
