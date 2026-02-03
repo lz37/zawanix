@@ -1,7 +1,8 @@
-{...}: {
+{pkgs, ...}: {
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
+    package = pkgs.opencode-dev;
     settings = {
       plugin = ["oh-my-opencode@latest" "@simonwjackson/opencode-direnv" "opencode-wakatime"];
     };

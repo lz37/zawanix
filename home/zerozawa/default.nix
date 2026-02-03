@@ -2,6 +2,7 @@
   config,
   pkgs,
   colorsh,
+  inputs,
   ...
 }: {
   imports = [
@@ -47,11 +48,11 @@
   ];
   stylix.enableReleaseChecks = false;
   home = {
-    stateVersion = config.zerozawa.version.home-manager-version;
+    stateVersion = inputs.nixpkgs.lib.trivial.release;
     packages = [
       (
         let
-          packages = builtins.map (p: "${p.name}") config.home.packages;
+          packages = map (p: "${p.name}") config.home.packages;
           sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
           formatted = builtins.concatStringsSep "\n" sortedUnique;
         in
@@ -63,7 +64,7 @@
                 gothic = "𝔷𝔞𝔴𝔞𝔦𝔫𝔦𝔵";
                 scope = "魔導使い個人書庫";
                 splitter = "";
-                action = "に眠る秘儀${builtins.toString (builtins.length sortedUnique)}式";
+                action = "に眠る秘儀${toString (builtins.length sortedUnique)}式";
                 kaomoji = "(｡•̀ᴗ-)✧";
                 unicode = "📖✨";
               }

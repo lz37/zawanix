@@ -91,6 +91,7 @@ in {
             };
           };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
+          opencode-dev = inputs.opencode.packages.${system}.opencode;
         }
       )
     ];

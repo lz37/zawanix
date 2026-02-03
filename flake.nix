@@ -103,6 +103,10 @@
       url = "github:daxisunder/hyprfocus";
       inputs.hyprland.follows = "hyprland";
     };
+    opencode = {
+      url = "github:anomalyco/opencode/dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs: let

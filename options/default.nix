@@ -13,12 +13,10 @@ in {
           classic = str;
         };
       };
+      context7.apiKey = str;
+      exa-mcp.apiKey = str;
       zerotier = {
         id = str;
-      };
-      version = {
-        nixos = str;
-        home-manager-version = str;
       };
       path = {
         cfgRoot = str;
@@ -99,11 +97,7 @@ in {
   };
 
   config = {
-    zerozawa = rec {
-      version = {
-        nixos = "26.05";
-        home-manager-version = version.nixos;
-      };
+    zerozawa = {
       path = rec {
         cfgRoot = "/etc/nixos";
         profile = "${cfgRoot}/profile";

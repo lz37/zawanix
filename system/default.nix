@@ -1,4 +1,4 @@
-{config, ...}: {
+{inputs, ...}: {
   imports = [
     ./bluetooth.nix
     ./locale.nix
@@ -24,6 +24,6 @@
     ./facter.nix
     ./zerotier.nix
   ];
-  system.stateVersion = config.zerozawa.version.nixos;
+  system.stateVersion = inputs.nixpkgs.lib.trivial.release;
   documentation.nixos.enable = false;
 }

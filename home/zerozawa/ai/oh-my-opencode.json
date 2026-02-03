@@ -2,66 +2,66 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "alibaba-cn/qwen3-coder-plus"
     },
     "librarian": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "alibaba-cn/qwen-plus"
     },
     "explore": {
-      "model": "github-copilot/gpt-5-mini"
+      "model": "alibaba-cn/qwen-flash"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.2",
-      "variant": "high"
+      "model": "alibaba-cn/deepseek-r1-0528"
     },
     "frontend-ui-ux-engineer": {
-      "model": "zhipuai/glm-4.7"
+      "model": "alibaba-cn/qwen-plus"
     },
     "document-writer": {
-      "model": "zhipuai/glm-4.7"
+      "model": "alibaba-cn/qwen-plus"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gemini-3-flash"
+      "model": "alibaba-cn/qwen-vl-plus"
     },
     "prometheus": {
-      "model": "github-copilot/claude-opus-4.5",
-      "variant": "max"
+      "model": "alibaba-cn/qwen-plus"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.5",
-      "variant": "max"
+      "model": "alibaba-cn/qwq-plus"
     },
     "momus": {
-      "model": "github-copilot/gpt-5.2",
-      "variant": "medium"
+      "model": "alibaba-cn/qwen-plus"
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "alibaba-cn/qwen-flash"
+    },
+    "hephaestus": {
+      "model": "alibaba-cn/qwen3-coder-flash"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3-pro"
+      "model": "alibaba-cn/qwen-vl-plus"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.2-codex",
-      "variant": "xhigh"
+      "model": "alibaba-cn/deepseek-r1-0528"
     },
     "artistry": {
-      "model": "github-copilot/gemini-3-pro",
-      "variant": "max"
+      "model": "alibaba-cn/kimi-k2-thinking"
     },
     "quick": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "alibaba-cn/qwen-flash"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "alibaba-cn/qwen-plus"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "alibaba-cn/qwen-plus"
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash"
+      "model": "alibaba-cn/qwen-plus"
+    },
+    "deep": {
+      "model": "alibaba-cn/deepseek-v3-2-exp"
     }
   }
 }
