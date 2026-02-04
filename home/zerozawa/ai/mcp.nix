@@ -41,6 +41,25 @@
           GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
         };
       };
+      memory = {
+        command = lib.getExe' pkgs.bun "bunx";
+        args = ["@modelcontextprotocol/server-memory"];
+      };
+      sequential-thinking = {
+        command = lib.getExe' pkgs.bun "bunx";
+        args = ["@modelcontextprotocol/server-sequential-thinking"];
+      };
+      time = {
+        command = lib.getExe' pkgs.uv "uvx";
+        args = ["mcp-server-time"];
+        env = {
+          LOCAL_TIMEZONE = "Asia/Shanghai";
+        };
+      };
+      docker = {
+        command = lib.getExe' pkgs.uv "uvx";
+        args = ["mcp-server-docker"];
+      };
     };
   };
 }
