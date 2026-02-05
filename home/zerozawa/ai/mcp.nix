@@ -58,7 +58,7 @@
       };
       docker = {
         command = lib.getExe' pkgs.uv "uvx";
-        args = ["mcp-server-docker"];
+        args = ["docker-mcp"];
       };
     };
   };
