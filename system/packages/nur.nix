@@ -13,7 +13,7 @@
       picacg-qt
       JMComic-qt
       wechat-web-devtools-linux
-      Fladder
+      # Fladder
       StartLive
       bilibili_live_tui
     ]));

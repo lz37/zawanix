@@ -3,6 +3,7 @@
   isIntelGPU,
   isAmdGPU,
   isLaptop,
+  pkgs,
   ...
 }: {
   boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
@@ -33,7 +34,25 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = let
+      base = config.boot.kernelPackages.nvidiaPackages.latest;
+      cachyos-nvidia-patch = pkgs.fetchpatch {
+        url = "https://raw.githubusercontent.com/CachyOS/CachyOS-PKGBUILDS/master/nvidia/nvidia-utils/kernel-6.19.patch";
+        sha256 = "sha256-YuJjSUXE6jYSuZySYGnWSNG5sfVei7vvxDcHx3K+IN4=";
+      };
+
+      # Patch the appropriate driver based on config.hardware.nvidia.open
+      driverAttr =
+        if config.hardware.nvidia.open
+        then "open"
+        else "bin";
+    in
+      base
+      // {
+        ${driverAttr} = base.${driverAttr}.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or []) ++ [cachyos-nvidia-patch];
+        });
+      };
     prime = {
       offload = rec {
         enable = (isIntelGPU || isAmdGPU) && isLaptop;

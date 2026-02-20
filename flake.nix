@@ -48,13 +48,6 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     zerozawa-private = {
       url = "git+ssh://git@github.com/lz37/zawanix-private?ref=main";
       flake = false;
@@ -139,6 +132,7 @@
               isAmdGPU ? false,
               isVM ? false,
               isLaptop ? false,
+              isGameMachine ? false,
               isSSD ? false,
               extraModules ? [],
               ram ? 8 * 1024,
@@ -159,6 +153,7 @@
                   isAmdGPU
                   isVM
                   isLaptop
+                  isGameMachine
                   isSSD
                   ram
                   stylixImage
@@ -208,7 +203,6 @@
                       sharedModules = [
                         inputs.plasma-manager.homeModules.plasma-manager
                         inputs.vscode-server.homeModules.default
-                        inputs.nvf.homeManagerModules.default
                         ./options
                         (inputs.zerozawa-private + "/default.nix")
                         inputs.dankMaterialShell.homeModules.dank-material-shell
@@ -230,6 +224,7 @@
                   isIntelGPU = true;
                   isSSD = true;
                   hostName = "zawanix-work";
+                  isGameMachine = false;
                   ram = 32 * 1024;
                   stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
                 };
@@ -239,6 +234,7 @@
                   isNvidiaGPU = true;
                   isSSD = true;
                   isLaptop = true;
+                  isGameMachine = true;
                   hostName = "zawanix-glap";
                   ram = 16 * 1024;
                   stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;

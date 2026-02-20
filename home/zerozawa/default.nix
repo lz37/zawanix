@@ -24,7 +24,6 @@
     ./swappy.nix
     ./btop.nix
     ./obs-studio.nix
-    ./nvf.nix
     ./lazygit.nix
     ./bat.nix
     ./bottom.nix
@@ -43,7 +42,6 @@
     ./dms.nix
     ./clock-rs.nix
     ./ghostty.nix
-    ./wezterm.nix
     ./ai
   ];
   stylix.enableReleaseChecks = false;

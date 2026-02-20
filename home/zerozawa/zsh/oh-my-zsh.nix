@@ -15,10 +15,7 @@
         "docker"
         "kitty"
         "history"
-        "eza"
         "encode64"
-        "cp"
-        "copypath"
       ];
     };
   };

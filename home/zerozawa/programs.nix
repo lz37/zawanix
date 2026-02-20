@@ -4,14 +4,14 @@
   };
   stylix.targets.fish.enable = true;
   programs = {
-    cargo={
-      enable=true;
-      settings ={
-        source={
+    cargo = {
+      enable = true;
+      settings = {
+        source = {
           crates-io.replace-with = "ustc";
           ustc.registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/";
         };
-        registries={
+        registries = {
           ustc.index = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/";
         };
       };
@@ -28,7 +28,7 @@
         ];
         experimental = {
           render_docs_indexes = {
-            nvf = "https://notashelf.github.io/nvf/options.html";
+            # nvf = "https://notashelf.github.io/nvf/options.html";
             plasma-manager = "https://nix-community.github.io/plasma-manager/options.xhtml";
           };
         };

@@ -17,7 +17,7 @@
       obs-advanced-masks
       obs-vnc
       obs-rgb-levels
-      obs-media-controls
+      # obs-media-controls
       obs-markdown
       obs-command-source
       obs-aitum-multistream
