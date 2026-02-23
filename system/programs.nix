@@ -6,6 +6,9 @@
   ...
 }: {
   programs = {
+    nixos-cli = {
+      enable = true;
+    };
     gnupg.agent.pinentryPackage = lib.mkForce pkgs.pinentry-qt;
     # steam
     steam = {

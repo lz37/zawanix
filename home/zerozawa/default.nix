@@ -41,7 +41,6 @@
     ./input-method
     ./dms.nix
     ./clock-rs.nix
-    ./ghostty.nix
     ./ai
   ];
   stylix.enableReleaseChecks = false;

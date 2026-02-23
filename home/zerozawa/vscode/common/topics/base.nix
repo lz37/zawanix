@@ -32,5 +32,8 @@
     "colorIdentifiersMode.method" = "hash";
     # @todo add more settings
     # "extensions.experimental.affinity" = { };
+    "json.schemaDownload.trustedDomains" = {
+      "*" = true;
+    };
   };
 }

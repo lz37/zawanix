@@ -25,6 +25,7 @@
       plugins = [
         {name = "wbingli/zsh-wakatime";}
         {name = "MenkeTechnologies/zsh-cargo-completion";}
+        {name = "BronzeDeer/zsh-completion-sync";} # work with XDG_DATA_DIRS env var
       ];
     };
   };

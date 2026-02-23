@@ -45,7 +45,7 @@ in {
     cherry-studio
     # wine
     # support both 32- and 64-bit applications
-    wineWowPackages.stagingFull
+    wineWow64Packages.stagingFull
     winetricks
     lutris
     protonplus

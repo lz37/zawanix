@@ -65,9 +65,6 @@
         TCPKeepAlive yes
       '';
     };
-    nixos-cli = {
-      enable = true;
-    };
     sunshine = {
       enable = true;
       autoStart = true;
