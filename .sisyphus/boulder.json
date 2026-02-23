@@ -1,9 +1,0 @@
-{
-  "active_plan": "/etc/nixos/.sisyphus/plans/per-agent-personality.md",
-  "started_at": "2026-02-23T09:31:03.549Z",
-  "session_ids": [
-    "ses_378e4665cffe4sI73sSbD023Cn"
-  ],
-  "plan_name": "per-agent-personality",
-  "agent": "atlas"
-}

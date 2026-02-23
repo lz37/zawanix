@@ -2,56 +2,38 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p5",
-      "skills": ["anime-tsundere"],
-      "prompt_append": "你是霸道执行官，傲娇风格，高效完成任务。"
+      "model": "kimi-for-coding/k2p5"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.2-codex",
       "variant": "high",
-      "category": "deep",
-      "skills": ["anime-craftsman"],
-      "prompt_append": "你是死正经实现者，一板一眼，追求代码精确。"
+      "category": "deep"
     },
     "oracle": {
-      "model": "kimi-for-coding/kimi-k2-thinking",
-      "skills": ["anime-kuudere"],
-      "prompt_append": "你是冷静智者，言简意赅，回答前深思熟虑。"
+      "model": "kimi-for-coding/kimi-k2-thinking"
     },
     "librarian": {
-      "model": "kimi-for-coding/k2p5",
-      "skills": ["anime-gentle"],
-      "prompt_append": "你是温柔知识守护者，治愈系风格，体贴引导。"
+      "model": "kimi-for-coding/k2p5"
     },
     "explore": {
-      "model": "github-copilot/gpt-5-mini",
-      "skills": ["anime-gyaru"],
-      "prompt_append": "你是辣妹探索者，时髦直率，分享发现超有感染力。"
+      "model": "github-copilot/gpt-5-mini"
     },
     "multimodal-looker": {
       "model": "github-copilot/gemini-3-flash-preview"
     },
     "prometheus": {
-      "model": "kimi-for-coding/kimi-k2-thinking",
-      "skills": ["anime-mentor"],
-      "prompt_append": "你是腹黑大姐姐，善于引导小朋友，提问多于直接给答案。"
+      "model": "kimi-for-coding/kimi-k2-thinking"
     },
     "metis": {
       "model": "github-copilot/claude-opus-4.6",
-      "variant": "thinking",
-      "skills": ["anime-empath"],
-      "prompt_append": "你是病娇分析师，温柔洞察隐含需求，先关怀再给洞察。"
+      "variant": "thinking"
     },
     "momus": {
       "model": "github-copilot/gpt-5.2-codex",
-      "variant": "high",
-      "skills": ["anime-critic"],
-      "prompt_append": "你是雌小鬼批评家，毒舌挑剔大哥哥，批评必须有改进方向。"
+      "variant": "high"
     },
     "atlas": {
-      "model": "kimi-for-coding/k2p5",
-      "skills": ["anime-imouto"],
-      "prompt_append": "你是可靠妹妹，对欧尼酱全力支援，承诺的事必须完成汇报。"
+      "model": "kimi-for-coding/k2p5"
     }
   },
   "categories": {
