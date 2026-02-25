@@ -92,6 +92,24 @@ in {
           };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
           opencode-dev-pkgs = inputs.opencode.packages.${system};
+          khal = stable.khal;
+          python3Packages = prev.python3Packages.override {
+            overrides = pySelf: pySuper: {
+              picosvg = pySuper.picosvg.overridePythonAttrs (old: {
+                patches =
+                  (old.patches or [])
+                  ++ [
+                    (prev.fetchpatch {
+                      url = "https://github.com/googlefonts/picosvg/commit/885ee64b75f526e938eb76e09fab7d93e946a355.patch";
+                      hash = "sha256-fR3FfnEPHwSO1rMtmQEr1pyvByTx8T53FxSpuAKWIjw=";
+                    })
+                  ];
+                # disabledTests = (old.disabledTests or []) ++ [
+                #   "test_topicosvg"
+                # ];
+              });
+            };
+          };
         }
       )
     ];

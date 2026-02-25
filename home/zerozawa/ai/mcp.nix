@@ -22,7 +22,7 @@
         };
       };
       nixos = {
-        command = lib.getExe mcp-nixos;
+        command = lib.getExe stable.mcp-nixos;
       };
       playwright = {
         command = lib.getExe playwright-mcp;
