@@ -230,7 +230,7 @@
                 };
                 zawanix-glap = mkNixosConfig {
                   isIntelCPU = true;
-                  isIntelGPU = false;
+                  isIntelGPU = true;
                   isNvidiaGPU = true;
                   isSSD = true;
                   isLaptop = true;

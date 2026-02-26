@@ -13,6 +13,7 @@
     background_opacity 0.0
     scrollbar never
     include ${config.xdg.configHome}/kitty/dank-theme.conf
+    shell ${lib.getExe pkgs.bash}
   '';
 
   bgKittyCavaConf = pkgs.writeText "bg-kitty-cava-conf" (baseBgKittyConf
