@@ -30,12 +30,13 @@ in {
             host,
             port, # optional
             user, # optional
+            proxyJump, # optional
             ...
           }: {
             name = host;
             value = {
               hostname = host;
-              inherit port user;
+              inherit port user proxyJump;
             };
           }
         )

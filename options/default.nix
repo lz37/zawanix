@@ -75,6 +75,10 @@ in {
                   type = lib.types.nullOr lib.types.str;
                   default = null;
                 };
+                proxyJump = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                };
                 type = mkOptionType (
                   lib.types.enum [
                     "linux"
