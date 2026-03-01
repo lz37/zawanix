@@ -4,7 +4,7 @@
       hypr-dynamic-cursors
       split-monitor-workspaces
       xtra-dispatchers
-      # hyprfocus
+      hyprfocus
     ];
     settings = {
       plugin = {

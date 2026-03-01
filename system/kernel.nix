@@ -8,6 +8,7 @@
   isGameMachine,
   amd64Microarchs,
   lib,
+  ram,
   ...
 }: {
   stylix.targets.console.enable = true;
@@ -71,16 +72,17 @@
         "nvidia.NVreg_EnablePCIeGen3=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       ])
-      ++ (lib.optionals (!isLaptop || isGameMachine) [
-        "hugepages=8"
-      ])
-      ++ (lib.optionals (!isLaptop || isGameMachine) [
-        "hugepagesz=1G"
-        "transparent_hugepage=madvise"
-      ])
-      ++ (lib.optionals (isLaptop && isGameMachine) [
+      ++ (lib.optionals (isGameMachine && ram >= 32 * 1024) [
         "hugepages=4"
-      ]);
+        "hugepagesz=1G"
+        "transparent_hugepage=always"
+      ])
+      ++ (lib.optionals (isGameMachine && ram < 32 * 1024 && ram >= 16 * 1024) [
+        "hugepages=2"
+        "hugepagesz=1G"
+        "transparent_hugepage=always"
+      ])
+      ++ (lib.optionals (!isGameMachine || ram < 16 * 1024) ["transparent_hugepage=madvise"]);
     consoleLogLevel = 3;
     # Needed For Some Steam Games
     kernel.sysctl =

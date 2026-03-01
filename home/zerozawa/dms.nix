@@ -118,18 +118,18 @@ in {
       Unit = {
         Wants = ["kitty-panel-cava.service" "kitty-panel-clock.service"];
       };
-      Service = {
-        Environment =
-          [
-            "QS_DISABLE_DMABUF=1"
-            "QT_QPA_PLATFORM=wayland"
-          ]
-          ++ (
-            if isNvidiaGPU
-            then ["DRI_PRIME=0"]
-            else []
-          );
-      };
+      # Service = {
+      #   Environment =
+      #     [
+      #       "QS_DISABLE_DMABUF=1"
+      #       "QT_QPA_PLATFORM=wayland"
+      #     ]
+      #     ++ (
+      #       if isNvidiaGPU
+      #       then ["DRI_PRIME=0"]
+      #       else []
+      #     );
+      # };
     };
   };
 }
