@@ -1,70 +1,72 @@
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "git_master": {
+    "commit_footer": true,
+    "include_co_authored_by": true
+  },
+  "auto_update": true,
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "bailian-coding-plan/kimi-k2.5"
+    },
+    "sisyphus-junior": {
+      "model": "bailian-coding-plan/MiniMax-M2.5"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.2-codex",
-      "variant": "high",
-      "category": "deep"
+      "model": "bailian-coding-plan/qwen3-coder-plus"
     },
     "oracle": {
-      "model": "kimi-for-coding/kimi-k2-thinking"
-    },
-    "librarian": {
-      "model": "kimi-for-coding/k2p5"
-    },
-    "explore": {
-      "model": "github-copilot/gpt-5-mini"
-    },
-    "multimodal-looker": {
-      "model": "github-copilot/gemini-3-flash-preview"
-    },
-    "prometheus": {
-      "model": "kimi-for-coding/kimi-k2-thinking"
-    },
-    "metis": {
       "model": "github-copilot/claude-opus-4.6",
       "variant": "thinking"
     },
+    "librarian": {
+      "model": "bailian-coding-plan/kimi-k2.5"
+    },
+    "explore": {
+      "model": "bailian-coding-plan/kimi-k2.5"
+    },
+    "multimodal-looker": {
+      "model": "bailian-coding-plan/kimi-k2.5"
+    },
+    "prometheus": {
+      "model": "bailian-coding-plan/qwen3-5-plus"
+    },
+    "metis": {
+      "model": "bailian-coding-plan/qwen3-max-2026-01-23"
+    },
     "momus": {
-      "model": "github-copilot/gpt-5.2-codex",
-      "variant": "high"
+      "model": "bailian-coding-plan/glm-5"
     },
     "atlas": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "bailian-coding-plan/kimi-k2.5"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro-preview"
+      "model": "bailian-coding-plan/kimi-k2.5"
     },
     "ultrabrain": {
       "model": "github-copilot/claude-opus-4.6",
-      "variant": "thinking",
-      "temperature": 0.3
+      "variant": "thinking"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.2-codex",
-      "variant": "high"
+      "model": "bailian-coding-plan/glm-5"
     },
     "artistry": {
-      "model": "kimi-for-coding/k2p5",
+      "model": "bailian-coding-plan/kimi-k2.5",
       "temperature": 1.2
     },
     "quick": {
-      "model": "github-copilot/claude-haiku-4.5",
-      "temperature": 0.1
+      "model": "bailian-coding-plan/qwen3-coder-plus"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "bailian-coding-plan/MiniMax-M2.5"
     },
     "unspecified-high": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "bailian-coding-plan/glm-5"
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash-preview"
+      "model": "bailian-coding-plan/kimi-k2.5"
     }
   }
 }

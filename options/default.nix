@@ -15,6 +15,7 @@ in {
       };
       context7.apiKey = str;
       exa-mcp.apiKey = str;
+      bailian-coding-plan.apiKey = str;
       zerotier = {
         id = str;
       };

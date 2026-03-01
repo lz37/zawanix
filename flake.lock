@@ -2022,11 +2022,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769975108,
-        "narHash": "sha256-pygsXZv3ZnBF6zf5iEqxC7QEs7W1M/DGS83dlurGVes=",
+        "lastModified": 1772374951,
+        "narHash": "sha256-bXl8Ia5jjZpUHSQSCaei/10mHxI12B4XjDlh+tgXPg8=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "88803326979e54e4c7a4b081f49dc96d5500349b",
+        "rev": "532a961aa37728a26b6ceb6378779ec595717b5b",
         "type": "github"
       },
       "original": {
@@ -2039,11 +2039,11 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1772112454,
-        "narHash": "sha256-PbsFLqfWJf2ZRCCrcXuXKxeY5/OeR2Mo5jZZnsJCQMw=",
+        "lastModified": 1772263544,
+        "narHash": "sha256-To6NatgI/u8SpLQenexC8cGra0g/azK8EI+344bzHb0=",
         "ref": "main",
-        "rev": "e1ea24a71436060686effbdbf0ca2830ebf83f91",
-        "revCount": 23,
+        "rev": "f2c9b075e0b204c0511afb3b79d61249371669c4",
+        "revCount": 24,
         "type": "git",
         "url": "ssh://git@github.com/lz37/zawanix-private"
       },

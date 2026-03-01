@@ -1,17 +1,16 @@
-{pkgs, ...}:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with pkgs.opencode-dev-pkgs; {
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
     package = opencode;
-    settings = {
-      plugin = [
-        "oh-my-opencode"
-        "@simonwjackson/opencode-direnv"
-        "opencode-wakatime"
-        "opencode-agent-memory"
-        "opencode-mem"
-      ];
+    settings = lib.recursiveUpdate (lib.removeAttrs (lib.importJSON ./opencode.json) ["$schema"]) {
+      provider."bailian-coding-plan".options.apiKey = config.zerozawa.bailian-coding-plan.apiKey;
     };
   };
 
