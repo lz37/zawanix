@@ -11,11 +11,11 @@
         url = "https://mcp.grep.app";
       };
       context7 = {
-        command = lib.getExe' pkgs.bun "bunx";
+        command = lib.getExe' pkgs.pnpm "pnpx";
         args = ["@upstash/context7-mcp" "--api-key" config.zerozawa.context7.apiKey];
       };
       exa = {
-        command = lib.getExe' pkgs.bun "bunx";
+        command = lib.getExe' pkgs.pnpm "pnpx";
         args = ["exa-mcp-server"];
         env = {
           EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
@@ -24,14 +24,12 @@
       nixos = {
         command = lib.getExe stable.mcp-nixos;
       };
-      playwright = {
-        command = lib.getExe playwright-mcp;
+      chrome-devtools = {
+        command = lib.getExe' pkgs.pnpm "pnpx";
         args = [
-          "--isolated"
-          "--browser"
-          "chrome"
-          "--executable-path"
-          (lib.getExe ungoogled-chromium)
+          "chrome-devtools-mcp@latest"
+          "--browser-url=http://127.0.0.1:9222"
+          "--no-usage-statistics"
         ];
       };
       github = {
@@ -42,11 +40,11 @@
         };
       };
       memory = {
-        command = lib.getExe' pkgs.bun "bunx";
+        command = lib.getExe' pkgs.pnpm "pnpx";
         args = ["@modelcontextprotocol/server-memory"];
       };
       sequential-thinking = {
-        command = lib.getExe' pkgs.bun "bunx";
+        command = lib.getExe' pkgs.pnpm "pnpx";
         args = ["@modelcontextprotocol/server-sequential-thinking"];
       };
       time = {

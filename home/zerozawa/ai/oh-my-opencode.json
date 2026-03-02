@@ -7,7 +7,7 @@
   "auto_update": true,
   "agents": {
     "sisyphus": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "bailian-coding-plan/qwen3-coder-next"
     },
     "sisyphus-junior": {
       "model": "bailian-coding-plan/MiniMax-M2.5"
@@ -29,7 +29,7 @@
       "model": "bailian-coding-plan/kimi-k2.5"
     },
     "prometheus": {
-      "model": "bailian-coding-plan/qwen3-5-plus"
+      "model": "bailian-coding-plan/qwen3.5-plus"
     },
     "metis": {
       "model": "bailian-coding-plan/qwen3-max-2026-01-23"
@@ -38,7 +38,7 @@
       "model": "bailian-coding-plan/glm-5"
     },
     "atlas": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "bailian-coding-plan/qwen3-coder-next"
     }
   },
   "categories": {

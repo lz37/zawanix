@@ -4,6 +4,7 @@
   ...
 }: let
   browser = ''${lib.getExe pkgs.vivaldi} ${lib.concatStringsSep " " (import ../browser/common.nix).commandLineArgs} --password-store=kwallet6'';
+  browser-with-debug = browser + " --remote-debugging-port=9222";
   terminal = lib.getExe pkgs.kitty;
 in {
   wayland.windowManager.hyprland.settings = {
@@ -32,6 +33,7 @@ in {
       # etc
       "SUPER SHIFT,C,exec,hyprpicker -a"
       "SUPER,W,exec,${browser}"
+      "SUPER SHIFT,W,exec,${browser-with-debug}"
       "SUPER,Y,exec,kitty -e yazi"
       "SUPER,S,exec,screenshootin"
       ",Print,exec,screenshootin"
