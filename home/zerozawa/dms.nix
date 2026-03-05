@@ -1,6 +1,6 @@
 {
   pkgs,
-  isNvidiaGPU,
+  # isNvidiaGPU,
   lib,
   config,
   hostName,

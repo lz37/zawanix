@@ -16,7 +16,7 @@ with pkgs.opencode-dev-pkgs; let
     sisyphus.prompt_append = sequentialPrompt;
     # hephaestus.prompt_append = sequentialPrompt;
     # oracle.prompt_append = sequentialPrompt;
-    # prometheus.prompt_append = sequentialPrompt;
+    prometheus.prompt_append = sequentialPrompt;
     metis.prompt_append = sequentialPrompt;
     # momus.prompt_append = sequentialPrompt;
     atlas.prompt_append = sequentialPrompt;

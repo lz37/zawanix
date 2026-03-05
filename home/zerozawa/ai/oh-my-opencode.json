@@ -20,10 +20,10 @@
   },
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "kimi-for-coding/k2p5"
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "kimi-for-coding/k2p5"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.2-codex",
@@ -33,10 +33,10 @@
       "model": "github-copilot/claude-opus-4.6"
     },
     "librarian": {
-      "model": "deepseek/deepseek-reasoner"
+      "model": "kimi-for-coding/k2p5"
     },
     "explore": {
-      "model": "deepseek/deepseek-reasoner"
+      "model": "kimi-for-coding/k2p5"
     },
     "multimodal-looker": {
       "model": "github-copilot/gemini-3.1-pro-preview"
@@ -52,7 +52,7 @@
       "model": "github-copilot/claude-opus-4.6"
     },
     "atlas": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "kimi-for-coding/k2p5"
     }
   },
   "categories": {
@@ -75,13 +75,13 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "kimi-for-coding/k2p5"
     },
     "unspecified-high": {
       "model": "github-copilot/claude-sonnet-4.6"
     },
     "writing": {
-      "model": "deepseek/deepseek-reasoner"
+      "model": "kimi-for-coding/k2p5"
     }
   }
 }
