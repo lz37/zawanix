@@ -42,6 +42,7 @@
     ./dms.nix
     ./clock-rs.nix
     ./ai
+    ./zed
   ];
   stylix.enableReleaseChecks = false;
   home = {

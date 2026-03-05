@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   amd64Microarchs,
   config,
   ...
@@ -52,9 +51,12 @@
         "https://numtide.cachix.org"
         "https://devenv.cachix.org"
         "https://forkprince.cachix.org"
-        pkgs.nur.repos.xddxdd._meta.garnixUrl
+        "https://zed.cachix.org"
+        "https://cache.garnix.io"
       ];
       trusted-public-keys = [
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
         "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
@@ -65,7 +67,6 @@
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
-        pkgs.nur.repos.xddxdd._meta.garnixPublicKey
       ];
       trusted-users = [
         "zerozawa"

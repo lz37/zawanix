@@ -133,6 +133,21 @@
         "type": "github"
       }
     },
+    "crane": {
+      "locked": {
+        "lastModified": 1769737823,
+        "narHash": "sha256-DrBaNpZ+sJ4stXm+0nBX7zqZT9t9P22zbk6m5YhQxS4=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "b2f45c3830aa96b7456a4c4bc327d04d7a43e1ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "dankMaterialShell": {
       "inputs": {
         "nixpkgs": [
@@ -1672,8 +1687,30 @@
         "stylix": "stylix",
         "treefmt-nix": "treefmt-nix",
         "vscode-server": "vscode-server",
+        "zed": "zed",
         "zerozawa-nur": "zerozawa-nur",
         "zerozawa-private": "zerozawa-private"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "zed",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770001842,
+        "narHash": "sha256-ZAyTeILfdWwDp1nuF0RK3McBduMi49qnJvrS+3Ezpac=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "5018343419ea808f8a413241381976b7e60951f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "split-monitor-workspaces": {
@@ -2012,6 +2049,32 @@
       "original": {
         "owner": "jeff-hykin",
         "repo": "xome",
+        "type": "github"
+      }
+    },
+    "zed": {
+      "inputs": {
+        "crane": "crane",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1772719208,
+        "narHash": "sha256-VvlS6G6Cosm2YP3/OmRr0/YP5LdgQc8DicZiWFuUXLM=",
+        "owner": "zed-industries",
+        "repo": "zed",
+        "rev": "0be32ba9392ba1c23dee4830655700a35e69c8a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zed-industries",
+        "ref": "main",
+        "repo": "zed",
         "type": "github"
       }
     },
