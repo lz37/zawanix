@@ -5,68 +5,83 @@
     "include_co_authored_by": true
   },
   "auto_update": true,
+  "tmux": {
+    "enabled": true,
+    "layout": "main-horizontal",
+    "main_pane_size": 60,
+    "main_pane_min_width": 120,
+    "agent_pane_min_width": 40
+  },
+  "websearch": {
+    "provider": "exa"
+  },
+  "start_work": {
+    "auto_commit": true
+  },
   "agents": {
     "sisyphus": {
-      "model": "bailian-coding-plan/qwen3-coder-next"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "sisyphus-junior": {
-      "model": "bailian-coding-plan/MiniMax-M2.5"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "hephaestus": {
-      "model": "bailian-coding-plan/qwen3-coder-plus"
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
     },
     "oracle": {
-      "model": "github-copilot/claude-opus-4.6",
-      "variant": "thinking"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "librarian": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "deepseek/deepseek-reasoner"
     },
     "explore": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "deepseek/deepseek-reasoner"
     },
     "multimodal-looker": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "prometheus": {
-      "model": "bailian-coding-plan/qwen3.5-plus"
+      "model": "github-copilot/claude-sonnet-4.6",
+      "variant": "thinking"
     },
     "metis": {
-      "model": "bailian-coding-plan/qwen3-max-2026-01-23"
+      "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "momus": {
-      "model": "bailian-coding-plan/glm-5"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "atlas": {
-      "model": "bailian-coding-plan/qwen3-coder-next"
+      "model": "github-copilot/claude-sonnet-4.6"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "ultrabrain": {
       "model": "github-copilot/claude-opus-4.6",
       "variant": "thinking"
     },
     "deep": {
-      "model": "bailian-coding-plan/glm-5"
+      "model": "github-copilot/gpt-5.2-codex",
+      "variant": "xhigh"
     },
     "artistry": {
-      "model": "bailian-coding-plan/kimi-k2.5",
+      "model": "github-copilot/gemini-3.1-pro-preview",
       "temperature": 1.2
     },
     "quick": {
-      "model": "bailian-coding-plan/qwen3-coder-plus"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-low": {
-      "model": "bailian-coding-plan/MiniMax-M2.5"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-high": {
-      "model": "bailian-coding-plan/glm-5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "writing": {
-      "model": "bailian-coding-plan/kimi-k2.5"
+      "model": "deepseek/deepseek-reasoner"
     }
   }
 }

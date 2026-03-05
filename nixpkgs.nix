@@ -91,7 +91,21 @@ in {
             };
           };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
-          opencode-dev-pkgs = inputs.opencode.packages.${system};
+          opencode-dev-pkgs =
+            inputs.opencode.packages.${system}
+            // {
+              opencode = (inputs.opencode.packages.${system}.opencode.override
+                {
+                  bun = master.bun;
+                }).overrideAttrs (oldAttrs: {
+                # 修复 .github/TEAM_MEMBERS 缺失问题
+                postPatch = ''
+                  ${oldAttrs.postPatch or ""}
+                  mkdir -p .github
+                  echo "# Placeholder team members file for Nix build" > .github/TEAM_MEMBERS
+                '';
+              });
+            };
           # khal = stable.khal;
           # python3Packages = prev.python3Packages.override {
           #   overrides = pySelf: pySuper: {

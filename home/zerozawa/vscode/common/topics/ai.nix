@@ -1,10 +1,15 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   extensions = with pkgs; ((with vscode-selected-extensionsCompatible.vscode-marketplace; [
       (github.copilot.overrideAttrs (old: {
         buildInputs = (old.buildInputs or []) ++ [libcxx];
         nativeBuildInputs = (old.nativeBuildInputs or []) ++ [autoPatchelfHook];
       }))
       sst-dev.opencode-v2
+      formulahendry.acp-client
     ])
     ++ (vscode-selected-extensionsCompatible.forVscode [
       "github.copilot-chat"
@@ -49,6 +54,22 @@
     "github.copilot.chat.scopeSelection" = true;
     "github.copilot.chat.generateTests.codeLens" = true;
     "accessibility.voice.speechLanguage" = "zh-CN";
+    "acp.agents" = {
+      "GitHub Copilot" = {
+        "command" = lib.getExe pkgs.github-copilot-cli;
+        "args" = [
+          "--acp"
+        ];
+        "env" = {};
+      };
+      "OpenCode" = {
+        "command" = lib.getExe pkgs.opencode-dev-pkgs.opencode;
+        "args" = [
+          "acp"
+        ];
+        "env" = {};
+      };
+    };
   };
   keybindings = [
     {
