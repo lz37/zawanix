@@ -85,8 +85,8 @@ in {
     };
   in {
     "mpv/scripts".source = "${mpv-scripts}/share/mpv/scripts";
-    "mpv/fonts".source = "${mpv-scripts}/share/fonts";
-    "jellyfin-mpv-shim/fonts".source = "${mpv-scripts}/share/fonts";
+    "mpv/fonts".source = "${mpv-scripts}/share/fonts/truetype";
+    "jellyfin-mpv-shim/fonts".source = "${mpv-scripts}/share/fonts/truetype";
     "jellyfin-mpv-shim/scripts".source = "${mpv-scripts}/share/mpv/scripts";
     "jellyfin-mpv-shim/mpv.conf".text = ''
       ${lib.optionalString (mpv-common.defaultProfiles != []) (renderDefaultProfiles mpv-common.defaultProfiles)}
