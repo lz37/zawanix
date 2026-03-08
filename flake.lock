@@ -2076,11 +2076,11 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1772263544,
-        "narHash": "sha256-To6NatgI/u8SpLQenexC8cGra0g/azK8EI+344bzHb0=",
+        "lastModified": 1772977435,
+        "narHash": "sha256-Qtv1yag6S/UamIFmKKthUjgYRXiWQgwgYVxDnD1E0jU=",
         "ref": "main",
-        "rev": "f2c9b075e0b204c0511afb3b79d61249371669c4",
-        "revCount": 24,
+        "rev": "ba31182ef4a8eaba475c59870e6ef1e1644e76e8",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@github.com/lz37/zawanix-private"
       },
