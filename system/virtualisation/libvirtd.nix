@@ -20,19 +20,18 @@
           enable = true;
           package = swtpm;
         };
-        verbatimConfig = ''
-          cgroup_device_acl = [
-            "/dev/null", "/dev/full", "/dev/zero",
-            "/dev/random", "/dev/urandom",
-            "/dev/ptmx", "/dev/kvm", "/dev/dri/renderD128"
-          ${
-            if isNvidiaGPU
-            then '', "/dev/nvidiactl", "/dev/nvidia0", "/dev/nvidia-modeset"''
-            else ""
-          }
-          ]
-          seccomp_sandbox = 0
-        '';
+        verbatimConfig =
+          if isNvidiaGPU
+          then ''
+            cgroup_device_acl = [
+              "/dev/null", "/dev/full", "/dev/zero",
+              "/dev/random", "/dev/urandom",
+              "/dev/ptmx", "/dev/kvm",
+              "/dev/nvidiactl", "/dev/nvidia0", "/dev/nvidia-modeset", "/dev/dri/renderD128"
+            ]
+            seccomp_sandbox = 0
+          ''
+          else "";
       };
     };
     spiceUSBRedirection.enable = true;

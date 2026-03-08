@@ -46,7 +46,7 @@
       enable = true;
     };
     settings = {
-      # source = ["${config.xdg.configHome}/hypr/hyprland/*.conf"]; # dms generated files
+      source = ["${config.xdg.configHome}/hypr/dms/*.conf"]; # dms generated files
       xwayland = {
         # force_zero_scaling = true;
         create_abstract_socket = true;
