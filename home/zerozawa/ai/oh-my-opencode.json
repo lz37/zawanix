@@ -42,8 +42,7 @@
       "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "prometheus": {
-      "model": "github-copilot/claude-sonnet-4.6",
-      "variant": "thinking"
+      "model": "kimi-for-coding/k2p5"
     },
     "metis": {
       "model": "github-copilot/gemini-3.1-pro-preview"

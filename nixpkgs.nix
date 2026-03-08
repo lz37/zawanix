@@ -92,39 +92,7 @@ in {
           };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
           zed-git = inputs.zed.packages.${system}.default;
-          opencode-dev-pkgs =
-            inputs.opencode.packages.${system}
-            // {
-              opencode = (inputs.opencode.packages.${system}.opencode.override
-                {
-                  bun = master.bun;
-                }).overrideAttrs (oldAttrs: {
-                # 修复 .github/TEAM_MEMBERS 缺失问题
-                postPatch = ''
-                  ${oldAttrs.postPatch or ""}
-                  mkdir -p .github
-                  echo "# Placeholder team members file for Nix build" > .github/TEAM_MEMBERS
-                '';
-              });
-            };
-          # khal = stable.khal;
-          # python3Packages = prev.python3Packages.override {
-          #   overrides = pySelf: pySuper: {
-          #     picosvg = pySuper.picosvg.overridePythonAttrs (old: {
-          #       patches =
-          #         (old.patches or [])
-          #         ++ [
-          #           (prev.fetchpatch {
-          #             url = "https://github.com/googlefonts/picosvg/commit/885ee64b75f526e938eb76e09fab7d93e946a355.patch";
-          #             hash = "sha256-fR3FfnEPHwSO1rMtmQEr1pyvByTx8T53FxSpuAKWIjw=";
-          #           })
-          #         ];
-          #       # disabledTests = (old.disabledTests or []) ++ [
-          #       #   "test_topicosvg"
-          #       # ];
-          #     });
-          #   };
-          # };
+          opencode-dev-pkgs = inputs.opencode.packages.${system};
         }
       )
     ];

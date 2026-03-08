@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   wayland.windowManager.hyprland = {
     plugins = with pkgs.unstable-hyprland.plugins; [
-      hypr-dynamic-cursors
+      # hypr-dynamic-cursors
       split-monitor-workspaces
-      xtra-dispatchers
+      # xtra-dispatchers
       hyprfocus
     ];
     settings = {

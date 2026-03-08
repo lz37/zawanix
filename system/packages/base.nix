@@ -51,5 +51,6 @@
     opencc
     android-tools
     libva-utils
+    unstable-hyprland.pkgs.mesa-demos
   ];
 }
