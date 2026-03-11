@@ -26,7 +26,7 @@
       "model": "kimi-for-coding/k2p5"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.2-codex",
+      "model": "github-copilot/gpt-5.3-codex",
       "variant": "xhigh"
     },
     "oracle": {
@@ -63,8 +63,8 @@
       "variant": "thinking"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.2-codex",
-      "variant": "xhigh"
+      "model": "github-copilot/gpt-5.3-codex",
+      "variant": "high"
     },
     "artistry": {
       "model": "github-copilot/gemini-3.1-pro-preview",
@@ -77,7 +77,7 @@
       "model": "kimi-for-coding/k2p5"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "github-copilot/gpt-5.3-codex"
     },
     "writing": {
       "model": "kimi-for-coding/k2p5"
