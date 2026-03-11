@@ -63,7 +63,7 @@
         "env" = {};
       };
       "OpenCode" = {
-        "command" = lib.getExe pkgs.opencode-dev-pkgs.opencode;
+        "command" = lib.getExe pkgs.master.opencode;
         "args" = [
           "acp"
         ];

@@ -4,9 +4,7 @@
     "oh-my-opencode",
     "@simonwjackson/opencode-direnv",
     "opencode-wakatime",
-    "opencode-agent-memory",
-    "opencode-mem",
     "opencode-pty"
   ],
-  "autoupdate": false
+  "autoupdate": "notify"
 }

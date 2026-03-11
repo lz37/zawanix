@@ -14,6 +14,7 @@
       zstyle ':omz:plugins:eza' 'hyperlink' yes
       fortune hitokoto
       eval "$(dms completion zsh)"
+      eval "$(opencode completion)"
     '';
   };
 }

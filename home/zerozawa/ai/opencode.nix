@@ -1,58 +1,22 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }:
-with pkgs.opencode-dev-pkgs; let
-  # 读取 sequential thinking prompt
-  sequentialPrompt = builtins.readFile ./prompts/sequential-thinking-enable.md;
-
-  # 读取原始 oh-my-opencode.json (移除 schema)
-  ohMyOrig = lib.removeAttrs (lib.importJSON ./oh-my-opencode.json) ["$schema"];
-
-  # 为指定 agents 添加 prompt_append
-  agentsWithPrompt = lib.recursiveUpdate ohMyOrig.agents {
-    sisyphus.prompt_append = sequentialPrompt;
-    # hephaestus.prompt_append = sequentialPrompt;
-    # oracle.prompt_append = sequentialPrompt;
-    prometheus.prompt_append = sequentialPrompt;
-    metis.prompt_append = sequentialPrompt;
-    # momus.prompt_append = sequentialPrompt;
-    atlas.prompt_append = sequentialPrompt;
-  };
-
-  # 为指定 categories 添加 prompt_append
-  categoriesWithPrompt = lib.recursiveUpdate ohMyOrig.categories {
-    # ultrabrain.prompt_append = sequentialPrompt;
-    # deep.prompt_append = sequentialPrompt;
-    artistry.prompt_append = sequentialPrompt;
-    unspecified-high.prompt_append = sequentialPrompt;
-  };
-
-  # 重建完整配置
-  ohMyModified =
-    ohMyOrig
-    // {
-      agents = agentsWithPrompt;
-      categories = categoriesWithPrompt;
-    };
-in {
+with pkgs.master; {
   programs.opencode = {
     enable = true;
     enableMcpIntegration = true;
     package = opencode;
-    settings = lib.recursiveUpdate (lib.removeAttrs (lib.importJSON ./opencode.json) ["$schema"]) {
-      provider."bailian-coding-plan".options.apiKey = config.zerozawa.bailian-coding-plan.apiKey;
-    };
+    settings = lib.removeAttrs (lib.importJSON ./opencode.json) ["$schema"];
   };
 
   # 生成最终的 oh-my-opencode.json (带 prompt_append)
   xdg.configFile = {
-    "opencode/oh-my-opencode.json".text = builtins.toJSON ohMyModified;
+    "opencode/oh-my-opencode.json".source = ./oh-my-opencode.json;
   };
 
   home.packages = [
-    # desktop
+    opencode-desktop
   ];
 }

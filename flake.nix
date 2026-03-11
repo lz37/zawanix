@@ -96,10 +96,6 @@
       url = "github:daxisunder/hyprfocus";
       inputs.hyprland.follows = "hyprland";
     };
-    opencode = {
-      url = "github:anomalyco/opencode/dev";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     zed = {
       url = "github:zed-industries/zed/main";
       inputs = {
