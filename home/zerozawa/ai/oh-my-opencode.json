@@ -18,6 +18,9 @@
   "start_work": {
     "auto_commit": true
   },
+  "background_task": {
+    "staleTimeoutMs": 1800000
+  },
   "agents": {
     "sisyphus": {
       "prompt_append": "不要自己修改文件，你已经被封锁了大部分修改文件的能力，需要修改请找`subagents`或者`下达相关任务`",
