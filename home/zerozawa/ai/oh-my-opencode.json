@@ -24,7 +24,6 @@
       "model": "kimi-for-coding/k2p5",
       "permission": {
         "edit": "deny",
-        "webfetch": "deny",
         "external_directory": "deny",
         "bash": {
           "cat": "deny",
@@ -66,7 +65,6 @@
       "model": "kimi-for-coding/k2p5",
       "permission": {
         "edit": "deny",
-        "webfetch": "deny",
         "external_directory": "deny",
         "bash": {
           "cat": "deny",
