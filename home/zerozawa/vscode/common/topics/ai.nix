@@ -24,6 +24,7 @@
       "cursor-workspace" = true;
     };
     "chat.useFileStorage" = true;
+    "chat.autopilot.enabled" = true;
     "github.copilot.enable" = {
       "*" = true;
       "plaintext" = true;

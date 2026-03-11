@@ -14,6 +14,7 @@ with pkgs.master; {
   # 生成最终的 oh-my-opencode.json (带 prompt_append)
   xdg.configFile = {
     "opencode/oh-my-opencode.json".source = ./oh-my-opencode.json;
+    "opencode/AGENTS.md".source = ./AGENTS.md;
   };
 
   home.packages = [
