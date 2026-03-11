@@ -20,7 +20,17 @@
   },
   "agents": {
     "sisyphus": {
-      "model": "kimi-for-coding/k2p5"
+      "prompt_append": "不要自己修改文件，你已经被封锁了大部分修改文件的能力，需要修改请找`subagents`或者`下达相关任务`",
+      "model": "kimi-for-coding/k2p5",
+      "permission": {
+        "edit": "deny",
+        "webfetch": "deny",
+        "external_directory": "deny",
+        "bash": {
+          "cat": "deny",
+          "sed": "deny"
+        }
+      }
     },
     "sisyphus-junior": {
       "model": "kimi-for-coding/k2p5"
@@ -33,26 +43,36 @@
       "model": "github-copilot/gpt-5.4"
     },
     "librarian": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gemini-3-flash-preview"
     },
     "explore": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/grok-code-fast-1"
     },
     "multimodal-looker": {
       "model": "kimi-for-coding/k2p5"
     },
     "prometheus": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.6",
-      "variant": "thinking"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4"
     },
     "atlas": {
-      "model": "kimi-for-coding/k2p5"
+      "prompt_append": "不要自己修改文件，你已经被封锁了大部分修改文件的能力，需要修改请找`subagents`或者`下达相关任务`",
+      "model": "kimi-for-coding/k2p5",
+      "permission": {
+        "edit": "deny",
+        "webfetch": "deny",
+        "external_directory": "deny",
+        "bash": {
+          "cat": "deny",
+          "sed": "deny"
+        }
+      }
     }
   },
   "categories": {
@@ -75,14 +95,13 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-low": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "unspecified-high": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "github-copilot/claude-opus-4.6"
     },
     "writing": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gemini-3-flash-preview"
     }
   }
 }
