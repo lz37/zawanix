@@ -4,7 +4,9 @@
     "oh-my-opencode",
     "@simonwjackson/opencode-direnv",
     "opencode-wakatime",
-    "opencode-pty"
+    "opencode-pty",
+    "cc-safety-net",
+    "@tarquinen/opencode-smart-title"
   ],
   "autoupdate": "notify"
 }

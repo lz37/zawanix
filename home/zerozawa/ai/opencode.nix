@@ -15,6 +15,7 @@ with pkgs.master; {
   xdg.configFile = {
     "opencode/oh-my-opencode.json".source = ./oh-my-opencode.json;
     "opencode/AGENTS.md".source = ./AGENTS.md;
+    "opencode/smart-title.jsonc".source = ./smart-title.jsonc;
   };
 
   home.packages = [

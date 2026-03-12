@@ -23,16 +23,7 @@
   },
   "agents": {
     "sisyphus": {
-      "prompt_append": "不要自己修改文件，你已经被封锁了大部分修改文件的能力，需要修改请找`subagents`或者`下达相关任务`",
-      "model": "kimi-for-coding/k2p5",
-      "permission": {
-        "edit": "deny",
-        "external_directory": "deny",
-        "bash": {
-          "cat": "deny",
-          "sed": "deny"
-        }
-      }
+      "model": "kimi-for-coding/k2p5"
     },
     "sisyphus-junior": {
       "model": "kimi-for-coding/k2p5"
@@ -45,10 +36,10 @@
       "model": "github-copilot/gpt-5.4"
     },
     "librarian": {
-      "model": "github-copilot/gemini-3-flash-preview"
+      "model": "kimi-for-coding/k2p5"
     },
     "explore": {
-      "model": "github-copilot/grok-code-fast-1"
+      "model": "kimi-for-coding/k2p5"
     },
     "multimodal-looker": {
       "model": "kimi-for-coding/k2p5"
@@ -64,16 +55,7 @@
       "model": "github-copilot/gpt-5.4"
     },
     "atlas": {
-      "prompt_append": "不要自己修改文件，你已经被封锁了大部分修改文件的能力，需要修改请找`subagents`或者`下达相关任务`",
-      "model": "kimi-for-coding/k2p5",
-      "permission": {
-        "edit": "deny",
-        "external_directory": "deny",
-        "bash": {
-          "cat": "deny",
-          "sed": "deny"
-        }
-      }
+      "model": "kimi-for-coding/k2p5"
     }
   },
   "categories": {
@@ -96,10 +78,10 @@
       "model": "github-copilot/claude-haiku-4.5"
     },
     "unspecified-low": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "kimi-for-coding/k2p5"
     },
     "unspecified-high": {
-      "model": "github-copilot/claude-opus-4.6"
+      "model": "github-copilot/gpt-5.4"
     },
     "writing": {
       "model": "github-copilot/gemini-3-flash-preview"
