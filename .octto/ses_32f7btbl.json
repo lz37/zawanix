@@ -1,0 +1,516 @@
+{
+  "session_id": "ses_32f7btbl",
+  "browser_session_id": "ses_1dsjhza7",
+  "request": "Design a set of English main-agent and subagent markdown files under /etc/nixos/home/zerozawa/ai/agents for OpenCode. The agents must integrate tightly with agentsys workflows and be inspired by micode + oh-my-opencode plus useful extra ideas, without blindly copying them. The system should support multiple main agents with clear division of labor, allow cooperation on small tasks, and include extra subagents such as researcher if useful. Use OpenCode official frontmatter structure. The brainstorming must determine: 1) the ideal top-level agent split, 2) which responsibilities belong in main agents vs subagents, 3) how to integrate with agentsys commands/workflows without conflicts, 4) what memory/instruction layering should exist, 5) what prompt style and guardrails should be used, 6) what file/folder structure should be created under /etc/nixos/home/zerozawa/ai/agents, 7) which reference ecosystems/prompts should be inspected later (~/.config/opencode/agents, micode, oh-my-opencode).",
+  "created_at": 1773761451402,
+  "updated_at": 1773761962699,
+  "branches": {
+    "agent_topology": {
+      "id": "agent_topology",
+      "scope": "Top-level agent split and division of labor between main agents and subagents",
+      "status": "exploring",
+      "questions": [
+        {
+          "id": "q_o12wlwl6",
+          "type": "show_options",
+          "text": "What should the top-level agent topology look like?",
+          "config": {
+            "question": "What should the top-level agent topology look like?",
+            "context": "This determines how many main agents exist and how work is divided. Subagents handle narrow tasks; main agents own workflows end-to-end.",
+            "allowFeedback": true,
+            "options": [
+              {
+                "id": "single_main",
+                "label": "Single Orchestrator + Specialists",
+                "description": "One main CLAUDE.md-style orchestrator that delegates to subagents (coder, researcher, reviewer, devops, writer).",
+                "pros": [
+                  "Simple mental model",
+                  "Clear single entry point",
+                  "Easy to extend with new subagents"
+                ],
+                "cons": [
+                  "Orchestrator becomes a bottleneck",
+                  "Less parallelism for complex tasks"
+                ]
+              },
+              {
+                "id": "dual_main",
+                "label": "Two Main Agents: Engineer + Analyst",
+                "description": "Engineer owns code/build/deploy workflows; Analyst owns research/docs/planning. Both share a pool of subagents.",
+                "pros": [
+                  "Clear domain separation",
+                  "Both can run in parallel",
+                  "Mirrors real team structure"
+                ],
+                "cons": [
+                  "Ambiguity on boundary tasks (e.g., debug+research)"
+                ]
+              },
+              {
+                "id": "triple_main",
+                "label": "Three Main Agents: Dev + Ops + Intel",
+                "description": "Dev (code, test, review), Ops (NixOS, infra, deploy), Intel (research, planning, docs). Subagents are shared.",
+                "pros": [
+                  "Fine-grained ownership",
+                  "Ops is a first-class citizen for NixOS workflows",
+                  "Intel handles long-horizon planning"
+                ],
+                "cons": [
+                  "More files to maintain",
+                  "Coordination overhead for multi-domain tasks"
+                ]
+              },
+              {
+                "id": "role_based",
+                "label": "Role-Based: by Workflow Phase",
+                "description": "Agents defined by phase: Planner (intake+decompose), Builder (code+test), Reviewer (audit+perf), Deployer (nixos+ci).",
+                "pros": [
+                  "Maps naturally to PR/release lifecycle",
+                  "Easy to invoke per phase"
+                ],
+                "cons": [
+                  "Roles overlap heavily in practice",
+                  "Harder to map to opencode's agent model"
+                ]
+              }
+            ],
+            "recommended": "dual_main"
+          },
+          "answer": {
+            "selected": "single_main",
+            "feedback": "能用中文问问题吗，最后文档输出用英文就可以了"
+          },
+          "answeredAt": 1773761650292
+        },
+        {
+          "id": "q_l447zdya",
+          "type": "pick_many",
+          "text": "这个单一的 main agent 应该覆盖哪些核心职责领域？（选择所有适用的）",
+          "config": {
+            "question": "这个单一的 main agent 应该覆盖哪些核心职责领域？（选择所有适用的）",
+            "context": "[Top-level agent split and division of labor between main agents and subagents] 既然选择了 single_main 拓扑结构，需要确定这个主代理的核心责任范围，以便后续合理拆分子代理。",
+            "options": [
+              {
+                "id": "code_impl",
+                "label": "代码实现与重构",
+                "description": "编写、修改、优化代码"
+              },
+              {
+                "id": "code_review",
+                "label": "代码审查与质量把控",
+                "description": "审查代码质量、安全性、性能"
+              },
+              {
+                "id": "architecture",
+                "label": "架构设计与规划",
+                "description": "系统架构、模块划分、技术选型"
+              },
+              {
+                "id": "debugging",
+                "label": "调试与故障排查",
+                "description": "诊断问题、根因分析、修复方案"
+              },
+              {
+                "id": "testing",
+                "label": "测试与验证",
+                "description": "编写测试、运行验证、确保质量"
+              },
+              {
+                "id": "documentation",
+                "label": "文档与知识管理",
+                "description": "维护文档、更新注释、知识沉淀"
+              },
+              {
+                "id": "devops",
+                "label": "DevOps 与部署",
+                "description": "CI/CD、部署、基础设施"
+              }
+            ],
+            "recommended": [
+              "code_impl",
+              "debugging",
+              "testing"
+            ]
+          }
+        }
+      ],
+      "finding": null
+    },
+    "responsibilities_split": {
+      "id": "responsibilities_split",
+      "scope": "Which responsibilities belong in main agents vs subagents, and which subagents to create",
+      "status": "exploring",
+      "questions": [
+        {
+          "id": "q_28u93hs1",
+          "type": "pick_many",
+          "text": "Which subagents should exist as dedicated markdown files?",
+          "config": {
+            "question": "Which subagents should exist as dedicated markdown files?",
+            "context": "Main agents own end-to-end workflows and call subagents for narrow tasks. Select all subagents that deserve their own agent file with specialized prompts and tool restrictions.",
+            "recommended": [
+              "coder",
+              "researcher",
+              "reviewer",
+              "nixos_ops",
+              "writer"
+            ],
+            "options": [
+              {
+                "id": "coder",
+                "label": "coder",
+                "description": "Focused code generation, refactoring, and test writing with strict tool limits"
+              },
+              {
+                "id": "researcher",
+                "label": "researcher",
+                "description": "Web search, docs retrieval, exa/context7 queries, summarization — no file writes"
+              },
+              {
+                "id": "reviewer",
+                "label": "reviewer",
+                "description": "Code review, security audit, perf analysis — read-only tools + GitHub review APIs"
+              },
+              {
+                "id": "nixos_ops",
+                "label": "nixos-ops",
+                "description": "NixOS config, flakes, home-manager, rebuild/switch commands"
+              },
+              {
+                "id": "writer",
+                "label": "writer",
+                "description": "Docs, changelogs, README, CLAUDE.md updates — markdown-focused"
+              },
+              {
+                "id": "debugger",
+                "label": "debugger",
+                "description": "Root cause analysis, log inspection, sequential thinking chains"
+              },
+              {
+                "id": "git_agent",
+                "label": "git-agent",
+                "description": "Commit, branch, PR lifecycle — git + gh tools only"
+              },
+              {
+                "id": "tester",
+                "label": "tester",
+                "description": "Test generation, coverage, CI integration"
+              },
+              {
+                "id": "planner",
+                "label": "planner",
+                "description": "Task decomposition, issue triage, roadmap — brainstorm + sequential thinking"
+              },
+              {
+                "id": "security",
+                "label": "security",
+                "description": "Secrets scanning, CVE research, dependency audit"
+              },
+              {
+                "id": "perf",
+                "label": "perf",
+                "description": "Profiling, benchmarks, flame graph interpretation"
+              }
+            ],
+            "min": 3,
+            "max": 9
+          },
+          "answer": {
+            "selected": [
+              "coder",
+              "researcher",
+              "reviewer",
+              "writer",
+              "debugger",
+              "git_agent",
+              "tester",
+              "planner",
+              "security",
+              "perf"
+            ]
+          },
+          "answeredAt": 1773761736553
+        },
+        {
+          "id": "q_vu15b6ew",
+          "type": "pick_many",
+          "text": "哪些职责应该保留在 main agent 中，而不是委托给 subagent？（选择 main agent 直接处理的核心职责）",
+          "config": {
+            "question": "哪些职责应该保留在 main agent 中，而不是委托给 subagent？（选择 main agent 直接处理的核心职责）",
+            "options": [
+              {
+                "id": "orchestration",
+                "label": "任务编排与分发 (Task Orchestration)",
+                "description": "决定调用哪个 subagent，管理任务流程"
+              },
+              {
+                "id": "context_management",
+                "label": "上下文管理 (Context Management)",
+                "description": "维护跨 subagent 的共享状态和历史"
+              },
+              {
+                "id": "final_synthesis",
+                "label": "最终合成与输出 (Final Synthesis)",
+                "description": "整合各 subagent 结果，生成最终回复"
+              },
+              {
+                "id": "user_interaction",
+                "label": "用户交互主控 (User Interaction)",
+                "description": "直接处理用户输入，理解意图"
+              },
+              {
+                "id": "quality_gates",
+                "label": "质量把控 (Quality Gates)",
+                "description": "最终审核所有输出质量"
+              },
+              {
+                "id": "error_recovery",
+                "label": "错误恢复与重试 (Error Recovery)",
+                "description": "处理 subagent 失败后的恢复策略"
+              }
+            ],
+            "recommended": [
+              "orchestration",
+              "context_management",
+              "final_synthesis",
+              "user_interaction"
+            ],
+            "min": 2,
+            "max": 6,
+            "context": "[Which responsibilities belong in main agents vs subagents, and which subagents to create] 确定 main agent 的核心职责范围，其余任务将委托给专门的 subagents"
+          }
+        }
+      ],
+      "finding": null
+    },
+    "agentsys_integration": {
+      "id": "agentsys_integration",
+      "scope": "How agents integrate with agentsys commands and workflows without conflicts",
+      "status": "exploring",
+      "questions": [
+        {
+          "id": "q_3ic8c7z8",
+          "type": "pick_many",
+          "text": "Which agentsys integration patterns should the agents support?",
+          "config": {
+            "question": "Which agentsys integration patterns should the agents support?",
+            "context": "agentsys provides commands like /enhance, /release, /discover-tasks, /validate, etc. Agents need to be aware of these workflows and avoid overriding skill behavior.",
+            "recommended": [
+              "skill_passthrough",
+              "workflow_hooks",
+              "memory_layering"
+            ],
+            "options": [
+              {
+                "id": "skill_passthrough",
+                "label": "Skill passthrough awareness",
+                "description": "Agents explicitly defer to skill-loaded instructions when a skill is active (no re-explanation of workflow)"
+              },
+              {
+                "id": "workflow_hooks",
+                "label": "Workflow hook references",
+                "description": "Main agent prompts reference agentsys hook events (pre-commit, post-push) and don't duplicate hook logic"
+              },
+              {
+                "id": "memory_layering",
+                "label": "Memory layering protocol",
+                "description": "Agents define which memory tier they write to: CLAUDE.md (project), AGENTS.md (global), or task-local notes"
+              },
+              {
+                "id": "command_registry",
+                "label": "Command registry awareness",
+                "description": "Agents list known /commands they should NOT intercept (let skill tool handle them)"
+              },
+              {
+                "id": "subagent_invocation",
+                "label": "Explicit subagent invocation syntax",
+                "description": "Main agents use consistent @subagent-name delegation syntax in their prompts"
+              },
+              {
+                "id": "conflict_guards",
+                "label": "Conflict guard rules",
+                "description": "Each agent has a 'DO NOT' block listing skills/hooks they must not override or duplicate"
+              },
+              {
+                "id": "context_handoff",
+                "label": "Context handoff format",
+                "description": "Standardized context block passed between main agent and subagent (task, constraints, output format)"
+              }
+            ],
+            "min": 2,
+            "max": 6
+          },
+          "answer": {
+            "selected": [
+              "subagent_invocation",
+              "context_handoff"
+            ]
+          },
+          "answeredAt": 1773761834331
+        },
+        {
+          "id": "q_wqjfj3nw",
+          "type": "pick_many",
+          "text": "为了避免与 agentsys 命令冲突，哪些特定的 agentsys 工作流模式应该被显式处理？",
+          "config": {
+            "question": "为了避免与 agentsys 命令冲突，哪些特定的 agentsys 工作流模式应该被显式处理？",
+            "options": [
+              {
+                "id": "slash_commands",
+                "label": "/slash 命令路由（如 /plan, /implement, /review）",
+                "description": "Main agent 识别并路由到相应 subagent"
+              },
+              {
+                "id": "next_task",
+                "label": "/next-task 工作流集成",
+                "description": "与任务发现和执行工作流配合"
+              },
+              {
+                "id": "debate",
+                "label": "/debate 多代理辩论模式",
+                "description": "支持辩论工作流中的角色分配"
+              },
+              {
+                "id": "consult",
+                "label": "/consult 跨工具咨询",
+                "description": "处理咨询请求并协调响应"
+              },
+              {
+                "id": "memory_sync",
+                "label": "Memory 同步模式",
+                "description": "确保 agentsys 记忆系统与代理状态同步"
+              },
+              {
+                "id": "none_override",
+                "label": "不覆盖 agentsys 原生行为",
+                "description": "代理只增强而非替换 agentsys 功能"
+              }
+            ],
+            "recommended": [
+              "slash_commands",
+              "none_override"
+            ],
+            "context": "[How agents integrate with agentsys commands and workflows without conflicts]"
+          }
+        }
+      ],
+      "finding": null
+    },
+    "structure_and_style": {
+      "id": "structure_and_style",
+      "scope": "File/folder structure under agents/ and prompt style + guardrails for all agents",
+      "status": "exploring",
+      "questions": [
+        {
+          "id": "q_1n7x79dm",
+          "type": "show_options",
+          "text": "What file/folder structure and prompt style should the agent system use?",
+          "config": {
+            "question": "What file/folder structure and prompt style should the agent system use?",
+            "context": "OpenCode agents use YAML frontmatter (model, tools, description) + markdown body. Structure and style affect discoverability, maintenance, and how well agents compose.",
+            "allowFeedback": true,
+            "options": [
+              {
+                "id": "flat_prefixed",
+                "label": "Flat folder with name prefixes",
+                "description": "All files in agents/. Main agents: main-*.md, subagents: sub-*.md. E.g. main-engineer.md, sub-researcher.md.",
+                "pros": [
+                  "Simple ls/glob",
+                  "No nesting confusion",
+                  "Easy to add files"
+                ],
+                "cons": [
+                  "Gets crowded with 10+ agents",
+                  "No visual grouping"
+                ]
+              },
+              {
+                "id": "two_tier_dirs",
+                "label": "Two-tier directories: main/ and sub/",
+                "description": "agents/main/ for orchestrators, agents/sub/ for specialists. Shared prompts in agents/shared/.",
+                "pros": [
+                  "Clear separation",
+                  "Shared prompts reusable",
+                  "Scales well"
+                ],
+                "cons": [
+                  "Extra nesting",
+                  "OpenCode path references get longer"
+                ]
+              },
+              {
+                "id": "domain_dirs",
+                "label": "Domain-based directories",
+                "description": "agents/dev/, agents/ops/, agents/intel/. Each dir has one main + its subagents.",
+                "pros": [
+                  "Collocates related agents",
+                  "Domain ownership is obvious",
+                  "Easy to onboard new domains"
+                ],
+                "cons": [
+                  "Cross-domain subagents (researcher) need symlinking or duplication"
+                ]
+              },
+              {
+                "id": "flat_all",
+                "label": "Fully flat — all agents at agents/ root",
+                "description": "All .md files at root. Rely on naming convention and YAML description for organization.",
+                "pros": [
+                  "Simplest possible",
+                  "Works out of box with OpenCode agent discovery"
+                ],
+                "cons": [
+                  "Hard to maintain at scale",
+                  "No visual hierarchy"
+                ]
+              }
+            ],
+            "recommended": "two_tier_dirs"
+          },
+          "answer": {
+            "selected": "domain_dirs",
+            "feedback": "基于domain，但是连接符不要\"/\" 而是用 \"-\"，然后扁平化"
+          },
+          "answeredAt": 1773761952829
+        },
+        {
+          "id": "q_2lvftxo4",
+          "type": "pick_many",
+          "text": "prompt 风格和防护措施应该是什么样的？",
+          "config": {
+            "question": "prompt 风格和防护措施应该是什么样的？",
+            "options": [
+              {
+                "id": "formal",
+                "label": "正式风格：结构化、明确的指令、关键词优先"
+              },
+              {
+                "id": "conversational",
+                "label": "对话风格：自然语言、上下文丰富、解释性"
+              },
+              {
+                "id": "minimal",
+                "label": "极简风格：简短指令、依赖前置上下文、快速执行"
+              },
+              {
+                "id": "structured",
+                "label": "结构化 YAML/JSON：用元数据块定义输入输出"
+              }
+            ],
+            "recommended": [
+              "formal"
+            ],
+            "context": "[File/folder structure under agents/ and prompt style + guardrails for all agents] 选择一种主要的 prompt 写作风格。这将决定所有 agent 文件的语气和结构。"
+          }
+        }
+      ],
+      "finding": null
+    }
+  },
+  "branch_order": [
+    "agent_topology",
+    "responsibilities_split",
+    "agentsys_integration",
+    "structure_and_style"
+  ]
+}
