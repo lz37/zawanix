@@ -1,5 +1,37 @@
 {
   "nodes": {
+    "ai-agent-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773842768,
+        "narHash": "sha256-5jpCX20SvhOcXNMb42EquGjql2chO0cVDYZ+Dn5AY2c=",
+        "owner": "MoizIbnYousaf",
+        "repo": "Ai-Agent-Skills",
+        "rev": "8799dc1253217ba1cb7094b50c61fca7f45d19cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MoizIbnYousaf",
+        "repo": "Ai-Agent-Skills",
+        "type": "github"
+      }
+    },
+    "anthropics-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772827583,
+        "narHash": "sha256-GzNpraXV85qUwyGs5XDe0zHYr2AazqFppWtH9JvO3QE=",
+        "owner": "anthropics",
+        "repo": "skills",
+        "rev": "b0cbd3df1533b396d281a6886d5132f623393a9c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anthropics",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
     "aquamarine": {
       "inputs": {
         "hyprutils": [
@@ -30,6 +62,38 @@
       "original": {
         "owner": "hyprwm",
         "repo": "aquamarine",
+        "type": "github"
+      }
+    },
+    "ast-grep-skill": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1769044697,
+        "narHash": "sha256-LgGFtPieyKtoru22AhHW8hvkJ8kCHO2Cr8rBOWGuxvY=",
+        "owner": "ast-grep",
+        "repo": "agent-skill",
+        "rev": "577f4d4507678f2c8cee150fae25e6ce309f70b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ast-grep",
+        "repo": "agent-skill",
+        "type": "github"
+      }
+    },
+    "awesome-copilot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773793663,
+        "narHash": "sha256-eSVN3wUDA83/EG6Xop+L2ledbY263A9c4kIINjuG+zQ=",
+        "owner": "github",
+        "repo": "awesome-copilot",
+        "rev": "ccabb6656226a6eea4509cfd0946f10b14a37bac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "github",
+        "repo": "awesome-copilot",
         "type": "github"
       }
     },
@@ -1493,6 +1557,38 @@
         "type": "github"
       }
     },
+    "openai-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773803235,
+        "narHash": "sha256-UVjlLZfWNlMxqCBQa1lMwd9zBgS0TaoNqQYfH+abCeM=",
+        "owner": "openai",
+        "repo": "skills",
+        "rev": "dc48aff8208131776c9937326002bd60cf572ab6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openai",
+        "repo": "skills",
+        "type": "github"
+      }
+    },
+    "opencode-worktree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773732363,
+        "narHash": "sha256-JL1DNHOsRhtb/Q6bTTGJ1CKCqOqxn50ZV+6lywsy7ec=",
+        "owner": "kdcokenny",
+        "repo": "opencode-worktree",
+        "rev": "0b8c4f101581b9c21549e4925a51c305f5a992bd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kdcokenny",
+        "repo": "opencode-worktree",
+        "type": "github"
+      }
+    },
     "optnix": {
       "inputs": {
         "flake-compat": [
@@ -1608,6 +1704,10 @@
     },
     "root": {
       "inputs": {
+        "ai-agent-skills": "ai-agent-skills",
+        "anthropics-skills": "anthropics-skills",
+        "ast-grep-skill": "ast-grep-skill",
+        "awesome-copilot": "awesome-copilot",
         "dankMaterialShell": "dankMaterialShell",
         "dms-plugin-registry": "dms-plugin-registry",
         "flake-parts": "flake-parts",
@@ -1633,6 +1733,8 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-teleport": "nixpkgs-teleport",
         "nur": "nur",
+        "openai-skills": "openai-skills",
+        "opencode-worktree": "opencode-worktree",
         "plasma-manager": "plasma-manager",
         "quickshell": "quickshell_2",
         "split-monitor-workspaces": "split-monitor-workspaces",
@@ -2037,11 +2139,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773762756,
-        "narHash": "sha256-3zngBXrTJ64YsJaT99RZEVx/btrdCJ0gCiNDIrydkAM=",
+        "lastModified": 1773856238,
+        "narHash": "sha256-DMTvSo07hamCxdvXy9SLrXTzxXSHgoyXnnW9byYnmiM=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "ac1d5570c787c2170f35bc4265bf4f24c60a6c73",
+        "rev": "eb614d77339982bcf4f45c3b21bbff3d486167b6",
         "type": "github"
       },
       "original": {

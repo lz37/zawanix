@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   services = {
     mpris-proxy.enable = true;
   };
@@ -39,7 +43,22 @@
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
-    gh.enable = true;
+    gh = {
+      gitCredentialHelper.enable = true;
+      enable = true;
+      extensions = with pkgs; [
+        gh-eco
+        gh-s
+        gh-i
+        gh-notify
+        gh-actions-cache
+        gh-markdown-preview
+        gh-do
+      ];
+    };
+    gh-dash = {
+      enable = true;
+    };
     pay-respects = {
       enable = true;
       enableZshIntegration = true;

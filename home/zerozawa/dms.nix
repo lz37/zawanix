@@ -31,7 +31,6 @@ in {
       hyprland = unstable-hyprland.packages.hyprland;
     })
     linux-wallpaperengine
-    python3
   ];
   programs.dank-material-shell = {
     enable = true;

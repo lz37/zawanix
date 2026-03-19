@@ -12,15 +12,13 @@
     "main_pane_min_width": 120,
     "agent_pane_min_width": 40
   },
-  "websearch": {
-    "provider": "exa"
-  },
   "start_work": {
     "auto_commit": true
   },
   "background_task": {
     "staleTimeoutMs": 1800000
   },
+  "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
       "model": "kimi-for-coding/k2p5"

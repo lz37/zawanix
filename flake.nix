@@ -103,6 +103,30 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    ast-grep-skill = {
+      url = "github:ast-grep/agent-skill";
+      flake = false;
+    };
+    anthropics-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
+    };
+    ai-agent-skills = {
+      url = "github:MoizIbnYousaf/Ai-Agent-Skills";
+      flake = false;
+    };
+    openai-skills = {
+      url = "github:openai/skills";
+      flake = false;
+    };
+    awesome-copilot = {
+      url = "github:github/awesome-copilot";
+      flake = false;
+    };
+    opencode-worktree = {
+      url = "github:kdcokenny/opencode-worktree";
+      flake = false;
+    };
   };
 
   outputs = inputs: let

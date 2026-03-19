@@ -4,33 +4,13 @@
   config,
   ...
 }: {
-  programs.mcp = {
-    enable = true;
-    servers = with pkgs; {
-      grep = {
-        url = "https://mcp.grep.app";
-      };
-      context7 = {
-        command = lib.getExe' pkgs.pnpm "pnpx";
-        args = ["@upstash/context7-mcp" "--api-key" config.zerozawa.context7.apiKey];
-      };
-      exa = {
-        command = lib.getExe' pkgs.pnpm "pnpx";
-        args = ["exa-mcp-server"];
-        env = {
-          EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
-        };
-      };
+  home.packages = [
+    pkgs.nur.repos.zerozawa.mcp-cli
+  ];
+  xdg.configFile."mcp/mcp_servers.json".text = lib.generators.toJSON {} (with pkgs; {
+    mcpServers = {
       nixos = {
         command = lib.getExe stable.mcp-nixos;
-      };
-      chrome-devtools = {
-        command = lib.getExe' pkgs.pnpm "pnpx";
-        args = [
-          "chrome-devtools-mcp@latest"
-          "--browser-url=http://127.0.0.1:9222"
-          "--no-usage-statistics"
-        ];
       };
       github = {
         command = lib.getExe github-mcp-server;
@@ -39,24 +19,40 @@
           GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
         };
       };
-      memory = {
+      docker = {
+        command = lib.getExe' pkgs.uv "uvx";
+        args = ["docker-mcp"];
+      };
+    };
+  });
+  programs.mcp = {
+    enable = true;
+    servers = {
+      grep-app = {
+        url = "https://mcp.grep.app";
+      };
+      context7-mcp = {
         command = lib.getExe' pkgs.pnpm "pnpx";
-        args = ["@modelcontextprotocol/server-memory"];
+        args = ["@upstash/context7-mcp" "--api-key" config.zerozawa.context7.apiKey];
+      };
+      exa-websearch = {
+        command = lib.getExe' pkgs.pnpm "pnpx";
+        args = ["exa-mcp-server"];
+        env = {
+          EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
+        };
       };
       sequential-thinking = {
         command = lib.getExe' pkgs.pnpm "pnpx";
         args = ["@modelcontextprotocol/server-sequential-thinking"];
       };
-      time = {
-        command = lib.getExe' pkgs.uv "uvx";
-        args = ["mcp-server-time"];
-        env = {
-          LOCAL_TIMEZONE = "Asia/Shanghai";
-        };
-      };
-      docker = {
-        command = lib.getExe' pkgs.uv "uvx";
-        args = ["docker-mcp"];
+      chrome-devtools = {
+        command = lib.getExe' pkgs.pnpm "pnpx";
+        args = [
+          "chrome-devtools-mcp@latest"
+          "--browser-url=http://127.0.0.1:9222"
+          "--no-usage-statistics"
+        ];
       };
     };
   };

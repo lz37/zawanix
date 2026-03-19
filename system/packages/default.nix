@@ -9,5 +9,6 @@
     ./plasma.nix
     ./hardware.nix
     ./game-editor.nix
+    ./tool-chain.nix
   ];
 }

@@ -4,10 +4,6 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    # cli
-    bun # needed by mcp
-    uv # needed by mcp
-    nodePackages.nodejs # needed by mcp
     exfatprogs
     xsel
     yq-go

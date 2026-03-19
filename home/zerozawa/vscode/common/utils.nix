@@ -2,8 +2,8 @@ let
   merge-vscode-modules = input: vscode-modules: let
     recursiveUpdateList = attrList: input.lib.foldl' (acc: item: input.lib.recursiveUpdate acc item) {} attrList;
     returns-fallback =
-      builtins.map (vscode-module: (vscode-module input)) vscode-modules
-      |> builtins.map (
+      map (vscode-module: (vscode-module input)) vscode-modules
+      |> map (
         item:
           recursiveUpdateList [
             {
@@ -24,9 +24,9 @@ let
     enableMcpIntegration = true;
     keybindings = builtins.concatMap (item: item.keybindings) returns-fallback;
     extensions = builtins.concatMap (item: item.extensions) returns-fallback;
-    userMcp.servers = recursiveUpdateList (builtins.map (item: item.mcp) returns-fallback);
+    userMcp.servers = recursiveUpdateList (map (item: item.mcp) returns-fallback);
     userSettings = recursiveUpdateList (
-      (builtins.map (item: item.settings) returns-fallback)
+      (map (item: item.settings) returns-fallback)
       ++ [
         {
           "extensions.experimental.affinity" =
@@ -44,11 +44,11 @@ let
         }
       ]
     );
-    globalSnippets = recursiveUpdateList (builtins.map (item: item.globalSnippets) returns-fallback);
+    globalSnippets = recursiveUpdateList (map (item: item.globalSnippets) returns-fallback);
     languageSnippets = recursiveUpdateList (
-      builtins.map (item: item.languageSnippets) returns-fallback
+      map (item: item.languageSnippets) returns-fallback
     );
-    userTasks = recursiveUpdateList (builtins.map (item: item.tasks) returns-fallback);
+    userTasks = recursiveUpdateList (map (item: item.tasks) returns-fallback);
   };
 in
   merge-vscode-modules

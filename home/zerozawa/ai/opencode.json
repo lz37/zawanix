@@ -1,14 +1,39 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@simonwjackson/opencode-direnv",
-    "opencode-wakatime",
-    "opencode-pty",
-    "cc-safety-net",
-    "@tarquinen/opencode-smart-title",
+    "oh-my-opencode@latest",
+    "@simonwjackson/opencode-direnv@latest",
+    "opencode-wakatime@latest",
+    "opencode-pty@latest",
+    "cc-safety-net@latest",
+    "@tarquinen/opencode-smart-title@latest",
     "@tarquinen/opencode-dcp@latest",
-    "@nick-vi/opencode-type-inject",
-    "micode"
+    "@nick-vi/opencode-type-inject@latest",
+    "@gotgenes/opencode-agent-identity@latest",
+    "@mailshieldai/opencode-canvas@latest",
+    "opencode-snippets@latest",
+    "opencode-snip@latest",
+    "opencode-plugin-openspec@latest",
+    "@franlol/opencode-md-table-formatter@latest",
+    "opencode-mem@latest",
+    "opencode-agent-memory@latest"
   ],
-  "autoupdate": "notify"
+  "autoupdate": "notify",
+  "permission":{
+    "canvas_*": "allow"
+  },
+  "agent": {
+    "compaction": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "title": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "general": {
+      "model": "kimi-for-coding/k2p5"
+    },
+    "summary": {
+      "model": "kimi-for-coding/k2p5"
+    }
+  }
 }
