@@ -12,7 +12,6 @@
     "@gotgenes/opencode-agent-identity@latest",
     "@mailshieldai/opencode-canvas@latest",
     "opencode-snippets@latest",
-    "opencode-snip@latest",
     "opencode-plugin-openspec@latest",
     "@franlol/opencode-md-table-formatter@latest",
     "opencode-mem@latest",
