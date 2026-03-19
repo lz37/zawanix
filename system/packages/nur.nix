@@ -16,5 +16,6 @@
       Fladder
       StartLive
       bilibili_live_tui
+      snip
     ]));
 }
