@@ -103,6 +103,12 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    opencode = {
+      url = "github:anomalyco/opencode/dev";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     ast-grep-skill = {
       url = "github:ast-grep/agent-skill";
       flake = false;
@@ -121,10 +127,6 @@
     };
     awesome-copilot = {
       url = "github:github/awesome-copilot";
-      flake = false;
-    };
-    opencode-worktree = {
-      url = "github:kdcokenny/opencode-worktree";
       flake = false;
     };
   };

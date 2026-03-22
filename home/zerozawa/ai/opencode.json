@@ -23,16 +23,16 @@
   },
   "agent": {
     "compaction": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gpt-5.4-mini"
     },
     "title": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "deepseek/deepseek-chat"
     },
     "general": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "summary": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gpt-5.4-mini"
     }
   }
 }

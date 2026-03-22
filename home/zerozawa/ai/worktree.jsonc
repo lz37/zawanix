@@ -1,0 +1,20 @@
+{
+  "$schema": "https://registry.kdco.dev/schemas/worktree.json",
+
+  "sync": {
+    // Files to copy from main worktree
+    "copyFiles": [".env", ".env.local"],
+    // Directories to symlink
+    "symlinkDirs": [],
+    // Patterns to exclude
+    "exclude": []
+  },
+
+  "hooks": {
+    // Run after creation
+    "postCreate": ["direnv allow"],
+
+    // Run before deletion
+    "preDelete": []
+  }
+}

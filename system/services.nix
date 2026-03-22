@@ -8,7 +8,7 @@
     xrdp = {
       enable = true;
       audio.enable = true;
-      defaultWindowManager = "xfce4-session";
+      defaultWindowManager = "startplasma-x11";
     };
     printing = {
       enable = true;

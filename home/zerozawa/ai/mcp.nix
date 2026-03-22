@@ -54,6 +54,10 @@
           "--no-usage-statistics"
         ];
       };
+      agentic-contract = {
+        command = lib.getExe pkgs.nur.repos.zerozawa.agentic-contract.mcp;
+        args = ["serve"];
+      };
     };
   };
 }

@@ -6,7 +6,7 @@
   "debug": false,
 
   // Optional: Use a specific model (otherwise uses smart fallbacks)
-  "model": "kimi-for-coding/k2p5",
+  "model": "deepseek/deepseek-chat",
 
   // Update title every N idle events (1 = every time you pause)
   "updateThreshold": 1

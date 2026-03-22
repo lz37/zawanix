@@ -21,18 +21,8 @@
       cp -r ${inputs.awesome-copilot}/skills/mcp-cli $out/
     '';
   };
-  opencode-plugins = pkgs.stdenvNoCC.mkDerivation {
-    name = "opencode-plugins";
-    src = null;
-    dontUnpack = true;
-    dontBuild = true;
-    installPhase = ''
-      mkdir -p $out
-      cp -r ${inputs.opencode-worktree}/src/plugin/* $out/
-    '';
-  };
 in
-  with pkgs.master; {
+  with pkgs.opencode-dev-packages; {
     programs.opencode = {
       enable = true;
       package = opencode;
@@ -46,8 +36,8 @@ in
       "opencode/micode.jsonc".source = ./micode.jsonc;
       "opencode/dcp.jsonc".source = ./dcp.jsonc;
       "opencode/skills".source = opencode-skills;
-      "opencode/plugins".source = opencode-plugins;
       "opencode/agent-memory.json".source = ./agent-memory.json;
+      "opencode/worktree.jsonc".source = ./worktree.jsonc;
       "opencode/opencode-mem.jsonc".text = lib.generators.toJSON {} {
         storagePath = "${config.xdg.configHome}/opencode/opencode-mem/data";
         userEmailOverride = config.zerozawa.git.userEmail;
@@ -57,8 +47,8 @@ in
         webServerPort = 4747;
         autoCaptureEnabled = true;
         autoCaptureLanguage = "auto";
-        opencodeProvider = "kimi-for-coding";
-        opencodeModel = "k2p5";
+        opencodeProvider = "deepseek";
+        opencodeModel = "deepseek-reasoner";
         showAutoCaptureToasts = true;
         showUserProfileToasts = true;
         showErrorToasts = true;
@@ -78,7 +68,7 @@ in
       };
     };
 
-    home.packages = [
-      opencode-desktop
-    ];
+    # home.packages = [
+    #   desktop
+    # ];
   }

@@ -1,8 +1,9 @@
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "git_master": {
     "commit_footer": true,
-    "include_co_authored_by": true
+    "include_co_authored_by": true,
+    "git_env_prefix": "GIT_MASTER=1"
   },
   "auto_update": true,
   "tmux": {
@@ -12,11 +13,25 @@
     "main_pane_min_width": 120,
     "agent_pane_min_width": 40
   },
+  "sisyphus_agent": {
+    "disabled": false,
+    "planner_enabled": true,
+    "replace_plan": true
+  },
   "start_work": {
     "auto_commit": true
   },
   "background_task": {
-    "staleTimeoutMs": 1800000
+    "staleTimeoutMs": 1800000,
+    "modelConcurrency": {
+      "github-copilot/claude-opus-4.6": 2,
+      "github-copilot/gpt-5.4": 2,
+      "github-copilot/gpt-5.3-codex": 2,
+      "github-copilot/claude-haiku-4.5": 20,
+      "github-copilot/grok-code-fast-1": 20,
+      "github-copilot/gpt-5.4-mini": 20,
+      "github-copilot/gemini-3-flash-preview": 20
+    }
   },
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
@@ -24,20 +39,21 @@
       "model": "kimi-for-coding/k2p5"
     },
     "sisyphus-junior": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.3-codex",
-      "variant": "medium"
+      "variant": "xhigh"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.4"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
     },
     "librarian": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "explore": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/grok-code-fast-1"
     },
     "multimodal-looker": {
       "model": "kimi-for-coding/k2p5"
@@ -47,7 +63,8 @@
       "variant": "medium"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.6"
+      "model": "github-copilot/claude-opus-4.6",
+      "variant": "thinking"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4"
@@ -58,10 +75,10 @@
   },
   "categories": {
     "visual-engineering": {
-      "model": "github-copilot/gemini-3.1-pro-preview"
+      "model": "kimi-for-coding/k2p5"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.3-codex",
+      "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
     },
     "deep": {
@@ -69,17 +86,16 @@
       "variant": "medium"
     },
     "artistry": {
-      "model": "github-copilot/gemini-3.1-pro-preview",
-      "temperature": 1.2
+      "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "quick": {
-      "model": "github-copilot/claude-haiku-4.5"
+      "model": "github-copilot/gpt-5.4-mini"
     },
     "unspecified-low": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "unspecified-high": {
-      "model": "github-copilot/gpt-5.4"
+      "model": "github-copilot/gpt-5.3-codex"
     },
     "writing": {
       "model": "github-copilot/gemini-3-flash-preview"
