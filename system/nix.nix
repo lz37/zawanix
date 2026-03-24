@@ -52,7 +52,7 @@
         "https://devenv.cachix.org"
         "https://forkprince.cachix.org"
         "https://zed.cachix.org"
-        "https://cache.garnix.io"
+        "https://cache.garnix.io?priority=99"
       ];
       trusted-public-keys = [
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="

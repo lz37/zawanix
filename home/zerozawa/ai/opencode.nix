@@ -22,7 +22,7 @@
     '';
   };
 in
-  with pkgs.opencode-dev-packages; {
+  with pkgs.master; {
     programs.opencode = {
       enable = true;
       package = opencode;
@@ -68,7 +68,7 @@ in
       };
     };
 
-    # home.packages = [
-    #   desktop
-    # ];
+    home.packages = [
+      opencode-desktop
+    ];
   }

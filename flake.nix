@@ -93,22 +93,10 @@
       inputs.hyprland.follows = "hyprland";
     };
     hyprfocus = {
-      url = "github:daxisunder/hyprfocus";
+      url = "github:pyt0xic/hyprfocus";
       inputs.hyprland.follows = "hyprland";
     };
-    zed = {
-      url = "github:zed-industries/zed/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-    opencode = {
-      url = "github:anomalyco/opencode/dev";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    zed.url = "github:zed-industries/zed/main";
     ast-grep-skill = {
       url = "github:ast-grep/agent-skill";
       flake = false;

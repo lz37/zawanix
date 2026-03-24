@@ -92,7 +92,6 @@ in {
           };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
           zed-git = inputs.zed.packages.${system}.default;
-          opencode-dev-packages = inputs.opencode.packages.${system};
         }
       )
     ];

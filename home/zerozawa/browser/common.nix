@@ -6,6 +6,6 @@
     "--enable-wayland-ime"
     "--wayland-text-input-version=3"
     "--force-device-scale-factor"
-    "--disable-features=WaylandWpColorManagerV1"
+    # "--disable-features=WaylandWpColorManagerV1"
   ];
 }
