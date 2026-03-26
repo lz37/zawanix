@@ -3,17 +3,11 @@
   lib,
   ...
 }: {
-  extensions = with pkgs; ((with vscode-selected-extensionsCompatible.vscode-marketplace; [
-      (github.copilot.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or []) ++ [libcxx];
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [autoPatchelfHook];
-      }))
-      sst-dev.opencode-v2
-      formulahendry.acp-client
-    ])
-    ++ (vscode-selected-extensionsCompatible.forVscode [
-      "github.copilot-chat"
-    ]));
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    github.copilot-chat
+    sst-dev.opencode-v2
+    formulahendry.acp-client
+  ];
   settings = {
     "chat.agent.enabled" = true;
     "chat.editor.wordWrap" = "on";

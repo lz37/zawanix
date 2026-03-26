@@ -15,7 +15,7 @@
       cp -r ${inputs.ast-grep-skill}/ast-grep/skills/* $out/
       cp -r ${inputs.anthropics-skills}/skills/frontend-design $out/
       cp -r ${inputs.anthropics-skills}/skills/pdf $out/
-      cp -r ${inputs.ai-agent-skills}/skills/gh-fix-ci $out/
+      cp -r ${inputs.ai-agent-skills}/skills/best-practices $out/
       cp -r ${inputs.openai-skills}/skills/.curated/gh-address-comments $out/
       cp -r ${inputs.awesome-copilot}/skills/gh-cli $out/
       cp -r ${inputs.awesome-copilot}/skills/mcp-cli $out/
@@ -68,7 +68,7 @@ in
       };
     };
 
-    home.packages = [
-      opencode-desktop
-    ];
+    # home.packages = [
+    #   opencode-desktop
+    # ];
   }

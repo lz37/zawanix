@@ -7,8 +7,10 @@
     yzhang.markdown-all-in-one
     # "shd101wyy.markdown-preview-enhanced"
     davidanson.vscode-markdownlint
-    bierner.markdown-mermaid
+    # bierner.markdown-mermaid
+    mermaidchart.vscode-mermaid-chart
     yzane.markdown-pdf
+    bpruitt-goddard.mermaid-markdown-syntax-highlighting
   ];
   settings = {
     # markdown-preview-enhanced.previewTheme = "atom-dark.css";
