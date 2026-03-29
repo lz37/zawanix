@@ -6,6 +6,25 @@
 }: let
   switcherPath = "${config.xdg.configHome}/hypr/monitors.conf";
   monitors = {
+    "desc:HKC OVERSEAS LIMITED Pilot M8 CDMV9AB010536" = rec {
+      HDR =
+        SDR
+        // {
+          cm = "hdr";
+          bitdepth = 10;
+          sdr_min_luminance = 0.005;
+          sdr_max_luminance = 1000;
+          max_luminance = 2500;
+        };
+      SDR = {
+        mode = "3840x2160@160.00";
+        position = "0x0";
+        scale = 1.25;
+        cm = "srgb";
+        bitdepth = 8;
+        vrr = false;
+      };
+    };
     "desc:Lectron Company Ltd LECOO M2732PL GG1FF276" = rec {
       HDR =
         SDR

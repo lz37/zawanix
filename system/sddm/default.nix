@@ -28,6 +28,10 @@
             ScreenWidth = "2560";
             ScreenHeight = "1440";
           };
+          zawanix-fubuki = {
+            ScreenWidth = "3840";
+            ScreenHeight = "2160";
+          };
         }
       ."${hostName}"
       );

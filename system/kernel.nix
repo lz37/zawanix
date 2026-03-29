@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  isAMDCPU,
   isIntelCPU,
   isIntelGPU,
   isNvidiaGPU,
@@ -9,25 +10,34 @@
   amd64Microarchs,
   lib,
   ram,
+  inputs,
   ...
 }: {
   stylix.targets.console.enable = true;
   boot = {
-    kernelPackages = pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest.override {
-      lto = "thin";
-      processorOpt = "x86_64-v${lib.strings.substring 8 1 amd64Microarchs}";
-      rt = false;
-      cpusched = "bore";
-      bbr3 = true;
-      ccHarder = true;
-      hzTicks =
-        if isLaptop && !isGameMachine
-        then "300"
-        else "1000";
-      hugepage = "always";
-    });
-    extraModulePackages = [
-      config.boot.kernelPackages.v4l2loopback
+    kernelPackages = let
+      # helpers.nix provides a few utilities for building kernel with LTO.
+      # I haven't figured out a clean way to expose it in flakes.
+      helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" {};
+    in
+      helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest.override {
+        lto = "thin";
+        processorOpt =
+          if isAMDCPU
+          then "zen4"
+          else "x86_64-v${lib.strings.substring 8 1 amd64Microarchs}";
+        rt = false;
+        cpusched = "bore";
+        bbr3 = true;
+        ccHarder = true;
+        hzTicks =
+          if isLaptop && !isGameMachine
+          then "300"
+          else "1000";
+        hugepage = "always";
+      }));
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
     ];
     supportedFilesystems = [
       "btrfs"
@@ -50,9 +60,10 @@
           "ata_piix"
           "uhci_hcd"
           "sr_mod"
+          "usb_storage"
         ]
         ++ (lib.optionals isIntelGPU ["i915"]);
-      kernelModules = [];
+      kernelModules = [] ++ (lib.optionals isAMDCPU ["kvm-amd"]);
     };
     kernelParams =
       [
@@ -61,10 +72,13 @@
         "nowatchdog"
         "modprobe.blacklist=sp5100_tco" # watchdog for AMD
         "modprobe.blacklist=iTCO_wdt" # watchdog for Intel
+        "iommu=pt"
       ]
+      ++ (lib.optionals isAMDCPU [
+        "amd_iommu=on"
+      ])
       ++ (lib.optionals isIntelCPU [
         "intel_iommu=on"
-        "iommu=pt"
       ])
       ++ (lib.optionals isNvidiaGPU [
         "nvidia_drm.modeset=1"

@@ -146,6 +146,7 @@
               isNvidiaGPU ? false,
               isIntelGPU ? false,
               isIntelCPU ? false,
+              isAMDCPU ? false,
               isAmdGPU ? false,
               isVM ? false,
               isLaptop ? false,
@@ -165,6 +166,7 @@
                   inputs
                   facter
                   isNvidiaGPU
+                  isAMDCPU
                   isIntelCPU
                   isIntelGPU
                   isAmdGPU
@@ -191,6 +193,9 @@
                     []
                     ++ (lib.optional isIntelGPU common-gpu-intel)
                     ++ (lib.optional isIntelCPU common-cpu-intel)
+                    ++ (lib.optional isAMDCPU common-cpu-amd)
+                    ++ (lib.optional isAMDCPU common-cpu-amd-pstate)
+                    ++ (lib.optional isAMDCPU common-cpu-amd-zenpower)
                     ++ (lib.optional (isSSD && !isLaptop) common-pc)
                     ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
                 )
@@ -256,10 +261,22 @@
                   ram = 16 * 1024;
                   stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
                 };
+                zawanix-fubuki = mkNixosConfig {
+                  isAMDCPU = true;
+                  isNvidiaGPU = true;
+                  isSSD = true;
+                  isLaptop = false;
+                  isGameMachine = true;
+                  hostName = "zawanix-fubuki";
+                  ram = 32 * 1024;
+                  stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
+                  amd64Microarchs = "x86_64_v4";
+                };
               };
             in {
               zawanix-work = lib.nixosSystem config.zawanix-work;
               zawanix-glap = lib.nixosSystem config.zawanix-glap;
+              zawanix-fubuki = lib.nixosSystem config.zawanix-fubuki;
             }
           );
         };
