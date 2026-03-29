@@ -1,5 +1,7 @@
 {hostName, ...}: {
-  facter = {
+  hardware.facter = {
+    enable = true;
+    reportPath = ./. + "/${hostName}.json";
     detected = {
       dhcp.enable =
         {

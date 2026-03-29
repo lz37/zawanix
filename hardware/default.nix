@@ -8,6 +8,7 @@
   imports =
     [
       (modulesPath + "/installer/scan/not-detected.nix")
+      ./facter
     ]
     ++ [
       (./. + "/hostname/${hostName}.nix")

@@ -67,29 +67,6 @@ in {
           teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
-          unstable-hyprland = {
-            packages = inputs.hyprland.packages.${system};
-            pkgs = import inputs.hyprland.inputs.nixpkgs {
-              inherit system config;
-            };
-            plugins = {
-              inherit (inputs.split-monitor-workspaces.packages.${system}) split-monitor-workspaces;
-              inherit (inputs.hypr-dynamic-cursors.packages.${system}) hypr-dynamic-cursors;
-              inherit (inputs.hyprfocus.packages.${system}) hyprfocus;
-              inherit
-                (inputs.hyprland-plugins.packages.${system})
-                borders-plus-plus
-                csgo-vulkan-fix
-                hyprbars
-                hyprexpo
-                # hyprfocus
-                hyprscrolling
-                hyprtrails
-                hyprwinwrap
-                xtra-dispatchers
-                ;
-            };
-          };
           quickshell = inputs.quickshell.packages.${system}.quickshell;
           zed-git = inputs.zed.packages.${system}.default;
         }

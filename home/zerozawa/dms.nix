@@ -27,9 +27,7 @@
     '');
 in {
   home.packages = with pkgs; [
-    (grimblast.override {
-      hyprland = unstable-hyprland.packages.hyprland;
-    })
+    grimblast
     linux-wallpaperengine
   ];
   programs.dank-material-shell = {

@@ -10,7 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
     nix-alien.url = "github:thiagokokada/nix-alien";
     nur = {
       url = "github:nix-community/NUR";
@@ -79,23 +78,6 @@
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprfocus = {
-      url = "github:pyt0xic/hyprfocus";
-      inputs.hyprland.follows = "hyprland";
-    };
     zed.url = "github:zed-industries/zed/main";
     ast-grep-skill = {
       url = "github:ast-grep/agent-skill";
@@ -157,14 +139,11 @@
               stylixImage,
               amd64Microarchs ? "x86_64_v3",
             }: let
-              facterJson = inputs.zerozawa-private + "/facters/${hostName}.json";
-              facter = builtins.fromJSON (builtins.readFile facterJson);
               specialArgs = {
                 rootPath = ./.;
                 inherit
                   hostName
                   inputs
-                  facter
                   isNvidiaGPU
                   isAMDCPU
                   isIntelCPU
@@ -184,11 +163,7 @@
             in {
               inherit system specialArgs;
               modules =
-                [
-                  inputs.nixos-facter-modules.nixosModules.facter
-                  {config.facter.reportPath = facterJson;}
-                ]
-                ++ (
+                (
                   with inputs.nixos-hardware.nixosModules;
                     []
                     ++ (lib.optional isIntelGPU common-gpu-intel)

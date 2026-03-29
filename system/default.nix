@@ -21,7 +21,6 @@
     ./hyprland.nix
     ./other-packages.nix
     ./clamav-scanner.nix
-    ./facter.nix
     ./zerotier.nix
   ];
   system.stateVersion = inputs.nixpkgs.lib.trivial.release;
