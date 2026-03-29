@@ -4,6 +4,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    fio
     exfatprogs
     xsel
     yq-go
