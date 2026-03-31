@@ -18,5 +18,8 @@
       bilibili_live_tui
       snip
       agentic-contract
+      (lightnovel-crawler.override {
+        calibre = pkgs.nocuda.calibre;
+      })
     ]));
 }

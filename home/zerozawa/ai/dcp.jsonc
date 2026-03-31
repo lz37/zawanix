@@ -90,10 +90,6 @@
       // Additional tools to protect from pruning
       "protectedTools": [],
     },
-    // Prune write tool inputs when the file has been subsequently read
-    "supersedeWrites": {
-      "enabled": true,
-    },
     // Prune tool inputs for errored tools after X turns
     "purgeErrors": {
       "enabled": true,
