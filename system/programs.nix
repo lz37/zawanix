@@ -6,6 +6,8 @@
   ...
 }: {
   programs = {
+    # 鼠标自动化
+    ydotool.enable = true;
     nixos-cli = {
       enable = true;
     };

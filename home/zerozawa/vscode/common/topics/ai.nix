@@ -3,11 +3,12 @@
   lib,
   ...
 }: {
-  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-    github.copilot-chat
-    sst-dev.opencode-v2
-    formulahendry.acp-client
-  ];
+  extensions =
+    (with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+      sst-dev.opencode-v2
+      formulahendry.acp-client
+    ])
+    ++ [pkgs.vscode-selected-extensionsCompatible.vscode-marketplace-release.github.copilot-chat];
   settings = {
     "chat.agent.enabled" = true;
     "chat.editor.wordWrap" = "on";

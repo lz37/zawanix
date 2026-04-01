@@ -30,6 +30,7 @@ in {
     libreoffice-qt6-fresh
     drawio
     jellyfin-media-player
+    switchfin
     feishin
     gimp3
     pinta

@@ -58,6 +58,13 @@
         command = lib.getExe pkgs.nur.repos.zerozawa.agentic-contract.mcp;
         args = ["serve"];
       };
+      hyprland-mcp-server = {
+        command = lib.getExe pkgs.nur.repos.zerozawa.hyprland-mcp-server;
+      };
+      image-tiler-mcp-server = {
+        command = lib.getExe' pkgs.pnpm "pnpx";
+        args = ["image-tiler-mcp-server"];
+      };
     };
   };
 }

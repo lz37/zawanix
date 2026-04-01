@@ -19,6 +19,7 @@
         "input"
         "render"
         "xrdp"
+        "ydotool"
       ];
       shell = "${pkgs.zsh}/bin/zsh";
     };
