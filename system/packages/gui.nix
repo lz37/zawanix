@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  isNvidiaGPU,
   ...
 }: let
   patchDesktop = import ./utils.nix {inherit pkgs lib;};
@@ -30,7 +31,15 @@ in {
     libreoffice-qt6-fresh
     drawio
     jellyfin-media-player
-    switchfin
+    (switchfin.overrideAttrs (old: {
+      cmakeFlags =
+        if isNvidiaGPU
+        then
+          map
+          (flag: lib.replaceStrings ["-DUSE_EGL=ON"] ["-DUSE_EGL=OFF"] flag)
+          (old.cmakeFlags or [])
+        else old.cmakeFlags;
+    }))
     feishin
     gimp3
     pinta
