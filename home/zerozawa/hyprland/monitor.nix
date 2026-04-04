@@ -13,13 +13,13 @@
           cm = "hdr";
           bitdepth = 10;
           sdr_min_luminance = 0.005;
-          sdr_max_luminance = 1000;
+          sdr_max_luminance = 240;
           max_luminance = 2500;
         };
       SDR = {
         mode = "3840x2160@160.00";
-        position = "0x0";
-        scale = 1.25;
+        position = "3440x0";
+        scale = 1.5;
         cm = "srgb";
         bitdepth = 8;
         vrr = false;
@@ -92,7 +92,7 @@
         };
       SDR = {
         mode = "3440x1440@165.00";
-        position = "2560x0";
+        position = "0x0";
         scale = 1;
         cm = "srgb";
         bitdepth = 8;

@@ -78,7 +78,6 @@
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zed.url = "github:zed-industries/zed/main";
     ast-grep-skill = {
       url = "github:ast-grep/agent-skill";
       flake = false;

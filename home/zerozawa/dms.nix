@@ -77,7 +77,7 @@ in {
       ${lib.getExe' pkgs.kitty "kitten"} panel --edge=background --output-name=${{
         zawanix-work = "DP-3";
         zawanix-glap = "eDP-1";
-        zawanix-fubuki = "DP-3";
+        zawanix-fubuki = "DP-4";
       }."${hostName}"} -c ${conf} "${exec}"
     '';
   in rec {
