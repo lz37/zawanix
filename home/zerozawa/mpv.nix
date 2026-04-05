@@ -154,7 +154,7 @@ in {
         "notify_updates" = false;
         "play_cmd" = null;
         "playback_timeout" = 30;
-        "player_name" = "zawanix-glap";
+        "player_name" = "${hostName}-mpv";
         "pre_media_cmd" = null;
         "prefer_transcode_to_h265" = false;
         "raise_mpv" = true;

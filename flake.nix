@@ -165,6 +165,7 @@
                 (
                   with inputs.nixos-hardware.nixosModules;
                     []
+                    ++ (lib.optional isAmdGPU common-gpu-amd)
                     ++ (lib.optional isIntelGPU common-gpu-intel)
                     ++ (lib.optional isIntelCPU common-cpu-intel)
                     ++ (lib.optional isAMDCPU common-cpu-amd)
@@ -237,6 +238,7 @@
                 };
                 zawanix-fubuki = mkNixosConfig {
                   isAMDCPU = true;
+                  isAmdGPU = true;
                   isNvidiaGPU = true;
                   isSSD = true;
                   isLaptop = false;
