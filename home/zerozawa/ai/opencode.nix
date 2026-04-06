@@ -30,7 +30,7 @@ in
       settings = lib.removeAttrs (lib.importJSON ./opencode.json) ["$schema"];
     };
     xdg.configFile = {
-      "opencode/oh-my-opencode.json".source = ./oh-my-opencode.json;
+      "opencode/oh-my-openagent.jsonc".source = ./oh-my-openagent.jsonc;
       "opencode/smart-title.jsonc".source = ./smart-title.jsonc;
       "opencode/octto.json".source = ./octto.json;
       "opencode/micode.jsonc".source = ./micode.jsonc;
