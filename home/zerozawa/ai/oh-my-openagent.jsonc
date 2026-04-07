@@ -36,7 +36,8 @@
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
-      "model": "opencode-go/kimi-k2.5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium"
     },
     "sisyphus-junior": {
       "model": "opencode-go/mimo-v2-pro",
@@ -72,7 +73,8 @@
       "variant": "xhigh"
     },
     "atlas": {
-      "model": "opencode-go/kimi-k2.5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium"
     }
   },
   "categories": {
