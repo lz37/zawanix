@@ -23,10 +23,10 @@
         "gccarch-${lib.strings.replaceStrings ["_"] ["-"] amd64Microarchs}"
       ];
       substituters = lib.mkForce [
-        # 上交
-        "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
         # 中科大
         "https://mirrors.ustc.edu.cn/nix-channels/store?priority=10"
+        # 上交
+        "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
         # 中科院
         "https://mirror.iscas.ac.cn/nix-channels/store?priority=10"
         # 清华

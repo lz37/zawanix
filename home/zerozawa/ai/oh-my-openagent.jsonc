@@ -73,8 +73,9 @@
       "variant": "xhigh"
     },
     "atlas": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium"
+      // "model": "github-copilot/gpt-5.4",
+      // "variant": "medium"
+      "model": "opencode-go/kimi-k2.5"
     }
   },
   "categories": {

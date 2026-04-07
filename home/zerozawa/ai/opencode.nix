@@ -47,8 +47,8 @@ in
         webServerPort = 4747;
         autoCaptureEnabled = true;
         autoCaptureLanguage = "auto";
-        opencodeProvider = "deepseek";
-        opencodeModel = "deepseek-reasoner";
+        opencodeProvider = "opencode-go";
+        opencodeModel = "minimax-m2.7";
         showAutoCaptureToasts = true;
         showUserProfileToasts = true;
         showErrorToasts = true;
