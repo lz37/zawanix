@@ -1,6 +1,6 @@
 .devenv
 .direnv
 .pre-commit-config.yaml
-tmp
+tmp*
 result
 .sisyphus
