@@ -18,6 +18,7 @@ in {
     formulahendry.auto-close-tag
     yoavbls.pretty-ts-errors
     typescriptteam.native-preview
+    oxc.oxc-vscode
   ];
   settings =
     {

@@ -23,16 +23,16 @@
   },
   "agent": {
     "compaction": {
-      "model": "github-copilot/gpt-5.4-mini"
+      "model": "opencode-go/mimo-v2-pro"
     },
     "title": {
-      "model": "opencode-go/minimax-m2.7"
+      "model": "opencode-go/minimax-m2.5"
     },
     "general": {
       "model": "github-copilot/claude-sonnet-4.6"
     },
     "summary": {
-      "model": "github-copilot/gpt-5.4-mini"
+      "model": "opencode-go/mimo-v2-pro"
     }
   }
 }

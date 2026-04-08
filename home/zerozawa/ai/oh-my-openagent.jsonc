@@ -40,8 +40,7 @@
       "variant": "medium"
     },
     "sisyphus-junior": {
-      "model": "opencode-go/mimo-v2-pro",
-      "variant": "medium"
+      "model": "github-copilot/claude-sonnet-4.6"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.4",
@@ -73,9 +72,7 @@
       "variant": "xhigh"
     },
     "atlas": {
-      // "model": "github-copilot/gpt-5.4",
-      // "variant": "medium"
-      "model": "opencode-go/kimi-k2.5"
+      "model": "github-copilot/claude-sonnet-4.6"
     }
   },
   "categories": {
@@ -100,7 +97,10 @@
       "model": "opencode-go/kimi-k2.5"
     },
     "unspecified-high": {
-      "model": "opencode-go/glm-5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
+
+      // "model": "opencode-go/glm-5"
     },
     "writing": {
       "model": "github-copilot/gemini-3-flash-preview"
