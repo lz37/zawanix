@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://cdn.jsdelivr.net/gh/danakj/openbox@master/data/rc.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<openbox_config xmlns="http://openbox.org/4.0/rc">
+  <resistance>
+    <strength>10</strength>
+    <screen_edge_strength>20</screen_edge_strength>
+  </resistance>
+
+  <focus>
+    <focusNew>yes</focusNew>
+    <focusLast>yes</focusLast>
+    <followMouse>no</followMouse>
+    <underMouse>no</underMouse>
+    <focusDelay>200</focusDelay>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+
+  <placement>
+    <policy>Smart</policy>
+    <center>yes</center>
+  </placement>
+
+  <theme>
+    <name>Clearlooks</name>
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+    <animateIconify>yes</animateIconify>
+  </theme>
+
+  <desktops>
+    <number>4</number>
+    <firstdesk>1</firstdesk>
+    <popupTime>0</popupTime>
+  </desktops>
+
+  <resize>
+    <drawContents>no</drawContents>
+    <popupShow>Nonpixel</popupShow>
+    <popupPosition>Center</popupPosition>
+  </resize>
+
+  <dock>
+    <position>Top</position>
+    <stacking>Normal</stacking>
+    <direction>Horizontal</direction>
+    <autoHide>no</autoHide>
+    <moveButton>Button8</moveButton>
+  </dock>
+
+  <keyboard>
+    <chainQuitKey>C-g</chainQuitKey>
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>konsole</command>
+      </action>
+    </keybind>
+    <keybind key="A-F4">
+      <action name="Close" />
+    </keybind>
+    <keybind key="W-r">
+      <action name="Reconfigure" />
+    </keybind>
+  </keyboard>
+
+  <mouse>
+    <dragThreshold>8</dragThreshold>
+    <doubleClickTime>200</doubleClickTime>
+    <screenEdgeWarpTime>0</screenEdgeWarpTime>
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu">
+          <menu>root-menu</menu>
+        </action>
+      </mousebind>
+    </context>
+  </mouse>
+
+  <menu>
+    <file>menu.xml</file>
+    <hideDelay>200</hideDelay>
+    <middle>no</middle>
+    <submenuShowDelay>100</submenuShowDelay>
+    <showIcons>yes</showIcons>
+    <manageDesktops>yes</manageDesktops>
+  </menu>
+
+  <applications />
+</openbox_config>

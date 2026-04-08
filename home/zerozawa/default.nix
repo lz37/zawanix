@@ -37,12 +37,12 @@
     ./wlogout
     ./mimelist.nix
     ./mpv.nix
-    ./autostart.nix
     ./input-method
     ./dms.nix
     ./clock-rs.nix
     ./ai
     ./zed
+    ./openbox
   ];
   stylix.enableReleaseChecks = false;
   home = {

@@ -11,7 +11,6 @@
       "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       # "systemctl --user start hyprpolkitagent"
 
-      "killall -q swww;sleep .5 && swww-daemon"
       "systemctl --user start plasma-polkit-agent.service"
       # "killall -q waybar;sleep .5 && waybar"
       # "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1 &"
@@ -23,6 +22,10 @@
       "${lib.getExe' pkgs.networkmanagerapplet "nm-applet"} --indicator"
       # (lib.getExe pkgs.fcitx5)
       "dbus-update-activation-environment --systemd  WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+      "${lib.getExe pkgs.jellyfin-mpv-shim} &"
+      "${lib.getExe pkgs.remmina} &"
+      "${lib.getExe pkgs.svp} &"
+      "${lib.getExe pkgs.telegram-desktop} &"
     ];
   };
 }

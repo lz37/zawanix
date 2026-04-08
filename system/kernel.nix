@@ -131,7 +131,8 @@
         "vm.dirty_ratio" = 10;
         "vm.dirty_background_ratio" = 5;
         "vm.vfs_cache_pressure" = 50;
-        "vm.swappiness" = 10;
+        "vm.swappiness" = 100; # 开zarm后可以抬高
+        "vm.page-cluster" = 0;
       }
       // (
         if !isLaptop || isGameMachine

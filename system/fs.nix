@@ -3,7 +3,7 @@
     {
       device = "/var/lib/swapfile";
       size = ram;
-      priority = 1;
+      priority = -2;
     }
   ];
   boot.tmp = {

@@ -12,16 +12,16 @@
     xrdp = {
       enable = true;
       audio.enable = true;
-      defaultWindowManager = "startplasma-x11";
+      defaultWindowManager = "openbox-session";
     };
     rustdesk-server =
-      if config.zerozawa.network.static-address != null
+      if config.zerozawa.network != null && config.zerozawa.network.static-address != null
       then {
         enable = true;
         openFirewall = true;
         signal.relayHosts = ["localhost" config.zerozawa.network.static-address];
       }
-      else null;
+      else {enable = false;};
     printing = {
       enable = true;
       drivers = with pkgs; [
@@ -55,6 +55,9 @@
       xkb = {
         layout = "cn";
         variant = "";
+      };
+      windowManager = {
+        openbox.enable = true;
       };
       desktopManager = {
         xfce = {

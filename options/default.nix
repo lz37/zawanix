@@ -33,9 +33,10 @@ in {
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
       network = {
-        wired-interface = str;
-        static-address = str;
-        hosts = str;
+        static-address = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+        };
       };
       atuin = {
         server = str;
@@ -48,7 +49,7 @@ in {
       servers = {
         openwrt = {
           address = lib.mkOption {
-            type = lib.types.str;
+            type = lib.types.nullOr lib.types.str;
             default = null;
           };
         };
