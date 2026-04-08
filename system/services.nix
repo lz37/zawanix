@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   services = {
     scx = {
       enable = true;
@@ -10,6 +14,14 @@
       audio.enable = true;
       defaultWindowManager = "startplasma-x11";
     };
+    rustdesk-server =
+      if config.zerozawa.network.static-address != null
+      then {
+        enable = true;
+        openFirewall = true;
+        signal.relayHosts = ["localhost" config.zerozawa.network.static-address];
+      }
+      else null;
     printing = {
       enable = true;
       drivers = with pkgs; [

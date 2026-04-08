@@ -7,6 +7,7 @@
   patchDesktop = import ./utils.nix {inherit pkgs lib;};
 in {
   environment.systemPackages = with pkgs; [
+    rustdesk
     blueman
     burpsuite
     nocuda.thunderbird

@@ -1,4 +1,8 @@
-{hostName, ...}: {
+{
+  hostName,
+  config,
+  ...
+}: {
   networking = {
     inherit hostName;
     enableIPv6 = true;
@@ -30,7 +34,7 @@
         ipv4 = {
           addresses = [
             {
-              address = "192.168.233.233";
+              address = config.zerozawa.network.static-address;
               prefixLength = 24;
             }
           ];

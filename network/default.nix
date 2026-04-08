@@ -1,10 +1,5 @@
-{
-  hostName,
-  config,
-  ...
-}: {
+{hostName, ...}: {
   imports = [
     (./. + "/${hostName}.nix")
   ];
-  networking.extraHosts = config.zerozawa.network.hosts;
 }

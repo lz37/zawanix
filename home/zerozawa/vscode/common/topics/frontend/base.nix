@@ -5,7 +5,7 @@
 }: let
   makeTrue = v:
     v
-    |> builtins.map (x: {
+    |> map (x: {
       name = x;
       value = true;
     })
