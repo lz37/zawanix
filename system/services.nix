@@ -42,6 +42,7 @@
     ipp-usb.enable = true;
     udisks2.enable = true;
     fwupd.enable = true;
+    gnome.gnome-keyring.enable = false;
     dbus = {
       apparmor = "disabled";
     };

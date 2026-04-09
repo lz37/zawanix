@@ -86,6 +86,10 @@ in {
         Description = "Kitty background panel - Cava visualizer";
         PartOf = ["dms.service"];
         After = ["dms.service"];
+        ConditionEnvironment = ["WAYLAND_DISPLAY"];
+      };
+      Install = {
+        WantedBy = lib.mkForce [];
       };
       Service = {
         Type = "exec";
@@ -93,9 +97,6 @@ in {
         ExecStart = kitten bgKittyCavaConf (lib.getExe pkgs.cava);
         Restart = "on-failure";
         RestartSec = 5;
-      };
-      Install = {
-        WantedBy = ["default.target"];
       };
     };
     kitty-panel-clock =
@@ -106,6 +107,7 @@ in {
           // {
             Description = "Kitty background panel - Clock";
           };
+        Install = kitty-panel-cava.Install;
         Service =
           kitty-panel-cava.Service
           // {

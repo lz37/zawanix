@@ -51,7 +51,7 @@
     <chainQuitKey>C-g</chainQuitKey>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>konsole</command>
+        <command>kitty</command>
       </action>
     </keybind>
     <keybind key="A-F4">
