@@ -2,7 +2,7 @@
   commandLineArgs = [
     # wayland
     "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
-    "--ozone-platform=wayland"
+    "--ozone-platform-hint=auto"
     "--enable-wayland-ime"
     "--wayland-text-input-version=3"
     "--force-device-scale-factor"
