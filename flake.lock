@@ -192,11 +192,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775784476,
-        "narHash": "sha256-uw89nHZ0M5P0YAhmCuPyZR7WwF5z/zg1aV3c0FDDTQ0=",
+        "lastModified": 1775923326,
+        "narHash": "sha256-6RoCtc7k7f/tFPlyL9amGXJGvOyImuFlNIsDOZV9aX4=",
         "owner": "AvengeMedia",
         "repo": "dms-plugin-registry",
-        "rev": "7b2c2ef013d26c5a8ef28b5c58a07b1d1d19d057",
+        "rev": "2fb23b8034e2dec8c655eef6ff4abdeef45d6c50",
         "type": "github"
       },
       "original": {
@@ -679,6 +679,21 @@
         "type": "github"
       }
     },
+    "nix-monitor": {
+      "locked": {
+        "lastModified": 1771568669,
+        "narHash": "sha256-lTbQ13lQ3ZPNkdnFmxAMGf1Gjx//80lDDlcJR8msREI=",
+        "owner": "antonjah",
+        "repo": "nix-monitor",
+        "rev": "ef3db9d5a525ddf41355e8c456b40d56480a6626",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antonjah",
+        "repo": "nix-monitor",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -1143,6 +1158,7 @@
         "nix-flatpak": "nix-flatpak",
         "nix-health": "nix-health",
         "nix-index-database": "nix-index-database_2",
+        "nix-monitor": "nix-monitor",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nix4vscode": "nix4vscode",
         "nix_version_search_cli": "nix_version_search_cli",

@@ -29,6 +29,9 @@ in {
   home.packages = with pkgs; [
     grimblast
     linux-wallpaperengine
+    gpu-screen-recorder
+    gpu-screen-recorder-gtk
+    xdg-utils
   ];
   programs.dank-material-shell = {
     enable = true;
@@ -43,7 +46,6 @@ in {
         desktopCommand.enable = true;
         gitmojiLauncher.enable = true;
         mediaPlayer.enable = true;
-        hyprlandSubmap.enable = true;
         wallpaperDiscovery.enable = true;
         alarmClock.enable = true;
         linuxWallpaperEngine.enable = true;
@@ -58,6 +60,19 @@ in {
         commandRunner.enable = true;
         calculator.enable = true;
         grimblast.enable = true;
+        githubHeatmap.enable = true;
+        githubNotifier.enable = true;
+        musicLyrics.enable = true;
+        developerUtilities.enable = true;
+        chineseCalendar.enable = true;
+        animeCalendar.enable = true;
+        usbManager.enable = true;
+        fullscreenPowerMenu.enable = true;
+        aiAssistant.enable = true;
+        screenRecorder.enable = true;
+        dankLauncherKeys.enable = true;
+        dankRssWidget.enable = true;
+        vscodeLauncher.enable = true;
       }
       // (
         if isLaptop

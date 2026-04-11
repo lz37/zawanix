@@ -102,6 +102,7 @@
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs-master";
     };
+    nix-monitor.url = "github:antonjah/nix-monitor";
   };
 
   outputs = inputs: let
@@ -209,6 +210,7 @@
                         (inputs.zerozawa-private + "/default.nix")
                         inputs.dankMaterialShell.homeModules.dank-material-shell
                         inputs.dms-plugin-registry.modules.default
+                        inputs.nix-monitor.homeManagerModules.default
                         ./nixpkgs.nix
                       ];
                       users.zerozawa = import ./home/zerozawa;

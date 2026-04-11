@@ -8,6 +8,15 @@
   };
   stylix.targets.fish.enable = true;
   programs = {
+    nix-monitor = {
+      enable = true;
+      # Required: customize for your setup
+      rebuildCommand = [
+        "bash"
+        "-c"
+        "zawanix.rebuild 2>&1"
+      ];
+    };
     cargo = {
       enable = true;
       settings = {
