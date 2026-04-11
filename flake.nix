@@ -98,6 +98,10 @@
       url = "github:github/awesome-copilot";
       flake = false;
     };
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs-master";
+    };
   };
 
   outputs = inputs: let
@@ -171,8 +175,9 @@
                     ++ (lib.optional isAMDCPU common-cpu-amd)
                     ++ (lib.optional isAMDCPU common-cpu-amd-pstate)
                     ++ (lib.optional isAMDCPU common-cpu-amd-zenpower)
-                    ++ (lib.optional (isSSD && !isLaptop) common-pc)
-                    ++ (lib.optional (isSSD && isLaptop) common-pc-laptop-ssd)
+                    ++ (lib.optional (!isLaptop) common-pc)
+                    ++ (lib.optional isLaptop common-pc-laptop)
+                    ++ (lib.optional isSSD common-pc-ssd)
                 )
                 ++ [
                   ./options

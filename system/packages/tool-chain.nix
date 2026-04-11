@@ -15,5 +15,6 @@
     go
     graalvmPackages.graalvm-ce
     ast-grep
+    bash-language-server
   ];
 }

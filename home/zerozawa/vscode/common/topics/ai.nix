@@ -50,16 +50,16 @@
     "github.copilot.chat.scopeSelection" = true;
     "github.copilot.chat.generateTests.codeLens" = true;
     "accessibility.voice.speechLanguage" = "zh-CN";
-    "acp.agents" = {
+    "acp.agents" = with pkgs; {
       "GitHub Copilot" = {
-        "command" = lib.getExe pkgs.github-copilot-cli;
+        "command" = lib.getExe github-copilot-cli;
         "args" = [
           "--acp"
         ];
         "env" = {};
       };
       "OpenCode" = {
-        "command" = lib.getExe pkgs.master.opencode;
+        "command" = lib.getExe opencode;
         "args" = [
           "acp"
         ];

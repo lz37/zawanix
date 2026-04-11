@@ -3,9 +3,50 @@
   lib,
   config,
   amd64Microarchs,
+  isGameMachine,
+  isAmdGPU,
+  isNvidiaGPU,
+  hostName,
   ...
 }: {
   programs = {
+    gamemode = {
+      enable = isGameMachine;
+      enableRenice = true;
+      settings = {
+        general = {
+          renice = 10;
+        };
+        gpu =
+          {apply_gpu_optimisations = "accept-responsibility";}
+          // (
+            if isNvidiaGPU
+            then {
+              nv_powermizer_mode = 1;
+            }
+            else if isAmdGPU
+            then {
+              amd_performance_level = "high";
+            }
+            else {}
+          )
+          // {
+            gpu_device =
+              # 主gpu
+              {
+                zawanix-fubuki = 2;
+                zawanix-glap = 1;
+              }.${
+                hostName
+              };
+          };
+
+        custom = {
+          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+        };
+      };
+    };
     # 鼠标自动化
     ydotool.enable = true;
     nixos-cli = {

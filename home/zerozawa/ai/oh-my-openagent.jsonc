@@ -54,7 +54,7 @@
       "model": "opencode-go/minimax-m2.7"
     },
     "explore": {
-      "model": "opencode-go/minimax-m2.7"
+      "model": "github-copilot/grok-code-fast-1"
     },
     "multimodal-looker": {
       "model": "opencode-go/kimi-k2.5"
@@ -64,7 +64,8 @@
       "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.6"
+      "model": "github-copilot/claude-opus-4.6",
+      "variant": "high"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4",

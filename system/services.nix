@@ -1,9 +1,23 @@
 {
   pkgs,
   config,
+  isGameMachine,
+  isIntelCPU,
+  isAMDCPU,
+  isLaptop,
   ...
 }: {
   services = {
+    hardware.openrgb = {
+      enable = isGameMachine && !isLaptop;
+      motherboard =
+        if isIntelCPU
+        then "intel"
+        else if isAMDCPU
+        then "amd"
+        else null;
+      package = pkgs.openrgb-with-all-plugins;
+    };
     scx = {
       enable = true;
       package = pkgs.master.scx.full;

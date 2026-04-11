@@ -51,7 +51,6 @@ in {
             ];
           };
           vscode-selected = master.vscode.override {
-            useVSCodeRipgrep = true;
             # commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
           };
           vscode-selected-extensionsCompatible =
@@ -68,6 +67,7 @@ in {
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
           quickshell = inputs.quickshell.packages.${system}.quickshell;
+          opencode = inputs.opencode.packages.${system}.opencode;
         }
       )
     ];

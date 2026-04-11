@@ -22,7 +22,7 @@
     '';
   };
 in
-  with pkgs.master; {
+  with pkgs; {
     programs.opencode = {
       enable = true;
       package = opencode;
