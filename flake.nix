@@ -222,7 +222,13 @@
             };
           in (
             let
-              config = {
+              config = let
+                pixiv-image = inputs.zerozawa-nur.legacyPackages.${system}.lib.fetchPixiv {
+                  id = 94573417;
+                  p = 0;
+                  sha256 = "sha256-zy6lf348KbIQj0A0ZcmaZ1Llgjg8uXHjoRbpVyl9p3I=";
+                };
+              in {
                 zawanix-work = mkNixosConfig {
                   isIntelCPU = true;
                   isIntelGPU = true;
@@ -230,7 +236,7 @@
                   hostName = "zawanix-work";
                   isGameMachine = false;
                   ram = 32 * 1024;
-                  stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
+                  stylixImage = pixiv-image;
                 };
                 zawanix-glap = mkNixosConfig {
                   isIntelCPU = true;
@@ -241,7 +247,7 @@
                   isGameMachine = true;
                   hostName = "zawanix-glap";
                   ram = 16 * 1024;
-                  stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
+                  stylixImage = pixiv-image;
                 };
                 zawanix-fubuki = mkNixosConfig {
                   isAMDCPU = true;
@@ -252,7 +258,7 @@
                   isGameMachine = true;
                   hostName = "zawanix-fubuki";
                   ram = 32 * 1024;
-                  stylixImage = ./assets/wallpapers/30837811_94573417_p0.jpg;
+                  stylixImage = pixiv-image;
                   amd64Microarchs = "x86_64_v4";
                 };
               };
