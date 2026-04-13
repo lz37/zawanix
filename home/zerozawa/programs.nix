@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  hostName,
   ...
 }: {
   services = {
@@ -14,7 +15,7 @@
       rebuildCommand = [
         "bash"
         "-c"
-        "zawanix.rebuild 2>&1"
+        "nixos-rebuild switch --flake /etc/nixos#${hostName} --keep-going --fallback --sudo 2>&1"
       ];
     };
     cargo = {
