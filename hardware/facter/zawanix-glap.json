@@ -2,6 +2,10 @@
   "version": 1,
   "system": "x86_64-linux",
   "virtualisation": "none",
+  "uefi": {
+    "supported": true,
+    "platform_size": 64
+  },
   "hardware": {
     "bios": {
       "apm_info": {
@@ -23,8 +27,8 @@
     },
     "bluetooth": [
       {
-        "index": 41,
-        "attached_to": 47,
+        "index": 40,
+        "attached_to": 43,
         "class_list": [
           "usb",
           "bluetooth"
@@ -107,8 +111,8 @@
         "module_alias": "usb:v8087p0026d0002dcE0dsc01dp01icE0isc01ip01in00"
       },
       {
-        "index": 46,
-        "attached_to": 47,
+        "index": 42,
+        "attached_to": 43,
         "class_list": [
           "usb",
           "bluetooth"
@@ -247,7 +251,7 @@
         "model": "Intel PCI bridge",
         "sysfs_id": "/devices/pci0000:00/0000:00:1c.0",
         "sysfs_bus_id": "0000:00:1c.0",
-        "sysfs_iommu_group_id": 11,
+        "sysfs_iommu_group_id": 10,
         "detail": {
           "function": 0,
           "command": 1031,
@@ -315,7 +319,7 @@
         "model": "Intel ISA bridge",
         "sysfs_id": "/devices/pci0000:00/0000:00:1f.0",
         "sysfs_bus_id": "0000:00:1f.0",
-        "sysfs_iommu_group_id": 12,
+        "sysfs_iommu_group_id": 11,
         "detail": {
           "function": 0,
           "command": 1031,
@@ -381,7 +385,7 @@
         "model": "Intel PCI bridge",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.0",
         "sysfs_bus_id": "0000:00:01.0",
-        "sysfs_iommu_group_id": 2,
+        "sysfs_iommu_group_id": 1,
         "detail": {
           "function": 0,
           "command": 1031,
@@ -449,7 +453,7 @@
         "model": "Intel Host bridge",
         "sysfs_id": "/devices/pci0000:00/0000:00:00.0",
         "sysfs_bus_id": "0000:00:00.0",
-        "sysfs_iommu_group_id": 1,
+        "sysfs_iommu_group_id": 0,
         "detail": {
           "function": 0,
           "command": 6,
@@ -507,7 +511,7 @@
         "model": "Intel PCI bridge",
         "sysfs_id": "/devices/pci0000:00/0000:00:06.0",
         "sysfs_bus_id": "0000:00:06.0",
-        "sysfs_iommu_group_id": 4,
+        "sysfs_iommu_group_id": 3,
         "detail": {
           "function": 0,
           "command": 1031,
@@ -528,8 +532,8 @@
     ],
     "camera": [
       {
-        "index": 44,
-        "attached_to": 47,
+        "index": 41,
+        "attached_to": 43,
         "class_list": [
           "camera",
           "usb"
@@ -630,8 +634,8 @@
         "module_alias": "usb:v04F2pB78Ad2769dcEFdsc02dp01ic0Eisc02ip00in01"
       },
       {
-        "index": 52,
-        "attached_to": 47,
+        "index": 46,
+        "attached_to": 43,
         "class_list": [
           "camera",
           "usb"
@@ -888,7 +892,8 @@
           "eibrs_pbrsb",
           "rfds",
           "bhi",
-          "spectre_v2_user"
+          "spectre_v2_user",
+          "vmscape"
         ],
         "power_management": [
           ""
@@ -914,7 +919,7 @@
     ],
     "disk": [
       {
-        "index": 39,
+        "index": 38,
         "attached_to": 20,
         "class_list": [
           "disk",
@@ -995,7 +1000,7 @@
         ]
       },
       {
-        "index": 40,
+        "index": 39,
         "attached_to": 0,
         "class_list": [
           "disk",
@@ -1015,14 +1020,14 @@
         "sysfs_id": "/class/block/zram0",
         "unix_device_names": [
           "/dev/disk/by-label/zram0",
-          "/dev/disk/by-uuid/4f36057b-9024-4131-a4a9-d52e6a5f78d8",
+          "/dev/disk/by-uuid/7de8a312-14eb-4943-acf1-b29a99707f79",
           "/dev/zram0"
         ],
         "resources": [
           {
             "type": "size",
             "unit": "sectors",
-            "value_1": 2011904,
+            "value_1": 2012160,
             "value_2": 4096
           }
         ]
@@ -1084,7 +1089,7 @@
         "model": "nVidia VGA compatible controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.0/0000:01:00.0",
         "sysfs_bus_id": "0000:01:00.0",
-        "sysfs_iommu_group_id": 13,
+        "sysfs_iommu_group_id": 12,
         "resources": [
           {
             "type": "io",
@@ -1110,95 +1115,12 @@
           "nvidia"
         ],
         "module_alias": "pci:v000010DEd000028A1sv00001D05sd00001243bc03sc00i00"
-      },
-      {
-        "index": 33,
-        "attached_to": 0,
-        "class_list": [
-          "graphics_card",
-          "pci"
-        ],
-        "bus_type": {
-          "hex": "0004",
-          "name": "PCI",
-          "value": 4
-        },
-        "slot": {
-          "bus": 0,
-          "number": 2
-        },
-        "base_class": {
-          "hex": "0003",
-          "name": "Display controller",
-          "value": 3
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "VGA compatible controller",
-          "value": 0
-        },
-        "pci_interface": {
-          "hex": "0000",
-          "name": "VGA",
-          "value": 0
-        },
-        "vendor": {
-          "hex": "8086",
-          "name": "Intel Corporation",
-          "value": 32902
-        },
-        "sub_vendor": {
-          "hex": "1d05",
-          "value": 7429
-        },
-        "device": {
-          "hex": "46a3",
-          "value": 18083
-        },
-        "sub_device": {
-          "hex": "1243",
-          "value": 4675
-        },
-        "revision": {
-          "hex": "000c",
-          "value": 12
-        },
-        "model": "Intel VGA compatible controller",
-        "sysfs_id": "/devices/pci0000:00/0000:00:02.0",
-        "sysfs_bus_id": "0000:00:02.0",
-        "sysfs_iommu_group_id": 0,
-        "resources": [
-          {
-            "type": "io",
-            "base": 20480,
-            "range": 64,
-            "enabled": true,
-            "access": "read_write"
-          }
-        ],
-        "detail": {
-          "function": 0,
-          "command": 1031,
-          "header_type": 0,
-          "secondary_bus": 0,
-          "prog_if": 0
-        },
-        "driver": "i915",
-        "driver_module": "i915",
-        "drivers": [
-          "i915"
-        ],
-        "driver_modules": [
-          "i915"
-        ],
-        "module_alias": "pci:v00008086d000046A3sv00001D05sd00001243bc03sc00i00",
-        "label": "Onboard - Video"
       }
     ],
     "hub": [
       {
-        "index": 47,
-        "attached_to": 34,
+        "index": 43,
+        "attached_to": 33,
         "class_list": [
           "usb",
           "hub"
@@ -1219,7 +1141,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-cachyos xhci-hcd",
+          "name": "Linux 6.19.11-cachyos-lto xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1229,11 +1151,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.19",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.16.5-cachyos xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.19.11-cachyos-lto xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-0:1.0",
         "sysfs_bus_id": "1-0:1.0",
         "resources": [
@@ -1281,11 +1203,11 @@
         "driver_modules": [
           "usbcore"
         ],
-        "module_alias": "usb:v1D6Bp0002d0616dc09dsc00dp01ic09isc00ip00in00"
+        "module_alias": "usb:v1D6Bp0002d0619dc09dsc00dp01ic09isc00ip00in00"
       },
       {
-        "index": 51,
-        "attached_to": 34,
+        "index": 45,
+        "attached_to": 33,
         "class_list": [
           "usb",
           "hub"
@@ -1306,7 +1228,7 @@
         },
         "vendor": {
           "hex": "1d6b",
-          "name": "Linux 6.16.5-cachyos xhci-hcd",
+          "name": "Linux 6.19.11-cachyos-lto xhci-hcd",
           "value": 7531
         },
         "device": {
@@ -1316,11 +1238,11 @@
         },
         "revision": {
           "hex": "0000",
-          "name": "6.16",
+          "name": "6.19",
           "value": 0
         },
         "serial": "0000:00:14.0",
-        "model": "Linux 6.16.5-cachyos xhci-hcd xHCI Host Controller",
+        "model": "Linux 6.19.11-cachyos-lto xhci-hcd xHCI Host Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb2/2-0:1.0",
         "sysfs_bus_id": "2-0:1.0",
         "detail": {
@@ -1358,111 +1280,7 @@
         "driver_modules": [
           "usbcore"
         ],
-        "module_alias": "usb:v1D6Bp0003d0616dc09dsc00dp03ic09isc00ip00in00"
-      }
-    ],
-    "keyboard": [
-      {
-        "index": 50,
-        "attached_to": 47,
-        "class_list": [
-          "keyboard",
-          "usb"
-        ],
-        "bus_type": {
-          "hex": "0086",
-          "name": "USB",
-          "value": 134
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0108",
-          "name": "Keyboard",
-          "value": 264
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Keyboard",
-          "value": 0
-        },
-        "vendor": {
-          "hex": "258a",
-          "name": "BY Tech",
-          "value": 9610
-        },
-        "device": {
-          "hex": "0195",
-          "name": "Gaming Keyboard",
-          "value": 405
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "20.16",
-          "value": 0
-        },
-        "model": "BY Tech Gaming Keyboard",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.0",
-        "sysfs_bus_id": "1-1:1.0",
-        "unix_device_names": [
-          "/dev/input/by-id/usb-BY_Tech_Gaming_Keyboard-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usb-0:1:1.0-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:1:1.0-event-kbd",
-          "/dev/input/event4"
-        ],
-        "resources": [
-          {
-            "type": "baud",
-            "speed": 12000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          }
-        ],
-        "detail": {
-          "device_class": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_protocol": 0,
-          "interface_class": {
-            "hex": "0003",
-            "name": "hid",
-            "value": 3
-          },
-          "interface_subclass": {
-            "hex": "0001",
-            "name": "audio",
-            "value": 1
-          },
-          "interface_protocol": 1,
-          "interface_number": 0,
-          "interface_alternate_setting": 0
-        },
-        "hotplug": "usb",
-        "driver": "usbhid",
-        "driver_module": "usbhid",
-        "drivers": [
-          "usbhid"
-        ],
-        "driver_modules": [
-          "usbhid"
-        ],
-        "driver_info": {
-          "type": "keyboard",
-          "xkb_rules": "xfree86",
-          "xkb_model": "pc104"
-        },
-        "module_alias": "usb:v258Ap0195d2016dc00dsc00dp00ic03isc01ip01in00"
+        "module_alias": "usb:v1D6Bp0003d0619dc09dsc00dp03ic09isc00ip00in00"
       }
     ],
     "memory": [
@@ -1492,6 +1310,110 @@
       }
     ],
     "monitor": [
+      {
+        "index": 36,
+        "attached_to": 25,
+        "class_list": [
+          "monitor"
+        ],
+        "base_class": {
+          "hex": "0100",
+          "name": "Monitor",
+          "value": 256
+        },
+        "sub_class": {
+          "hex": "0002",
+          "name": "LCD Monitor",
+          "value": 2
+        },
+        "vendor": {
+          "hex": "0e6f",
+          "name": "CSOT T3",
+          "value": 3695
+        },
+        "device": {
+          "hex": "1509",
+          "value": 5385
+        },
+        "serial": "0",
+        "model": "CSOT T3 LCD Monitor",
+        "resources": [
+          {
+            "type": "monitor",
+            "width": 2560,
+            "height": 1440,
+            "vertical_frequency": 60,
+            "interlaced": false
+          },
+          {
+            "type": "size",
+            "unit": "mm",
+            "value_1": 344,
+            "value_2": 193
+          }
+        ],
+        "detail": {
+          "manufacture_year": 2021,
+          "manufacture_week": 0,
+          "vertical_sync": {
+            "min": 60,
+            "max": 165
+          },
+          "horizontal_sync": {
+            "min": 2,
+            "max": 2
+          },
+          "horizontal_sync_timings": {
+            "disp": 2560,
+            "sync_start": 2608,
+            "sync_end": 2640,
+            "total": 2720
+          },
+          "vertical_sync_timings": {
+            "disp": 1440,
+            "sync_start": 1443,
+            "sync_end": 1448,
+            "total": 1559
+          },
+          "clock": 254430,
+          "width": 2560,
+          "height": 1440,
+          "width_millimetres": 344,
+          "height_millimetres": 193,
+          "horizontal_flag": 45,
+          "vertical_flag": 45,
+          "vendor": "CSOT T3",
+          "name": ""
+        },
+        "driver_info": {
+          "type": "display",
+          "width": 2560,
+          "height": 1440,
+          "vertical_sync": {
+            "min": 60,
+            "max": 165
+          },
+          "horizontal_sync": {
+            "min": 2,
+            "max": 2
+          },
+          "bandwidth": 0,
+          "horizontal_sync_timings": {
+            "disp": 2560,
+            "sync_start": 2608,
+            "sync_end": 2640,
+            "total": 2720
+          },
+          "vertical_sync_timings": {
+            "disp": 1440,
+            "sync_start": 1443,
+            "sync_end": 1448,
+            "total": 1559
+          },
+          "horizontal_flag": 45,
+          "vertical_flag": 45
+        }
+      },
       {
         "index": 37,
         "attached_to": 25,
@@ -1700,332 +1622,11 @@
           "horizontal_flag": 45,
           "vertical_flag": 43
         }
-      },
-      {
-        "index": 38,
-        "attached_to": 33,
-        "class_list": [
-          "monitor"
-        ],
-        "base_class": {
-          "hex": "0100",
-          "name": "Monitor",
-          "value": 256
-        },
-        "sub_class": {
-          "hex": "0002",
-          "name": "LCD Monitor",
-          "value": 2
-        },
-        "vendor": {
-          "hex": "0e6f",
-          "name": "CSOT T3",
-          "value": 3695
-        },
-        "device": {
-          "hex": "1509",
-          "value": 5385
-        },
-        "serial": "0",
-        "model": "CSOT T3 LCD Monitor",
-        "resources": [
-          {
-            "type": "monitor",
-            "width": 2560,
-            "height": 1440,
-            "vertical_frequency": 60,
-            "interlaced": false
-          },
-          {
-            "type": "size",
-            "unit": "mm",
-            "value_1": 344,
-            "value_2": 193
-          }
-        ],
-        "detail": {
-          "manufacture_year": 2021,
-          "manufacture_week": 0,
-          "vertical_sync": {
-            "min": 60,
-            "max": 165
-          },
-          "horizontal_sync": {
-            "min": 2,
-            "max": 2
-          },
-          "horizontal_sync_timings": {
-            "disp": 2560,
-            "sync_start": 2608,
-            "sync_end": 2640,
-            "total": 2720
-          },
-          "vertical_sync_timings": {
-            "disp": 1440,
-            "sync_start": 1443,
-            "sync_end": 1448,
-            "total": 1559
-          },
-          "clock": 254430,
-          "width": 2560,
-          "height": 1440,
-          "width_millimetres": 344,
-          "height_millimetres": 193,
-          "horizontal_flag": 45,
-          "vertical_flag": 45,
-          "vendor": "CSOT T3",
-          "name": ""
-        },
-        "driver_info": {
-          "type": "display",
-          "width": 2560,
-          "height": 1440,
-          "vertical_sync": {
-            "min": 60,
-            "max": 165
-          },
-          "horizontal_sync": {
-            "min": 2,
-            "max": 2
-          },
-          "bandwidth": 0,
-          "horizontal_sync_timings": {
-            "disp": 2560,
-            "sync_start": 2608,
-            "sync_end": 2640,
-            "total": 2720
-          },
-          "vertical_sync_timings": {
-            "disp": 1440,
-            "sync_start": 1443,
-            "sync_end": 1448,
-            "total": 1559
-          },
-          "horizontal_flag": 45,
-          "vertical_flag": 45
-        }
       }
     ],
     "mouse": [
       {
-        "index": 43,
-        "attached_to": 47,
-        "class_list": [
-          "mouse",
-          "usb"
-        ],
-        "bus_type": {
-          "hex": "0086",
-          "name": "USB",
-          "value": 134
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0105",
-          "name": "Mouse",
-          "value": 261
-        },
-        "sub_class": {
-          "hex": "0003",
-          "name": "USB Mouse",
-          "value": 3
-        },
-        "vendor": {
-          "hex": "258a",
-          "name": "BY Tech",
-          "value": 9610
-        },
-        "device": {
-          "hex": "0195",
-          "name": "Gaming Keyboard",
-          "value": 405
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "20.16",
-          "value": 0
-        },
-        "compat_vendor": "Unknown",
-        "compat_device": "Generic USB Mouse",
-        "model": "BY Tech Gaming Keyboard",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-1/1-1:1.1",
-        "sysfs_bus_id": "1-1:1.1",
-        "unix_device_names": [
-          "/dev/input/mice"
-        ],
-        "unix_device_name2": "/dev/input/mouse0",
-        "resources": [
-          {
-            "type": "baud",
-            "speed": 12000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          }
-        ],
-        "detail": {
-          "device_class": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_protocol": 0,
-          "interface_class": {
-            "hex": "0003",
-            "name": "hid",
-            "value": 3
-          },
-          "interface_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "interface_protocol": 0,
-          "interface_number": 1,
-          "interface_alternate_setting": 0
-        },
-        "hotplug": "usb",
-        "driver": "usbhid",
-        "driver_module": "usbhid",
-        "drivers": [
-          "usbhid"
-        ],
-        "driver_modules": [
-          "usbhid"
-        ],
-        "driver_info": {
-          "type": "mouse",
-          "db_entry_0": [
-            "explorerps/2",
-            "exps2"
-          ],
-          "xf86": "explorerps/2",
-          "gpm": "exps2",
-          "buttons": -1,
-          "wheels": -1
-        },
-        "module_alias": "usb:v258Ap0195d2016dc00dsc00dp00ic03isc00ip00in01"
-      },
-      {
-        "index": 49,
-        "attached_to": 47,
-        "class_list": [
-          "mouse",
-          "usb"
-        ],
-        "bus_type": {
-          "hex": "0086",
-          "name": "USB",
-          "value": 134
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0105",
-          "name": "Mouse",
-          "value": 261
-        },
-        "sub_class": {
-          "hex": "0003",
-          "name": "USB Mouse",
-          "value": 3
-        },
-        "vendor": {
-          "hex": "0b05",
-          "name": "ASUSTeK",
-          "value": 2821
-        },
-        "device": {
-          "hex": "1af3",
-          "name": "ASUS TX GAMING MOUSE MINI",
-          "value": 6899
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "1.13",
-          "value": 0
-        },
-        "serial": "S4MPMV014852",
-        "compat_vendor": "Unknown",
-        "compat_device": "Generic USB Mouse",
-        "model": "ASUSTeK ASUS TX GAMING MOUSE MINI",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.1",
-        "sysfs_bus_id": "1-3:1.1",
-        "unix_device_names": [
-          "/dev/input/mice"
-        ],
-        "unix_device_name2": "/dev/input/mouse1",
-        "resources": [
-          {
-            "type": "baud",
-            "speed": 12000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          }
-        ],
-        "detail": {
-          "device_class": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_protocol": 0,
-          "interface_class": {
-            "hex": "0003",
-            "name": "hid",
-            "value": 3
-          },
-          "interface_subclass": {
-            "hex": "0001",
-            "name": "audio",
-            "value": 1
-          },
-          "interface_protocol": 2,
-          "interface_number": 1,
-          "interface_alternate_setting": 0
-        },
-        "hotplug": "usb",
-        "driver": "usbhid",
-        "driver_module": "usbhid",
-        "drivers": [
-          "usbhid"
-        ],
-        "driver_modules": [
-          "usbhid"
-        ],
-        "driver_info": {
-          "type": "mouse",
-          "db_entry_0": [
-            "explorerps/2",
-            "exps2"
-          ],
-          "xf86": "explorerps/2",
-          "gpm": "exps2",
-          "buttons": -1,
-          "wheels": -1
-        },
-        "module_alias": "usb:v0B05p1AF3d0113dc00dsc00dp00ic03isc01ip02in01"
-      },
-      {
-        "index": 57,
+        "index": 53,
         "attached_to": 0,
         "bus_type": {
           "hex": "0081",
@@ -2050,9 +1651,9 @@
           "hex": "0255",
           "value": 597
         },
-        "sysfs_id": "/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-11/i2c-UNIW0001:00/0018:093A:0255.0006/input/input21",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-UNIW0001:00/0018:093A:0255.0001/input/input9",
         "unix_device_names": [
-          "/dev/input/event18",
+          "/dev/input/event7",
           "/dev/input/ + handler"
         ]
       }
@@ -2107,7 +1708,7 @@
         "model": "Ethernet controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:1c.0/0000:03:00.0",
         "sysfs_bus_id": "0000:03:00.0",
-        "sysfs_iommu_group_id": 15,
+        "sysfs_iommu_group_id": 14,
         "unix_device_names": [
           "enp3s0"
         ],
@@ -2197,7 +1798,7 @@
         "model": "Intel WLAN controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.3",
         "sysfs_bus_id": "0000:00:14.3",
-        "sysfs_iommu_group_id": 8,
+        "sysfs_iommu_group_id": 7,
         "unix_device_names": [
           "wlo1"
         ],
@@ -2315,29 +1916,7 @@
     ],
     "network_interface": [
       {
-        "index": 54,
-        "attached_to": 0,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Loopback",
-          "value": 0
-        },
-        "model": "Loopback network interface",
-        "sysfs_id": "/class/net/lo",
-        "unix_device_names": [
-          "lo"
-        ]
-      },
-      {
-        "index": 55,
+        "index": 47,
         "attached_to": 16,
         "class_list": [
           "network_interface"
@@ -2378,7 +1957,7 @@
         ]
       },
       {
-        "index": 56,
+        "index": 49,
         "attached_to": 23,
         "class_list": [
           "network_interface"
@@ -2416,6 +1995,28 @@
         ],
         "driver_modules": [
           "iwlwifi"
+        ]
+      },
+      {
+        "index": 52,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
         ]
       }
     ],
@@ -2470,7 +2071,7 @@
         "model": "Intel System peripheral",
         "sysfs_id": "/devices/pci0000:00/0000:00:08.0",
         "sysfs_bus_id": "0000:00:08.0",
-        "sysfs_iommu_group_id": 5,
+        "sysfs_iommu_group_id": 4,
         "detail": {
           "function": 0,
           "command": 0,
@@ -2531,7 +2132,7 @@
         "model": "Intel Signal processing controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:04.0",
         "sysfs_bus_id": "0000:00:04.0",
-        "sysfs_iommu_group_id": 3,
+        "sysfs_iommu_group_id": 2,
         "detail": {
           "function": 0,
           "command": 6,
@@ -2600,7 +2201,7 @@
         "model": "Intel Communication controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:16.0",
         "sysfs_bus_id": "0000:00:16.0",
-        "sysfs_iommu_group_id": 10,
+        "sysfs_iommu_group_id": 9,
         "detail": {
           "function": 0,
           "command": 1030,
@@ -2668,7 +2269,7 @@
         "model": "Intel Serial bus controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:1f.5",
         "sysfs_bus_id": "0000:00:1f.5",
-        "sysfs_iommu_group_id": 12,
+        "sysfs_iommu_group_id": 11,
         "detail": {
           "function": 5,
           "command": 1026,
@@ -2736,7 +2337,7 @@
         "model": "Intel Serial bus controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:15.0",
         "sysfs_bus_id": "0000:00:15.0",
-        "sysfs_iommu_group_id": 9,
+        "sysfs_iommu_group_id": 8,
         "detail": {
           "function": 0,
           "command": 6,
@@ -2797,7 +2398,7 @@
         "model": "Intel RAM memory",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.2",
         "sysfs_bus_id": "0000:00:14.2",
-        "sysfs_iommu_group_id": 7,
+        "sysfs_iommu_group_id": 6,
         "detail": {
           "function": 2,
           "command": 0,
@@ -2809,7 +2410,7 @@
         "label": "Onboard - Other"
       },
       {
-        "index": 35,
+        "index": 34,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -2858,7 +2459,7 @@
         "model": "Intel SMBus",
         "sysfs_id": "/devices/pci0000:00/0000:00:1f.4",
         "sysfs_bus_id": "0000:00:1f.4",
-        "sysfs_iommu_group_id": 12,
+        "sysfs_iommu_group_id": 11,
         "resources": [
           {
             "type": "io",
@@ -2887,7 +2488,7 @@
         "label": "Onboard - Other"
       },
       {
-        "index": 36,
+        "index": 35,
         "attached_to": 0,
         "class_list": [
           "pci",
@@ -2928,7 +2529,7 @@
         "model": "Intel Signal processing controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:0a.0",
         "sysfs_bus_id": "0000:00:0a.0",
-        "sysfs_iommu_group_id": 6,
+        "sysfs_iommu_group_id": 5,
         "detail": {
           "function": 0,
           "command": 2,
@@ -3002,7 +2603,7 @@
         "model": "Intel Multimedia controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:1f.3",
         "sysfs_bus_id": "0000:00:1f.3",
-        "sysfs_iommu_group_id": 12,
+        "sysfs_iommu_group_id": 11,
         "detail": {
           "function": 3,
           "command": 1030,
@@ -3070,7 +2671,7 @@
         "model": "nVidia Multimedia controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:01.0/0000:01:00.1",
         "sysfs_bus_id": "0000:01:00.1",
-        "sysfs_iommu_group_id": 13,
+        "sysfs_iommu_group_id": 12,
         "detail": {
           "function": 1,
           "command": 6,
@@ -3142,7 +2743,7 @@
         "model": "Mass storage controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:06.0/0000:02:00.0",
         "sysfs_bus_id": "0000:02:00.0",
-        "sysfs_iommu_group_id": 14,
+        "sysfs_iommu_group_id": 13,
         "detail": {
           "function": 0,
           "command": 1030,
@@ -3166,198 +2767,8 @@
     },
     "usb": [
       {
-        "index": 42,
-        "attached_to": 47,
-        "class_list": [
-          "usb",
-          "unknown"
-        ],
-        "bus_type": {
-          "hex": "0086",
-          "name": "USB",
-          "value": 134
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0000",
-          "name": "Unclassified device",
-          "value": 0
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Unclassified device",
-          "value": 0
-        },
-        "vendor": {
-          "hex": "0b05",
-          "name": "ASUSTeK",
-          "value": 2821
-        },
-        "device": {
-          "hex": "1af3",
-          "name": "ASUS TX GAMING MOUSE MINI",
-          "value": 6899
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "1.13",
-          "value": 0
-        },
-        "serial": "S4MPMV014852",
-        "model": "ASUSTeK ASUS TX GAMING MOUSE MINI",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.2",
-        "sysfs_bus_id": "1-3:1.2",
-        "unix_device_names": [
-          "/dev/input/by-id/usb-ASUSTeK_ASUS_TX_GAMING_MOUSE_MINI_S4MPMV014852-if02-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usb-0:3:1.2-event-kbd",
-          "/dev/input/by-path/pci-0000:00:14.0-usbv2-0:3:1.2-event-kbd",
-          "/dev/input/event15"
-        ],
-        "resources": [
-          {
-            "type": "baud",
-            "speed": 12000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          }
-        ],
-        "detail": {
-          "device_class": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_protocol": 0,
-          "interface_class": {
-            "hex": "0003",
-            "name": "hid",
-            "value": 3
-          },
-          "interface_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "interface_protocol": 0,
-          "interface_number": 2,
-          "interface_alternate_setting": 0
-        },
-        "hotplug": "usb",
-        "driver": "usbhid",
-        "driver_module": "usbhid",
-        "drivers": [
-          "usbhid"
-        ],
-        "driver_modules": [
-          "usbhid"
-        ],
-        "module_alias": "usb:v0B05p1AF3d0113dc00dsc00dp00ic03isc00ip00in02"
-      },
-      {
-        "index": 45,
-        "attached_to": 47,
-        "class_list": [
-          "usb",
-          "unknown"
-        ],
-        "bus_type": {
-          "hex": "0086",
-          "name": "USB",
-          "value": 134
-        },
-        "slot": {
-          "bus": 0,
-          "number": 0
-        },
-        "base_class": {
-          "hex": "0000",
-          "name": "Unclassified device",
-          "value": 0
-        },
-        "sub_class": {
-          "hex": "0000",
-          "name": "Unclassified device",
-          "value": 0
-        },
-        "vendor": {
-          "hex": "0b05",
-          "name": "ASUSTeK",
-          "value": 2821
-        },
-        "device": {
-          "hex": "1af3",
-          "name": "ASUS TX GAMING MOUSE MINI",
-          "value": 6899
-        },
-        "revision": {
-          "hex": "0000",
-          "name": "1.13",
-          "value": 0
-        },
-        "serial": "S4MPMV014852",
-        "model": "ASUSTeK ASUS TX GAMING MOUSE MINI",
-        "sysfs_id": "/devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0",
-        "sysfs_bus_id": "1-3:1.0",
-        "resources": [
-          {
-            "type": "baud",
-            "speed": 12000000,
-            "bits": 0,
-            "stop_bits": 0,
-            "parity": 0,
-            "handshake": 0
-          }
-        ],
-        "detail": {
-          "device_class": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "device_protocol": 0,
-          "interface_class": {
-            "hex": "0003",
-            "name": "hid",
-            "value": 3
-          },
-          "interface_subclass": {
-            "hex": "0000",
-            "name": "per_interface",
-            "value": 0
-          },
-          "interface_protocol": 0,
-          "interface_number": 0,
-          "interface_alternate_setting": 0
-        },
-        "hotplug": "usb",
-        "driver": "usbhid",
-        "driver_module": "usbhid",
-        "drivers": [
-          "usbhid"
-        ],
-        "driver_modules": [
-          "usbhid"
-        ],
-        "module_alias": "usb:v0B05p1AF3d0113dc00dsc00dp00ic03isc00ip00in00"
-      },
-      {
-        "index": 48,
-        "attached_to": 47,
+        "index": 44,
+        "attached_to": 43,
         "class_list": [
           "usb",
           "unknown"
@@ -3457,7 +2868,7 @@
     ],
     "usb_controller": [
       {
-        "index": 34,
+        "index": 33,
         "attached_to": 0,
         "class_list": [
           "usb_controller",
@@ -3510,7 +2921,7 @@
         "model": "Intel USB Controller",
         "sysfs_id": "/devices/pci0000:00/0000:00:14.0",
         "sysfs_bus_id": "0000:00:14.0",
-        "sysfs_iommu_group_id": 7,
+        "sysfs_iommu_group_id": 6,
         "detail": {
           "function": 0,
           "command": 1030,
@@ -3952,22 +3363,22 @@
     },
     "group_associations": [
       {
-        "handle": 80,
+        "handle": 79,
         "name": "$MEI",
         "handles": [
           0
         ]
       },
       {
-        "handle": 83,
+        "handle": 82,
         "name": "Firmware Version Info",
         "handles": [
           206158430255,
           210453397552,
           214748364849,
           219043332146,
-          330712481843,
-          4471060955213
+          326417514547,
+          1172526071884
         ]
       }
     ],
