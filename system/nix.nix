@@ -3,9 +3,11 @@
   lib,
   amd64Microarchs,
   config,
+  pkgs,
   ...
 }: {
   nix = {
+    package = pkgs.master.nix;
     # for nixd
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     extraOptions = ''
@@ -25,18 +27,18 @@
       substituters = lib.mkForce [
         # 中科大
         "https://mirrors.ustc.edu.cn/nix-channels/store?priority=10"
+        # 校园网 mirrorz
+        "https://mirrors.cernet.edu.cn/nix-channels/store?priority=10"
         # 上交
-        # "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
+        "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
         # 清华
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=11"
         # 中科院
         "https://mirror.iscas.ac.cn/nix-channels/store?priority=11"
         # 南大
         "https://mirror.nju.edu.cn/nix-channels/store?priority=11"
-        # 北外
-        # "https://mirrors.bfsu.edu.cn/nix-channels/store?priority=11"
         # 重庆邮电
-        # "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12"
+        "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12"
 
         # 回退
         "https://cache.nixos.org"

@@ -9,6 +9,9 @@
     allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
     allowUnfree = true;
     cudaSupport = isNvidiaGPU;
+    npmRegistryOverrides = {
+      "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm";
+    };
   };
 in {
   nixpkgs = {
@@ -63,7 +66,6 @@ in {
               forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
               forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
             };
-          teleport = inputs.nixpkgs-teleport.legacyPackages.${system}.teleport;
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
           nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
           quickshell = inputs.quickshell.packages.${system}.quickshell;
