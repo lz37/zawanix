@@ -1,14 +1,19 @@
-{hostName, ...}: {
+{config, ...}: let
+  hostName = config.networking.hostName;
+  dhcpByHost = {
+    zawanix-work = false;
+    zawanix-glap = true;
+    zawanix-fubuki = true;
+  };
+in {
   hardware.facter = {
     enable = true;
     reportPath = ./. + "/${hostName}.json";
     detected = {
       dhcp.enable =
-        {
-          zawanix-work = false;
-          zawanix-glap = true;
-          zawanix-fubuki = true;
-        }."${hostName}";
+        if builtins.hasAttr hostName dhcpByHost
+        then dhcpByHost.${hostName}
+        else false;
     };
   };
 }
