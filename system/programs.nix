@@ -34,13 +34,15 @@ in {
           // {
             gpu_device =
               # 主gpu
-              {
-                zawanix-fubuki = 2;
-                zawanix-glap = 1;
-              }
-            .${
-                hostName
-              };
+              (
+                {
+                  zawanix-fubuki = 2;
+                  zawanix-glap = 1;
+                }
+              .${
+                  hostName
+                } or 0
+              );
           };
 
         custom = {
