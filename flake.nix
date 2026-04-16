@@ -126,27 +126,63 @@
       }: {
         legacyPackages = {
           nixosConfigurations = let
-            mkNixosConfig = {
-              hostName,
-              isNvidiaGPU ? false,
-              isIntelGPU ? false,
-              isIntelCPU ? false,
-              isAMDCPU ? false,
-              isAmdGPU ? false,
-              isVM ? false,
-              isLaptop ? false,
-              isGameMachine ? false,
-              isSSD ? false,
-              extraModules ? [],
-              ram ? 8 * 1024,
-              stylixImage,
-              amd64Microarchs ? "x86_64_v3",
-            }: let
+            pixiv-image = inputs.zerozawa-nur.legacyPackages.${system}.lib.fetchPixiv {
+              id = 94573417;
+              p = 0;
+              sha256 = "sha256-zy6lf348KbIQj0A0ZcmaZ1Llgjg8uXHjoRbpVyl9p3I=";
+            };
+            compatibilityArgsByHost = {
+              zawanix-work = {
+                isNvidiaGPU = false;
+                isAMDCPU = false;
+                isIntelCPU = true;
+                isIntelGPU = true;
+                isAmdGPU = false;
+                isVM = false;
+                isLaptop = false;
+                isGameMachine = false;
+                isSSD = true;
+                ram = 32 * 1024;
+                stylixImage = pixiv-image;
+                amd64Microarchs = "x86_64_v3";
+              };
+              zawanix-glap = {
+                isNvidiaGPU = true;
+                isAMDCPU = false;
+                isIntelCPU = true;
+                isIntelGPU = false;
+                isAmdGPU = false;
+                isVM = false;
+                isLaptop = true;
+                isGameMachine = true;
+                isSSD = true;
+                ram = 16 * 1024;
+                stylixImage = pixiv-image;
+                amd64Microarchs = "x86_64_v3";
+              };
+              zawanix-fubuki = {
+                isNvidiaGPU = true;
+                isAMDCPU = true;
+                isIntelCPU = false;
+                isIntelGPU = false;
+                isAmdGPU = true;
+                isVM = false;
+                isLaptop = false;
+                isGameMachine = true;
+                isSSD = true;
+                ram = 32 * 1024;
+                stylixImage = pixiv-image;
+                amd64Microarchs = "x86_64_v4";
+              };
+            };
+            mkNixosConfig = profile: let
+              compatibilityArgs = compatibilityArgsByHost.${profile.hostName};
               specialArgs = {
                 rootPath = ./.;
+                inherit (profile) hostName;
+                inherit inputs colorsh system;
                 inherit
-                  hostName
-                  inputs
+                  (compatibilityArgs)
                   isNvidiaGPU
                   isAMDCPU
                   isIntelCPU
@@ -158,29 +194,15 @@
                   isSSD
                   ram
                   stylixImage
-                  colorsh
-                  system
                   amd64Microarchs
                   ;
               };
             in {
               inherit system specialArgs;
               modules =
-                (
-                  with inputs.nixos-hardware.nixosModules;
-                    []
-                    ++ (lib.optional isAmdGPU common-gpu-amd)
-                    ++ (lib.optional isIntelGPU common-gpu-intel)
-                    ++ (lib.optional isIntelCPU common-cpu-intel)
-                    ++ (lib.optional isAMDCPU common-cpu-amd)
-                    ++ (lib.optional isAMDCPU common-cpu-amd-pstate)
-                    ++ (lib.optional isAMDCPU common-cpu-amd-zenpower)
-                    ++ (lib.optional (!isLaptop) common-pc)
-                    ++ (lib.optional isLaptop common-pc-laptop)
-                    ++ (lib.optional isSSD common-pc-ssd)
-                )
-                ++ [
+                [
                   ./options
+                  profile.hostOptionModule
                   (inputs.zerozawa-private + "/default.nix")
                   ./nixpkgs.nix
                   inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -189,8 +211,20 @@
                   inputs.stylix.nixosModules.stylix
                   inputs.nixos-cli.nixosModules.nixos-cli
                   ./stylix/nixos.nix
-                  ./hardware
-                  ./network
+                  (
+                    {...} @ moduleArgs:
+                      import ./hardware (
+                        {
+                          hostName = profile.hostName;
+                          nixosHardwareModules = inputs.nixos-hardware.nixosModules;
+                          inherit (compatibilityArgs) isNvidiaGPU;
+                        }
+                        // moduleArgs
+                      )
+                  )
+                  (import ./network {
+                    hostName = profile.hostName;
+                  })
                   ./system
                   ./mihomo
                 ]
@@ -216,49 +250,31 @@
                       extraSpecialArgs = specialArgs;
                     };
                   }
-                ]
-                ++ extraModules;
+                ];
             };
           in (
             let
-              config = let
-                pixiv-image = inputs.zerozawa-nur.legacyPackages.${system}.lib.fetchPixiv {
-                  id = 94573417;
-                  p = 0;
-                  sha256 = "sha256-zy6lf348KbIQj0A0ZcmaZ1Llgjg8uXHjoRbpVyl9p3I=";
-                };
-              in {
+              config = {
                 zawanix-work = mkNixosConfig {
-                  isIntelCPU = true;
-                  isIntelGPU = true;
-                  isSSD = true;
                   hostName = "zawanix-work";
-                  isGameMachine = false;
-                  ram = 32 * 1024;
-                  stylixImage = pixiv-image;
+                  hostOptionModule = {
+                    networking.hostName = "zawanix-work";
+                    zerozawa.host.isGameMachine = false;
+                  };
                 };
                 zawanix-glap = mkNixosConfig {
-                  isIntelCPU = true;
-                  isIntelGPU = false;
-                  isNvidiaGPU = true;
-                  isSSD = true;
-                  isLaptop = true;
-                  isGameMachine = true;
                   hostName = "zawanix-glap";
-                  ram = 16 * 1024;
-                  stylixImage = pixiv-image;
+                  hostOptionModule = {
+                    networking.hostName = "zawanix-glap";
+                    zerozawa.host.isGameMachine = true;
+                  };
                 };
                 zawanix-fubuki = mkNixosConfig {
-                  isAMDCPU = true;
-                  isAmdGPU = true;
-                  isNvidiaGPU = true;
-                  isSSD = true;
-                  isLaptop = false;
-                  isGameMachine = true;
                   hostName = "zawanix-fubuki";
-                  ram = 32 * 1024;
-                  stylixImage = pixiv-image;
-                  amd64Microarchs = "x86_64_v4";
+                  hostOptionModule = {
+                    networking.hostName = "zawanix-fubuki";
+                    zerozawa.host.isGameMachine = true;
+                  };
                 };
               };
             in {
