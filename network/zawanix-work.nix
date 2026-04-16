@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
-lib.mkIf (config.networking.hostName == "zawanix-work") {
+{config, ...}: {
   networking = {
     enableIPv6 = true;
     firewall.enable = false;
