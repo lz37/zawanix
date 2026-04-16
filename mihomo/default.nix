@@ -2,10 +2,10 @@
   config,
   pkgs,
   lib,
-  isLaptop,
   colorsh,
   ...
 }: let
+  hw = config.zerozawa.hardware;
   external-controller = "127.0.0.1:9090";
   tunChanger = enable: ''
     #!${pkgs.bash}/bin/bash
@@ -78,8 +78,7 @@
     );
   };
 in
-  if isLaptop
-  then {
+  lib.mkIf hw.isLaptop {
     environment.systemPackages = with mihomo; [
       subscribe
       tun.on
@@ -93,4 +92,3 @@ in
       configFile = config.zerozawa.path.mihomoCfg;
     };
   }
-  else {}

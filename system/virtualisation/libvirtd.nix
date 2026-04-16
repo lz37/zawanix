@@ -1,9 +1,11 @@
 {
   pkgs,
-  isNvidiaGPU,
+  config,
   lib,
   ...
-}: {
+}: let
+  hw = config.zerozawa.hardware;
+in {
   environment.systemPackages = with pkgs; [
     quickemu
     quickgui
@@ -55,7 +57,7 @@
           package = swtpm;
         };
         verbatimConfig =
-          if isNvidiaGPU
+          if hw.isNvidiaGPU
           then ''
             namespaces = []
             cgroup_device_acl = [

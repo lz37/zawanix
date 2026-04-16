@@ -1,13 +1,12 @@
-{
-  isLaptop,
-  isGameMachine,
-  ...
-}: {
+{config, ...}: let
+  hw = config.zerozawa.hardware;
+  host = config.zerozawa.host;
+in {
   powerManagement = {
     cpuFreqGovernor =
-      if isLaptop
+      if hw.isLaptop
       then null
       else "performance";
   };
-  services.power-profiles-daemon.enable = isGameMachine && !isLaptop;
+  services.power-profiles-daemon.enable = host.isGameMachine && !hw.isLaptop;
 }

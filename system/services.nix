@@ -1,19 +1,18 @@
 {
   pkgs,
   config,
-  isGameMachine,
-  isIntelCPU,
-  isAMDCPU,
-  isLaptop,
   ...
-}: {
+}: let
+  hw = config.zerozawa.hardware;
+  host = config.zerozawa.host;
+in {
   services = {
     hardware.openrgb = {
-      enable = isGameMachine && !isLaptop;
+      enable = host.isGameMachine && !hw.isLaptop;
       motherboard =
-        if isIntelCPU
+        if hw.isIntelCPU
         then "intel"
-        else if isAMDCPU
+        else if hw.isAMDCPU
         then "amd"
         else null;
       package = pkgs.openrgb-with-all-plugins;
@@ -33,7 +32,10 @@
       then {
         enable = true;
         openFirewall = true;
-        signal.relayHosts = ["localhost" config.zerozawa.network.static-address];
+        signal.relayHosts = [
+          "localhost"
+          config.zerozawa.network.static-address
+        ];
       }
       else {enable = false;};
     printing = {

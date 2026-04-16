@@ -1,10 +1,11 @@
 {
   pkgs,
+  config,
   lib,
-  isNvidiaGPU,
   ...
 }: let
   patchDesktop = import ./utils.nix {inherit pkgs lib;};
+  hw = config.zerozawa.hardware;
 in {
   environment.systemPackages = with pkgs; [
     rustdesk
@@ -21,8 +22,8 @@ in {
     })
     master.wechat
     (
-      patchDesktop master.wechat "wechat" ''^Exec=wechat %U''
-      ''Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U''
+      patchDesktop master.wechat "wechat" "^Exec=wechat %U"
+      "Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U"
     )
     master.wemeet
     scrcpy
@@ -34,11 +35,8 @@ in {
     jellyfin-media-player
     (switchfin.overrideAttrs (old: {
       cmakeFlags =
-        if isNvidiaGPU
-        then
-          map
-          (flag: lib.replaceStrings ["-DUSE_EGL=ON"] ["-DUSE_EGL=OFF"] flag)
-          (old.cmakeFlags or [])
+        if hw.isNvidiaGPU
+        then map (flag: lib.replaceStrings ["-DUSE_EGL=ON"] ["-DUSE_EGL=OFF"] flag) (old.cmakeFlags or [])
         else old.cmakeFlags;
     }))
     feishin

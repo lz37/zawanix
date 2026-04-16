@@ -1,11 +1,11 @@
 {
   pkgs,
-  isNvidiaGPU,
-  isIntelGPU,
-  isAmdGPU,
+  config,
   lib,
   ...
-}: {
+}: let
+  hw = config.zerozawa.hardware;
+in {
   environment = {
     systemPackages = with pkgs; [
       clinfo
@@ -26,20 +26,20 @@
     extraPackages = (
       with pkgs; (
         # OpenCL ICD 加载器 (NVIDIA/Intel 使用，AMD 使用 ROCm 自带)
-        (lib.optionals (!isAmdGPU) [ocl-icd])
-        ++ (lib.optionals isNvidiaGPU [
+        (lib.optionals (!hw.isAmdGPU) [ocl-icd])
+        ++ (lib.optionals hw.isNvidiaGPU [
           nvidia-vaapi-driver
           nv-codec-headers-12
           libva-vdpau-driver
           libvdpau-va-gl
         ])
-        ++ (lib.optionals isIntelGPU [
+        ++ (lib.optionals hw.isIntelGPU [
           intel-media-driver
           intel-ocl
           intel-compute-runtime
           (pkgs.vpl-gpu-rt or pkgs.onevpl-intel-gpu)
         ])
-        ++ (lib.optionals isAmdGPU (
+        ++ (lib.optionals hw.isAmdGPU (
           with rocmPackages; [
             # AMD OpenCL 支持 (ROCm 自带 OpenCL 运行时，不需要 ocl-icd)
             clr.icd
@@ -52,12 +52,12 @@
     extraPackages32 = (
       with pkgs.pkgsi686Linux; (
         # 32-bit OpenCL ICD 加载器 (NVIDIA/Intel 使用，AMD 无 32-bit ROCm)
-        (lib.optionals (!isAmdGPU) [ocl-icd])
-        ++ (lib.optionals isNvidiaGPU [
+        (lib.optionals (!hw.isAmdGPU) [ocl-icd])
+        ++ (lib.optionals hw.isNvidiaGPU [
           libvdpau-va-gl
           libva-vdpau-driver
         ])
-        ++ (lib.optionals isIntelGPU [
+        ++ (lib.optionals hw.isIntelGPU [
           intel-media-driver
         ])
       )
