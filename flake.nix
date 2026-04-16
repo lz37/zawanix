@@ -257,23 +257,29 @@
               config = {
                 zawanix-work = mkNixosConfig {
                   hostName = "zawanix-work";
-                  hostOptionModule = {
-                    networking.hostName = "zawanix-work";
-                    zerozawa.host.isGameMachine = false;
+                  hostOptionModule = {lib, ...}: {
+                    config = {
+                      networking.hostName = "zawanix-work";
+                      zerozawa.host.isGameMachine = lib.mkForce false;
+                    };
                   };
                 };
                 zawanix-glap = mkNixosConfig {
                   hostName = "zawanix-glap";
-                  hostOptionModule = {
-                    networking.hostName = "zawanix-glap";
-                    zerozawa.host.isGameMachine = true;
+                  hostOptionModule = {lib, ...}: {
+                    config = {
+                      networking.hostName = "zawanix-glap";
+                      zerozawa.host.isGameMachine = lib.mkForce true;
+                    };
                   };
                 };
                 zawanix-fubuki = mkNixosConfig {
                   hostName = "zawanix-fubuki";
-                  hostOptionModule = {
-                    networking.hostName = "zawanix-fubuki";
-                    zerozawa.host.isGameMachine = true;
+                  hostOptionModule = {lib, ...}: {
+                    config = {
+                      networking.hostName = "zawanix-fubuki";
+                      zerozawa.host.isGameMachine = lib.mkForce true;
+                    };
                   };
                 };
               };
