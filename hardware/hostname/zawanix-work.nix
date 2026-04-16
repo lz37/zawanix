@@ -1,4 +1,9 @@
-{...}: {
+{
+  config,
+  lib,
+  ...
+}:
+lib.mkIf (config.networking.hostName == "zawanix-work") {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/82807551-0eb9-4aaa-a193-2ffc46704a95";

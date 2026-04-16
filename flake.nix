@@ -126,76 +126,10 @@
       }: {
         legacyPackages = {
           nixosConfigurations = let
-            pixiv-image = inputs.zerozawa-nur.legacyPackages.${system}.lib.fetchPixiv {
-              id = 94573417;
-              p = 0;
-              sha256 = "sha256-zy6lf348KbIQj0A0ZcmaZ1Llgjg8uXHjoRbpVyl9p3I=";
-            };
-            compatibilityArgsByHost = {
-              zawanix-work = {
-                isNvidiaGPU = false;
-                isAMDCPU = false;
-                isIntelCPU = true;
-                isIntelGPU = true;
-                isAmdGPU = false;
-                isVM = false;
-                isLaptop = false;
-                isGameMachine = false;
-                isSSD = true;
-                ram = 32 * 1024;
-                stylixImage = pixiv-image;
-                amd64Microarchs = "x86_64_v3";
-              };
-              zawanix-glap = {
-                isNvidiaGPU = true;
-                isAMDCPU = false;
-                isIntelCPU = true;
-                isIntelGPU = false;
-                isAmdGPU = false;
-                isVM = false;
-                isLaptop = true;
-                isGameMachine = true;
-                isSSD = true;
-                ram = 16 * 1024;
-                stylixImage = pixiv-image;
-                amd64Microarchs = "x86_64_v3";
-              };
-              zawanix-fubuki = {
-                isNvidiaGPU = true;
-                isAMDCPU = true;
-                isIntelCPU = false;
-                isIntelGPU = false;
-                isAmdGPU = true;
-                isVM = false;
-                isLaptop = false;
-                isGameMachine = true;
-                isSSD = true;
-                ram = 32 * 1024;
-                stylixImage = pixiv-image;
-                amd64Microarchs = "x86_64_v4";
-              };
-            };
             mkNixosConfig = profile: let
-              compatibilityArgs = compatibilityArgsByHost.${profile.hostName};
               specialArgs = {
                 rootPath = ./.;
-                inherit (profile) hostName;
-                inherit inputs colorsh system;
-                inherit
-                  (compatibilityArgs)
-                  isNvidiaGPU
-                  isAMDCPU
-                  isIntelCPU
-                  isIntelGPU
-                  isAmdGPU
-                  isVM
-                  isLaptop
-                  isGameMachine
-                  isSSD
-                  ram
-                  stylixImage
-                  amd64Microarchs
-                  ;
+                inherit inputs colorsh;
               };
             in {
               inherit system specialArgs;
@@ -203,7 +137,9 @@
                 [
                   ./options
                   profile.hostOptionModule
-                  (inputs.zerozawa-private + "/default.nix")
+                  (import (inputs.zerozawa-private + "/default.nix") {
+                    hostName = profile.hostName;
+                  })
                   ./nixpkgs.nix
                   inputs.nix-flatpak.nixosModules.nix-flatpak
                   inputs.nix-index-database.nixosModules.nix-index
@@ -211,20 +147,8 @@
                   inputs.stylix.nixosModules.stylix
                   inputs.nixos-cli.nixosModules.nixos-cli
                   ./stylix/nixos.nix
-                  (
-                    {...} @ moduleArgs:
-                      import ./hardware (
-                        {
-                          hostName = profile.hostName;
-                          nixosHardwareModules = inputs.nixos-hardware.nixosModules;
-                          inherit (compatibilityArgs) isNvidiaGPU;
-                        }
-                        // moduleArgs
-                      )
-                  )
-                  (import ./network {
-                    hostName = profile.hostName;
-                  })
+                  ./hardware
+                  ./network
                   ./system
                   ./mihomo
                 ]
@@ -240,7 +164,9 @@
                         inputs.plasma-manager.homeModules.plasma-manager
                         inputs.vscode-server.homeModules.default
                         ./options
-                        (inputs.zerozawa-private + "/default.nix")
+                        (import (inputs.zerozawa-private + "/default.nix") {
+                          hostName = profile.hostName;
+                        })
                         inputs.dankMaterialShell.homeModules.dank-material-shell
                         inputs.dms-plugin-registry.modules.default
                         inputs.nix-monitor.homeManagerModules.default

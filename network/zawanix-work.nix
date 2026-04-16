@@ -1,10 +1,10 @@
 {
-  hostName,
   config,
+  lib,
   ...
-}: {
+}:
+lib.mkIf (config.networking.hostName == "zawanix-work") {
   networking = {
-    inherit hostName;
     enableIPv6 = true;
     firewall.enable = false;
     networkmanager.enable = false;
