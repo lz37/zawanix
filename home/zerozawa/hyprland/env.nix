@@ -1,8 +1,10 @@
 {
   lib,
-  isNvidiaGPU,
+  osConfig,
   ...
-}: {
+}: let
+  hw = osConfig.zerozawa.hardware;
+in {
   wayland.windowManager.hyprland = {
     settings = {
       env =
@@ -37,7 +39,7 @@
           "TERMINAL,kitty"
           "XDG_TERMINAL_EMULATOR,kitty"
         ]
-        ++ (lib.optionals isNvidiaGPU [
+        ++ (lib.optionals hw.isNvidiaGPU [
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           "__NV_PRIME_RENDER_OFFLOAD,1"

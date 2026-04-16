@@ -1,12 +1,13 @@
 {
   pkgs,
-  isNvidiaGPU,
-  hostName,
+  osConfig,
   config,
   lib,
   ...
 }: let
   inherit (pkgs) anime4k;
+  hw = osConfig.zerozawa.hardware;
+  hostName = osConfig.networking.hostName;
   renderOption = option:
     rec {
       int = toString option;
@@ -63,7 +64,7 @@
       volume = 100;
       volume-max = 200;
       glsl-shaders =
-        if isNvidiaGPU
+        if hw.isNvidiaGPU
         then "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"
         else "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_M.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_S.glsl";
     };
@@ -89,12 +90,16 @@ in {
     "jellyfin-mpv-shim/fonts".source = "${mpv-scripts}/share/fonts/truetype";
     "jellyfin-mpv-shim/scripts".source = "${mpv-scripts}/share/mpv/scripts";
     "jellyfin-mpv-shim/mpv.conf".text = ''
-      ${lib.optionalString (mpv-common.defaultProfiles != []) (renderDefaultProfiles mpv-common.defaultProfiles)}
+      ${lib.optionalString (mpv-common.defaultProfiles != []) (
+        renderDefaultProfiles mpv-common.defaultProfiles
+      )}
       ${lib.optionalString (mpv-common.config != {}) (renderOptions mpv-common.config)}
       ${lib.optionalString (mpv-common.profiles != {}) (renderProfiles mpv-common.profiles)}
     '';
-    "jellyfin-mpv-shim/script-opts".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/script-opts";
-    "jellyfin-mpv-shim/input.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/input.conf";
+    "jellyfin-mpv-shim/script-opts".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/script-opts";
+    "jellyfin-mpv-shim/input.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/mpv/input.conf";
     "jellyfin-mpv-shim/conf.json".source = pkgs.stdenv.mkDerivation {
       src = (pkgs.formats.json {}).generate "jellyfin-mpv-shim.config.json" {
         "allow_transcode_to_h265" = false;
@@ -212,7 +217,10 @@ in {
       };
       name = "jellyfin-mpv-shim-config-json";
       dontUnpack = true;
-      buildInputs = with pkgs; [jq util-linux];
+      buildInputs = with pkgs; [
+        jq
+        util-linux
+      ];
       buildPhase = ''
         runHook preBuild
         UUID=$(uuidgen --namespac @dns --name ${hostName} --md5)
@@ -240,7 +248,7 @@ in {
         gpu-context = "waylandvk";
       };
     bindings =
-      if isNvidiaGPU
+      if hw.isNvidiaGPU
       then {
         "CTRL+1" = ''no-osd change-list glsl-shaders set "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"'';
         "CTRL+2" = ''no-osd change-list glsl-shaders set "${anime4k}/Anime4K_Clamp_Highlights.glsl:${anime4k}/Anime4K_Restore_CNN_Soft_VL.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode B (HQ)"'';

@@ -1,9 +1,11 @@
 {
   config,
   pkgs,
-  hostName,
+  osConfig,
   ...
-}: {
+}: let
+  hostName = osConfig.networking.hostName;
+in {
   services = {
     mpris-proxy.enable = true;
   };

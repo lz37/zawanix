@@ -1,8 +1,9 @@
 {
-  ram,
   pkgs,
+  osConfig,
   ...
 }: let
+  hw = osConfig.zerozawa.hardware;
   makeTrue = v:
     v
     |> map (x: {
@@ -22,7 +23,7 @@ in {
   ];
   settings =
     {
-      "typescript.tsserver.maxTsServerMemory" = ram / 4;
+      "typescript.tsserver.maxTsServerMemory" = hw.ram / 4;
       "typescript.updateImportsOnFileMove.enabled" = "always";
       "javascript.updateImportsOnFileMove.enabled" = "always";
       # "typescript.experimental.useTsgo" = true;

@@ -1,12 +1,12 @@
 {
   pkgs,
-  # isNvidiaGPU,
   lib,
   config,
-  hostName,
-  isLaptop,
+  osConfig,
   ...
 }: let
+  hw = osConfig.zerozawa.hardware;
+  hostName = osConfig.networking.hostName;
   # minimal kitty background config used by the panels
   baseBgKittyConf = ''
     font_family JetBrainsMono Nerd Font Mono
@@ -16,15 +16,19 @@
     shell ${lib.getExe pkgs.bash}
   '';
 
-  bgKittyCavaConf = pkgs.writeText "bg-kitty-cava-conf" (baseBgKittyConf
+  bgKittyCavaConf = pkgs.writeText "bg-kitty-cava-conf" (
+    baseBgKittyConf
     + ''
       font_size 4.0
-    '');
+    ''
+  );
 
-  bgKittyClockConf = pkgs.writeText "bg-kitty-clock-conf" (baseBgKittyConf
+  bgKittyClockConf = pkgs.writeText "bg-kitty-clock-conf" (
+    baseBgKittyConf
     + ''
       font_size 18.0
-    '');
+    ''
+  );
 in {
   home.packages = with pkgs; [
     grimblast
@@ -75,25 +79,30 @@ in {
         vscodeLauncher.enable = true;
       }
       // (
-        if isLaptop
+        if hw.isLaptop
         then {
           powerUsagePlugin.enable = true;
         }
         else {}
       );
-    quickshell.package = pkgs.quickshell.withModules (with pkgs.kdePackages; [
-      kirigami
-      kirigami-addons
-      kirigami-gallery
-    ]);
+    quickshell.package = pkgs.quickshell.withModules (
+      with pkgs.kdePackages; [
+        kirigami
+        kirigami-addons
+        kirigami-gallery
+      ]
+    );
   };
   systemd.user.services = let
     kitten = conf: exec: ''
-      ${lib.getExe' pkgs.kitty "kitten"} panel --edge=background --output-name=${{
-        zawanix-work = "DP-3";
-        zawanix-glap = "eDP-1";
-        zawanix-fubuki = "DP-4";
-      }."${hostName}"} -c ${conf} "${exec}"
+      ${lib.getExe' pkgs.kitty "kitten"} panel --edge=background --output-name=${
+        {
+          zawanix-work = "DP-3";
+          zawanix-glap = "eDP-1";
+          zawanix-fubuki = "DP-4";
+        }
+          ."${hostName}"
+      } -c ${conf} "${exec}"
     '';
   in rec {
     kitty-panel-cava = {
@@ -131,7 +140,10 @@ in {
       };
     dms = {
       Unit = {
-        Wants = ["kitty-panel-cava.service" "kitty-panel-clock.service"];
+        Wants = [
+          "kitty-panel-cava.service"
+          "kitty-panel-clock.service"
+        ];
       };
       # Service = {
       #   Environment =
