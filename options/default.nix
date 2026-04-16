@@ -178,6 +178,10 @@ in {
         ram = int;
         amd64Microarchs = str;
       };
+      host.isGameMachine = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
       github = {
         access-token = {
           pat = str;
@@ -303,6 +307,7 @@ in {
         ram = installedMemoryMiB;
         amd64Microarchs = microarch;
       };
+      host.isGameMachine = false;
       path = rec {
         cfgRoot = "/etc/nixos";
         profile = "${cfgRoot}/profile";
