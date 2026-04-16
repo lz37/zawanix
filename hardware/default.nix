@@ -44,6 +44,13 @@
   cardVendorName = card: lib.attrByPath ["vendor" "name"] null card;
   anyCardVendor = names: lib.any (card: lib.elem (cardVendorName card) names) graphicsCards;
 
+  nvidiaVendorNames = ["nVidia Corporation"];
+  amdVendorNames = [
+    "Advanced Micro Devices, Inc. [AMD/ATI]"
+    "ATI Technologies Inc"
+    "AMD"
+  ];
+
   diskStrings = disk:
     map lib.toLower (
       (lib.filter builtins.isString [
@@ -110,15 +117,10 @@
     ++ lib.optionals (anyCardVendor ["Intel Corporation"]) [
       nixosHardwareModules.common-gpu-intel
     ]
-    ++ lib.optionals (anyCardVendor ["NVIDIA Corporation"]) [
+    ++ lib.optionals (anyCardVendor nvidiaVendorNames) [
       nixosHardwareModules.common-gpu-nvidia
     ]
-    ++ lib.optionals
-    (anyCardVendor [
-      "Advanced Micro Devices, Inc. [AMD/ATI]"
-      "Advanced Micro Devices, Inc."
-    ])
-    [
+    ++ lib.optionals (anyCardVendor amdVendorNames) [
       nixosHardwareModules.common-gpu-amd
     ];
 in {
