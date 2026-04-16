@@ -147,8 +147,13 @@
                   inputs.stylix.nixosModules.stylix
                   inputs.nixos-cli.nixosModules.nixos-cli
                   ./stylix/nixos.nix
-                  ./hardware
-                  ./network
+                  (import ./hardware {
+                    hostName = profile.hostName;
+                    nixosHardwareModules = inputs.nixos-hardware.nixosModules;
+                  })
+                  (import ./network {
+                    hostName = profile.hostName;
+                  })
                   ./system
                   ./mihomo
                 ]
