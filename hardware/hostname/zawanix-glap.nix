@@ -1,8 +1,6 @@
-{
-  isIntelGPU,
-  isNvidiaGPU,
-  ...
-}: {
+{config, ...}: let
+  hardwareCfg = config.zerozawa.hardware;
+in {
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-uuid/4A52-0070";
@@ -18,7 +16,7 @@
     };
   };
   hardware.nvidia.prime =
-    if (isIntelGPU && isNvidiaGPU)
+    if (hardwareCfg.isIntelGPU && hardwareCfg.isNvidiaGPU)
     then {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:01:0:0";

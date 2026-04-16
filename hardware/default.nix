@@ -121,8 +121,8 @@ args @ {
       ++ nixosHardwareImports
       ++ [
         (./. + "/hostname/${hostName}.nix")
-      ]
-      ++ (lib.optionals isNvidiaGPU [./nvidia/gpu.nix]);
+        ./nvidia/gpu.nix
+      ];
   };
 in
   if args ? lib || args ? modulesPath

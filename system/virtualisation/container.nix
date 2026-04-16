@@ -1,15 +1,9 @@
-{
-  isNvidiaGPU,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports =
-    [
-      ./oci-containers.nix
-      ./waydroid.nix
-    ]
-    ++ (lib.optionals isNvidiaGPU [./nvidia-container-toolkit.nix]);
+{pkgs, ...}: {
+  imports = [
+    ./oci-containers.nix
+    ./waydroid.nix
+    ./nvidia-container-toolkit.nix
+  ];
 
   environment.systemPackages = with pkgs; [
     crun
