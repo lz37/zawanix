@@ -2,29 +2,30 @@
   pkgs,
   lib,
   config,
-  amd64Microarchs,
-  isGameMachine,
-  isAmdGPU,
-  isNvidiaGPU,
-  hostName,
   ...
-}: {
+}: let
+  hostName = config.networking.hostName;
+  hw = config.zerozawa.hardware;
+  host = config.zerozawa.host;
+in {
   programs = {
     gamemode = {
-      enable = isGameMachine;
+      enable = host.isGameMachine;
       enableRenice = true;
       settings = {
         general = {
           renice = 10;
         };
         gpu =
-          {apply_gpu_optimisations = "accept-responsibility";}
+          {
+            apply_gpu_optimisations = "accept-responsibility";
+          }
           // (
-            if isNvidiaGPU
+            if hw.isNvidiaGPU
             then {
               nv_powermizer_mode = 1;
             }
-            else if isAmdGPU
+            else if hw.isAmdGPU
             then {
               amd_performance_level = "high";
             }
@@ -36,7 +37,8 @@
               {
                 zawanix-fubuki = 2;
                 zawanix-glap = 1;
-              }.${
+              }
+            .${
                 hostName
               };
           };
@@ -62,7 +64,9 @@
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       extest.enable = true;
-      extraCompatPackages = [pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 amd64Microarchs}"];
+      extraCompatPackages = [
+        pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 hw.amd64Microarchs}"
+      ];
       protontricks = {
         enable = true;
       };

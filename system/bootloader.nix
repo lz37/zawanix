@@ -1,8 +1,10 @@
 {
   pkgs,
-  hostName,
+  config,
   ...
-}: {
+}: let
+  hostName = config.networking.hostName;
+in {
   boot.loader = {
     systemd-boot.enable = false;
 
@@ -17,7 +19,8 @@
             zawanix-glap = "2560x1440";
             zawanix-fubuki = "3840x2160";
             zawanix-work = "3840x2160";
-          }.${
+          }
+          .${
             hostName
           };
       };

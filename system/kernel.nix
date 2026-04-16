@@ -1,19 +1,14 @@
 {
   pkgs,
   config,
-  isAMDCPU,
-  isIntelCPU,
-  isIntelGPU,
-  isNvidiaGPU,
-  isLaptop,
-  isGameMachine,
-  amd64Microarchs,
-  hostName,
   lib,
-  ram,
   inputs,
   ...
-}: {
+}: let
+  hostName = config.networking.hostName;
+  hw = config.zerozawa.hardware;
+  host = config.zerozawa.host;
+in {
   stylix.targets.console.enable = true;
   boot = {
     kernelPackages = let
@@ -21,22 +16,26 @@
       # I haven't figured out a clean way to expose it in flakes.
       helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" {};
     in
-      helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor (pkgs.cachyosKernels.linux-cachyos-latest.override {
-        lto = "thin";
-        processorOpt =
-          if isAMDCPU
-          then "zen4"
-          else "x86_64-v${lib.strings.substring 8 1 amd64Microarchs}";
-        rt = false;
-        cpusched = "bore";
-        bbr3 = true;
-        ccHarder = true;
-        hzTicks =
-          if isLaptop && !isGameMachine
-          then "300"
-          else "1000";
-        hugepage = "always";
-      }));
+      helpers.kernelModuleLLVMOverride (
+        pkgs.linuxKernel.packagesFor (
+          pkgs.cachyosKernels.linux-cachyos-latest.override {
+            lto = "thin";
+            processorOpt =
+              if hw.isAMDCPU
+              then "zen4"
+              else "x86_64-v${lib.strings.substring 8 1 hw.amd64Microarchs}";
+            rt = false;
+            cpusched = "bore";
+            bbr3 = true;
+            ccHarder = true;
+            hzTicks =
+              if hw.isLaptop && !host.isGameMachine
+              then "300"
+              else "1000";
+            hugepage = "always";
+          }
+        )
+      );
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
@@ -63,8 +62,8 @@
           "sr_mod"
           "usb_storage"
         ]
-        ++ (lib.optionals isIntelGPU ["i915"]);
-      kernelModules = ["kyber-iosched"] ++ (lib.optionals isAMDCPU ["kvm-amd"]);
+        ++ (lib.optionals hw.isIntelGPU ["i915"]);
+      kernelModules = ["kyber-iosched"] ++ (lib.optionals hw.isAMDCPU ["kvm-amd"]);
     };
     kernelParams =
       [
@@ -75,29 +74,29 @@
         "modprobe.blacklist=iTCO_wdt" # watchdog for Intel
         "iommu=pt"
       ]
-      ++ (lib.optionals isAMDCPU [
+      ++ (lib.optionals hw.isAMDCPU [
         "amd_iommu=on"
       ])
-      ++ (lib.optionals isIntelCPU [
+      ++ (lib.optionals hw.isIntelCPU [
         "intel_iommu=on"
       ])
-      ++ (lib.optionals isNvidiaGPU [
+      ++ (lib.optionals hw.isNvidiaGPU [
         "nvidia_drm.modeset=1"
         "nvidia.NVreg_UsePageAttributeTable=1"
         "nvidia.NVreg_EnablePCIeGen3=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       ])
-      ++ (lib.optionals (isGameMachine && ram >= 32 * 1024) [
+      ++ (lib.optionals (host.isGameMachine && hw.ram >= 32 * 1024) [
         "hugepages=4"
         "hugepagesz=1G"
         "transparent_hugepage=always"
       ])
-      ++ (lib.optionals (isGameMachine && ram < 32 * 1024 && ram >= 16 * 1024) [
+      ++ (lib.optionals (host.isGameMachine && hw.ram < 32 * 1024 && hw.ram >= 16 * 1024) [
         "hugepages=2"
         "hugepagesz=1G"
         "transparent_hugepage=always"
       ])
-      ++ (lib.optionals (!isGameMachine || ram < 16 * 1024) ["transparent_hugepage=madvise"]);
+      ++ (lib.optionals (!host.isGameMachine || hw.ram < 16 * 1024) ["transparent_hugepage=madvise"]);
     consoleLogLevel = 3;
     # Needed For Some Steam Games
     kernel = {
@@ -107,7 +106,8 @@
             zawanix-fubuki = "nvme0n1";
             zawanix-glap = "nvme0n1";
             zawanix-work = "nvme0n1";
-          }.${
+          }
+          .${
             hostName
           }
         }.queue.scheduler = "kyber";
@@ -148,7 +148,7 @@
           "vm.page-cluster" = 0;
         }
         // (
-          if !isLaptop || isGameMachine
+          if !hw.isLaptop || host.isGameMachine
           then {
             "kernel.sched_latency_ns" = 4000000;
             "kernel.sched_min_granularity_ns" = 500000;

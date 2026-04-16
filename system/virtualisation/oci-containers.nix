@@ -1,4 +1,6 @@
-{hostName, ...}: {
+{config, ...}: let
+  hostName = config.networking.hostName;
+in {
   virtualisation = {
     oci-containers = {
       backend = "docker";

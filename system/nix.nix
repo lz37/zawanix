@@ -1,11 +1,12 @@
 {
   inputs,
   lib,
-  amd64Microarchs,
   config,
   pkgs,
   ...
-}: {
+}: let
+  hw = config.zerozawa.hardware;
+in {
   nix = {
     package = pkgs.master.nix;
     # for nixd
@@ -22,7 +23,7 @@
       ];
       system-features = [
         "big-parallel"
-        "gccarch-${lib.strings.replaceStrings ["_"] ["-"] amd64Microarchs}"
+        "gccarch-${lib.strings.replaceStrings ["_"] ["-"] hw.amd64Microarchs}"
       ];
       substituters = lib.mkForce [
         # 中科大

@@ -1,8 +1,8 @@
-{ram, ...}: {
+{config, ...}: {
   swapDevices = [
     {
       device = "/var/lib/swapfile";
-      size = ram;
+      size = config.zerozawa.hardware.ram;
       priority = -2;
     }
   ];

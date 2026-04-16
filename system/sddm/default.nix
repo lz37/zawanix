@@ -1,14 +1,13 @@
 {
   pkgs,
-  stylixImage,
-  hostName,
   config,
   ...
 }: let
+  hostName = config.networking.hostName;
   theme = pkgs.nur.repos.zerozawa.sddm-eucalyptus-drop.override {
     overrideTheme =
       {
-        Background = "${pkgs.lib.cleanSource stylixImage}";
+        Background = "${pkgs.lib.cleanSource config.stylix.image}";
         MainColour = "#${config.lib.stylix.colors.base05}";
         AccentColour = "#${config.lib.stylix.colors.base04}";
         BackgroundColour = "#${config.lib.stylix.colors.base0F}";

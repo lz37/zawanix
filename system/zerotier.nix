@@ -1,10 +1,6 @@
-{
-  hostName,
-  config,
-  ...
-}: {
+{config, ...}: {
   services.zerotierone = {
-    enable = hostName == "zawanix-glap";
+    enable = config.networking.hostName == "zawanix-glap";
     joinNetworks = [config.zerozawa.zerotier.id];
   };
 }
