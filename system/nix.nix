@@ -39,7 +39,7 @@ in {
         # 南大
         "https://mirror.nju.edu.cn/nix-channels/store?priority=11"
         # 重庆邮电
-        "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12"
+        # "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12" # 这玩意儿有雷池 咋用？
 
         # 回退
         "https://cache.nixos.org"
