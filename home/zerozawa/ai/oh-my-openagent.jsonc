@@ -25,22 +25,19 @@
   "background_task": {
     "staleTimeoutMs": 1800000,
     "modelConcurrency": {
-      "github-copilot/claude-opus-4.6": 2,
-      "github-copilot/gpt-5.4": 4,
-      "github-copilot/claude-haiku-4.5": 20,
-      "github-copilot/grok-code-fast-1": 20,
-      "github-copilot/gpt-5.4-mini": 20,
-      "github-copilot/gemini-3-flash-preview": 20
+      "github-copilot/claude-opus-4.7": 2,
+      "github-copilot/gpt-5.4": 2
     }
   },
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "high"
     },
     "sisyphus-junior": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "medium"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.4",
@@ -49,62 +46,74 @@
     "oracle": {
       "model": "github-copilot/gpt-5.4",
       "variant": "high"
+      // "model": "opencode-go/glm-5.1"
     },
     "librarian": {
       "model": "opencode-go/minimax-m2.7"
     },
     "explore": {
-      "model": "github-copilot/grok-code-fast-1"
+      "model": "opencode-go/minimax-m2.7"
     },
     "multimodal-looker": {
-      "model": "opencode-go/kimi-k2.5"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "medium"
     },
     "prometheus": {
       "model": "github-copilot/gpt-5.4",
       "variant": "high"
+      // "model": "kimi-for-coding-oauth/kimi-for-coding",
+      // "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.6",
-      "variant": "high"
+      "model": "github-copilot/claude-opus-4.7",
+      "variant": "max"
+      // "model": "opencode-go/glm-5.1"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
+      // "model": "opencode-go/glm-5.1"
     },
     "atlas": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
       "variant": "medium"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode-go/glm-5"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "medium"
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
+      // "model": "opencode-go/glm-5.1"
     },
     "deep": {
       "model": "github-copilot/gpt-5.4",
       "variant": "medium"
+      // "model": "kimi-for-coding-oauth/kimi-for-coding",
+      // "variant": "high"
     },
     "artistry": {
+      // "model": "opencode-go/glm-5.1"
       "model": "github-copilot/gemini-3.1-pro-preview"
     },
     "quick": {
-      "model": "github-copilot/gpt-5.4-mini"
+      "model": "opencode-go/minimax-m2.7"
     },
     "unspecified-low": {
-      "model": "opencode-go/kimi-k2.5"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "low"
     },
     "unspecified-high": {
+      // "model": "opencode-go/glm-5.1"
       "model": "github-copilot/gpt-5.4",
       "variant": "high"
-
-      // "model": "opencode-go/glm-5"
     },
     "writing": {
-      "model": "github-copilot/gemini-3-flash-preview"
+      "model": "kimi-for-coding-oauth/kimi-for-coding",
+      "variant": "low"
     }
   }
 }

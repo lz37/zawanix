@@ -64,7 +64,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell";
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
@@ -98,7 +98,7 @@
       flake = false;
     };
     opencode = {
-      url = "github:anomalyco/opencode";
+      url = "github:anomalyco/opencode/v1.4.11";
       inputs.nixpkgs.follows = "nixpkgs-master";
     };
     nix-monitor.url = "github:antonjah/nix-monitor";

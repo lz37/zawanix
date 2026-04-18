@@ -19,5 +19,10 @@
     alejandra
     treefmt
     nix_version_search_cli
+    nix-prefetch-git
+    nix-prefetch-github
+    nix-prefetch-docker
+    nix-prefetch
+    nix-prefetch-scripts
   ];
 }

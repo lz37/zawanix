@@ -43,6 +43,7 @@
     ./ai
     ./zed
     ./openbox
+    ./wallpapers
   ];
   stylix.enableReleaseChecks = false;
   home = {

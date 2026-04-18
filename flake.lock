@@ -172,15 +172,16 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1776358966,
-        "narHash": "sha256-xf9U4WFVMGj/4remiXYhFsM+a9DqA5ash9TVCwRp5v0=",
+        "lastModified": 1775588644,
+        "narHash": "sha256-iYBdSBvcW7bJtc84G6k5TFJEbPHQrif9KzZyE9Lbq8M=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "c6e8067a22d4c8c95b1678e053b430102a4d333e",
+        "rev": "9798d78300d402178896f6ee1c370baed490158a",
         "type": "github"
       },
       "original": {
         "owner": "AvengeMedia",
+        "ref": "stable",
         "repo": "DankMaterialShell",
         "type": "github"
       }
@@ -1026,15 +1027,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1776392004,
-        "narHash": "sha256-KXYqfUJlo9RcKi+pzpg3IGnj9VKOUcs20XT3PTsquiI=",
+        "lastModified": 1776472156,
+        "narHash": "sha256-jlxR2BODV8wk0sP4Kkyza7Zr5I+Q003gldCfp2eYOt8=",
         "owner": "anomalyco",
         "repo": "opencode",
-        "rev": "a8943958f1bdce5c9f5c995a8619418b5a79def1",
+        "rev": "a35b8a95c27d28e979a3826e1289d7ee87f40251",
         "type": "github"
       },
       "original": {
         "owner": "anomalyco",
+        "ref": "v1.4.11",
         "repo": "opencode",
         "type": "github"
       }
@@ -1417,11 +1419,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776089112,
-        "narHash": "sha256-986paGsV/QzoJSjGZ0wXj3zOtGsoGhT36TAEZ6xXq4I=",
+        "lastModified": 1776520976,
+        "narHash": "sha256-PXR0jIfESv8m2O6xXh+muKYDYu36qitoX3XaRu1P/h4=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "68f6968b06672a78027fc2b213c934d22cd9180d",
+        "rev": "3ca9efd93297b9055ab8d5379236a6cff370063f",
         "type": "github"
       },
       "original": {

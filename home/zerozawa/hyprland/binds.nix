@@ -19,8 +19,9 @@ in {
       "SUPER,comma,exec, dms ipc call settings toggle"
       "SUPER,P,exec, dms ipc call notepad toggle"
       "SUPER ALT,L,exec, dms ipc call lock lock"
-      "SUPER,X,exec, dms ipc call powermenu toggle"
+      "SUPER,X,exec, dms ipc plugins toggle fullscreenPowerMenu"
       "SUPER,C,exec, dms ipc call control-center toggle"
+      "SUPER,A,exec, dms ipc plugins toggle aiAssistant"
       ",XF86AudioRaiseVolume,exec,dms ipc call audio increment 3"
       ",XF86AudioLowerVolume,exec,dms ipc call audio decrement 3"
       ",XF86AudioMute, exec, dms ipc call audio mute"
@@ -31,7 +32,6 @@ in {
       # pypr
       "SUPER shift,T,exec,pypr toggle term"
       # etc
-      "SUPER SHIFT,C,exec,hyprpicker -a"
       "SUPER,W,exec,${browser}"
       "SUPER SHIFT,W,exec,${browser-with-debug}"
       "SUPER,Y,exec,kitty -e yazi"
@@ -53,7 +53,6 @@ in {
       "SUPER SHIFT,F,togglefloating,"
       "SUPER CONTROL,F,fullscreenstate, 0 3"
       "SUPER ALT,F,workspaceopt, allfloat"
-      "SUPER SHIFT,C,exit,"
       "SUPER SHIFT,left,movewindow,l"
       "SUPER SHIFT,right,movewindow,r"
       "SUPER SHIFT,up,movewindow,u"

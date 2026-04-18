@@ -8,7 +8,6 @@
     exfatprogs
     xsel
     yq-go
-    jq
     nettools
     busybox
     (lib.hiPrio uutils-coreutils-noprefix)

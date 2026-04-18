@@ -44,6 +44,8 @@
       (import ./common/topics/frontend/prettier.nix)
       (import ./common/topics/settingfile/yaml.nix)
       (import ./common/topics/settingfile/xml.nix)
+      (import ./common/topics/settingfile/toml.nix)
+      (import ./common/topics/settingfile/json5.nix)
     ];
   default = no-ai ++ ai;
   nixos =
@@ -57,7 +59,6 @@
     default
     ++ [
       (import ./common/topics/rust.nix)
-      (import ./common/topics/settingfile/toml.nix)
     ];
   frontend-base =
     default
@@ -81,9 +82,7 @@
     frontend
     ++ [
       (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/settingfile/toml.nix)
       (import ./common/topics/rust.nix)
-      (import ./common/topics/settingfile/json5.nix)
     ];
   k8s =
     default
@@ -103,7 +102,6 @@
     default
     ++ [
       (import ./common/topics/python.nix)
-      (import ./common/topics/settingfile/toml.nix)
     ];
   cpp-base =
     no-ai

@@ -6,19 +6,39 @@
     "opencode-wakatime@latest",
     "opencode-pty@latest",
     "cc-safety-net@latest",
-    "@tarquinen/opencode-smart-title@latest",
     "@tarquinen/opencode-dcp@latest",
     "@nick-vi/opencode-type-inject@latest",
     "@gotgenes/opencode-agent-identity@latest",
     "@mailshieldai/opencode-canvas@latest",
-    "opencode-snippets@latest",
     "opencode-plugin-openspec@latest",
     "@franlol/opencode-md-table-formatter@latest",
-    "opencode-mem@latest",
-    "opencode-agent-memory@latest"
+    "opencode-kimi-full"
   ],
+  "provider": {
+    "kimi-for-coding-oauth": {
+      "name": "Kimi For Coding (OAuth)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://api.kimi.com/coding/v1"
+      },
+      "models": {
+        "kimi-for-coding": {
+          "name": "Kimi For Coding",
+          "reasoning": true,
+          "options": {},
+          "variants": {
+            "off": { "reasoning_effort": "off" },
+            "auto": { "reasoning_effort": "auto" },
+            "low": { "reasoning_effort": "low" },
+            "medium": { "reasoning_effort": "medium" },
+            "high": { "reasoning_effort": "high" }
+          }
+        }
+      }
+    }
+  },
   "autoupdate": "notify",
-  "permission":{
+  "permission": {
     "canvas_*": "allow"
   },
   "agent": {
@@ -26,10 +46,10 @@
       "model": "opencode-go/mimo-v2-pro"
     },
     "title": {
-      "model": "opencode-go/minimax-m2.5"
+      "model": "opencode-go/qwen3.5-plus"
     },
     "general": {
-      "model": "github-copilot/claude-sonnet-4.6"
+      "model": "kimi-for-coding/k2p5"
     },
     "summary": {
       "model": "opencode-go/mimo-v2-pro"

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  rootPath,
   ...
 }: {
   home.packages = with pkgs; [
@@ -20,19 +19,11 @@
     brightnessctl
     kdePackages.qt6ct
     wev
+    ccal # chinese calendar
   ];
   systemd.user.targets.hyprland-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
   ];
-  # Place Files Inside Home Directory
-  home.file = {
-    "Pictures/Wallpapers" = {
-      source = ../../../assets/wallpapers;
-      recursive = true;
-    };
-    ".face.icon".source = rootPath + "/assets/face.jpg";
-    ".config/face.jpg".source = rootPath + "/assets/face.jpg";
-  };
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;

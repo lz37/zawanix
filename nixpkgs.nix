@@ -12,13 +12,13 @@ moduleArgs @ {
       then osConfig
       else config;
     hw = systemConfig.zerozawa.hardware;
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     nixpkgsConfig = {
       allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
       allowUnfree = true;
       cudaSupport = hw.isNvidiaGPU;
       npmRegistryOverrides = {
-        "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm";
+        "registry.npmjs.org" = "https://registry.npmmirror.com";
       };
     };
   in {

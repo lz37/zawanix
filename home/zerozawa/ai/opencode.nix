@@ -31,13 +31,9 @@ in
     };
     xdg.configFile = {
       "opencode/oh-my-openagent.jsonc".source = ./oh-my-openagent.jsonc;
-      "opencode/smart-title.jsonc".source = ./smart-title.jsonc;
-      "opencode/octto.json".source = ./octto.json;
-      "opencode/micode.jsonc".source = ./micode.jsonc;
       "opencode/dcp.jsonc".source = ./dcp.jsonc;
       "opencode/skills".source = opencode-skills;
       "opencode/agent-memory.json".source = ./agent-memory.json;
-      "opencode/worktree.jsonc".source = ./worktree.jsonc;
       "opencode/opencode-mem.jsonc".text = lib.generators.toJSON {} {
         storagePath = "${config.xdg.configHome}/opencode/opencode-mem/data";
         userEmailOverride = config.zerozawa.git.userEmail;

@@ -13,10 +13,8 @@
       picacg-qt
       JMComic-qt
       wechat-web-devtools-linux
-      Fladder
       StartLive
       bilibili_live_tui
-      snip
       agentic-contract
       (lightnovel-crawler.override {
         calibre = pkgs.nocuda.calibre;
