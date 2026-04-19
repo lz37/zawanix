@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs.nur.repos; ([
-      # pkgs.nocuda.nur.repos.xddxdd.dingtalk
+      # pkgs.nogpu.nur.repos.xddxdd.dingtalk
     ]
     ++ (with novel2430; [
       wpsoffice-365
@@ -17,7 +17,7 @@
       bilibili_live_tui
       agentic-contract
       (lightnovel-crawler.override {
-        calibre = pkgs.nocuda.calibre;
+        calibre = pkgs.nogpu.calibre;
       })
     ]));
 }

@@ -97,10 +97,6 @@
       url = "github:github/awesome-copilot";
       flake = false;
     };
-    opencode = {
-      url = "github:anomalyco/opencode/v1.4.11";
-      inputs.nixpkgs.follows = "nixpkgs-master";
-    };
     nix-monitor.url = "github:antonjah/nix-monitor";
   };
 

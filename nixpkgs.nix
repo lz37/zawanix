@@ -17,6 +17,7 @@ moduleArgs @ {
       allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
       allowUnfree = true;
       cudaSupport = hw.isNvidiaGPU;
+      rocmSupport = hw.isAmdGPU;
       npmRegistryOverrides = {
         "registry.npmjs.org" = "https://registry.npmmirror.com";
       };
@@ -49,12 +50,13 @@ moduleArgs @ {
               inherit system;
               config = nixpkgsConfig;
             };
-            nocuda = import inputs.nixpkgs {
+            nogpu = import inputs.nixpkgs {
               inherit system;
               config =
                 nixpkgsConfig
                 // {
                   cudaSupport = false;
+                  rocmSupport = false;
                 };
               overlays = [
                 (final: prev: {
@@ -79,7 +81,6 @@ moduleArgs @ {
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
             quickshell = inputs.quickshell.packages.${system}.quickshell;
-            opencode = inputs.opencode.packages.${system}.opencode;
           }
         )
       ];

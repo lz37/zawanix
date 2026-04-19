@@ -22,10 +22,16 @@
     '';
   };
 in
-  with pkgs; {
+  with pkgs; let
+    opencode = writeScriptBin "opencode" ''
+      #!${lib.getExe bash}
+      set -euo pipefail
+      exec ${lib.getExe' pnpm "pnpx"} opencode-ai "$@"
+    '';
+  in {
     programs.opencode = {
+      package = opencode; # dummy
       enable = true;
-      package = opencode;
       enableMcpIntegration = true;
       settings = lib.removeAttrs (lib.importJSON ./opencode.json) ["$schema"];
     };
@@ -44,7 +50,7 @@ in
         autoCaptureEnabled = true;
         autoCaptureLanguage = "auto";
         opencodeProvider = "opencode-go";
-        opencodeModel = "minimax-m2.7";
+        opencodeModel = "qwen3.5-plus";
         showAutoCaptureToasts = true;
         showUserProfileToasts = true;
         showErrorToasts = true;

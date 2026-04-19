@@ -11,7 +11,7 @@ in {
     rustdesk
     blueman
     burpsuite
-    nocuda.thunderbird
+    nogpu.thunderbird
     master.qq
     wiliwili
     telegram-desktop

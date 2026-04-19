@@ -37,7 +37,7 @@
       ${rebuild}/bin/zawanix.rebuild
     '';
     system.packages = let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      packages = map (p: "${p.name}") config.environment.systemPackages;
       sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
       formatted = builtins.concatStringsSep "\n" sortedUnique;
     in
@@ -49,7 +49,7 @@
             gothic = "𝔷𝔞𝔴𝔞𝔫𝔦𝔵";
             scope = "魔導枢機院";
             splitter = "";
-            action = "に登録された禁術${builtins.toString (builtins.length sortedUnique)}章";
+            action = "に登録された禁術${toString (builtins.length sortedUnique)}章";
             kaomoji = "(⌒▽⌒)☆";
             unicode = "⚙️🔥";
           }

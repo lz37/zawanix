@@ -2,10 +2,7 @@
   stylix.targets.btop.enable = true;
   programs.btop = {
     enable = true;
-    package = pkgs.btop.override {
-      rocmSupport = true;
-      cudaSupport = true;
-    };
+    package = pkgs.btop;
     settings = {
       vim_keys = true;
       rounded_corners = true;

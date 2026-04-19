@@ -19,7 +19,7 @@
       snip
     ])
     ++ [
-      (pkgs.nocuda.python3.withPackages (ps:
+      (pkgs.nogpu.python3.withPackages (ps:
         with ps; [
           pypdf
           pdf2image
