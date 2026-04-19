@@ -22,13 +22,7 @@
     '';
   };
 in
-  with pkgs; let
-    opencode = writeScriptBin "opencode" ''
-      #!${lib.getExe bash}
-      set -euo pipefail
-      exec ${lib.getExe' pnpm "pnpx"} opencode-ai "$@"
-    '';
-  in {
+  with pkgs.master; {
     programs.opencode = {
       package = opencode; # dummy
       enable = true;

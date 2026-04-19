@@ -59,9 +59,8 @@
         "env" = {};
       };
       "OpenCode" = {
-        "command" = lib.getExe' pnpm "pnpx";
+        "command" = lib.getExe master.opencode;
         "args" = [
-          "opencode-ai"
           "acp"
         ];
         "env" = {};
