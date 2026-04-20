@@ -125,6 +125,7 @@
             mkNixosConfig = profile: let
               specialArgs = {
                 rootPath = ./.;
+                inherit (profile) hostName;
                 inherit inputs colorsh;
               };
             in {
@@ -133,9 +134,7 @@
                 [
                   ./options
                   profile.hostOptionModule
-                  (import (inputs.zerozawa-private + "/default.nix") {
-                    hostName = profile.hostName;
-                  })
+                  (inputs.zerozawa-private + "/default.nix")
                   ./nixpkgs.nix
                   inputs.nix-flatpak.nixosModules.nix-flatpak
                   inputs.nix-index-database.nixosModules.nix-index
@@ -143,13 +142,8 @@
                   inputs.stylix.nixosModules.stylix
                   inputs.nixos-cli.nixosModules.nixos-cli
                   ./stylix/nixos.nix
-                  (import ./hardware {
-                    hostName = profile.hostName;
-                    nixosHardwareModules = inputs.nixos-hardware.nixosModules;
-                  })
-                  (import ./network {
-                    hostName = profile.hostName;
-                  })
+                  ./network
+                  ./hardware
                   ./system
                   ./mihomo
                 ]
@@ -186,7 +180,6 @@
                   hostName = "zawanix-work";
                   hostOptionModule = {lib, ...}: {
                     config = {
-                      networking.hostName = "zawanix-work";
                       zerozawa.host.isGameMachine = lib.mkForce false;
                     };
                   };
@@ -195,7 +188,6 @@
                   hostName = "zawanix-glap";
                   hostOptionModule = {lib, ...}: {
                     config = {
-                      networking.hostName = "zawanix-glap";
                       zerozawa.host.isGameMachine = lib.mkForce true;
                     };
                   };
@@ -204,7 +196,6 @@
                   hostName = "zawanix-fubuki";
                   hostOptionModule = {lib, ...}: {
                     config = {
-                      networking.hostName = "zawanix-fubuki";
                       zerozawa.host.isGameMachine = lib.mkForce true;
                     };
                   };
