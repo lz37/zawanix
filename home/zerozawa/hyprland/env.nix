@@ -4,6 +4,7 @@
   ...
 }: let
   hw = osConfig.zerozawa.hardware;
+  aqDrmDevices = osConfig.zerozawa.hardware.drm.aqDrmDevices;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -23,12 +24,7 @@ in {
           "SDL_VIDEODRIVER, x11"
           "MOZ_ENABLE_WAYLAND, 1"
           # This is to make electron apps start in wayland
-          "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-          # Disabling this by default as it can result in inop cfg
-          # Added card2 in case this gets enabled. For better coverage
-          # This is mostly needed by Hybrid laptops.
-          # but if you have multiple discrete GPUs this will set order
-          #"AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1:/dev/card2"
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
           "GDK_SCALE,1"
           "QT_SCALE_FACTOR,1"
           "EDITOR,code --wait"
@@ -39,18 +35,23 @@ in {
           "TERMINAL,kitty"
           "XDG_TERMINAL_EMULATOR,kitty"
         ]
+        ++ (lib.optionals (aqDrmDevices != "") [
+          "AQ_DRM_DEVICES,${aqDrmDevices}"
+        ])
         ++ (lib.optionals hw.isNvidiaGPU [
           "LIBVA_DRIVER_NAME,nvidia"
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          "__NV_PRIME_RENDER_OFFLOAD,1"
-          "GBM_BACKEND,nvidia-drm"
           "NVD_BACKEND,direct"
-          "WLR_NO_HARDWARE_CURSORS,1"
-          # "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
+          # "__NV_PRIME_RENDER_OFFLOAD,1"
+          # "GBM_BACKEND,nvidia-drm"
+          # "WLR_NO_HARDWARE_CURSORS,1"
           # 修复 EGL 崩溃问题
-          "AQ_FORCE_LINEAR_BLIT,1" # 设为0副屏会卡但兼容会好
+          # "AQ_FORCE_LINEAR_BLIT,1" # 设为0副屏会卡但兼容会好
           # 强制使用 NVIDIA EGL
-          "EGL_PLATFORM,wayland"
+          # "EGL_PLATFORM,wayland"
+        ])
+        ++ (lib.optionals (hw.isNvidiaGPU && (hw.isAmdGPU || hw.isIntelGPU)) [
+          "AQ_FORCE_LINEAR_BLIT=0"
         ]);
     };
   };

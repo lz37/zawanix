@@ -23,6 +23,7 @@
     ./clamav-scanner.nix
     ./zerotier.nix
     ./powerManagement.nix
+    ./udev.nix
   ];
   system.stateVersion = inputs.nixpkgs.lib.trivial.release;
   documentation.nixos.enable = false;
