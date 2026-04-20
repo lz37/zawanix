@@ -12,158 +12,79 @@
   str = mkOptionType lib.types.str;
 
   report = lib.attrByPath ["hardware" "facter" "report"] {} config;
-  hardware = lib.attrByPath ["hardware"] {} report;
-  smbios = lib.attrByPath ["smbios"] {} report;
-
-  asList = value:
-    if builtins.isList value
-    then value
-    else if value == null
-    then []
-    else [value];
-
-  cpuEntries = asList (lib.attrByPath ["cpu"] [] hardware);
-  cpu =
-    if cpuEntries == []
-    then {}
-    else builtins.head cpuEntries;
-  graphicsCards = asList (lib.attrByPath ["graphics_card"] [] hardware);
-  disks = asList (lib.attrByPath ["disk"] [] hardware);
-  inputs = asList (lib.attrByPath ["input"] [] hardware);
-  touchpads =
-    lib.filter (
-      input: let
-        baseClassName = lib.toLower (lib.attrByPath ["base_class" "name"] "" input);
-        classList = map lib.toLower (asList (lib.attrByPath ["class_list"] [] input));
-      in
-        baseClassName == "touchpad" || lib.elem "touchpad" classList
-    )
-    inputs;
-  chassisEntries = asList (lib.attrByPath ["chassis"] [] smbios);
-  chassisTypeNames =
+  facter = import ../common/facter-derived.nix {
+    inherit lib report;
+  };
+  inherit
+    (facter)
+    graphicsCards
+    cardVendorName
+    ;
+  hardwareFlags = facter.flags;
+  normalizeGpuVendor = vendorName:
+    if vendorName == null
+    then throw "zerozawa.hardware.drm: unsupported GPU vendor: null"
+    else if vendorName == "Intel Corporation"
+    then "intel"
+    else if vendorName == "nVidia Corporation"
+    then "nvidia"
+    else if
+      lib.elem vendorName [
+        "ATI Technologies Inc"
+        "AMD"
+        "Advanced Micro Devices, Inc. [AMD/ATI]"
+      ]
+    then "amd"
+    else throw "zerozawa.hardware.drm: unsupported GPU vendor '${vendorName}'";
+  cardPciBusId = card: lib.attrByPath ["sysfs_bus_id"] null card;
+  cardDriver = card: lib.attrByPath ["driver"] null card;
+  cardLabel = card: lib.attrByPath ["label"] null card;
+  normalizedGraphicsCards =
     map (
-      entry: lib.toLower (lib.attrByPath ["chassis_type" "name"] "" entry)
+      card: {
+        vendor = normalizeGpuVendor (cardVendorName card);
+        pciBusId = cardPciBusId card;
+        driver = cardDriver card;
+        label = cardLabel card;
+      }
     )
-    chassisEntries;
-  memoryDevices = asList (lib.attrByPath ["memory_device"] [] smbios);
-  cpuFeatures = map lib.toLower (asList (lib.attrByPath ["features"] [] cpu));
-  cpuVendorName = lib.attrByPath ["vendor_name"] null cpu;
-  hasFeature = feature: lib.elem feature cpuFeatures;
-  hasAllFeatures = features: lib.all hasFeature features;
-
-  cardVendorName = card: lib.attrByPath ["vendor" "name"] null card;
-  anyCardVendor = names: lib.any (card: lib.elem (cardVendorName card) names) graphicsCards;
-
-  diskStrings = disk:
-    map lib.toLower (
-      (lib.filter builtins.isString [
-        (lib.attrByPath ["sysfs_id"] null disk)
-        (lib.attrByPath ["sysfs_bus_id"] null disk)
-        (lib.attrByPath ["driver"] null disk)
-        (lib.attrByPath ["driver_module"] null disk)
-        (lib.attrByPath ["model"] null disk)
-        (lib.attrByPath ["bus_type" "name"] null disk)
-      ])
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["drivers"] [] disk)))
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["driver_modules"] [] disk)))
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["unix_device_names"] [] disk)))
-    );
-
-  hasSolidStateDisk =
-    lib.any (
-      disk:
-        lib.any (
-          text:
-            lib.any (needle: lib.hasInfix needle text) [
-              "nvme"
-              "ssd"
-              "solid state"
-            ]
-        ) (diskStrings disk)
+    graphicsCards;
+  normalizedVendorNames = map (card: card.vendor) normalizedGraphicsCards;
+  duplicateGpuVendors = lib.unique (
+    lib.filter (
+      vendor: builtins.length (lib.filter (candidate: candidate == vendor) normalizedVendorNames) > 1
     )
-    disks;
-
-  memoryBytes =
-    builtins.foldl' (
-      sum: entry:
-        sum
-        + builtins.foldl' (
-          entrySum: resource:
-            if (lib.attrByPath ["type"] "" resource) == "phys_mem"
-            then entrySum + (lib.attrByPath ["range"] 0 resource)
-            else entrySum
-        )
-        0 (asList (lib.attrByPath ["resources"] [] entry))
-    )
-    0 (asList (lib.attrByPath ["memory"] [] hardware));
-  memoryDeviceKiB =
-    builtins.foldl' (
-      sum: device: let
-        size = lib.attrByPath ["size"] 0 device;
+    normalizedVendorNames
+  );
+  gpuCardCount = builtins.length normalizedGraphicsCards;
+  normalizedVendorCount = vendor:
+    builtins.length (lib.filter (card: card.vendor == vendor) normalizedGraphicsCards);
+  nvidiaGpuCount = normalizedVendorCount "nvidia";
+  nonNvidiaGpuCount = builtins.length (lib.filter (card: card.vendor != "nvidia") normalizedGraphicsCards);
+  derivedGraphicsCards =
+    map (
+      card: let
+        isOnboardVideo = card.label == "Onboard - Video";
+        isSingleNvidiaHybrid = gpuCardCount > 1 && nvidiaGpuCount == 1;
+        isHybridNonNvidiaCompanion = isSingleNvidiaHybrid && nonNvidiaGpuCount == 1 && card.vendor != "nvidia";
+        role =
+          if isOnboardVideo
+          then "igpu"
+          else if isSingleNvidiaHybrid && card.vendor == "nvidia"
+          then "dgpu"
+          else if isHybridNonNvidiaCompanion
+          then "igpu"
+          else null;
       in
-        if builtins.isInt size && size > 0
-        then sum + size
-        else sum
+        card
+        // {
+          inherit role;
+        }
     )
-    0
-    memoryDevices;
-  rawMemoryMiB = builtins.div memoryBytes (1024 * 1024);
-  installedMemoryMiB =
-    if memoryDeviceKiB > 0
-    then builtins.div memoryDeviceKiB 1024
-    else rawMemoryMiB;
-
-  microarch =
-    if
-      hasAllFeatures [
-        "ssse3"
-        "sse4_1"
-        "sse4_2"
-        "popcnt"
-        "cx16"
-        "lahf_lm"
-        "avx"
-        "avx2"
-        "bmi1"
-        "bmi2"
-        "f16c"
-        "fma"
-        "movbe"
-        "avx512f"
-        "avx512bw"
-        "avx512cd"
-        "avx512dq"
-        "avx512vl"
-      ]
-    then "x86_64_v4"
-    else if
-      hasAllFeatures [
-        "ssse3"
-        "sse4_1"
-        "sse4_2"
-        "popcnt"
-        "cx16"
-        "lahf_lm"
-        "avx"
-        "avx2"
-        "bmi1"
-        "bmi2"
-        "f16c"
-        "fma"
-        "movbe"
-      ]
-    then "x86_64_v3"
-    else if
-      hasAllFeatures [
-        "ssse3"
-        "sse4_1"
-        "sse4_2"
-        "popcnt"
-        "cx16"
-        "lahf_lm"
-      ]
-    then "x86_64_v2"
-    else "x86_64_v1";
+    normalizedGraphicsCards;
+  roleCount = role: builtins.length (lib.filter (card: card.role == role) derivedGraphicsCards);
+  igpuCount = roleCount "igpu";
+  dgpuCount = roleCount "dgpu";
 in {
   options = {
     zerozawa = {
@@ -177,6 +98,16 @@ in {
         isSSD = bool;
         ram = int;
         amd64Microarchs = str;
+        drm = {
+          devices = lib.mkOption {
+            default = [];
+            type = lib.types.listOf lib.types.attrs;
+          };
+          aqDrmDevices = lib.mkOption {
+            default = "";
+            type = lib.types.str;
+          };
+        };
       };
       host.isGameMachine = lib.mkOption {
         type = lib.types.bool;
@@ -278,34 +209,77 @@ in {
   };
 
   config = {
+    assertions = [
+      {
+        assertion = duplicateGpuVendors == [];
+        message = "zerozawa.hardware.drm: duplicate GPU vendor(s) are unsupported: ${lib.concatStringsSep ", " duplicateGpuVendors}";
+      }
+      {
+        assertion = igpuCount <= 1;
+        message = "zerozawa.hardware.drm: expected at most one dynamically derived igpu, found ${toString igpuCount}";
+      }
+      {
+        assertion = dgpuCount <= 1;
+        message = "zerozawa.hardware.drm: expected at most one dynamically derived dgpu, found ${toString dgpuCount}";
+      }
+    ];
     zerozawa = {
       hardware = {
-        isNvidiaGPU = anyCardVendor ["nVidia Corporation"];
-        isIntelGPU = anyCardVendor ["Intel Corporation"];
-        isIntelCPU = cpuVendorName == "GenuineIntel";
-        isAMDCPU = cpuVendorName == "AuthenticAMD";
-        isAmdGPU = anyCardVendor [
-          "Advanced Micro Devices, Inc. [AMD/ATI]"
-          "ATI Technologies Inc"
-          "AMD"
-        ];
-        isLaptop =
-          lib.any (
-            name:
-              lib.elem name [
-                "laptop"
-                "notebook"
-                "convertible"
-                "portable"
-                "tablet"
-                "slim notebook"
-              ]
-          )
-          chassisTypeNames
-          || (builtins.length touchpads > 0);
-        isSSD = hasSolidStateDisk;
-        ram = installedMemoryMiB;
-        amd64Microarchs = microarch;
+        inherit
+          (hardwareFlags)
+          isNvidiaGPU
+          isIntelGPU
+          isIntelCPU
+          isAMDCPU
+          isAmdGPU
+          isLaptop
+          isSSD
+          ram
+          amd64Microarchs
+          ;
+        drm = let
+          vendorCount = vendor:
+            builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
+          devices =
+            map (
+              device: let
+                role = device.role;
+                vendorAlias = lib.optionals (vendorCount device.vendor == 1) [device.vendor];
+                roleAlias = lib.optionals (role != null) [role];
+              in
+                device
+                // {
+                  role = role;
+                  symlinkNames = vendorAlias ++ roleAlias;
+                }
+            )
+            derivedGraphicsCards;
+          hasIgpu = builtins.any (device: lib.elem "igpu" device.symlinkNames) devices;
+          hasDgpu = builtins.any (device: lib.elem "dgpu" device.symlinkNames) devices;
+          vendorPaths = lib.concatStringsSep ":" (
+            lib.concatLists (
+              map (
+                vendor: let
+                  matches = lib.filter (device: device.vendor == vendor && device.role == null) devices;
+                in
+                  lib.optionals (matches != []) ["/dev/dri/${vendor}"]
+              ) ["intel" "amd" "nvidia"]
+            )
+          );
+        in {
+          devices = devices;
+          aqDrmDevices = lib.concatStringsSep ":" (
+            if hasIgpu
+            then lib.optionals true ["/dev/dri/igpu"] ++ lib.optionals hasDgpu ["/dev/dri/dgpu"]
+            else
+              (
+                if vendorPaths == ""
+                then []
+                else lib.splitString ":" vendorPaths
+              )
+              ++ lib.optionals hasDgpu ["/dev/dri/dgpu"]
+          );
+        };
       };
       host.isGameMachine = false;
       path = rec {
