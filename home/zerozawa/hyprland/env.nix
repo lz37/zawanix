@@ -38,8 +38,10 @@ in {
         ++ (lib.optionals (aqDrmDevices != "") [
           "AQ_DRM_DEVICES,${aqDrmDevices}"
         ])
-        ++ (lib.optionals hw.isNvidiaGPU [
+        ++ (lib.optionals (hw.isNvidiaGPU && lib.hasPrefix "/dev/dri/dgpu" aqDrmDevices) [
           "LIBVA_DRIVER_NAME,nvidia"
+        ])
+        ++ (lib.optionals hw.isNvidiaGPU [
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
           "NVD_BACKEND,direct"
           # "__NV_PRIME_RENDER_OFFLOAD,1"
