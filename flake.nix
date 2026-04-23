@@ -97,6 +97,10 @@
       url = "github:github/awesome-copilot";
       flake = false;
     };
+    zenmux-skill = {
+      url = "github:ZenMux/skills";
+      flake = false;
+    };
     nix-monitor.url = "github:antonjah/nix-monitor";
   };
 
@@ -133,7 +137,6 @@
               modules =
                 [
                   ./options
-                  profile.hostOptionModule
                   (inputs.zerozawa-private + "/default.nix")
                   ./nixpkgs.nix
                   inputs.nix-flatpak.nixosModules.nix-flatpak
@@ -178,27 +181,12 @@
               config = {
                 zawanix-work = mkNixosConfig {
                   hostName = "zawanix-work";
-                  hostOptionModule = {lib, ...}: {
-                    config = {
-                      zerozawa.host.isGameMachine = lib.mkForce false;
-                    };
-                  };
                 };
                 zawanix-glap = mkNixosConfig {
                   hostName = "zawanix-glap";
-                  hostOptionModule = {lib, ...}: {
-                    config = {
-                      zerozawa.host.isGameMachine = lib.mkForce true;
-                    };
-                  };
                 };
                 zawanix-fubuki = mkNixosConfig {
                   hostName = "zawanix-fubuki";
-                  hostOptionModule = {lib, ...}: {
-                    config = {
-                      zerozawa.host.isGameMachine = lib.mkForce true;
-                    };
-                  };
                 };
               };
             in {

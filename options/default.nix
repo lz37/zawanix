@@ -21,6 +21,14 @@
     cardVendorName
     ;
   hardwareFlags = facter.flags;
+  normalizeHex = value:
+    if builtins.isString value
+    then lib.toLower value
+    else null;
+  identityPart = value:
+    if value == null
+    then "unknown"
+    else value;
   normalizeGpuVendor = vendorName:
     if vendorName == null
     then throw "zerozawa.hardware.drm: unsupported GPU vendor: null"
@@ -37,43 +45,61 @@
     then "amd"
     else throw "zerozawa.hardware.drm: unsupported GPU vendor '${vendorName}'";
   cardPciBusId = card: lib.attrByPath ["sysfs_bus_id"] null card;
+  cardDeviceHex = card: normalizeHex (lib.attrByPath ["device" "hex"] null card);
+  cardSubVendorHex = card: normalizeHex (lib.attrByPath ["sub_vendor" "hex"] null card);
+  cardSubDeviceHex = card: normalizeHex (lib.attrByPath ["sub_device" "hex"] null card);
   cardDriver = card: lib.attrByPath ["driver"] null card;
   cardLabel = card: lib.attrByPath ["label"] null card;
+  cardSlotBus = card: lib.attrByPath ["slot" "bus"] null card;
+  cardAttachedTo = card: lib.attrByPath ["attached_to"] null card;
+  cardModuleAlias = card: lib.attrByPath ["module_alias"] null card;
+  cardBaseClassHex = card: normalizeHex (lib.attrByPath ["base_class" "hex"] null card);
+  cardSubClassHex = card: normalizeHex (lib.attrByPath ["sub_class" "hex"] null card);
+  gpuRoleOverrides = {
+    "amd:13c0:1043:8877" = "igpu";
+  };
   normalizedGraphicsCards =
     map (
-      card: {
+      card: let
         vendor = normalizeGpuVendor (cardVendorName card);
+        deviceHex = cardDeviceHex card;
+        subVendorHex = cardSubVendorHex card;
+        subDeviceHex = cardSubDeviceHex card;
+      in {
+        inherit
+          vendor
+          deviceHex
+          subVendorHex
+          subDeviceHex
+          ;
         pciBusId = cardPciBusId card;
         driver = cardDriver card;
         label = cardLabel card;
+        slotBus = cardSlotBus card;
+        attachedTo = cardAttachedTo card;
+        moduleAlias = cardModuleAlias card;
+        baseClassHex = cardBaseClassHex card;
+        subClassHex = cardSubClassHex card;
+        identityKey = lib.concatStringsSep ":" [
+          vendor
+          (identityPart deviceHex)
+          (identityPart subVendorHex)
+          (identityPart subDeviceHex)
+        ];
       }
     )
     graphicsCards;
-  normalizedVendorNames = map (card: card.vendor) normalizedGraphicsCards;
-  duplicateGpuVendors = lib.unique (
-    lib.filter (
-      vendor: builtins.length (lib.filter (candidate: candidate == vendor) normalizedVendorNames) > 1
-    )
-    normalizedVendorNames
-  );
-  gpuCardCount = builtins.length normalizedGraphicsCards;
-  normalizedVendorCount = vendor:
-    builtins.length (lib.filter (card: card.vendor == vendor) normalizedGraphicsCards);
-  nvidiaGpuCount = normalizedVendorCount "nvidia";
-  nonNvidiaGpuCount = builtins.length (lib.filter (card: card.vendor != "nvidia") normalizedGraphicsCards);
   derivedGraphicsCards =
     map (
       card: let
-        isOnboardVideo = card.label == "Onboard - Video";
-        isSingleNvidiaHybrid = gpuCardCount > 1 && nvidiaGpuCount == 1;
-        isHybridNonNvidiaCompanion = isSingleNvidiaHybrid && nonNvidiaGpuCount == 1 && card.vendor != "nvidia";
+        overriddenRole = gpuRoleOverrides.${card.identityKey} or null;
         role =
-          if isOnboardVideo
+          if overriddenRole != null
+          then overriddenRole
+          else if card.label == "Onboard - Video"
           then "igpu"
-          else if isSingleNvidiaHybrid && card.vendor == "nvidia"
+          else if card.vendor == "nvidia"
           then "dgpu"
-          else if isHybridNonNvidiaCompanion
-          then "igpu"
           else null;
       in
         card
@@ -111,7 +137,7 @@ in {
       };
       host.isGameMachine = lib.mkOption {
         type = lib.types.bool;
-        default = false;
+        default = dgpuCount > 0;
       };
       github = {
         access-token = {
@@ -211,10 +237,6 @@ in {
   config = {
     assertions = [
       {
-        assertion = duplicateGpuVendors == [];
-        message = "zerozawa.hardware.drm: duplicate GPU vendor(s) are unsupported: ${lib.concatStringsSep ", " duplicateGpuVendors}";
-      }
-      {
         assertion = igpuCount <= 1;
         message = "zerozawa.hardware.drm: expected at most one dynamically derived igpu, found ${toString igpuCount}";
       }
@@ -246,12 +268,17 @@ in {
                 role = device.role;
                 vendorAlias = lib.optionals (vendorCount device.vendor == 1) [device.vendor];
                 roleAlias = lib.optionals (role != null) [role];
-              in
-                device
-                // {
-                  role = role;
-                  symlinkNames = vendorAlias ++ roleAlias;
-                }
+              in {
+                inherit
+                  (device)
+                  vendor
+                  pciBusId
+                  driver
+                  label
+                  role
+                  ;
+                symlinkNames = vendorAlias ++ roleAlias;
+              }
             )
             derivedGraphicsCards;
           hasIgpu = builtins.any (device: lib.elem "igpu" device.symlinkNames) devices;
@@ -262,7 +289,7 @@ in {
                 vendor: let
                   matches = lib.filter (device: device.vendor == vendor && device.role == null) devices;
                 in
-                  lib.optionals (matches != []) ["/dev/dri/${vendor}"]
+                  lib.optionals (vendorCount vendor == 1 && matches != []) ["/dev/dri/${vendor}"]
               ) ["intel" "amd" "nvidia"]
             )
           );
@@ -281,7 +308,6 @@ in {
           );
         };
       };
-      host.isGameMachine = false;
       path = rec {
         cfgRoot = "/etc/nixos";
         profile = "${cfgRoot}/profile";

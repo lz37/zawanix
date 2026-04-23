@@ -37,7 +37,7 @@
       "variant": "medium"
     },
     "sisyphus-junior": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zenmux/moonshotai/kimi-k2.5"
     },
     "hephaestus": {
       "model": "github-copilot/gpt-5.4",
@@ -48,33 +48,36 @@
       "variant": "high"
     },
     "librarian": {
-      "model": "opencode-go/minimax-m2.7"
+      "model": "zenmux/minimax/minimax-m2.7"
     },
     "explore": {
-      "model": "opencode-go/minimax-m2.7"
+      "model": "zenmux/minimax/minimax-m2.7"
     },
     "multimodal-looker": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium"
     },
     "prometheus": {
       "model": "github-copilot/gpt-5.4",
       "variant": "high"
     },
     "metis": {
-      "model": "github-copilot/claude-opus-4.7",
-      "variant": "max"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
     },
     "atlas": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "github-copilot/gpt-5.4",
+      "variant": "medium"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zenmux/google/gemini-3.1-pro-preview",
+      "variant": "high"
     },
     "ultrabrain": {
       "model": "github-copilot/gpt-5.4",
@@ -85,20 +88,20 @@
       "variant": "medium"
     },
     "artistry": {
-      "model": "github-copilot/gemini-3.1-pro-preview"
+      "model": "zenmux/google/gemini-3.1-pro-preview",
+      "variant": "high"
     },
     "quick": {
       "model": "github-copilot/gpt-5.4-mini"
     },
     "unspecified-low": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zenmux/moonshotai/kimi-k2.5"
     },
     "unspecified-high": {
-      "model": "kimi-for-coding-oauth/kimi-for-coding",
-      "variant": "high"
+      "model": "zenmux/z-ai/glm-5.1"
     },
     "writing": {
-      "model": "kimi-for-coding/k2p5"
+      "model": "zenmux/google/gemini-3-flash-preview"
     }
   }
 }

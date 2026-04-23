@@ -19,6 +19,7 @@
       cp -r ${inputs.openai-skills}/skills/.curated/gh-address-comments $out/
       cp -r ${inputs.awesome-copilot}/skills/gh-cli $out/
       cp -r ${inputs.awesome-copilot}/skills/mcp-cli $out/
+      cp -r ${inputs.zenmux-skill}/skills/* $out/
     '';
   };
 in
