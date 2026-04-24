@@ -14,12 +14,22 @@
   "permission": {
     "canvas_*": "allow"
   },
+  "provider": {
+    "deepseek": {
+      "options": {
+        "baseURL": "https://zenmux.ai/api/v1"
+      }
+    }
+  },
   "agent": {
     "compaction": {
-      "model": "zenmux/qwen/qwen3.6-plus"
+      "model": "deepseek/deepseek-v4-flash"
     },
     "summary": {
-      "model": "zenmux/qwen/qwen3.6-plus"
+      "model": "deepseek/deepseek-v4-flash"
+    },
+    "title": {
+      "model": "deepseek/deepseek-v4-flash"
     }
   }
 }

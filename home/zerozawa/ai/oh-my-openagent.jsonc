@@ -33,8 +33,18 @@
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium"
+      "model": "deepseek/deepseek-v4-pro",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
+    },
+    "plan": {
+      "model": "deepseek/deepseek-v4-pro",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     },
     "sisyphus-junior": {
       "model": "zenmux/moonshotai/kimi-k2.5"
@@ -48,30 +58,35 @@
       "variant": "high"
     },
     "librarian": {
-      "model": "zenmux/minimax/minimax-m2.7"
+      "model": "deepseek/deepseek-v4-flash"
     },
     "explore": {
-      "model": "zenmux/minimax/minimax-m2.7"
+      "model": "deepseek/deepseek-v4-flash"
     },
     "multimodal-looker": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium"
+      "model": "zenmux/moonshotai/kimi-k2.5"
     },
     "prometheus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "deepseek/deepseek-v4-pro",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     },
     "metis": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "zenmux/anthropic/claude-opus-4.7",
+      "variant": "max"
     },
     "momus": {
       "model": "github-copilot/gpt-5.4",
       "variant": "xhigh"
     },
     "atlas": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "medium"
+      "model": "deepseek/deepseek-v4-pro",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     }
   },
   "categories": {
@@ -92,16 +107,20 @@
       "variant": "high"
     },
     "quick": {
-      "model": "github-copilot/gpt-5.4-mini"
+      "model": "deepseek/deepseek-v4-flash"
     },
     "unspecified-low": {
       "model": "zenmux/moonshotai/kimi-k2.5"
     },
     "unspecified-high": {
-      "model": "zenmux/z-ai/glm-5.1"
+      "model": "deepseek/deepseek-v4-pro",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     },
     "writing": {
-      "model": "zenmux/google/gemini-3-flash-preview"
+      "model": "deepseek/deepseek-v4-flash"
     }
   }
 }

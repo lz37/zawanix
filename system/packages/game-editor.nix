@@ -1,6 +1,9 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    blender
+    (blender.override {
+      # jackaudioSupport = true;
+      rocmSupport = false;
+    })
     unityhub
     godot-mono
     furmark # GPU 压力测试

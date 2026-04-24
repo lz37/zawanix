@@ -23,7 +23,7 @@
     '';
   };
 in
-  with pkgs.master; {
+  with pkgs; {
     programs.opencode = {
       package = opencode; # dummy
       enable = true;
