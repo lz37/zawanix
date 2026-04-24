@@ -8,6 +8,7 @@
   hw = config.zerozawa.hardware;
 in {
   environment.systemPackages = with pkgs; [
+    ssh-askpass-fullscreen
     rustdesk
     blueman
     burpsuite
