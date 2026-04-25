@@ -7,14 +7,19 @@
     "opencode-pty@latest",
     "cc-safety-net@latest",
     "@mailshieldai/opencode-canvas@latest",
-    "@franlol/opencode-md-table-formatter@latest",
-    "opencode-snip@latest"
+    "@franlol/opencode-md-table-formatter@latest"
   ],
   "autoupdate": "notify",
   "permission": {
     "canvas_*": "allow"
   },
   "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://zenmux.ai/api/anthropic/v1",
+        "setCacheKey": true
+      }
+    },
     "deepseek": {
       "options": {
         "baseURL": "https://zenmux.ai/api/v1"

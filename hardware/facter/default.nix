@@ -3,7 +3,7 @@
   dhcpByHost = {
     zawanix-work = false;
     zawanix-glap = true;
-    zawanix-fubuki = true;
+    zawanix-fubuki = false;
   };
 in {
   hardware.facter = {

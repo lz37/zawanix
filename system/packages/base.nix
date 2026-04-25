@@ -4,6 +4,8 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    ethtool
+    iperf3
     fio
     exfatprogs
     xsel

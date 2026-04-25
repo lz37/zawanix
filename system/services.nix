@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   ...
@@ -28,14 +29,19 @@ in {
       defaultWindowManager = "openbox-session";
     };
     rustdesk-server =
-      if config.zerozawa.network != null && config.zerozawa.network.static-address != null
+      if !config.networking.networkmanager.enable && !config.networking.useDHCP
       then {
         enable = true;
         openFirewall = true;
-        signal.relayHosts = [
-          "localhost"
-          config.zerozawa.network.static-address
-        ];
+        signal.relayHosts =
+          ["localhost"]
+          ++ builtins.concatLists (
+            lib.mapAttrsToList (
+              _: iface:
+                map (addr: addr.address) (iface.ipv4.addresses or [])
+            )
+            config.networking.interfaces
+          );
       }
       else {enable = false;};
     printing = {

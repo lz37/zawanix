@@ -1,4 +1,4 @@
-{config, ...}: {
+{...}: {
   networking = {
     enableIPv6 = true;
     firewall.enable = false;
@@ -29,7 +29,7 @@
         ipv4 = {
           addresses = [
             {
-              address = config.zerozawa.network.static-address;
+              address = "192.168.233.233";
               prefixLength = 24;
             }
           ];

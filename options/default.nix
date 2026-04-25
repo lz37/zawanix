@@ -165,9 +165,15 @@ in {
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
       network = {
-        static-address = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
-          default = null;
+        wireless = {
+          ssid = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
+          psk = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+          };
         };
       };
       atuin = {
@@ -179,12 +185,6 @@ in {
         password = str;
       };
       servers = {
-        openwrt = {
-          address = lib.mkOption {
-            type = lib.types.nullOr lib.types.str;
-            default = null;
-          };
-        };
         teleport = {
           address = str;
           port = mkOptionType lib.types.int;

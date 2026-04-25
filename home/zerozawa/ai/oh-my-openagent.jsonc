@@ -25,9 +25,7 @@
   "background_task": {
     "staleTimeoutMs": 1800000,
     "modelConcurrency": {
-      "github-copilot/claude-opus-4.7": 1,
-      "github-copilot/gpt-5.4": 2,
-      "kimi-for-coding-oauth/kimi-for-coding": 2
+      "anthropic/claude-opus-4-7": 1
     }
   },
   "disabled_mcps": ["websearch", "grep_app", "context7"],
@@ -58,23 +56,28 @@
       "variant": "high"
     },
     "librarian": {
-      "model": "deepseek/deepseek-v4-flash"
-    },
-    "explore": {
-      "model": "deepseek/deepseek-v4-flash"
-    },
-    "multimodal-looker": {
-      "model": "zenmux/moonshotai/kimi-k2.5"
-    },
-    "prometheus": {
-      "model": "deepseek/deepseek-v4-pro",
+      "model": "deepseek/deepseek-v4-flash",
       "reasoningEffort": "xhigh",
       "thinking": {
         "type": "enabled"
       }
     },
+    "explore": {
+      "model": "deepseek/deepseek-v4-flash",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
+    },
+    "multimodal-looker": {
+      "model": "zenmux/moonshotai/kimi-k2.5"
+    },
+    "prometheus": {
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
+    },
     "metis": {
-      "model": "zenmux/anthropic/claude-opus-4.7",
+      "model": "anthropic/claude-opus-4-7",
       "variant": "max"
     },
     "momus": {
@@ -107,20 +110,29 @@
       "variant": "high"
     },
     "quick": {
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "deepseek/deepseek-v4-flash",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     },
     "unspecified-low": {
-      "model": "zenmux/moonshotai/kimi-k2.5"
-    },
-    "unspecified-high": {
       "model": "deepseek/deepseek-v4-pro",
       "reasoningEffort": "xhigh",
       "thinking": {
         "type": "enabled"
       }
     },
+    "unspecified-high": {
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
+    },
     "writing": {
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "deepseek/deepseek-v4-flash",
+      "reasoningEffort": "xhigh",
+      "thinking": {
+        "type": "enabled"
+      }
     }
   }
 }
