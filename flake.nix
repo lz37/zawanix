@@ -102,6 +102,7 @@
       flake = false;
     };
     nix-monitor.url = "github:antonjah/nix-monitor";
+    opencode.url = "github:anomalyco/opencode/dev";
   };
 
   outputs = inputs: let

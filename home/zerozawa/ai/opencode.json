@@ -23,6 +23,18 @@
     "deepseek": {
       "options": {
         "baseURL": "https://zenmux.ai/api/v1"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "interleaved": {
+            "field": "reasoning_content"
+          }
+        },
+        "deepseek-v4-pro": {
+          "interleaved": {
+            "field": "reasoning_content"
+          }
+        }
       }
     }
   },

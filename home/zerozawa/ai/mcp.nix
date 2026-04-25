@@ -16,15 +16,15 @@
           GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
         };
       };
-      docker = {
-        command = lib.getExe' pkgs.uv "uvx";
-        args = ["docker-mcp"];
-      };
     };
   });
   programs.mcp = with pkgs; {
     enable = true;
     servers = {
+      docker = {
+        command = lib.getExe' pkgs.uv "uvx";
+        args = ["docker-mcp"];
+      };
       grep-app = {
         url = "https://mcp.grep.app";
       };

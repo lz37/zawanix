@@ -38,11 +38,8 @@
       }
     },
     "plan": {
-      "model": "deepseek/deepseek-v4-pro",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "model": "github-copilot/gpt-5.4",
+      "variant": "high"
     },
     "sisyphus-junior": {
       "model": "zenmux/moonshotai/kimi-k2.5"
