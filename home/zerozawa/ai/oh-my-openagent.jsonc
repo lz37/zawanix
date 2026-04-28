@@ -32,10 +32,7 @@
   "agents": {
     "sisyphus": {
       "model": "deepseek/deepseek-v4-pro",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     },
     "plan": {
       "model": "github-copilot/gpt-5.4",
@@ -54,17 +51,11 @@
     },
     "librarian": {
       "model": "deepseek/deepseek-v4-flash",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     },
     "explore": {
       "model": "deepseek/deepseek-v4-flash",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     },
     "multimodal-looker": {
       "model": "zenmux/moonshotai/kimi-k2.5"
@@ -83,10 +74,7 @@
     },
     "atlas": {
       "model": "deepseek/deepseek-v4-pro",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     }
   },
   "categories": {
@@ -108,17 +96,10 @@
     },
     "quick": {
       "model": "deepseek/deepseek-v4-flash",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     },
     "unspecified-low": {
-      "model": "deepseek/deepseek-v4-pro",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "model": "zenmux/moonshotai/kimi-k2.6"
     },
     "unspecified-high": {
       "model": "github-copilot/gpt-5.4",
@@ -126,10 +107,7 @@
     },
     "writing": {
       "model": "deepseek/deepseek-v4-flash",
-      "reasoningEffort": "xhigh",
-      "thinking": {
-        "type": "enabled"
-      }
+      "variant": "max"
     }
   }
 }

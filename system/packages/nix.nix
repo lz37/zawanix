@@ -13,7 +13,7 @@
     nixfmt
     npins
     nurl
-    stable.mcp-nixos
+    mcp-nixos
     nvd
     nixpkgs-lint
     alejandra
