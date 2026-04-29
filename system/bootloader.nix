@@ -18,7 +18,7 @@ in {
           {
             zawanix-glap = "2560x1440";
             zawanix-fubuki = "3840x2160";
-            zawanix-work = "3840x2160";
+            zawanix-work = "1920x1080";
           }
           .${
             hostName
