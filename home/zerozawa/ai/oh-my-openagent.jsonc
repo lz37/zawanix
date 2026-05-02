@@ -31,49 +31,48 @@
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
-      "model": "deepseek/deepseek-v4-pro",
+      "model": "zenmux/deepseek/deepseek-v4-pro",
       "variant": "max"
     },
     "plan": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "zenmux/z-ai/glm-5.1"
     },
     "sisyphus-junior": {
       "model": "zenmux/moonshotai/kimi-k2.5"
     },
     "hephaestus": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "zenmux/openai/gpt-5.4",
       "variant": "medium"
     },
     "oracle": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "zenmux/openai/gpt-5.4",
       "variant": "high"
     },
     "librarian": {
-      "model": "deepseek/deepseek-v4-flash",
+      "model": "zenmux/deepseek/deepseek-v4-flash",
       "variant": "max"
     },
     "explore": {
-      "model": "deepseek/deepseek-v4-flash",
+      "model": "zenmux/deepseek/deepseek-v4-flash",
       "variant": "max"
     },
     "multimodal-looker": {
-      "model": "zenmux/moonshotai/kimi-k2.5"
+      "model": "zenmux/moonshotai/kimi-k2.6"
     },
     "prometheus": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "variant": "max"
     },
     "metis": {
       "model": "anthropic/claude-opus-4-7",
       "variant": "max"
     },
     "momus": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "zenmux/openai/gpt-5.4",
       "variant": "xhigh"
     },
     "atlas": {
-      "model": "deepseek/deepseek-v4-pro",
+      "model": "zenmux/deepseek/deepseek-v4-pro",
       "variant": "max"
     }
   },
@@ -83,11 +82,11 @@
       "variant": "high"
     },
     "ultrabrain": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "zenmux/openai/gpt-5.4",
       "variant": "xhigh"
     },
     "deep": {
-      "model": "github-copilot/gpt-5.4",
+      "model": "zenmux/openai/gpt-5.4",
       "variant": "medium"
     },
     "artistry": {
@@ -95,18 +94,18 @@
       "variant": "high"
     },
     "quick": {
-      "model": "deepseek/deepseek-v4-flash",
+      "model": "zenmux/deepseek/deepseek-v4-flash",
       "variant": "max"
     },
     "unspecified-low": {
-      "model": "zenmux/moonshotai/kimi-k2.6"
+      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "variant": "max"
     },
     "unspecified-high": {
-      "model": "github-copilot/gpt-5.4",
-      "variant": "high"
+      "model": "zenmux/z-ai/glm-5.1"
     },
     "writing": {
-      "model": "deepseek/deepseek-v4-flash",
+      "model": "zenmux/deepseek/deepseek-v4-flash",
       "variant": "max"
     }
   }

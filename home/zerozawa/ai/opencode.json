@@ -19,34 +19,20 @@
         "baseURL": "https://zenmux.ai/api/anthropic/v1",
         "setCacheKey": true
       }
-    },
-    "deepseek": {
-      "options": {
-        "baseURL": "https://zenmux.ai/api/v1"
-      },
-      "models": {
-        "deepseek-v4-flash": {
-          "interleaved": {
-            "field": "reasoning_content"
-          }
-        },
-        "deepseek-v4-pro": {
-          "interleaved": {
-            "field": "reasoning_content"
-          }
-        }
-      }
     }
   },
   "agent": {
     "compaction": {
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "variant": "max"
     },
     "summary": {
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "variant": "max"
     },
     "title": {
-      "model": "deepseek/deepseek-v4-flash"
+      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "variant": "high"
     }
   }
 }

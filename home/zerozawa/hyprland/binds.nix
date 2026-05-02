@@ -20,6 +20,7 @@ in {
       "SUPER,P,exec, dms ipc call notepad toggle"
       "SUPER ALT,L,exec, dms ipc call lock lock"
       "SUPER,X,exec, dms ipc plugins toggle fullscreenPowerMenu"
+      "SUPER SHIFT,X,exec, dms ipc call powermenu toggle"
       "SUPER,C,exec, dms ipc call control-center toggle"
       "SUPER,A,exec, dms ipc plugins toggle aiAssistant"
       ",XF86AudioRaiseVolume,exec,dms ipc call audio increment 3"
