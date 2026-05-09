@@ -133,7 +133,7 @@
       };
 
       render = {
-        direct_scanout = 0; # NVIDIA wayland: 0=关, 走正常合成路径
+        direct_scanout = 1; # NVIDIA wayland: 0=关, 走正常合成路径 1= 全屏显卡直接渲染
       };
 
       master = {
