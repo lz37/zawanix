@@ -242,7 +242,8 @@ in {
           match = {
             tag = "terminal*";
           };
-          opacity = "0.8 0.7";
+          opacity = "0.9 0.8";
+          force_rgbx = true;
         }
         {
           match = {
