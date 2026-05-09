@@ -44,6 +44,7 @@
     ./zed
     ./openbox
     ./wallpapers
+    ./systemd
   ];
   stylix.enableReleaseChecks = false;
   home = {
