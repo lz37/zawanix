@@ -9,7 +9,6 @@
     "@mailshieldai/opencode-canvas@latest",
     "@franlol/opencode-md-table-formatter@latest"
   ],
-  "autoupdate": "notify",
   "permission": {
     "canvas_*": "allow"
   },

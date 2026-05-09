@@ -60,16 +60,16 @@
       "model": "zenmux/moonshotai/kimi-k2.6"
     },
     "prometheus": {
-      "model": "zenmux/deepseek/deepseek-v4-pro",
-      "variant": "max"
+      "model": "zenmux/openai/gpt-5.4",
+      "variant": "high"
     },
     "metis": {
       "model": "anthropic/claude-opus-4-7",
       "variant": "max"
     },
     "momus": {
-      "model": "zenmux/openai/gpt-5.4",
-      "variant": "xhigh"
+      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "variant": "max"
     },
     "atlas": {
       "model": "zenmux/deepseek/deepseek-v4-pro",
