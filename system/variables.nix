@@ -8,6 +8,7 @@
       NH_OS_FLAKE = config.zerozawa.path.cfgRoot;
       NH_FLAKE = NH_OS_FLAKE;
       npm_config_registry = config.nixpkgs.config.npmRegistryOverrides."registry.npmjs.org";
+      pnpm_config_registry = npm_config_registry;
       BUN_CONFIG_REGISTRY = npm_config_registry;
       YARN_NPM_REGISTRY_SERVER = npm_config_registry;
       PIP_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
