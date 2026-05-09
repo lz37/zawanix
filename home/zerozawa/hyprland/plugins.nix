@@ -2,8 +2,8 @@
   wayland.windowManager.hyprland = {
     plugins = with pkgs.hyprlandPlugins; [
       hypr-dynamic-cursors
-      # split-monitor-workspaces
-      # xtra-dispatchers
+      hyprsplit
+      xtra-dispatchers
       # hyprfocus
     ];
     settings = {
@@ -40,10 +40,9 @@
             out_speed = 3;
           };
         };
-        split-monitor-workspaces = {
-          count = 5;
-          enable_notifications = true;
-          enable_persistent_workspaces = true;
+        hyprsplit = {
+          num_workspaces = 10;
+          persistent_workspaces = true;
         };
         dynamic-cursors = {
           enabled = true;
@@ -95,13 +94,6 @@
             fallback = "clientside";
           };
         };
-        # virtual-desktops = {
-        #   names = "1:coding, 2:internet, 3:chats, 4:games";
-        #   cycleworkspaces = 1;
-        #   rememberlayout = "size";
-        #   notifyinit = 0;
-        #   verbose_logging = 0;
-        # };
       };
     };
   };

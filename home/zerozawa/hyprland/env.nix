@@ -17,6 +17,8 @@ in {
           "XDG_SESSION_TYPE, wayland"
           "XDG_SESSION_DESKTOP, Hyprland"
           "GDK_BACKEND, wayland, x11"
+          "GDK_SCALE,1"
+          "XCURSOR_SIZE,32"
           "CLUTTER_BACKEND, wayland"
           "QT_QPA_PLATFORM=wayland;xcb"
           "QT_WAYLAND_DISABLE_WINDOWDECORATION, 1"

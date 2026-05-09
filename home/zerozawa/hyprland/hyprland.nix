@@ -39,7 +39,7 @@
     settings = {
       source = ["${config.xdg.configHome}/hypr/dms/*.conf"]; # dms generated files
       xwayland = {
-        # force_zero_scaling = true;
+        force_zero_scaling = true;
         create_abstract_socket = true;
       };
       input = {
@@ -88,8 +88,7 @@
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         enable_swallow = false;
-        vfr = true; # Variable Frame Rate
-        vrr = 2; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
+        vrr = 0; # Variable Refresh Rate  Might need to set to 0 for NVIDIA/AQ_DRM_DEVICES
         # Screen flashing to black momentarily or going black when app is fullscreen
         # Try setting vrr to 0
 
@@ -99,7 +98,6 @@
       };
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
         force_split = 2;
       };
@@ -110,7 +108,7 @@
           enabled = true;
           size = 5;
           passes = 3;
-          ignore_opacity = false;
+          ignore_opacity = true;
           new_optimizations = true;
         };
         shadow = {
@@ -135,10 +133,7 @@
       };
 
       render = {
-        # Disabling as no longer supported
-        #explicit_sync = 1; # Change to 1 to disable
-        #explicit_sync_kms = 1;
-        direct_scanout = 0;
+        direct_scanout = 0; # NVIDIA wayland: 0=关, 走正常合成路径
       };
 
       master = {
