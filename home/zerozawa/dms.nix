@@ -7,7 +7,6 @@
 in {
   home.packages = with pkgs; [
     grimblast
-    linux-wallpaperengine
     gpu-screen-recorder
     gpu-screen-recorder-gtk
     xdg-utils
@@ -27,7 +26,6 @@ in {
         mediaPlayer.enable = true;
         wallpaperDiscovery.enable = true;
         alarmClock.enable = true;
-        linuxWallpaperEngine.enable = true;
         nixMonitor.enable = true;
         wallpaperShufflerPlugin.enable = true;
         dankActions.enable = true;
