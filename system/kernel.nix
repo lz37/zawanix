@@ -16,7 +16,10 @@ in {
       # I haven't figured out a clean way to expose it in flakes.
       helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" {};
     in
-      helpers.kernelModuleLLVMOverride (
+      # kernelModuleLLVMOverride only patches Makefiles (gcc→cc), but doesn't
+      # pass LLVM=1 to make. External modules need LLVM=1 for kbuild to use
+      # clang instead of gcc. We chain another .extend to inject the flags.
+      (helpers.kernelModuleLLVMOverride (
         pkgs.linuxKernel.packagesFor (
           pkgs.cachyosKernels.linux-cachyos-latest.override {
             lto = "thin";
@@ -35,6 +38,23 @@ in {
             hugepage = "always";
           }
         )
+      )).extend (
+        _final: prev:
+          lib.mapAttrs (
+            n: v:
+              if lib.isDerivation v && (v.overrideAttrs or null) != null && n != "kernel"
+              then
+                v.overrideAttrs (old: {
+                  makeFlags =
+                    (old.makeFlags or [])
+                    ++ [
+                      "LLVM=1"
+                      "LLVM_IAS=1"
+                    ];
+                })
+              else v
+          )
+          prev
       );
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
