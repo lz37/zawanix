@@ -3,7 +3,7 @@
     plugins = with pkgs.hyprlandPlugins; [
       hypr-dynamic-cursors
       hyprsplit
-      xtra-dispatchers
+      #xtra-dispatchers
       # hyprfocus
     ];
     settings = {

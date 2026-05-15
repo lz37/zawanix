@@ -12,14 +12,29 @@
     dontBuild = true;
     installPhase = ''
       mkdir -p $out
-      cp -r ${inputs.ast-grep-skill}/ast-grep/skills/* $out/
-      cp -r ${inputs.anthropics-skills}/skills/frontend-design $out/
-      cp -r ${inputs.anthropics-skills}/skills/pdf $out/
-      cp -r ${inputs.ai-agent-skills}/skills/best-practices $out/
-      cp -r ${inputs.openai-skills}/skills/.curated/gh-address-comments $out/
-      cp -r ${inputs.awesome-copilot}/skills/gh-cli $out/
-      cp -r ${inputs.awesome-copilot}/skills/mcp-cli $out/
-      cp -r ${inputs.zenmux-skill}/skills/* $out/
+      merge_skills() {
+        local src="$1"
+        for item in "$src"/*; do
+          local name
+          name=$(basename "$item")
+          # Skip first-level directory if it already exists (no merging)
+          if [ -d "$item" ] && [ -e "$out/$name" ]; then
+            echo "Skipping already existing directory: $name"
+            continue
+          fi
+          # --no-preserve=mode prevents Permission denied when nested
+          # directories in the Nix store are read-only.
+          cp -r --no-preserve=mode -n "$item" "$out/"
+        done
+        # Ensure everything stays writable for subsequent merges
+        chmod -R u+w "$out"
+      }
+      merge_skills "${inputs.ast-grep-skill}/ast-grep/skills"
+      merge_skills "${inputs.anthropics-skills}/skills"
+      merge_skills "${inputs.ai-agent-skills}/skills"
+      merge_skills "${inputs.openai-skills}/skills/.curated"
+      merge_skills "${inputs.awesome-copilot}/skills"
+      merge_skills "${inputs.zenmux-skill}/skills"
     '';
   };
 in {

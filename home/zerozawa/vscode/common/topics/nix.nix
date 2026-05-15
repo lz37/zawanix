@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+  extensions = with pkgs.vscode-selected-extensionsCompatible.open-vsx; [
     jnoortheen.nix-ide
   ];
   settings = {

@@ -29,7 +29,7 @@ in {
         # 中科大
         "https://mirrors.ustc.edu.cn/nix-channels/store?priority=10"
         # 校园网 mirrorz
-        "https://mirrors.cernet.edu.cn/nix-channels/store?priority=10"
+        #"https://mirrors.cernet.edu.cn/nix-channels/store?priority=10"
         # 上交
         # "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
         # 清华

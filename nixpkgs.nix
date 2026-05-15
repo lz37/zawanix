@@ -19,7 +19,7 @@ moduleArgs @ {
       cudaSupport = hw.isNvidiaGPU;
       rocmSupport = hw.isAmdGPU;
       npmRegistryOverrides = {
-        "registry.npmjs.org" = "https://registry.npmmirror.com";
+        "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm/";
       };
     };
   in {

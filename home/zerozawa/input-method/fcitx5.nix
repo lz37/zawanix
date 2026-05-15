@@ -90,8 +90,7 @@
                     ])
                     [pkgs.rime-data ["luna_pinyin" "pinyin_simp"]]
                     [
-                      (pkgs.nur.repos.xddxdd.rime-custom-pinyin-dictionary.override
-                        {imewlconverter = pkgs.master.imewlconverter;})
+                      pkgs.nur.repos.xddxdd.rime-custom-pinyin-dictionary
                       ["CustomPinyinDictionary"]
                     ]
                   ];

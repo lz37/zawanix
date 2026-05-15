@@ -297,10 +297,7 @@ in {
           devices = devices;
           aqDrmDevices = lib.concatStringsSep ":" (
             if hasIgpu
-            then
-              if hardwareFlags.isLaptop
-              then ["/dev/dri/igpu"] ++ (lib.optionals hasDgpu ["/dev/dri/dgpu"])
-              else (lib.optionals hasDgpu ["/dev/dri/dgpu"]) ++ ["/dev/dri/igpu"]
+            then (lib.optionals hasDgpu ["/dev/dri/dgpu"]) ++ ["/dev/dri/igpu"]
             else
               (
                 if vendorPaths == ""
