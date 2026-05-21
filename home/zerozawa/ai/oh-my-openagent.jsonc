@@ -31,81 +31,84 @@
   "disabled_mcps": ["websearch", "grep_app", "context7"],
   "agents": {
     "sisyphus": {
-      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "model": "opencode-go/deepseek-v4-pro",
       "variant": "max"
     },
     "plan": {
-      "model": "zenmux/z-ai/glm-5.1"
+      "model": "opencode-go/deepseek-v4-pro",
+      "variant": "max"
     },
     "sisyphus-junior": {
-      "model": "zenmux/moonshotai/kimi-k2.5"
+      "model": "opencode-go/deepseek-v4-pro",
+      "variant": "max"
     },
     "hephaestus": {
-      "model": "zenmux/openai/gpt-5.4",
-      "variant": "medium"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "oracle": {
-      "model": "zenmux/openai/gpt-5.4",
-      "variant": "high"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "librarian": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     },
     "explore": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     },
     "multimodal-looker": {
-      "model": "zenmux/moonshotai/kimi-k2.6"
+      "model": "openai/gpt-5.5",
+      "variant": "medium"
     },
     "prometheus": {
-      "model": "zenmux/openai/gpt-5.4",
-      "variant": "high"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "metis": {
-      "model": "anthropic/claude-opus-4-7",
-      "variant": "max"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "momus": {
-      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "model": "opencode-go/deepseek-v4-pro",
       "variant": "max"
     },
     "atlas": {
-      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "model": "opencode-go/deepseek-v4-pro",
       "variant": "max"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "zenmux/google/gemini-3.1-pro-preview",
-      "variant": "high"
+      "model": "opencode-go/glm-5"
     },
     "ultrabrain": {
-      "model": "zenmux/openai/gpt-5.4",
+      "model": "openai/gpt-5.5",
       "variant": "xhigh"
     },
     "deep": {
-      "model": "zenmux/openai/gpt-5.4",
-      "variant": "medium"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "artistry": {
-      "model": "zenmux/google/gemini-3.1-pro-preview",
-      "variant": "high"
+      "model": "opencode-go/deepseek-v4-pro",
+      "variant": "max"
     },
     "quick": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     },
     "unspecified-low": {
-      "model": "zenmux/deepseek/deepseek-v4-pro",
+      "model": "opencode-go/deepseek-v4-pro",
       "variant": "max"
     },
     "unspecified-high": {
-      "model": "zenmux/z-ai/glm-5.1"
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh"
     },
     "writing": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     }
   }

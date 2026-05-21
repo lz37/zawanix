@@ -7,30 +7,23 @@
     "opencode-pty@latest",
     "cc-safety-net@latest",
     "@mailshieldai/opencode-canvas@latest",
-    "@franlol/opencode-md-table-formatter@latest"
+    "@franlol/opencode-md-table-formatter@latest",
+    "@tarquinen/opencode-dcp@latest"
   ],
   "permission": {
     "canvas_*": "allow"
   },
-  "provider": {
-    "anthropic": {
-      "options": {
-        "baseURL": "https://zenmux.ai/api/anthropic/v1",
-        "setCacheKey": true
-      }
-    }
-  },
   "agent": {
     "compaction": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     },
     "summary": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "max"
     },
     "title": {
-      "model": "zenmux/deepseek/deepseek-v4-flash",
+      "model": "opencode-go/deepseek-v4-flash",
       "variant": "high"
     }
   }

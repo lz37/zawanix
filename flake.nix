@@ -77,32 +77,10 @@
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ast-grep-skill = {
-      url = "github:ast-grep/agent-skill";
-      flake = false;
-    };
-    anthropics-skills = {
-      url = "github:anthropics/skills";
-      flake = false;
-    };
-    ai-agent-skills = {
-      url = "github:MoizIbnYousaf/Ai-Agent-Skills";
-      flake = false;
-    };
-    openai-skills = {
-      url = "github:openai/skills";
-      flake = false;
-    };
-    awesome-copilot = {
-      url = "github:github/awesome-copilot";
-      flake = false;
-    };
-    zenmux-skill = {
-      url = "github:ZenMux/skills";
-      flake = false;
-    };
     nix-monitor.url = "github:antonjah/nix-monitor";
-    opencode.url = "github:anomalyco/opencode/dev";
+    opencode = {
+      url = "github:anomalyco/opencode/v1.15.3";
+    };
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";

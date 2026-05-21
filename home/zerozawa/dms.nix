@@ -10,6 +10,7 @@ in {
     gpu-screen-recorder
     gpu-screen-recorder-gtk
     xdg-utils
+    linux-wallpaperengine
   ];
   programs.dank-material-shell = {
     enable = true;
@@ -51,6 +52,7 @@ in {
         dankRssWidget.enable = true;
         vscodeLauncher.enable = true;
         cavaVisualizer.enable = true;
+        linuxWallpaperEngine.enable = true;
       }
       // (
         if hw.isLaptop

@@ -94,10 +94,19 @@ moduleArgs @ {
               patchedNodeModules = origin.opencode.node_modules.overrideAttrs (_nmOld: {
                 BUN_CONFIG_REGISTRY = registryUrl;
               });
+              base =
+                if registryUrl != null
+                then origin.opencode.override {node_modules = patchedNodeModules;}
+                else origin.opencode;
             in
-              if registryUrl != null
-              then origin.opencode.override {node_modules = patchedNodeModules;}
-              else origin.opencode;
+              base.overrideAttrs (old: {
+                postInstall =
+                  ''
+                    wrapProgram $out/bin/opencode \
+                      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [final.stdenv.cc.cc.lib]}
+                  ''
+                  + (old.postInstall or "");
+              });
             mcp-nixos = master.mcp-nixos;
             openldap = master.openldap;
             hyprlandPlugins =
