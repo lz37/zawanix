@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./waydroid-cage.nix
+    ./waydroid-labwc.nix
   ];
 }

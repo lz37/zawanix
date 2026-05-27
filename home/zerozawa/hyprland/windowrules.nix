@@ -278,6 +278,12 @@ in {
         }
         {
           match = {
+            class = "labwc";
+          };
+          fullscreen = true;
+        }
+        {
+          match = {
             class = "^([Vv]ivaldi ((Settings)|(设置)).*))$";
           };
           float = true;

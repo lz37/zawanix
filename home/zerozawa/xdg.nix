@@ -23,5 +23,13 @@
       templates = lib.mkForce "${config.home.homeDirectory}/Templates";
       videos = lib.mkForce "${config.home.homeDirectory}/Videos";
     };
+    desktopEntries.waydroid-labwc = {
+      name = "Waydroid (labwc)";
+      comment = "Waydroid fullscreen in labwc";
+      exec = "${lib.getExe pkgs.labwc} -s \"${lib.getExe pkgs.waydroid} show-full-ui\"";
+      icon = "waydroid";
+      type = "Application";
+      categories = ["System"];
+    };
   };
 }
