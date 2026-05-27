@@ -88,25 +88,26 @@ moduleArgs @ {
               proprietaryCodecs = true;
               enableWidevine = true;
             };
-            opencode = let
-              origin = inputs.opencode.packages.${system};
-              registryUrl = nixpkgsConfig.npmRegistryOverrides."registry.npmjs.org" or null;
-              patchedNodeModules = origin.opencode.node_modules.overrideAttrs (_nmOld: {
-                BUN_CONFIG_REGISTRY = registryUrl;
-              });
-              base =
-                if registryUrl != null
-                then origin.opencode.override {node_modules = patchedNodeModules;}
-                else origin.opencode;
-            in
-              base.overrideAttrs (old: {
-                postInstall =
-                  ''
-                    wrapProgram $out/bin/opencode \
-                      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [final.stdenv.cc.cc.lib]}
-                  ''
-                  + (old.postInstall or "");
-              });
+            opencode = master.opencode;
+            # opencode = let
+            #   origin = inputs.opencode.packages.${system};
+            #   registryUrl = nixpkgsConfig.npmRegistryOverrides."registry.npmjs.org" or null;
+            #   patchedNodeModules = origin.opencode.node_modules.overrideAttrs (_nmOld: {
+            #     BUN_CONFIG_REGISTRY = registryUrl;
+            #   });
+            #   base =
+            #     if registryUrl != null
+            #     then origin.opencode.override {node_modules = patchedNodeModules;}
+            #     else origin.opencode;
+            # in
+            #   base.overrideAttrs (old: {
+            #     postInstall =
+            #       ''
+            #         wrapProgram $out/bin/opencode \
+            #           --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [final.stdenv.cc.cc.lib]}
+            #       ''
+            #       + (old.postInstall or "");
+            #   });
             mcp-nixos = master.mcp-nixos;
             openldap = master.openldap;
             hyprlandPlugins =

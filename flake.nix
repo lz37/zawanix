@@ -78,9 +78,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-monitor.url = "github:antonjah/nix-monitor";
-    opencode = {
-      url = "github:anomalyco/opencode/v1.15.3";
-    };
+    # opencode = {
+    #   url = "github:anomalyco/opencode/dev";
+    # };
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";

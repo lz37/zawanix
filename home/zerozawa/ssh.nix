@@ -8,19 +8,19 @@
 in {
   programs.ssh = {
     enableDefaultConfig = false;
-    matchBlocks =
+    settings =
       {
         "*" = {
-          forwardAgent = false;
-          addKeysToAgent = no;
-          compression = false;
-          serverAliveInterval = 0;
-          serverAliveCountMax = 3;
-          hashKnownHosts = false;
-          userKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
-          controlMaster = no;
-          controlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
-          controlPersist = no;
+          ForwardAgent = "no";
+          AddKeysToAgent = no;
+          Compression = "no";
+          ServerAliveInterval = 0;
+          ServerAliveCountMax = 3;
+          HashKnownHosts = "no";
+          UserKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
+          ControlMaster = no;
+          ControlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
+          ControlPersist = no;
         };
       }
       // (
@@ -34,9 +34,11 @@ in {
             ...
           }: {
             name = host;
-            value = {
-              hostname = host;
-              inherit port user proxyJump;
+            value = lib.filterAttrs (_: v: v != null) {
+              Hostname = host;
+              Port = port;
+              User = user;
+              ProxyJump = proxyJump;
             };
           }
         )
