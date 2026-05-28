@@ -1,14 +1,16 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: let
   hostName = config.networking.hostName;
+  isThinkbook = hostName == "zawanix-thinkbook";
 in {
   boot.loader = {
-    systemd-boot.enable = false;
+    systemd-boot.enable = isThinkbook;
 
-    grub = {
+    grub = lib.mkIf (!isThinkbook) {
       enable = true;
       device = "nodev"; # EFI 系统专用
       efiSupport = true; # 启用 EFI 支持

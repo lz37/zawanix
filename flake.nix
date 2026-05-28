@@ -180,11 +180,15 @@
                 zawanix-fubuki = mkNixosConfig {
                   hostName = "zawanix-fubuki";
                 };
+                zawanix-thinkbook = mkNixosConfig {
+                  hostName = "zawanix-thinkbook";
+                };
               };
             in {
               zawanix-work = lib.nixosSystem config.zawanix-work;
               zawanix-glap = lib.nixosSystem config.zawanix-glap;
               zawanix-fubuki = lib.nixosSystem config.zawanix-fubuki;
+              zawanix-thinkbook = lib.nixosSystem config.zawanix-thinkbook;
             }
           );
         };

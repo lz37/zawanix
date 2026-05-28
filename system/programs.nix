@@ -38,6 +38,7 @@ in {
                 {
                   zawanix-fubuki = 2;
                   zawanix-glap = 1;
+                  zawanix-thinkbook = 0;
                 }
               .${
                   hostName

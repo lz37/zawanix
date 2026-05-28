@@ -81,6 +81,8 @@ in {
           "uhci_hcd"
           "sr_mod"
           "usb_storage"
+          "thunderbolt"
+          "rtsx_pci_sdmmc"
         ]
         ++ (lib.optionals hw.isIntelGPU ["i915"]);
       kernelModules = ["kyber-iosched"] ++ (lib.optionals hw.isAMDCPU ["kvm-amd"]);
@@ -126,6 +128,7 @@ in {
             zawanix-fubuki = "nvme0n1";
             zawanix-glap = "nvme0n1";
             zawanix-work = "nvme0n1";
+            zawanix-thinkbook = "nvme0n1";
           }
           .${
             hostName

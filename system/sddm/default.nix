@@ -31,6 +31,10 @@
             ScreenWidth = "3840";
             ScreenHeight = "2160";
           };
+          zawanix-thinkbook = {
+            ScreenWidth = "3072";
+            ScreenHeight = "1920";
+          };
         }
       ."${hostName}"
       );

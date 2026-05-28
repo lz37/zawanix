@@ -4,6 +4,7 @@
     zawanix-work = false;
     zawanix-glap = true;
     zawanix-fubuki = false;
+    zawanix-thinkbook = true;
   };
 in {
   hardware.facter = {
