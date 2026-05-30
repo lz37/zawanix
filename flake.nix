@@ -140,7 +140,6 @@
                   ./network
                   ./hardware
                   ./system
-                  ./mihomo
                 ]
                 ++ [
                   inputs.home-manager.nixosModules.home-manager

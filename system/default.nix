@@ -24,6 +24,7 @@
     ./zerotier.nix
     ./powerManagement.nix
     ./udev.nix
+    ./mihomo
   ];
   system.stateVersion = inputs.nixpkgs.lib.trivial.release;
   documentation.nixos.enable = false;

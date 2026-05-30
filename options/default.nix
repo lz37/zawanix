@@ -147,9 +147,9 @@ in {
       };
       context7.apiKey = str;
       exa-mcp.apiKey = str;
-      bailian-coding-plan.apiKey = str;
       zerotier = {
         id = str;
+        netmask = str;
       };
       path = {
         cfgRoot = str;
@@ -160,7 +160,6 @@ in {
         public = str;
         downloads = str;
         private = str;
-        mihomoCfg = str;
         kitty = str;
       };
       users.zerozawa.uid = mkOptionType lib.types.int;
@@ -173,6 +172,13 @@ in {
           psk = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
+          };
+        };
+      };
+      mihomo = {
+        proxy-providers = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = {
           };
         };
       };
@@ -227,9 +233,6 @@ in {
       };
       vscode = {
         sherlock.userId = str;
-      };
-      mihomo = {
-        subscribe = str;
       };
     };
   };
@@ -317,7 +320,6 @@ in {
         public = "${home}/Public";
         downloads = "${home}/Downloads";
         private = "${cfgRoot}/private";
-        mihomoCfg = "${profile}/mihomo.yaml";
         kitty = "${profile}/kitty.conf";
       };
       users = {
