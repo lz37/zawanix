@@ -9,6 +9,8 @@
     ms-vscode.wasm-wasi-core
     fill-labs.dependi
     ultram4rine.vscode-choosealicense
+    vkhey.recomment-pro
+    yutengjing.vscode-mcp-bridge
   ];
   settings = {
     "terminal.integrated.defaultProfile.linux" = "zsh";

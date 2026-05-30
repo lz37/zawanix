@@ -43,8 +43,8 @@
         };
       };
       sequential-thinking = {
-        command = lib.getExe' pnpm "pnpx";
-        args = ["@modelcontextprotocol/server-sequential-thinking"];
+        command = lib.getExe docker;
+        args = ["run" "--rm" "-i" "mcp/sequentialthinking"];
       };
       chrome-devtools = {
         command = lib.getExe' pnpm "pnpx";
@@ -64,6 +64,14 @@
       image-tiler-mcp-server = {
         command = lib.getExe' pnpm "pnpx";
         args = ["image-tiler-mcp-server"];
+      };
+      recomment = {
+        command = lib.getExe nodejs-slim;
+        args = ["${vscode-selected-extensionsCompatible.vscode-marketplace.vkhey.recomment-pro}/share/vscode/extensions/vkhey.recomment-pro/out/mcpServer.js"];
+      };
+      vscode-mcp = {
+        command = lib.getExe' pnpm "pnpx";
+        args = ["@vscode-mcp/vscode-mcp-server@latest"];
       };
     };
   };
