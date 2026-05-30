@@ -57,6 +57,7 @@
   cardSubClassHex = card: normalizeHex (lib.attrByPath ["sub_class" "hex"] null card);
   gpuRoleOverrides = {
     "amd:13c0:1043:8877" = "igpu";
+    "intel:b080:17aa:8099" = "igpu"; # ThinkBook 14 G8+ IPH iGPU (xe driver)
   };
   normalizedGraphicsCards =
     map (
