@@ -33,19 +33,19 @@ in {
       "themes".source = themes-path;
     };
   };
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = icons-matome;
-    };
-    theme = {
-      name = "Breeze-Dark";
-      package = themes-matome;
-    };
-  };
-  qt = {
-    enable = true;
-    platformTheme.name = "kde";
-  };
+  # gtk = {
+  #   enable = true;
+  #   iconTheme = {
+  #     name = "Papirus-Dark";
+  #     package = icons-matome;
+  #   };
+  #   theme = {
+  #     name = "Breeze-Dark";
+  #     package = themes-matome;
+  #   };
+  # };
+  # qt = {
+  #   enable = true;
+  #   platformTheme.name = "kde";
+  # };
 }
