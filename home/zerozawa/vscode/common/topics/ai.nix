@@ -26,7 +26,6 @@
     };
     "github.copilot.advanced" = {
       "authPermissions" = "default";
-      "authProvider" = "github";
       "useLanguageServer" = true;
     };
     "github.copilot.editor.enableCodeActions" = true;
