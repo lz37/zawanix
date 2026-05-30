@@ -53,6 +53,25 @@
   };
   anyCardVendor = names: lib.any (card: lib.elem (cardVendorName card) names) graphicsCards;
 
+  # Fingerprint sensor detection via USB vendor + vendor_spec interface
+  fpVendorNames = [
+    "Elan Microelectronics Corportation"
+    "Elan Microelectronics Corp."
+    "Elan Microelectronics Corporation"
+    "Goodix Technology Co.,Ltd."
+    "Synaptics"
+  ];
+  usbDevices = asList (lib.attrByPath ["usb"] [] hardware);
+  hasFingerprint =
+    lib.any (
+      usb: let
+        vendorName = lib.attrByPath ["vendor" "name"] "" usb;
+        interfaceClass = lib.toLower (lib.attrByPath ["detail" "interface_class" "name"] "" usb);
+      in
+        lib.elem vendorName fpVendorNames && interfaceClass == "vendor_spec"
+    )
+    usbDevices;
+
   diskStrings = disk:
     map lib.toLower (
       (lib.filter builtins.isString [
@@ -201,6 +220,9 @@ in {
     installedMemoryMiB
     microarch
     vendorNames
+    fpVendorNames
+    usbDevices
+    hasFingerprint
     ;
 
   flags = {
@@ -211,6 +233,7 @@ in {
     isAmdGPU = anyCardVendor vendorNames.amd;
     inherit isLaptop;
     isSSD = hasSolidStateDisk;
+    isFingerprint = hasFingerprint;
     ram = installedMemoryMiB;
     amd64Microarchs = microarch;
   };

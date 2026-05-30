@@ -123,6 +123,7 @@ in {
         isAmdGPU = bool;
         isLaptop = bool;
         isSSD = bool;
+        isFingerprint = bool;
         ram = int;
         amd64Microarchs = str;
         drm = {
@@ -260,6 +261,7 @@ in {
           isAmdGPU
           isLaptop
           isSSD
+          isFingerprint
           ram
           amd64Microarchs
           ;
