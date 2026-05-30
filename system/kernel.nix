@@ -84,7 +84,7 @@ in {
           "thunderbolt"
           "rtsx_pci_sdmmc"
         ]
-        ++ (lib.optionals hw.isIntelGPU ["i915"]);
+        ++ (lib.optionals hw.isIntelGPU ["i915" "xe"]);
       kernelModules = ["kyber-iosched"] ++ (lib.optionals hw.isAMDCPU ["kvm-amd"]);
     };
     kernelParams =
