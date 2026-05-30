@@ -6,6 +6,25 @@
 }: let
   switcherPath = "${config.xdg.configHome}/hypr/monitors.conf";
   monitors = {
+    "desc:Tianma Microelectronics Ltd. TL145MDMP01" = rec {
+      HDR =
+        SDR
+        // {
+          cm = "hdr";
+          bitdepth = 10;
+          sdr_min_luminance = 0.005;
+          sdr_max_luminance = 240;
+          max_luminance = 500;
+        };
+      SDR = {
+        mode = "3072x1920@120.00";
+        position = "0x0";
+        scale = 1.5;
+        cm = "srgb";
+        bitdepth = 8;
+        vrr = false;
+      };
+    };
     "desc:HKC OVERSEAS LIMITED Pilot M8 CDMV9AB010536" = rec {
       HDR =
         SDR
@@ -74,7 +93,7 @@
       SDR = {
         mode = "2560x1440@180.00";
         position = "2560x0";
-        scale = 1;
+        scale = 1.125;
         cm = "srgb";
         bitdepth = 8;
         vrr = false;
