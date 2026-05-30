@@ -15,6 +15,7 @@
       graalvmPackages.graalvm-ce
       ast-grep
       bash-language-server
+      yaml-language-server
       biome
       snip
     ])
