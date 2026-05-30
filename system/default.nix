@@ -12,6 +12,7 @@
     ./variables.nix
     ./audio.nix
     ./bootloader.nix
+    ./fprintd.nix
     ./packages
     ./opengl.nix
     ./fs.nix
