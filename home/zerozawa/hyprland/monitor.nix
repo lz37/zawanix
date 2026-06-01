@@ -19,7 +19,7 @@
       SDR = {
         mode = "3072x1920@120.00";
         position = "0x0";
-        scale = 1.5;
+        scale = 1.333333;
         cm = "srgb";
         bitdepth = 8;
         vrr = false;
@@ -92,8 +92,8 @@
         };
       SDR = {
         mode = "2560x1440@180.00";
-        position = "2560x0";
-        scale = 1.125;
+        position = "2304x0";
+        scale = 1;
         cm = "srgb";
         bitdepth = 8;
         vrr = false;
