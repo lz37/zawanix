@@ -1,54 +1,62 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    ethtool
-    iperf3
-    fio
-    exfatprogs
-    xsel
-    yq-go
-    nettools
-    busybox
-    (lib.hiPrio uutils-coreutils-noprefix)
-    tcping-go
-    lua
-    ffmpeg
-    rar
-    vim
-    wget
-    git
-    zsh
-    neovim
-    tree
-    podman-compose
-    openjpeg
-    translate-shell
-    p7zip
-    unzip
-    zip
-    unar
-    toolbox
-    nmap
-    # waydroid 剪贴版
-    wl-clipboard
-    cifs-utils
-    cachix
-    distrobox
-    termsonic
-    comma
-    ipmitool
-    teleport.client
-    sshpass
-    rsync
-    flac
-    exiftool
-    imagemagick
-    opencc
-    android-tools
-    libva-utils
-    mesa-demos
-  ];
+  environment.systemPackages = with pkgs; (
+    [
+      ethtool
+      iperf3
+      fio
+      exfatprogs
+      xsel
+      yq-go
+      nettools
+      busybox
+      (lib.hiPrio uutils-coreutils-noprefix)
+      tcping-go
+      lua
+      ffmpeg
+      rar
+      vim
+      wget
+      git
+      zsh
+      neovim
+      tree
+      podman-compose
+      openjpeg
+      translate-shell
+      p7zip
+      unzip
+      zip
+      unar
+      toolbox
+      nmap
+      # waydroid 剪贴版
+      wl-clipboard
+      cifs-utils
+      cachix
+      distrobox
+      termsonic
+      comma
+      ipmitool
+      teleport.client
+      sshpass
+      rsync
+      flac
+      exiftool
+      imagemagick
+      opencc
+      android-tools
+      libva-utils
+      mesa-demos
+    ]
+    ++ (
+      if config.zerozawa.hardware.isAmdGPU
+      then [rocmPackages.rocm-smi]
+      else []
+    )
+  );
 }
