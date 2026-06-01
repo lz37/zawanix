@@ -1,4 +1,11 @@
-{...}: {
+{
+  inputs,
+  lib,
+  rootPath,
+  ...
+}: let
+  oculinkFacter = rootPath + "/hardware/facter/zawanix-thinkbook.oculink.json";
+in {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/c681d414-0087-40c2-8c1b-9e5c71eac1c2";
@@ -12,5 +19,14 @@
         "dmask=0077"
       ];
     };
+  };
+
+  # OCuLink eGPU specialization: boots with Intel iGPU + AMD dGPU
+  # Select "oculink" from systemd-boot menu when eGPU is connected
+  specialisation.oculink.configuration = {
+    zerozawa.hardware.isOculink = lib.mkForce true;
+    hardware.amdgpu.initrd.enable = lib.mkForce false;
+    # Switch to the oculink facter report which includes both GPUs.
+    hardware.facter.reportPath = lib.mkForce oculinkFacter;
   };
 }
