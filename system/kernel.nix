@@ -32,7 +32,7 @@ in {
             bbr3 = true;
             ccHarder = true;
             hzTicks =
-              if hw.isLaptop && !host.isGameMachine
+              if hw.isLaptop && (!host.isGameMachine || (host.isGameMachine && hw.isOculink))
               then "300"
               else "1000";
             hugepage = "always";
@@ -108,6 +108,13 @@ in {
         "nvidia.NVreg_EnablePCIeGen3=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       ])
+      ++ (lib.optionals hw.isOculink [
+        "pcie_port_pm=off"
+        "pci=noaer"
+      ])
+      ++ (lib.optionals (hw.isOculink && hw.isAmdGPU) [
+        "amdgpu.runpm=0"
+      ])
       ++ (lib.optionals (host.isGameMachine && hw.ram >= 32 * 1024) [
         "hugepages=4"
         "hugepagesz=1G"
@@ -119,6 +126,9 @@ in {
         "transparent_hugepage=always"
       ])
       ++ (lib.optionals (!host.isGameMachine || hw.ram < 16 * 1024) ["transparent_hugepage=madvise"]);
+    extraModprobeConfig = lib.mkIf (hw.isOculink && hw.isAmdGPU) ''
+      options amdgpu pcie_gen_cap=0x80000
+    '';
     consoleLogLevel = 3;
     # Needed For Some Steam Games
     kernel = {
