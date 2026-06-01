@@ -1,8 +1,8 @@
 {
   description = "config of zerozawa's nix desktop";
   inputs = {
-    nixpkgs.url = "git+https://mirrors.cernet.edu.cn/nixpkgs.git?ref=nixos-unstable&shallow=1";
-    nixpkgs-stable.url = "git+https://mirrors.cernet.edu.cn/nixpkgs.git?ref=nixos-25.11&shallow=1";
+    nixpkgs.url = "git+https://mirrors.cernet.edu.cn/nixpkgs.git?ref=nixos-unstable-small&shallow=1";
+    nixpkgs-stable.url = "git+https://mirrors.cernet.edu.cn/nixpkgs.git?ref=nixos-26.05&shallow=1";
     nixpkgs-master.url = "git+https://mirrors.cernet.edu.cn/nixpkgs.git?ref=master&shallow=1";
     home-manager = {
       url = "github:nix-community/home-manager/master";
