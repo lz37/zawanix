@@ -58,6 +58,7 @@
   gpuRoleOverrides = {
     "amd:13c0:1043:8877" = "igpu";
     "intel:b080:17aa:8099" = "igpu"; # ThinkBook 14 G8+ IPH iGPU (xe driver)
+    "amd:73bf:1002:0e3a" = "dgpu"; # ThinkBook 14 G8+ OCuLink AMD eGPU (amdgpu)
   };
   normalizedGraphicsCards =
     map (
@@ -124,6 +125,7 @@ in {
         isLaptop = bool;
         isSSD = bool;
         isFingerprint = bool;
+        isOculink = bool;
         ram = int;
         amd64Microarchs = str;
         drm = {
@@ -265,6 +267,7 @@ in {
           ram
           amd64Microarchs
           ;
+        isOculink = false;
         drm = let
           vendorCount = vendor:
             builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
