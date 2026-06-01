@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   stylix = {
     enable = true;
+    enableReleaseChecks = false;
     image = pkgs.nur.repos.zerozawa.lib.fetchPixiv {
       id = 94573417;
       p = 0;
