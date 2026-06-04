@@ -2,10 +2,11 @@
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     ms-python.python
     ms-python.pylint
+    charliermarsh.ruff
   ];
   settings = {
     "[python]" = {
-      "editor.defaultFormatter" = "ms-python.pylint";
+      "editor.defaultFormatter" = "charliermarsh.ruff";
       "editor.formatOnType" = true;
     };
     "python.terminal.activateEnvironment" = false;

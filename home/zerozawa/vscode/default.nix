@@ -84,6 +84,12 @@
       (import ./common/topics/ci-cd.nix)
       (import ./common/topics/rust.nix)
     ];
+  hetu =
+    default
+    ++ [
+      (import ./common/topics/ci-cd.nix)
+      (import ./common/topics/python.nix)
+    ];
   k8s =
     default
     ++ [
@@ -159,6 +165,7 @@ in {
       novel = merge-imports novel;
       kotlin = merge-imports kotlin;
       spring = merge-imports spring;
+      hetu = merge-imports hetu;
     };
   };
   services.vscode-server.enable = true;
