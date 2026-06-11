@@ -379,6 +379,9 @@ sniffer:
     - geosite:category-public-tracker
     - rule-set:STUN
     - +.v2ex.com
+lgbm-auto-update: true
+lgbm-url: https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin
+lgbm-update-interval: 72
 tun:
   stack: system
   auto-route: true
