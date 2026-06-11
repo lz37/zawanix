@@ -1,6 +1,6 @@
 {config, ...}: {
   services.zerotierone = {
-    enable = config.networking.hostName == "zawanix-glap";
+    enable = config.zerozawa.hardware.isLaptop;
     joinNetworks = [config.zerozawa.zerotier.id];
   };
 }
