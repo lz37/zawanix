@@ -16,6 +16,7 @@
       StartLive
       bilibili_live_tui
       agentic-contract
+      banguminet
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

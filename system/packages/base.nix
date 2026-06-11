@@ -7,6 +7,7 @@
   environment.systemPackages = with pkgs; (
     [
       ethtool
+      pciutils
       iperf3
       fio
       exfatprogs
