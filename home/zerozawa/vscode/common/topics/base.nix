@@ -25,6 +25,16 @@
       "*.json5" = "json";
       "flake.lock" = "json";
     };
+    "files.watcherExclude" = {
+      "**/.git/objects/**" = true;
+      "**/.git/subtree-cache/**" = true;
+      "**/node_modules/*/**" = true;
+      "**/target/**" = true;
+      "**/dist/**" = true;
+      "**/build/**" = true;
+      "**/.direnv/**" = true;
+      "**/.devenv/**" = true;
+    };
     "files.trimTrailingWhitespace" = true;
     "git.openRepositoryInParentFolders" = "never";
     "http.proxySupport" = "on";

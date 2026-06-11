@@ -150,6 +150,7 @@ in {
           # Steam games requirement
           "vm.max_map_count" = 2147483642;
           "fs.file-max" = 1024 * 1024 * 2;
+          "fs.inotify.max_user_watches" = 524288; # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 
           # CachyOS performance tuning
           "kernel.sched_autogroup_enabled" = 1;
