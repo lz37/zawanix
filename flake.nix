@@ -81,15 +81,7 @@
     # opencode = {
     #   url = "github:anomalyco/opencode/dev";
     # };
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-dynamic-cursors = {
-      url = "github:VirtCode/hypr-dynamic-cursors";
-      inputs.hyprland.follows = "hyprland";
-    };
+    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
@@ -157,7 +149,7 @@
                           hostName = profile.hostName;
                         })
                         inputs.dankMaterialShell.homeModules.dank-material-shell
-                        inputs.dms-plugin-registry.modules.default
+                        inputs.dms-plugin-registry.homeModules.default
                         inputs.nix-monitor.homeManagerModules.default
                         ./nixpkgs.nix
                       ];

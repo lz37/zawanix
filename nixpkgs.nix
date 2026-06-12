@@ -32,7 +32,6 @@ moduleArgs @ {
         inputs.nix-cachyos-kernel.overlays.pinned
         inputs.hyprland.overlays.default
         inputs.hyprland.overlays.hyprland-packages
-        inputs.hyprland-plugins.overlays.hyprland-plugins
         (
           final: prev: let
             pkgs = prev;
@@ -113,7 +112,6 @@ moduleArgs @ {
             hyprlandPlugins =
               pkgs.hyprlandPlugins
               // {
-                hypr-dynamic-cursors = inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors;
                 hyprsplit = inputs.hyprsplit.packages.${system}.hyprsplit;
               };
           }

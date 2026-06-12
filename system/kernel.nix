@@ -15,29 +15,41 @@ in {
       # helpers.nix provides a few utilities for building kernel with LTO.
       # I haven't figured out a clean way to expose it in flakes.
       helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" {};
+      cachyosKernel =
+        (pkgs.cachyosKernels.linux-cachyos-latest.override {
+          lto = "thin";
+          processorOpt =
+            if hw.isAMDCPU
+            then "zen4"
+            else "x86_64-v${lib.strings.substring 8 1 hw.amd64Microarchs}";
+          rt = false;
+          cpusched = "bore";
+          bbr3 = true;
+          ccHarder = true;
+          hzTicks =
+            if hw.isLaptop && (!host.isGameMachine || (host.isGameMachine && hw.isOculink))
+            then "300"
+            else "1000";
+          hugepage = "always";
+        }).overrideAttrs (prev: {
+          # nixos-unstable accesses these attrs on the kernel derivation,
+          # but cachyos doesn't expose them. Supply sane defaults.
+          target =
+            prev.target or (
+              if pkgs.stdenv.hostPlatform.isx86_64
+              then "bzImage"
+              else if pkgs.stdenv.hostPlatform.isAarch64
+              then "Image"
+              else "vmlinux"
+            );
+          buildDTBs = prev.buildDTBs or pkgs.stdenv.hostPlatform.isAarch64;
+        });
     in
       # kernelModuleLLVMOverride only patches Makefiles (gcc→cc), but doesn't
       # pass LLVM=1 to make. External modules need LLVM=1 for kbuild to use
       # clang instead of gcc. We chain another .extend to inject the flags.
       (helpers.kernelModuleLLVMOverride (
-        pkgs.linuxKernel.packagesFor (
-          pkgs.cachyosKernels.linux-cachyos-latest.override {
-            lto = "thin";
-            processorOpt =
-              if hw.isAMDCPU
-              then "zen4"
-              else "x86_64-v${lib.strings.substring 8 1 hw.amd64Microarchs}";
-            rt = false;
-            cpusched = "bore";
-            bbr3 = true;
-            ccHarder = true;
-            hzTicks =
-              if hw.isLaptop && (!host.isGameMachine || (host.isGameMachine && hw.isOculink))
-              then "300"
-              else "1000";
-            hugepage = "always";
-          }
-        )
+        pkgs.linuxKernel.packagesFor cachyosKernel
       )).extend (
         _final: prev:
           lib.mapAttrs (
