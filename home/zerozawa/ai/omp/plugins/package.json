@@ -2,6 +2,9 @@
   "name": "omp-plugins",
   "private": true,
   "dependencies": {
-    "commit-commands": "anthropics/claude-plugins-official"
+    "@oh-my-pi/swarm-extension": "^13.17.0",
+    "commit-commands": "anthropics/claude-plugins-official",
+    "context-mode": "^1.0.162",
+    "mason4agents": "^0.4.0"
   }
 }
