@@ -309,7 +309,9 @@ in {
             then
               if config.zerozawa.hardware.isOculink
               then ["/dev/dri/igpu"] ++ (lib.optionals hasDgpu ["/dev/dri/dgpu"])
-              else (lib.optionals hasDgpu ["/dev/dri/dgpu"]) ++ ["/dev/dri/igpu"]
+              else
+                (lib.optionals hasDgpu ["/dev/dri/dgpu"])
+                ++ (lib.optionals (!hasDgpu || config.zerozawa.hardware.isLaptop) ["/dev/dri/igpu"])
             else
               (
                 if vendorPaths == ""
