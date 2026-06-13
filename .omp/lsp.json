@@ -1,0 +1,23 @@
+{
+  "nixd": {
+    "initOptions": {
+      "nixpkgs": {
+        "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
+      },
+      "formatting": {
+        "command": ["alejandra"]
+      },
+      "options": {
+        "nixos": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options.home-manager.users.type.getSubOptions []"
+        },
+        "flake-parts": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).debug.options"
+        }
+      }
+    }
+  }
+}

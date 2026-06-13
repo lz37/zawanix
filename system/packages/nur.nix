@@ -18,6 +18,7 @@
       agentic-contract
       banguminet
       oh-my-pi
+      context-mode
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

@@ -73,6 +73,9 @@
         command = lib.getExe' pnpm "pnpx";
         args = ["@vscode-mcp/vscode-mcp-server@latest"];
       };
+      context-mode = {
+        command = lib.getExe nur.repos.zerozawa.context-mode;
+      };
     };
   };
 }
