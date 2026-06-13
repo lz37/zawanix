@@ -1540,6 +1540,7 @@
         "plasma-manager": "plasma-manager",
         "quickshell": "quickshell_2",
         "stylix": "stylix",
+        "superpowers": "superpowers",
         "treefmt-nix": "treefmt-nix",
         "vscode-server": "vscode-server",
         "zerozawa-nur": "zerozawa-nur",
@@ -1581,6 +1582,22 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "stylix",
+        "type": "github"
+      }
+    },
+    "superpowers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780085125,
+        "narHash": "sha256-P/FD8HTQO+QzvMe3A/B2v2vjs8T6ZmIYH3MPp79dSzo=",
+        "owner": "obra",
+        "repo": "superpowers",
+        "rev": "6fd4507659784c351abbd2bc264c7162cfd386dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obra",
+        "repo": "superpowers",
         "type": "github"
       }
     },
@@ -1853,11 +1870,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781338358,
-        "narHash": "sha256-kxLVbZT+JpnVK8T1uu+PcRUqHhNZ9kijyilmiX3XK8I=",
+        "lastModified": 1781372089,
+        "narHash": "sha256-e597anlj2Zugt+cFMUMl2AEMsXUo3wVQF7/gbqLzI5U=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "05f775efb2d6e6c7fdaeb3a796310e2d51819df6",
+        "rev": "9294f61a5351bbc34f1cd81258ffe2762dcb4e0a",
         "type": "github"
       },
       "original": {

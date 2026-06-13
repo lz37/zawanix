@@ -81,6 +81,10 @@
     # opencode = {
     #   url = "github:anomalyco/opencode/dev";
     # };
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
     hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
