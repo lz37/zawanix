@@ -17,6 +17,7 @@
       bilibili_live_tui
       agentic-contract
       banguminet
+      oh-my-pi
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

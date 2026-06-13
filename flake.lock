@@ -1853,11 +1853,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781114865,
-        "narHash": "sha256-9MlRSzFYu7PmDJaVu6UpCvMSAUTfmbyMrp54dG3a1lo=",
+        "lastModified": 1781338358,
+        "narHash": "sha256-kxLVbZT+JpnVK8T1uu+PcRUqHhNZ9kijyilmiX3XK8I=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "030f0eb4816e2dedbb16660bb9adde2018793504",
+        "rev": "05f775efb2d6e6c7fdaeb3a796310e2d51819df6",
         "type": "github"
       },
       "original": {
