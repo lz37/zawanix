@@ -27,3 +27,8 @@ natives/
 # Extensions dependencies
 agent/extensions/node_modules/
 agent/extensions/README.md
+
+node_modules
+
+# Plugin cache (downloaded marketplace content)
+plugins/cache/

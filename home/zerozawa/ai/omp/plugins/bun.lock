@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "omp-plugins",
+      "dependencies": {
+        "commit-commands": "anthropics/claude-plugins-official",
+      },
+    },
+  },
+  "packages": {
+    "commit-commands": ["claude-plugins-official@github:anthropics/claude-plugins-official#ac16ffa", {}, "anthropics-claude-plugins-official-ac16ffa", "sha512-7Eez6pz+OvzJS7X31UeqsYDC6KRirIV7kdSsf0tNg2UNoFgr5IlRBLHJ2gqcHjZRnDAgDMZ/TEGUkeP3uven2w=="],
+  }
+}
