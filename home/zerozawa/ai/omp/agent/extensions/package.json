@@ -8,6 +8,6 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@oh-my-pi/pi-coding-agent": "15.12.3"
+    "@oh-my-pi/pi-coding-agent": "15.12.4"
   }
 }

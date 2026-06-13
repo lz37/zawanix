@@ -1,7 +1,7 @@
 setupVersion: 1
-providers: 
+providers:
   webSearch: codex
-modelRoles: 
+modelRoles:
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
   plan: openai-codex/gpt-5.5:xhigh
