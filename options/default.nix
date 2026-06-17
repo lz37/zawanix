@@ -151,6 +151,8 @@ in {
       };
       context7.apiKey = str;
       exa-mcp.apiKey = str;
+      tavily-mcp.apiKey = str;
+      brave-mcp.apiKey = str;
       zerotier = {
         id = str;
         netmask = str;

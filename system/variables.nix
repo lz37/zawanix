@@ -19,6 +19,10 @@
       PIP_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
       PIP_TRUSTED_HOST = "pypi.tuna.tsinghua.edu.cn";
       GOPROXY = "https://goproxy.cn,direct";
+      GITSTATUS_LOG_LEVEL = "DEBUG";
+      EXA_APL_KEY = config.zerozawa.exa-mcp.apiKey;
+      TAVILY_API_KEY = config.zerozawa.tavily-mcp.apiKey;
+      BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
     };
   };
 }

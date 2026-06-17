@@ -1,15 +1,14 @@
 setupVersion: 1
-providers:
-  webSearch: codex
-modelRoles:
+providers: 
+  webSearch: tavily
+modelRoles: 
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
   plan: openai-codex/gpt-5.5:xhigh
   default: opencode-go/deepseek-v4-flash:xhigh
   smol: opencode-go/deepseek-v4-flash:xhigh
   commit: opencode-go/deepseek-v4-flash:xhigh
-  task: opencode-go/deepseek-v4-pro:xhigh
-
-extensions:
+  task: opencode-go/deepseek-v4-flash:xhigh
+extensions: 
   - ~/.omp/agent/extensions/wakatime.ts
   - ~/.omp/agent/extensions/commit-tool.ts

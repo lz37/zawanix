@@ -25,21 +25,35 @@
         command = lib.getExe' pkgs.uv "uvx";
         args = ["docker-mcp"];
       };
-      grep-app = {
+      grep = {
         url = "https://mcp.grep.app";
       };
       nixos = {
         command = lib.getExe mcp-nixos;
       };
-      context7-mcp = {
+      context7 = {
         command = lib.getExe' pnpm "pnpx";
         args = ["@upstash/context7-mcp" "--api-key" config.zerozawa.context7.apiKey];
       };
-      exa-websearch = {
+      exa = {
         command = lib.getExe' pnpm "pnpx";
         args = ["exa-mcp-server"];
         env = {
           EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
+        };
+      };
+      tavily = {
+        command = lib.getExe' pnpm "pnpx";
+        args = ["tavily-mcp@latest"];
+        env = {
+          TAVILY_API_KEY = config.zerozawa.tavily-mcp.apiKey;
+        };
+      };
+      brave = {
+        command = lib.getExe' pnpm "pnpx";
+        args = ["@brave/brave-search-mcp-server" "--transport" "stdio"];
+        env = {
+          BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
         };
       };
       sequential-thinking = {
@@ -58,10 +72,10 @@
         command = lib.getExe nur.repos.zerozawa.agentic-contract.mcp;
         args = ["serve"];
       };
-      hyprland-mcp-server = {
+      hyprland = {
         command = lib.getExe nur.repos.zerozawa.hyprland-mcp-server;
       };
-      image-tiler-mcp-server = {
+      image-tiler = {
         command = lib.getExe' pnpm "pnpx";
         args = ["image-tiler-mcp-server"];
       };
@@ -69,7 +83,7 @@
         command = lib.getExe nodejs-slim;
         args = ["${vscode-selected-extensionsCompatible.vscode-marketplace.vkhey.recomment-pro}/share/vscode/extensions/vkhey.recomment-pro/out/mcpServer.js"];
       };
-      vscode-mcp = {
+      vscode = {
         command = lib.getExe' pnpm "pnpx";
         args = ["@vscode-mcp/vscode-mcp-server@latest"];
       };
