@@ -81,15 +81,20 @@
     # opencode = {
     #   url = "github:anomalyco/opencode/dev";
     # };
-    superpowers = {
-      url = "github:obra/superpowers";
-      flake = false;
-    };
     hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
+    # devenv
+    devenv-root = {
+      url = "file+file:///dev/null";
+      flake = false;
+    };
+    devenv.url = "github:cachix/devenv";
+    nix2container.url = "github:nlewo/nix2container";
+    nix2container.inputs.nixpkgs.follows = "nixpkgs";
+    mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
   };
 
   outputs = inputs: let
@@ -102,6 +107,7 @@
         inputs.treefmt-nix.flakeModule
         inputs.nix-health.flakeModule
         inputs.git-hooks-nix.flakeModule
+        inputs.devenv.flakeModule
       ];
       systems = lib.systems.flakeExposed;
       perSystem = {
@@ -112,6 +118,21 @@
         system,
         ...
       }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfreePredicate = pkg: true;
+          overlays = [
+            (final: prev: {
+              nur = import inputs.nur {
+                nurpkgs = prev;
+                pkgs = prev;
+                repoOverrides = {
+                  zerozawa = import inputs.zerozawa-nur {inherit pkgs;};
+                };
+              };
+            })
+          ];
+        };
         legacyPackages = {
           nixosConfigurations = let
             mkNixosConfig = profile: let
@@ -187,22 +208,36 @@
             }
           );
         };
-        devShells.default = (
-          pkgs.mkShell {
-            shellHook = ''
-              ${config.nix-health.outputs.devShell.shellHook}
-              ${config.pre-commit.installationScript}
-              ${pkgs.coreutils}/bin/echo -e "${
-                colorsh.utils.chunibyo.gothic.kaomoji.unicode {
-                  gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
-                  scope = "魔導結界";
-                  action = "異空覚醒";
-                  kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
-                }
-              }"
-            '';
-          }
-        );
+        devenv.shells.default = {
+          name = "zawanix";
+          languages = {
+            javascript = {
+              enable = true;
+              bun = {
+                enable = true;
+                package =
+                  (import inputs.nixpkgs-master {
+                    inherit system;
+                  }).bun;
+                install.enable = true;
+              };
+            };
+          };
+          enterShell = ''
+            ${config.nix-health.outputs.devShell.shellHook}
+            ${config.pre-commit.installationScript}
+            ${pkgs.coreutils}/bin/echo -e "${
+              colorsh.utils.chunibyo.gothic.kaomoji.unicode {
+                gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
+                scope = "魔導結界";
+                action = "異空覚醒";
+                kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
+              }
+            }"
+            # 防止被 node_modules 下覆盖
+            export PATH=${pkgs.nur.repos.zerozawa.oh-my-pi}/bin:$PATH
+          '';
+        };
         pre-commit = {
           settings = {
             hooks = {
