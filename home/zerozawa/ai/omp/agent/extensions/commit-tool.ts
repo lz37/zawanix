@@ -53,9 +53,11 @@ export default function (pi: ExtensionAPI) {
       .describe("Multi-stage: each stage commits a subset with its own message"),
   });
 
+  type CommitParams = z.infer<typeof paramsSchema>;
+
   // ── Tool registration ─────────────────────────────────
 
-  pi.registerTool({
+  pi.registerTool<z.ZodType<CommitParams>>({
     name: "commit",
     label: "Git Commit (Multi-Stage)",
     description: [
