@@ -90,6 +90,10 @@
       context-mode = {
         command = lib.getExe nur.repos.zerozawa.context-mode;
       };
+      codegraph = {
+        command = lib.getExe nur.repos.zerozawa.codegraph;
+        args = ["serve" "--mcp"];
+      };
     };
   };
 }

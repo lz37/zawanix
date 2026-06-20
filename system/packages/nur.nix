@@ -19,6 +19,7 @@
       banguminet
       oh-my-pi
       context-mode
+      codegraph
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

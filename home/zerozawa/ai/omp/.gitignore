@@ -32,3 +32,5 @@ node_modules
 
 # Plugin cache (downloaded marketplace content)
 plugins/cache/
+
+stats.db
