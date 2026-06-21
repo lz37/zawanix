@@ -42,6 +42,7 @@ moduleArgs @ {
               pkgs = prev;
               repoOverrides = {
                 zerozawa = import inputs.zerozawa-nur {inherit pkgs;};
+                mio = import inputs.mio-nur {inherit pkgs;};
               };
             };
             stable = import inputs.nixpkgs-stable {

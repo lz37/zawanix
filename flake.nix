@@ -58,6 +58,7 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    mio-nur.url = "github:mio-19/nurpkgs";
     nix_version_search_cli.url = "github:jeff-hykin/nix_version_search_cli";
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";

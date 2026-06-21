@@ -68,7 +68,7 @@ in {
       dedicatedServer.openFirewall = true;
       extest.enable = true;
       extraCompatPackages = [
-        pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 hw.amd64Microarchs}"
+        # pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 hw.amd64Microarchs}"
       ];
       protontricks = {
         enable = true;
