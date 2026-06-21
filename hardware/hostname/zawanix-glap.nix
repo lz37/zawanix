@@ -1,6 +1,4 @@
-{config, ...}: let
-  hardwareCfg = config.zerozawa.hardware;
-in {
+{...}: {
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-uuid/4A52-0070";
@@ -15,12 +13,5 @@ in {
       fsType = "ext4";
     };
   };
-  hardware.nvidia.prime =
-    if (hardwareCfg.isIntelGPU && hardwareCfg.isNvidiaGPU)
-    then {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:01:0:0";
-    }
-    else {
-    };
+  # PRIME bus IDs are auto-derived from facter in hardware/nvidia/gpu.nix.
 }

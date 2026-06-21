@@ -21,11 +21,10 @@ in {
     };
   };
 
-  # OCuLink eGPU specialization: boots with Intel iGPU + AMD dGPU
-  # Select "oculink" from systemd-boot menu when eGPU is connected
+  # OCuLink eGPU specialization: Intel iGPU + NVIDIA dGPU via OCuLink
+  # Select "oculink" from systemd-boot menu when eGPU is connected.
   specialisation.oculink.configuration = {
     zerozawa.hardware.isOculink = lib.mkForce true;
-    hardware.amdgpu.initrd.enable = lib.mkForce false;
     # Switch to the oculink facter report which includes both GPUs.
     hardware.facter.reportPath = lib.mkForce oculinkFacter;
   };

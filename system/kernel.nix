@@ -125,6 +125,11 @@ in {
         # "pcie_aspm=off"
         # "pci=noaer" # 这玩意就屏蔽日志用的，没意义
       ])
+      ++ (lib.optionals (hw.isOculink && hw.isNvidiaGPU) [
+        "pcie_ports=native"
+        "pcie_aspm=off"
+        "pci=realloc"
+      ])
       ++ (lib.optionals (hw.isOculink && hw.isAmdGPU) [
         "amdgpu.runpm=0"
       ])
