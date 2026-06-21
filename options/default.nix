@@ -55,6 +55,16 @@
   cardModuleAlias = card: lib.attrByPath ["module_alias"] null card;
   cardBaseClassHex = card: normalizeHex (lib.attrByPath ["base_class" "hex"] null card);
   cardSubClassHex = card: normalizeHex (lib.attrByPath ["sub_class" "hex"] null card);
+  cardSlotNumber = card: lib.attrByPath ["slot" "number"] null card;
+  cardFunction = card: lib.attrByPath ["detail" "function"] null card;
+  cardPrimeBusId = card: let
+    bus = cardSlotBus card;
+    slot = cardSlotNumber card;
+    func = cardFunction card;
+  in
+    if bus != null && slot != null && func != null
+    then "PCI:${toString bus}:${toString slot}:${toString func}"
+    else null;
   gpuRoleOverrides = {
     "amd:13c0:1043:8877" = "igpu";
     "intel:b080:17aa:8099" = "igpu"; # ThinkBook 14 G8+ IPH iGPU (xe driver)
@@ -82,6 +92,7 @@
         moduleAlias = cardModuleAlias card;
         baseClassHex = cardBaseClassHex card;
         subClassHex = cardSubClassHex card;
+        primeBusId = cardPrimeBusId card;
         identityKey = lib.concatStringsSep ":" [
           vendor
           (identityPart deviceHex)
@@ -286,6 +297,7 @@ in {
                   pciBusId
                   driver
                   label
+                  primeBusId
                   role
                   ;
                 symlinkNames = vendorAlias ++ roleAlias;
