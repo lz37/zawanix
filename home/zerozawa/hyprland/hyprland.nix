@@ -1,8 +1,12 @@
 {
   config,
   pkgs,
+  osConfig,
+  lib,
   ...
-}: {
+}: let
+  hw = osConfig.zerozawa.hardware;
+in {
   home.packages = with pkgs; [
     awww
     grim
@@ -134,7 +138,10 @@
       };
 
       render = {
-        direct_scanout = 1; # NVIDIA wayland: 0=关, 走正常合成路径 1= 全屏显卡直接渲染
+        direct_scanout =
+          if hw.isOculink
+          then 0
+          else 1; # OCuLink: 关掉防止外屏 PRIME 传输色块/撕裂
       };
 
       master = {
