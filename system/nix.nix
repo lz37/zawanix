@@ -56,6 +56,7 @@ in {
         "https://forkprince.cachix.org"
         # "https://zed.cachix.org"
         "https://cache.garnix.io?priority=99"
+        "https://neorocks.cachix.org"
       ];
       trusted-public-keys = [
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
@@ -70,6 +71,7 @@ in {
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
+        "neorocks.cachix.org-1:WqMESxmVTOJX7qoBC54TwrMMoVI1xAM+7yFin8NRfwk="
       ];
       trusted-users = [
         "zerozawa"
