@@ -8,7 +8,7 @@
     ./hyprland.nix
     ./pyprland.nix
     ./windowrules.nix
-    ./monitor.nix
+    ./monitors.nix
     ./plugins.nix
   ];
 }

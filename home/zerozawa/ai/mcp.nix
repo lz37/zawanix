@@ -26,7 +26,8 @@
         args = ["docker-mcp"];
       };
       grep = {
-        url = "https://mcp.grep.app";
+        command = lib.getExe' pnpm "pnpx";
+        args = ["supergateway" "--streamableHttp" "https://mcp.grep.app"];
       };
       nixos = {
         command = lib.getExe mcp-nixos;
@@ -93,6 +94,14 @@
       codegraph = {
         command = lib.getExe nur.repos.zerozawa.codegraph;
         args = ["serve" "--mcp"];
+      };
+      zhihu-search = {
+        command = lib.getExe' pnpm "pnpx";
+        args = ["supergateway" "--sse" "https://developer.zhihu.com/api/mcp/zhihu_search/v1/sse" "--oauth2Bearer" config.zerozawa.zhihu-mcp.apiKey];
+      };
+      zhihu-global-search = {
+        command = lib.getExe' pnpm "pnpx";
+        args = ["supergateway" "--sse" "https://developer.zhihu.com/api/mcp/global_search/v1/sse" "--oauth2Bearer" config.zerozawa.zhihu-mcp.apiKey];
       };
     };
   };

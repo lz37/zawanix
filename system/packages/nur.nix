@@ -20,6 +20,7 @@
       oh-my-pi
       context-mode
       codegraph
+      spec-kit
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

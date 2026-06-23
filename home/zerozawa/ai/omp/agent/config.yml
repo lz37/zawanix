@@ -1,6 +1,6 @@
 setupVersion: 1
 providers: 
-  webSearch: tavily
+  webSearch: exa
 modelRoles: 
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
@@ -12,3 +12,25 @@ modelRoles:
 extensions: 
   - ~/.omp/agent/extensions/wakatime.ts
   - ~/.omp/agent/extensions/commit-tool.ts
+task: 
+  agentModelOverrides: 
+    architecture-analyzer: opencode-go/deepseek-v4-pro
+    article-analyzer: opencode-go/deepseek-v4-flash
+    assemble-reviewer: openai-codex/gpt-5.5
+    domain-analyzer: opencode-go/deepseek-v4-pro
+    file-analyzer: opencode-go/deepseek-v4-flash
+    graph-reviewer: openai-codex/gpt-5.5
+    knowledge-graph-guide: opencode-go/deepseek-v4-flash
+    project-scanner: opencode-go/deepseek-v4-flash
+    tour-builder: opencode-go/deepseek-v4-flash
+    designer: opencode-go/deepseek-v4-pro
+    explore: opencode-go/deepseek-v4-flash
+    librarian: opencode-go/deepseek-v4-flash
+    oracle: openai-codex/gpt-5.5
+    plan: openai-codex/gpt-5.5
+    quick_task: opencode-go/deepseek-v4-flash
+    reviewer: openai-codex/gpt-5.5
+    task: opencode-go/deepseek-v4-flash
+dev: 
+  autoqa: 
+    consent: denied

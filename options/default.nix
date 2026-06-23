@@ -164,6 +164,7 @@ in {
       exa-mcp.apiKey = str;
       tavily-mcp.apiKey = str;
       brave-mcp.apiKey = str;
+      zhihu-mcp.apiKey = str;
       zerotier = {
         id = str;
         netmask = str;

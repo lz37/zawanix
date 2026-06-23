@@ -4,7 +4,7 @@
   "dependencies": {
     "@oh-my-pi/swarm-extension": "^13.17.0",
     "claude-plugins-official": "anthropics/claude-plugins-official",
-    "context-mode": "^1.0.162",
+    "context-mode": "^1.0.166",
     "mason4agents": "^0.4.0",
     "superpowers": "obra/Superpowers",
     "understand-anything": "Egonex-AI/Understand-Anything"
