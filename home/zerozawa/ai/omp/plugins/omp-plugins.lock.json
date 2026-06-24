@@ -1,12 +1,7 @@
 {
   "plugins": {
-    "mason4agents": {
-      "version": "0.4.0",
-      "enabledFeatures": null,
-      "enabled": true
-    },
     "context-mode": {
-      "version": "1.0.162",
+      "version": "1.0.166",
       "enabledFeatures": null,
       "enabled": true
     },

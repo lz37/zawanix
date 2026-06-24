@@ -23,7 +23,6 @@
         "@oh-my-pi/swarm-extension": "^13.17.0",
         "claude-plugins-official": "anthropics/claude-plugins-official",
         "context-mode": "^1.0.166",
-        "mason4agents": "^0.4.0",
         "superpowers": "obra/Superpowers",
         "understand-anything": "Egonex-AI/Understand-Anything",
       },
@@ -288,7 +287,7 @@
 
     "chromium-bidi": ["chromium-bidi@16.0.1", "https://mirrors.cloud.tencent.com/npm/chromium-bidi/-/chromium-bidi-16.0.1.tgz", { "dependencies": { "mitt": "^3.0.1", "zod": "^3.24.1" }, "peerDependencies": { "devtools-protocol": "*" } }, "sha512-J63PGu/9PpeCwLIcKYyzWP6yaVL5pxuBc0shlYCYM8BaAkmlwiQboXO1iNbOgSDbVklEyYFfNEcHD8oOAWacUA=="],
 
-    "claude-plugins-official": ["claude-plugins-official@github:anthropics/claude-plugins-official#b549903", {}, "anthropics-claude-plugins-official-b549903", "sha512-ZoiG5yX6gFqGHei8w0xeAvjEtbdUADv+5ML48TWAZ4VNj6Qgfi+JWqqKCzmHvRz+WXAEr3q4fie4NiSqebxlyw=="],
+    "claude-plugins-official": ["claude-plugins-official@github:anthropics/claude-plugins-official#89ba2b0", {}, "anthropics-claude-plugins-official-89ba2b0", "sha512-VgpWYmC/3lnF0G1CGlUbJdH07q04zufnAgUhqb+VQsichXwoXNEPNIUTFs0wcIaYSZf4TuT3hFUixgN+q+ktgg=="],
 
     "cliui": ["cliui@8.0.1", "https://mirrors.cloud.tencent.com/npm/cliui/-/cliui-8.0.1.tgz", { "dependencies": { "string-width": "^4.2.0", "strip-ansi": "^6.0.1", "wrap-ansi": "^7.0.0" } }, "sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ=="],
 
@@ -552,20 +551,6 @@
 
     "marked": ["marked@18.0.5", "https://mirrors.cloud.tencent.com/npm/marked/-/marked-18.0.5.tgz", { "bin": { "marked": "bin/marked.js" } }, "sha512-S6GcvALHg6K4ohtu4E7x0a1AqhAjp6cV8KhLSyN9qVapnzJkusVBxZRcIU9AeYsbe6P1hKDusSbEOzGyyuce6w=="],
 
-    "mason4agents": ["mason4agents@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents/-/mason4agents-0.4.0.tgz", { "optionalDependencies": { "mason4agents-darwin-arm64": "0.4.0", "mason4agents-darwin-x64": "0.4.0", "mason4agents-linux-arm64-gnu": "0.4.0", "mason4agents-linux-x64-gnu": "0.4.0", "mason4agents-win32-arm64": "0.4.0", "mason4agents-win32-x64": "0.4.0" }, "bin": { "mason4agents": "dist/bin/mason4agents.js" } }, "sha512-zwlhG4CmhIwbN0a3W+raxOXqHHIs0K2yqOI8LS/SBYVLxK678BSoYuhOKIeCAl2lgoB28L1kR/9APd3MWC3fRw=="],
-
-    "mason4agents-darwin-arm64": ["mason4agents-darwin-arm64@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-darwin-arm64/-/mason4agents-darwin-arm64-0.4.0.tgz", { "os": "darwin", "cpu": "arm64" }, "sha512-wXnQFKYWmDaUqz7iXNXNCil0qegMpMVUJsKgDrpjF3rhgMwJKJAdNlKuKoXpQk1whAwW7GEMfAwhvpmfZIkzTg=="],
-
-    "mason4agents-darwin-x64": ["mason4agents-darwin-x64@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-darwin-x64/-/mason4agents-darwin-x64-0.4.0.tgz", { "os": "darwin", "cpu": "x64" }, "sha512-pfDd9LcjyMhBJbhInF+DOglD8r/qbH9x0z7J0Z9WAsjf/GD64cqGpctSdhxLLQ4OPOLo6A+SKyU/7q9W9Nu6eg=="],
-
-    "mason4agents-linux-arm64-gnu": ["mason4agents-linux-arm64-gnu@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-linux-arm64-gnu/-/mason4agents-linux-arm64-gnu-0.4.0.tgz", { "os": "linux", "cpu": "arm64" }, "sha512-pXM/XsQ2+KkOiTQ0txd7SxG03PTbztywh//rZH+QRP2lP4QBGXzEp/0k/OP6k6WyyKuhEEyRVuooW3eRed2gyQ=="],
-
-    "mason4agents-linux-x64-gnu": ["mason4agents-linux-x64-gnu@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-linux-x64-gnu/-/mason4agents-linux-x64-gnu-0.4.0.tgz", { "os": "linux", "cpu": "x64" }, "sha512-e8tAbfUiWXi+UhEY/b43q4G8Mb2YS1wrcf4fEY/v2m5vvctRoviQwVFSYfmj2mFFjy6IPoOCO/qKet0NAjETWw=="],
-
-    "mason4agents-win32-arm64": ["mason4agents-win32-arm64@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-win32-arm64/-/mason4agents-win32-arm64-0.4.0.tgz", { "os": "win32", "cpu": "arm64" }, "sha512-TaTHBItxR/ckGXk4eUcaDU7nsZJThcuLYQdLyRq1/qPFI0zZEcu3pULDNT2HsCmAuZi9SLQvSlR67B4LzYpXfQ=="],
-
-    "mason4agents-win32-x64": ["mason4agents-win32-x64@0.4.0", "https://mirrors.cloud.tencent.com/npm/mason4agents-win32-x64/-/mason4agents-win32-x64-0.4.0.tgz", { "os": "win32", "cpu": "x64" }, "sha512-lwxxExHE/4Bj1LoyvBbYRZkgOpfAlBB+PTYKs0IZN1nwBkOxfQoRtcfWJScP680tctS9a3+9tqhtEwiKwc66bw=="],
-
     "matcher": ["matcher@3.0.0", "https://mirrors.cloud.tencent.com/npm/matcher/-/matcher-3.0.0.tgz", { "dependencies": { "escape-string-regexp": "^4.0.0" } }, "sha512-OkeDaAZ/bQCxeFAozM55PKcKU0yJMPGifLwV4Qgjitu+5MoAfSQN4lsLJeXZ1b8w0x+/Emda6MZgXS1jvsapng=="],
 
     "math-intrinsics": ["math-intrinsics@1.1.0", "https://mirrors.cloud.tencent.com/npm/math-intrinsics/-/math-intrinsics-1.1.0.tgz", {}, "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="],
@@ -796,7 +781,7 @@
 
     "underscore": ["underscore@1.13.8", "https://mirrors.cloud.tencent.com/npm/underscore/-/underscore-1.13.8.tgz", {}, "sha512-DXtD3ZtEQzc7M8m4cXotyHR+FAS18C64asBYY5vqZexfYryNNnDc02W4hKg3rdQuqOYas1jkseX0+nZXjTXnvQ=="],
 
-    "understand-anything": ["understand-anything@github:Egonex-AI/Understand-Anything#d5099af", {}, "Egonex-AI-Understand-Anything-d5099af", "sha512-Hm2R4tIcpDgR8alJlJp9np5HpDoOjCHe7TKINrLw947T1aHl2SJzazsTYQ8QSGkwoLvfML5m+OMDUgXsuYV5VA=="],
+    "understand-anything": ["understand-anything@github:Egonex-AI/Understand-Anything#54754a6", {}, "Egonex-AI-Understand-Anything-54754a6", "sha512-rn/dCNC4ebse7AygnZP0LQ/MdaCPVbGeuRVbqqX9zHARZ9PtwbGKpUjNKrYtBo4pjwgP5aleb/ka+oAD44HnZA=="],
 
     "undici-types": ["undici-types@8.3.0", "https://mirrors.cloud.tencent.com/npm/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 

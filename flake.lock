@@ -2295,11 +2295,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782185877,
-        "narHash": "sha256-qGrG6O2YADviE6BXPuMJ+dZlCvkKIouuRlxu1C2wfCA=",
+        "lastModified": 1782311354,
+        "narHash": "sha256-p747nZ7di312A9tLpN8/fYjMB01c4l5/wHhXjfgDmbY=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "188fafc004a5c809b85fd0640feb9903a433e491",
+        "rev": "932c7ba77f7e8ba1e9fb1cb394bfa71ce342e5a1",
         "type": "github"
       },
       "original": {
