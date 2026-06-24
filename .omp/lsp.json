@@ -1,23 +1,31 @@
 {
-  "nixd": {
-    "initOptions": {
-      "nixpkgs": {
-        "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
-      },
-      "formatting": {
-        "command": ["alejandra"]
-      },
-      "options": {
-        "nixos": {
-          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options"
+  "servers": {
+    "nixd": {
+      "initOptions": {
+        "nixpkgs": {
+          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
         },
-        "home-manager": {
-          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options.home-manager.users.type.getSubOptions []"
+        "formatting": {
+          "command": ["alejandra"]
         },
-        "flake-parts": {
-          "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).debug.options"
+        "options": {
+          "nixos": {
+            "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options"
+          },
+          "home-manager": {
+            "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options.home-manager.users.type.getSubOptions []"
+          },
+          "flake-parts": {
+            "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).debug.options"
+          }
         }
       }
+    },
+    "lua-hypr": {
+      "command": "lua-language-server",
+      "args": ["--configpath=/etc/nixos/home/zerozawa/hyprland/lua/.luarc.json"],
+      "fileTypes": [".lua"],
+      "rootMarkers": ["home/zerozawa/hyprland/lua/.luarc.json"]
     }
   }
 }
