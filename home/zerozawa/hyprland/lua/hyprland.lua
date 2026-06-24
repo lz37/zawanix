@@ -20,8 +20,6 @@ for k in pairs(package.loaded) do
     end
 end
 
--- Load the Nix bridge before any host-conditioned config modules.
-local opt = require("option")
 
 require("config.core")
 require("config.input")
