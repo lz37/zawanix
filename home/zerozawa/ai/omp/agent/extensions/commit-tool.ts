@@ -61,14 +61,12 @@ export default function (pi: ExtensionAPI) {
     name: "commit",
     label: "Git Commit (Multi-Stage)",
     description: [
-      "Stage and commit changes. Supports single commits (backward compatible)",
-      "or multi-stage commits where different file groups get separate commits.",
+      "Stage and commit changes in logical stages.",
+      "Each stage commits a subset of changed files with its own conventional commit message.",
       "Always adds the `Co-authored-by: OH-MY-PI <omp.sh>` trailer.",
       "",
-      "Single-commit mode: provide `type` + `summary` (optionally `scope`, `details`, `stageAll`).",
-      "Multi-stage mode: provide `stages` array, each with `files`, `type`, `summary`.",
+      "Usage: provide `stages` array, each with `files`, `type`, `summary`.",
     ].join("\n"),
-
     parameters: paramsSchema,
 
     execute: async (_toolCallId, params, _signal, _onUpdate, ctx) => {
