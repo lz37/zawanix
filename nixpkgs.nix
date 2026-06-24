@@ -30,8 +30,8 @@ moduleArgs @ {
         inputs.nix-alien.overlays.default
         inputs.nix4vscode.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
-        inputs.hyprland.overlays.default
-        inputs.hyprland.overlays.hyprland-packages
+        # inputs.hyprland.overlays.default
+        # inputs.hyprland.overlays.hyprland-packages
         (
           final: prev: let
             pkgs = prev;
@@ -109,12 +109,6 @@ moduleArgs @ {
             #       + (old.postInstall or "");
             #   });
             mcp-nixos = master.mcp-nixos;
-            openldap = master.openldap;
-            hyprlandPlugins =
-              pkgs.hyprlandPlugins
-              // {
-                hyprsplit = inputs.hyprsplit.packages.${system}.hyprsplit;
-              };
           }
         )
       ];

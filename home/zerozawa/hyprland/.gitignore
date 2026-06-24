@@ -1,0 +1,17 @@
+# Nix-generated option.lua (contains secrets)
+lua/option.lua
+
+# lux lockfile
+lua/lux.lock
+
+# lux packages
+lua/lux_packages/
+
+# Editor
+.luarc.json.bak
+
+# Nix-deployed binaries (pam_kwallet_init etc.)
+lua/bin/
+
+# Nix flake input (symlinked from store)
+lua/hyprsplit/

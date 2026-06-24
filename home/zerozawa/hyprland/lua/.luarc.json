@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace": {
+    "library": [
+      ".",
+      "./lux_packages",
+      "/run/current-system/sw/share/hypr/stubs"
+    ],
+    "checkThirdParty": false
+  },
+  "runtime": {
+    "version": "LuaJIT",
+    "path": [
+      "./?.lua",
+      "./?/init.lua",
+      "./lux_packages/?.lua",
+      "./lux_packages/?/init.lua"
+    ]
+  },
+  "diagnostics": {
+    "globals": ["hl"]
+  },
+  "completion": {
+    "showWord": "Enable"
+  }
+}

@@ -65,7 +65,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dankMaterialShell = {
-      url = "github:AvengeMedia/DankMaterialShell/stable";
+      url = "github:AvengeMedia/DankMaterialShell";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
@@ -82,10 +82,14 @@
     # opencode = {
     #   url = "github:anomalyco/opencode/dev";
     # };
-    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
+    # hyprland.url = "github:hyprwm/Hyprland/main";
+    # hypr-dynamic-cursors = {
+    #   url = "github:VirtCode/hypr-dynamic-cursors";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
+      flake = false;
     };
     # devenv
     devenv-root = {

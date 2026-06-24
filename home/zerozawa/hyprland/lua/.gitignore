@@ -1,0 +1,6 @@
+hyprsplit
+plugins
+hypridle.conf
+*.bak
+*.back
+.dms-backups
