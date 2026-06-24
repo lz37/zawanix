@@ -205,51 +205,9 @@ export default function (pi: ExtensionAPI) {
         };
       }
 
-      // ================================================================
-      // SINGLE-COMMIT MODE (backward compatible)
-      // ================================================================
-      const { type, scope, summary, details, stageAll } = params;
-
-      if (!type || !summary) {
-        return {
-          content: [{ type: "text", text: "Single-commit mode requires `type` and `summary`." }],
-          isError: true,
-        };
-      }
-
-      // 2) Check that there's something to commit
-      const diff = await git(["diff", "--cached", "--stat"]);
-      if (diff.code !== 0 || diff.stdout.trim() === "") {
-        return {
-          content: [{ type: "text", text: "Nothing staged to commit." }],
-          isError: true,
-        };
-      }
-
-      const changedFiles = diff.stdout.trim();
-
-      // 3) Build and commit
-      const message = buildMessage(type, scope, summary, details);
-      const result = await git(["commit", "-m", message]);
-      if (result.code !== 0) {
-        return {
-          content: [{
-            type: "text",
-            text: `git commit failed (exit ${result.code}):\n${result.stderr}`,
-          }],
-          isError: true,
-        };
-      }
-
       return {
-        content: [{
-          type: "text",
-          text: [
-            `✅ Committed:\n${message}`,
-            changedFiles,
-            result.stdout.trim(),
-          ].join("\n\n"),
-        }],
+        content: [{ type: "text", text: "Multi-stage only: use `stages: [{files, type, summary}]`." }],
+        isError: true,
       };
     },
   });
