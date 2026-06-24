@@ -100,10 +100,6 @@
     nix2container.url = "github:nlewo/nix2container";
     nix2container.inputs.nixpkgs.follows = "nixpkgs";
     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
-    lux = {
-      url = "github:lumen-oss/lux";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs: let
@@ -219,8 +215,8 @@
         };
         devenv.shells.default = {
           name = "zawanix";
-          packages = [
-            inputs.lux.packages.${system}.lux-cli
+          packages = with pkgs; [
+            lux-cli
           ];
           languages = {
             javascript = {
@@ -236,7 +232,7 @@
             };
             lua = {
               enable = true;
-              package = pkgs.luajit;
+              package = pkgs.lua5_5;
               lsp.enable = true;
             };
           };
