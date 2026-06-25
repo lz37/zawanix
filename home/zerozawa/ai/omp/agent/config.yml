@@ -1,7 +1,7 @@
 setupVersion: 1
-providers: 
-  webSearch: exa
-modelRoles: 
+providers:
+  webSearch: auto
+modelRoles:
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
   plan: openai-codex/gpt-5.5:xhigh
@@ -9,11 +9,13 @@ modelRoles:
   smol: opencode-go/deepseek-v4-flash:xhigh
   commit: opencode-go/deepseek-v4-flash:xhigh
   task: opencode-go/deepseek-v4-flash:xhigh
-extensions: 
+extensions:
   - ~/.omp/agent/extensions/wakatime.ts
   - ~/.omp/agent/extensions/commit-tool.ts
-task: 
-  agentModelOverrides: 
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/safety-net.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/direnv.ts
+task:
+  agentModelOverrides:
     architecture-analyzer: opencode-go/deepseek-v4-pro
     article-analyzer: opencode-go/deepseek-v4-flash
     assemble-reviewer: openai-codex/gpt-5.5
@@ -31,6 +33,9 @@ task:
     quick_task: opencode-go/deepseek-v4-flash
     reviewer: openai-codex/gpt-5.5
     task: opencode-go/deepseek-v4-flash
-dev: 
-  autoqa: 
+dev:
+  autoqa:
     consent: denied
+lsp:
+  diagnosticsOnEdit: true
+  formatOnWrite: true
