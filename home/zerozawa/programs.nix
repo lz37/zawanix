@@ -1,25 +1,14 @@
 {
   config,
   pkgs,
-  osConfig,
   ...
 }: let
-  hostName = osConfig.networking.hostName;
 in {
   services = {
     mpris-proxy.enable = true;
   };
   stylix.targets.fish.enable = true;
   programs = {
-    nix-monitor = {
-      enable = true;
-      # Required: customize for your setup
-      rebuildCommand = [
-        "bash"
-        "-c"
-        "nixos-rebuild switch --flake /etc/nixos#${hostName} --keep-going --fallback --sudo 2>&1"
-      ];
-    };
     cargo = {
       enable = true;
       settings = {

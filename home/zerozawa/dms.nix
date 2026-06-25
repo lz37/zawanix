@@ -27,7 +27,6 @@ in {
         mediaPlayer.enable = true;
         wallpaperDiscovery.enable = true;
         alarmClock.enable = true;
-        nixMonitor.enable = true;
         wallpaperShufflerPlugin.enable = true;
         dankActions.enable = true;
         dankHooks.enable = true;

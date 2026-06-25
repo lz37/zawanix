@@ -1340,21 +1340,6 @@
         "type": "github"
       }
     },
-    "nix-monitor": {
-      "locked": {
-        "lastModified": 1771568669,
-        "narHash": "sha256-lTbQ13lQ3ZPNkdnFmxAMGf1Gjx//80lDDlcJR8msREI=",
-        "owner": "antonjah",
-        "repo": "nix-monitor",
-        "rev": "ef3db9d5a525ddf41355e8c456b40d56480a6626",
-        "type": "github"
-      },
-      "original": {
-        "owner": "antonjah",
-        "repo": "nix-monitor",
-        "type": "github"
-      }
-    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": "nixpkgs_7"
@@ -1919,7 +1904,6 @@
         "nix-flatpak": "nix-flatpak",
         "nix-health": "nix-health",
         "nix-index-database": "nix-index-database_2",
-        "nix-monitor": "nix-monitor",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nix2container": "nix2container",
         "nix4vscode": "nix4vscode",
@@ -2295,11 +2279,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782311354,
-        "narHash": "sha256-p747nZ7di312A9tLpN8/fYjMB01c4l5/wHhXjfgDmbY=",
+        "lastModified": 1782396265,
+        "narHash": "sha256-9XMTcA2A9M59UqwFjZOOzrm5crAbcN0/3qSihxKz6Dw=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "932c7ba77f7e8ba1e9fb1cb394bfa71ce342e5a1",
+        "rev": "b3776018a8de1165ba262700c6e81ab85868a39a",
         "type": "github"
       },
       "original": {
