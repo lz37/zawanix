@@ -8,8 +8,9 @@
  * Also provides `/direnv enable|disable` and caches env for fast execution.
  */
 
-import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
-import { execSync } from "node:child_process";
+import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
+import { execSync, type ExecSyncOptionsWithStringEncoding } from "node:child_process";
+import { type ZodType } from "zod/v4";
 import { existsSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 
@@ -113,6 +114,17 @@ function refresh(ctxCwd: string, force: boolean): Promise<void> {
 
 export default function direnvExtension(pi: ExtensionAPI) {
  const z = pi.zod;
+
+ type DirenvShellParams = { command: string };
+ type DirenvEnvParams = Record<string, never>;
+ type AbortableExecSyncOptions = ExecSyncOptionsWithStringEncoding & {
+  signal?: AbortSignal | undefined;
+ };
+
+ const direnvShellParameters: ZodType<DirenvShellParams> = z.object({
+  command: z.string().describe("Shell command to execute in the direnv environment"),
+ });
+ const direnvEnvParameters: ZodType<DirenvEnvParams> = z.object({});
  pi.setLabel("Direnv");
 
  // Session start: silent cache
@@ -121,7 +133,7 @@ export default function direnvExtension(pi: ExtensionAPI) {
  });
 
  // ── direnv_shell custom tool ───────────────────────────────
- pi.registerTool({
+ pi.registerTool<ZodType<DirenvShellParams>>({
   name: "direnv_shell",
   label: "Direnv Shell",
   description:
@@ -133,9 +145,7 @@ export default function direnvExtension(pi: ExtensionAPI) {
    + "Note: modified env vars only apply within direnv_shell. "
    + "To apply them to ALL tools, ask the user to restart the OMP session "
    + "once the current milestone is complete and you're ready for a clean reload.",
-  parameters: z.object({
-   command: z.string().describe("Shell command to execute in the direnv environment"),
-  }),
+  parameters: direnvShellParameters,
   async execute(_toolCallId, params, signal, _onUpdate, ctx) {
    // Ensure cache is loaded
    if (loading) await loading;
@@ -156,17 +166,17 @@ export default function direnvExtension(pi: ExtensionAPI) {
    }
 
    try {
-    const execOpts: Record<string, unknown> = {
+    const execOpts: AbortableExecSyncOptions = {
      cwd: dir,
      encoding: "utf-8",
      timeout: 300_000,
      maxBuffer: 10 * 1024 * 1024,
      shell: "/bin/bash",
-     env: { ...(process.env as Record<string, string>), ...cachedEnv },
+     env: { ...process.env, ...cachedEnv },
      windowsHide: true,
+     signal,
     };
-    if (signal) execOpts.signal = signal;
-    const output = execSync(params.command, execOpts as any);
+    const output = execSync(params.command, execOpts);
     return {
      content: [{ type: "text", text: output || "(no output)" }],
      details: {},
@@ -183,7 +193,7 @@ export default function direnvExtension(pi: ExtensionAPI) {
 
 
  // ── direnv_env: expose current env diff ───────────────────
- pi.registerTool({
+ pi.registerTool<ZodType<DirenvEnvParams>>({
   name: "direnv_env",
   label: "Direnv Environment",
   description:
@@ -192,7 +202,7 @@ export default function direnvExtension(pi: ExtensionAPI) {
    + "are available in the project's direnv environment after modifications "
    + "to .envrc, flake.nix, devenv.yaml, etc. "
    + "Read-only, no side effects.",
-  parameters: z.object({}),
+  parameters: direnvEnvParameters,
   async execute(_toolCallId, _params, _signal, _onUpdate, ctx) {
    if (loading) await loading;
    if (!envrcDir) {
