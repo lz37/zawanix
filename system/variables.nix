@@ -1,6 +1,6 @@
 {
   config,
-  pkgs,
+  # pkgs,
   ...
 }: {
   environment = {
@@ -8,7 +8,7 @@
     homeBinInPath = true;
     sessionVariables = rec {
       NIXOS_OZONE_WL = "1";
-      npm_config_nodedir = "${pkgs.master.nodejs}/include/node";
+      # npm_config_nodedir = "${pkgs.master.nodejs}/include/node";
       LIBVIRT_DEFAULT_URI = "qemu:///system"; # https://github.com/winapps-org/winapps/blob/main/docs/libvirt.md
       NH_OS_FLAKE = config.zerozawa.path.cfgRoot;
       NH_FLAKE = NH_OS_FLAKE;
