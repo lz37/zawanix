@@ -14,6 +14,7 @@ extensions:
   - ~/.omp/agent/extensions/commit-tool.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/safety-net.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/direnv.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/omp-pty.ts
 task:
   agentModelOverrides:
     architecture-analyzer: opencode-go/deepseek-v4-pro
