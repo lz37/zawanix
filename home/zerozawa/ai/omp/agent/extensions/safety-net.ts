@@ -515,17 +515,29 @@ export default function safetyNet(pi: ExtensionAPI) {
 
  pi.on("tool_call", async (event: ToolCallEvent, ctx: ExtensionContext) => {
   try {
-   if (event.toolName === "bash" || event.toolName === "direnv_shell") {
-    const input = event.input as { command?: unknown; cwd?: unknown };
-    const command = String(input.command ?? "");
+   const input = event.input as Record<string, unknown>;
 
+   // ── Extract command string from supported tools ────────
+   let command = "";
+   let source = event.toolName;
+   if (event.toolName === "bash" || event.toolName === "direnv_shell") {
+    command = String(input.command ?? "");
+   } else if (event.toolName === "pty_spawn") {
+    const cmd = String(input.command ?? "");
+    const args = Array.isArray(input.args) ? (input.args as string[]).join(" ") : "";
+    command = `${cmd} ${args}`.trim();
+    source = "pty_spawn";
+   }
+
+   // ── Dangerous command check ────────────────────────────
+   if (command) {
     const reason = checkBashCommand(command);
     if (reason) {
      const result = await maybeBlock(ctx, reason, command);
      if (result) {
       await audit({
        ts: new Date().toISOString(),
-       toolName: event.toolName,
+       toolName: source,
        command: command.slice(0, 500),
        reason,
        blocked: true,
@@ -536,8 +548,8 @@ export default function safetyNet(pi: ExtensionAPI) {
     }
    }
 
+   // ── Sensitive file path check ──────────────────────────
    if (event.toolName === "write" || event.toolName === "edit") {
-    const input = event.input as Record<string, unknown>;
     const reason = checkFilePath(event.toolName, input);
     if (reason) {
      const path = (input.path as string) ?? (input.file as string) ?? "?";
