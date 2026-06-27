@@ -1,1 +1,0 @@
-../plugins/node_modules/context-mode/configs/omp/SYSTEM.md
