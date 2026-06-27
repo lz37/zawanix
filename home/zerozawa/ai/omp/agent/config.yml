@@ -5,17 +5,19 @@ modelRoles:
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
   plan: openai-codex/gpt-5.5:xhigh
-  default: opencode-go/deepseek-v4-flash:xhigh
+  default: opencode-go/deepseek-v4-pro:xhigh
   smol: opencode-go/deepseek-v4-flash:xhigh
   commit: opencode-go/deepseek-v4-flash:xhigh
   task: opencode-go/deepseek-v4-flash:xhigh
 extensions:
-  - ~/.omp/agent/extensions/wakatime.ts
-  - ~/.omp/agent/extensions/commit-tool.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/safety-net.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/direnv.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/omp-pty.ts
 task:
+  enableLsp: true
+  showResolvedModelBadge: true
   agentModelOverrides:
     architecture-analyzer: opencode-go/deepseek-v4-pro
     article-analyzer: opencode-go/deepseek-v4-flash
@@ -40,3 +42,20 @@ dev:
 lsp:
   diagnosticsOnEdit: true
   formatOnWrite: true
+tools:
+  discoveryMode: "off"
+display:
+  showTokenUsage: true
+  cacheMissMarker: true
+branchSummary:
+  enabled: true
+contextPromotion:
+  enabled: true
+read:
+  toolResultPreview: true
+github:
+  enabled: true
+  cache:
+    enabled: true
+    softTtlSec: 300
+    hardTtlSec: 604800
