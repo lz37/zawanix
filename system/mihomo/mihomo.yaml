@@ -208,6 +208,7 @@ rules:
   - RULE-SET,Direct,🎯 全球直连
   - GEOSITE,google-cn,🇬 谷歌服务
   - RULE-SET,GoogleCNProxyIP,🇬 谷歌服务
+  - GEOSITE,npmjs,🎯 全球直连
   - GEOSITE,category-games@cn,🎯 全球直连
   - GEOSITE,category-game-accelerator-cn,🎯 全球直连
   - GEOSITE,category-public-tracker,🎯 全球直连
