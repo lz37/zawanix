@@ -1,5 +1,6 @@
 *
 !.gitignore
+!plugins/
 !plugins/package.json
 !plugins/omp-plugins.lock.json
 !agent/
