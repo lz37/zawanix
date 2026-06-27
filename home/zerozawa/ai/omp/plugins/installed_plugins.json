@@ -4,19 +4,19 @@
     "commit-commands@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/home/zerozawa/.omp/plugins/node_modules/claude-plugins-official/plugins/commit-commands"
+        "installPath": "/etc/nixos/home/zerozawa/ai/omp/plugins/node_modules/claude-plugins-official/plugins/commit-commands"
       }
     ],
     "superpowers@superpowers-dev": [
       {
         "scope": "user",
-        "installPath": "/home/zerozawa/.omp/plugins/node_modules/superpowers"
+        "installPath": "/etc/nixos/home/zerozawa/ai/omp/plugins/node_modules/superpowers"
       }
     ],
     "understand-anything@understand-anything": [
       {
         "scope": "user",
-        "installPath": "/home/zerozawa/.omp/plugins/node_modules/understand-anything/understand-anything-plugin"
+        "installPath": "/etc/nixos/home/zerozawa/ai/omp/plugins/node_modules/understand-anything/understand-anything-plugin"
       }
     ]
   }
