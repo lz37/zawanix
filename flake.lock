@@ -1731,11 +1731,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782659675,
-        "narHash": "sha256-UH9AV2BaVrc63Q8Uky9DrItKY6zzBqbTYMDHMjGq5lU=",
+        "lastModified": 1782739336,
+        "narHash": "sha256-6qwA4VPkit/KbaJNl1UHWejZqrfmoLeSBbDJaH9tra0=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "e36b71f1b6c90578349e752d46ef7f40f9e153f9",
+        "rev": "ab1b321fb33cc5e9fab945136f792d5e5543374b",
         "type": "github"
       },
       "original": {
