@@ -1,4 +1,18 @@
 setupVersion: 1
+
+# Hindsight memory backend (self-hosted, HINDSIGHT_API_URL from env)
+memory:
+  backend: hindsight
+
+hindsight:
+  # apiUrl from HINDSIGHT_API_URL env var (set in system/variables.nix)
+  # No apiToken needed for self-hosted Docker instance
+  # bankId defaults to "omp"
+  scoping: per-project-tagged # single bank, project-tagged isolation
+  mentalModelAutoSeed: true # auto-create built-in mental models on first boot
+  recallBudget: high              # mid→high，Hindsight 侧更全面召回
+  recallMaxTokens: 4096           # 默认 1024，空间够可以多塞记忆
+  recallContextTurns: 2           # 默认 1，多带一轮上下文提高召回准确率
 providers:
   webSearch: auto
 modelRoles:
