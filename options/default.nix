@@ -169,6 +169,10 @@ in {
         id = str;
         netmask = str;
       };
+      hindsight = {
+        url = str;
+        token = str;
+      };
       path = {
         cfgRoot = str;
         profile = str;
