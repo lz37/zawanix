@@ -25,6 +25,8 @@
       BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
       HINDSIGHT_API_URL = config.zerozawa.hindsight.url;
       HINDSIGHT_API_TOKEN = config.zerozawa.hindsight.token;
+      LITELLM_BASE_URL = config.zerozawa.litellm.url;
+      LITELLM_API_KEY = config.zerozawa.litellm.apiKey;
     };
   };
 }

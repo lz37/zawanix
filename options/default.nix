@@ -173,6 +173,10 @@ in {
         url = str;
         token = str;
       };
+      litellm = {
+        url = str;
+        apiKey = str;
+      };
       path = {
         cfgRoot = str;
         profile = str;

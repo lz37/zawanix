@@ -19,10 +19,10 @@ modelRoles:
   slow: openai-codex/gpt-5.5:xhigh
   vision: openai-codex/gpt-5.5:medium
   plan: openai-codex/gpt-5.5:xhigh
-  default: opencode-go/deepseek-v4-pro:xhigh
-  smol: opencode-go/deepseek-v4-flash:xhigh
-  commit: opencode-go/deepseek-v4-flash:xhigh
-  task: opencode-go/deepseek-v4-flash:xhigh
+  default: litellm/deepseek-v4-pro:xhigh
+  smol: litellm/deepseek-v4-flash:xhigh
+  commit: litellm/deepseek-v4-flash:xhigh
+  task: litellm/deepseek-v4-flash:xhigh
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
@@ -33,23 +33,23 @@ task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    architecture-analyzer: opencode-go/deepseek-v4-pro
-    article-analyzer: opencode-go/deepseek-v4-flash
+    architecture-analyzer: litellm/deepseek-v4-pro
+    article-analyzer: litellm/deepseek-v4-flash
     assemble-reviewer: openai-codex/gpt-5.5
-    domain-analyzer: opencode-go/deepseek-v4-pro
-    file-analyzer: opencode-go/deepseek-v4-flash
+    domain-analyzer: litellm/deepseek-v4-pro
+    file-analyzer: litellm/deepseek-v4-flash
     graph-reviewer: openai-codex/gpt-5.5
-    knowledge-graph-guide: opencode-go/deepseek-v4-flash
-    project-scanner: opencode-go/deepseek-v4-flash
-    tour-builder: opencode-go/deepseek-v4-flash
-    designer: opencode-go/deepseek-v4-pro
-    explore: opencode-go/deepseek-v4-flash
-    librarian: opencode-go/deepseek-v4-flash
+    knowledge-graph-guide: litellm/deepseek-v4-flash
+    project-scanner: litellm/deepseek-v4-flash
+    tour-builder: litellm/deepseek-v4-flash
+    designer: litellm/deepseek-v4-pro
+    explore: litellm/deepseek-v4-flash
+    librarian: litellm/deepseek-v4-flash
     oracle: openai-codex/gpt-5.5
     plan: openai-codex/gpt-5.5
-    quick_task: opencode-go/deepseek-v4-flash
+    quick_task: litellm/deepseek-v4-flash
     reviewer: openai-codex/gpt-5.5
-    task: opencode-go/deepseek-v4-flash
+    task: litellm/deepseek-v4-flash
 dev:
   autoqa:
     consent: denied
