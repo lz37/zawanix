@@ -9,20 +9,22 @@
     ms-vscode-remote.remote-ssh-edit
   ];
   settings = {
-    "remote.SSH.remotePlatform" = (
-      config.zerozawa.ssh.machines
-      |> lib.map (
-        {
-          host,
-          type,
-          ...
-        }: {
-          name = host;
-          value = type;
-        }
-      )
-      |> builtins.listToAttrs
-    );
+    "remote.SSH.remotePlatform" =
+      {
+        "*" = "linux";
+      }
+      // (
+        config.zerozawa.ssh.machines
+        |> lib.filter (m: m.type == "macOS" || m.type == "windows")
+        |> lib.map (m: {
+          name =
+            if m.hostname != null
+            then m.hostname
+            else m.host;
+          value = m.type;
+        })
+        |> builtins.listToAttrs
+      );
     "remote.SSH.useLocalServer" = false;
   };
 }
