@@ -233,6 +233,14 @@ in {
             lib.types.submodule {
               options = {
                 host = str;
+                hostname = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                };
+                identityFile = lib.mkOption {
+                  type = lib.types.nullOr (lib.types.either lib.types.str lib.types.path);
+                  default = null;
+                };
                 port = lib.mkOption {
                   type = lib.types.nullOr lib.types.int;
                   default = null;
@@ -291,8 +299,7 @@ in {
           ;
         isOculink = false;
         drm = let
-          vendorCount = vendor:
-            builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
+          vendorCount = vendor: builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
           devices =
             map (
               device: let
@@ -317,12 +324,18 @@ in {
           hasDgpu = builtins.any (device: lib.elem "dgpu" device.symlinkNames) devices;
           vendorPaths = lib.concatStringsSep ":" (
             lib.concatLists (
-              map (
+              map
+              (
                 vendor: let
                   matches = lib.filter (device: device.vendor == vendor && device.role == null) devices;
                 in
                   lib.optionals (vendorCount vendor == 1 && matches != []) ["/dev/dri/${vendor}"]
-              ) ["intel" "amd" "nvidia"]
+              )
+              [
+                "intel"
+                "amd"
+                "nvidia"
+              ]
             )
           );
         in {
