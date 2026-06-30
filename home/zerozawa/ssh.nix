@@ -28,17 +28,23 @@ in {
         |> lib.map (
           {
             host,
+            hostname,
             port, # optional
             user, # optional
             proxyJump, # optional
+            identityFile, # optional
             ...
           }: {
             name = host;
             value = lib.filterAttrs (_: v: v != null) {
-              Hostname = host;
+              Hostname =
+                if hostname != null
+                then hostname
+                else host;
               Port = port;
               User = user;
               ProxyJump = proxyJump;
+              IdentityFile = identityFile;
             };
           }
         )
