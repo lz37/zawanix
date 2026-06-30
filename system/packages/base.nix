@@ -53,6 +53,7 @@
       android-tools
       libva-utils
       mesa-demos
+      sshfs
     ]
     ++ (
       if config.zerozawa.hardware.isAmdGPU
