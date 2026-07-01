@@ -1,18 +1,12 @@
 setupVersion: 1
-
-# Hindsight memory backend (self-hosted, HINDSIGHT_API_URL from env)
 memory:
   backend: hindsight
-
 hindsight:
-  # apiUrl from HINDSIGHT_API_URL env var (set in system/variables.nix)
-  # No apiToken needed for self-hosted Docker instance
-  # bankId defaults to "omp"
-  scoping: per-project-tagged # single bank, project-tagged isolation
-  mentalModelAutoSeed: true # auto-create built-in mental models on first boot
-  recallBudget: high              # mid→high，Hindsight 侧更全面召回
-  recallMaxTokens: 4096           # 默认 1024，空间够可以多塞记忆
-  recallContextTurns: 2           # 默认 1，多带一轮上下文提高召回准确率
+  scoping: per-project-tagged
+  mentalModelAutoSeed: true
+  recallBudget: high
+  recallMaxTokens: 4096
+  recallContextTurns: 3
 providers:
   webSearch: auto
 modelRoles:
@@ -52,12 +46,14 @@ task:
     quick_task: litellm/deepseek-v4-flash
     reviewer: openai-codex/gpt-5.5
     task: litellm/deepseek-v4-flash
+  eager: preferred
 dev:
   autoqa:
     consent: denied
 lsp:
   diagnosticsOnEdit: true
   formatOnWrite: true
+  lazy: false
 tools:
   discoveryMode: "off"
 display:
@@ -76,3 +72,23 @@ github:
     softTtlSec: 300
     hardTtlSec: 604800
 defaultThinkingLevel: auto
+advisor:
+  enabled: true
+  subagents: false
+tier:
+  advisor: none
+provider:
+  appendOnlyContext: "on"
+colorBlindMode: true
+statusLine:
+  separator: powerline
+  transparent: false
+python:
+  kernelMode: session
+edit:
+  mode: apply_patch
+steeringMode: one-at-a-time
+git:
+  enabled: true
+images:
+  describeForTextModels: true

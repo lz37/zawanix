@@ -282,10 +282,10 @@ geo-auto-update: true
 geo-update-interval: 24
 geodata-loader: standard
 geox-url:
-  geoip: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
-  geosite: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
-  mmdb: https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb
-  asn: https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb
+  geoip: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat
+  geosite: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat
+  mmdb: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/download/latestcountry.mmdb
+  asn: https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb
 tcp-concurrent: true
 unified-delay: true
 find-process-mode: strict
@@ -381,7 +381,7 @@ sniffer:
     - rule-set:STUN
     - +.v2ex.com
 lgbm-auto-update: true
-lgbm-url: https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model.bin
+lgbm-url: https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin
 lgbm-update-interval: 72
 tun:
   stack: system
