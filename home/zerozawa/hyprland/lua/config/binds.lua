@@ -6,15 +6,11 @@ local window = hl.dsp.window
 local workspace = hl.dsp.workspace
 
 local terminal = "kitty"
+local opt = require("option")
 local browser = table.concat({
-    "vivaldi",
-    "--enable-features=UseOzonePlatform,WaylandWindowDecorations,AcceleratedVideoDecodeLinuxGL",
-    "--disable-features=UseChromeOSDirectVideoDecoder",
-    "--ozone-platform-hint=auto",
-    "--enable-wayland-ime",
-    "--wayland-text-input-version=3",
-    "--force-device-scale-factor",
-    "--password-store=kwallet6",
+    (opt.hardware.isOculink and opt.hardware.isNvidiaGPU)
+    and "env -u LIBVA_DRIVER_NAME -u NVD_BACKEND vivaldi"
+    or "vivaldi"
 }, " ")
 local browser_debug = browser .. " --remote-debugging-port=9222"
 

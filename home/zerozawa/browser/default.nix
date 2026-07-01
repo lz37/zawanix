@@ -78,11 +78,7 @@ in {
       });
     };
     brave = chromium-common;
-    vivaldi =
-      chromium-common
-      // {
-        commandLineArgs = (import ./common.nix).commandLineArgs ++ chromium-common.commandLineArgs;
-      };
+    vivaldi = chromium-common;
     firefox = {
       enable = true;
       package = pkgs.firefox-bin;
