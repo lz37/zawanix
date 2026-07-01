@@ -154,6 +154,10 @@ in {
         type = lib.types.bool;
         default = dgpuCount > 0;
       };
+      away-from-home = lib.mkOption {
+        type = lib.types.bool;
+        default = config.zerozawa.hardware.isLaptop;
+      };
       github = {
         access-token = {
           pat = str;

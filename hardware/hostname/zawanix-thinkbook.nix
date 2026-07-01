@@ -25,6 +25,7 @@ in {
   # Select "oculink" from systemd-boot menu when eGPU is connected.
   specialisation.oculink.configuration = {
     zerozawa.hardware.isOculink = lib.mkForce true;
+    zerozawa.away-from-home = lib.mkForce false;
     # Switch to the oculink facter report which includes both GPUs.
     hardware.facter.reportPath = lib.mkForce oculinkFacter;
   };

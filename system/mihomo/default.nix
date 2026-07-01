@@ -5,15 +5,20 @@
   colorsh,
   ...
 }: let
-  hw = config.zerozawa.hardware;
   mihomoConfig = config.zerozawa.mihomo;
   zerotier = config.zerozawa.zerotier;
   external-controller = "127.0.0.1:9090";
-  proxyProvidersFile = pkgs.writeText "mihomo-proxy-providers.json" (builtins.toJSON mihomoConfig.proxy-providers);
-  proxyProviderPrefixesFile = pkgs.writeText "mihomo-proxy-provider-prefixes.json" (builtins.toJSON {
-    xingyun = "xy";
-  });
-  routeExcludeAddressFile = pkgs.writeText "mihomo-route-exclude-address.json" (builtins.toJSON [zerotier.netmask]);
+  proxyProvidersFile = pkgs.writeText "mihomo-proxy-providers.json" (
+    builtins.toJSON mihomoConfig.proxy-providers
+  );
+  proxyProviderPrefixesFile = pkgs.writeText "mihomo-proxy-provider-prefixes.json" (
+    builtins.toJSON {
+      xingyun = "xy";
+    }
+  );
+  routeExcludeAddressFile = pkgs.writeText "mihomo-route-exclude-address.json" (
+    builtins.toJSON [zerotier.netmask]
+  );
   configFile = pkgs.runCommand "mihomo.yaml" {} ''
     ${lib.getExe pkgs.yq-go} -oy '
       . as $cfg
@@ -68,7 +73,7 @@
     tun.off = pkgs.writeScriptBin "mihomo.tun.off" (tunChanger false);
   };
 in
-  lib.mkIf hw.isLaptop {
+  lib.mkIf config.zerozawa.away-from-home {
     environment.systemPackages = with mihomo; [
       tun.on
       tun.off
