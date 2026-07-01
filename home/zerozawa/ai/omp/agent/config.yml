@@ -23,6 +23,8 @@ modelRoles:
   smol: litellm/deepseek-v4-flash:xhigh
   commit: litellm/deepseek-v4-flash:xhigh
   task: litellm/deepseek-v4-flash:xhigh
+  designer: litellm/deepseek-v4-pro:xhigh
+  tiny: litellm/deepseek-v4-flash
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
@@ -73,3 +75,4 @@ github:
     enabled: true
     softTtlSec: 300
     hardTtlSec: 604800
+defaultThinkingLevel: auto
