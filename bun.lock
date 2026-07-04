@@ -5,8 +5,8 @@
     "": {
       "name": "nixos",
       "dependencies": {
-        "@oh-my-pi/pi-coding-agent": "^16.3.3",
-        "@oh-my-pi/pi-natives": "^16.3.3",
+        "@oh-my-pi/pi-coding-agent": "^16.3.6",
+        "@oh-my-pi/pi-natives": "^16.3.6",
         "zod": "^4.4.3",
       },
       "devDependencies": {
