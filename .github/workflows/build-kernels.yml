@@ -19,6 +19,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         host:
           - zawanix-fubuki
@@ -29,6 +30,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/local/lib/android /opt/ghc /usr/share/dotnet /usr/local/share/boost 2>/dev/null || true
+          df -h /
 
       - name: Install nix
         uses: cachix/install-nix-action@v31
@@ -43,6 +49,7 @@ jobs:
         uses: cachix/cachix-action@v17
         with:
           name: zerozawa
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: Stub zerozawa-private
