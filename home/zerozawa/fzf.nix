@@ -11,6 +11,8 @@ in {
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
+    # Atuin owns Ctrl-R as the dedicated history manager.
+    historyWidget.command = "";
     colors = lib.mkForce {
       "fg+" = accent;
       "bg+" = "-1";
