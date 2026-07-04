@@ -120,7 +120,76 @@
         pkgs,
         system,
         ...
-      }: {
+      }: let
+        hostProfiles = {
+          zawanix-work = {
+            hostName = "zawanix-work";
+            system = "x86_64-linux";
+          };
+          zawanix-glap = {
+            hostName = "zawanix-glap";
+            system = "x86_64-linux";
+          };
+          zawanix-fubuki = {
+            hostName = "zawanix-fubuki";
+            system = "x86_64-linux";
+          };
+          zawanix-thinkbook = {
+            hostName = "zawanix-thinkbook";
+            system = "x86_64-linux";
+          };
+        };
+        hostsForSystem = lib.filterAttrs (_: p: p.system == system) hostProfiles;
+        mkNixosConfig = profile: let
+          specialArgs = {
+            rootPath = ./.;
+            inherit (profile) hostName;
+            inherit inputs colorsh;
+          };
+        in {
+          inherit system specialArgs;
+          modules =
+            [
+              ./options
+              (inputs.zerozawa-private + "/default.nix")
+              ./nixpkgs.nix
+              inputs.nix-flatpak.nixosModules.nix-flatpak
+              inputs.nix-index-database.nixosModules.nix-index
+              {programs.nix-index-database.comma.enable = true;}
+              inputs.stylix.nixosModules.stylix
+              inputs.nixos-cli.nixosModules.nixos-cli
+              ./stylix/nixos.nix
+              ./network
+              ./hardware
+              ./system
+            ]
+            ++ [
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = false;
+                  useUserPackages = true;
+                  verbose = true;
+                  backupFileExtension = "hm.bak";
+                  sharedModules = [
+                    inputs.plasma-manager.homeModules.plasma-manager
+                    inputs.vscode-server.homeModules.default
+                    ./options
+                    (import (inputs.zerozawa-private + "/default.nix") {
+                      hostName = profile.hostName;
+                    })
+                    inputs.dankMaterialShell.homeModules.dank-material-shell
+                    inputs.dms-plugin-registry.homeModules.default
+                    ./nixpkgs.nix
+                  ];
+                  users.zerozawa = import ./home/zerozawa;
+                  extraSpecialArgs = specialArgs;
+                };
+              }
+            ];
+        };
+        nixosConfigs = lib.mapAttrs (_: profile: lib.nixosSystem (mkNixosConfig profile)) hostsForSystem;
+      in {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
           config.allowUnfreePredicate = pkg: true;
@@ -137,79 +206,13 @@
           ];
         };
         legacyPackages = {
-          nixosConfigurations = let
-            mkNixosConfig = profile: let
-              specialArgs = {
-                rootPath = ./.;
-                inherit (profile) hostName;
-                inherit inputs colorsh;
-              };
-            in {
-              inherit system specialArgs;
-              modules =
-                [
-                  ./options
-                  (inputs.zerozawa-private + "/default.nix")
-                  ./nixpkgs.nix
-                  inputs.nix-flatpak.nixosModules.nix-flatpak
-                  inputs.nix-index-database.nixosModules.nix-index
-                  {programs.nix-index-database.comma.enable = true;}
-                  inputs.stylix.nixosModules.stylix
-                  inputs.nixos-cli.nixosModules.nixos-cli
-                  ./stylix/nixos.nix
-                  ./network
-                  ./hardware
-                  ./system
-                ]
-                ++ [
-                  inputs.home-manager.nixosModules.home-manager
-                  {
-                    home-manager = {
-                      useGlobalPkgs = false;
-                      useUserPackages = true;
-                      verbose = true;
-                      backupFileExtension = "hm.bak";
-                      sharedModules = [
-                        inputs.plasma-manager.homeModules.plasma-manager
-                        inputs.vscode-server.homeModules.default
-                        ./options
-                        (import (inputs.zerozawa-private + "/default.nix") {
-                          hostName = profile.hostName;
-                        })
-                        inputs.dankMaterialShell.homeModules.dank-material-shell
-                        inputs.dms-plugin-registry.homeModules.default
-                        ./nixpkgs.nix
-                      ];
-                      users.zerozawa = import ./home/zerozawa;
-                      extraSpecialArgs = specialArgs;
-                    };
-                  }
-                ];
-            };
-          in (
-            let
-              config = {
-                zawanix-work = mkNixosConfig {
-                  hostName = "zawanix-work";
-                };
-                zawanix-glap = mkNixosConfig {
-                  hostName = "zawanix-glap";
-                };
-                zawanix-fubuki = mkNixosConfig {
-                  hostName = "zawanix-fubuki";
-                };
-                zawanix-thinkbook = mkNixosConfig {
-                  hostName = "zawanix-thinkbook";
-                };
-              };
-            in {
-              zawanix-work = lib.nixosSystem config.zawanix-work;
-              zawanix-glap = lib.nixosSystem config.zawanix-glap;
-              zawanix-fubuki = lib.nixosSystem config.zawanix-fubuki;
-              zawanix-thinkbook = lib.nixosSystem config.zawanix-thinkbook;
-            }
-          );
+          nixosConfigurations = nixosConfigs;
         };
+        packages =
+          lib.mapAttrs' (
+            name: cfg: lib.nameValuePair "kernel-${name}" cfg.config.system.build.kernel
+          )
+          nixosConfigs;
         devenv.shells.default = {
           name = "zawanix";
           packages = [
