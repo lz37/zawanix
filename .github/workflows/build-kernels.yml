@@ -1,0 +1,61 @@
+name: "Build kernels"
+on:
+  push:
+    paths:
+      - "system/kernel.nix"
+      - "options/default.nix"
+      - "common/facter-derived.nix"
+      - "hardware/facter/*.json"
+      - "hardware/default.nix"
+      - "hardware/hostname/*.nix"
+      - "nixpkgs.nix"
+      - "flake.nix"
+      - "flake.lock"
+      - ".github/workflows/build-kernels.yml"
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        host:
+          - zawanix-fubuki
+          - zawanix-thinkbook
+          - zawanix-work
+          - zawanix-glap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            substituters = https://zerozawa.cachix.org https://cache.nixos.org
+            trusted-public-keys = zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: zerozawa
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Stub zerozawa-private
+        run: |
+          mkdir -p /tmp/stub-private
+          echo '{ ... }: {}' > /tmp/stub-private/default.nix
+
+      - name: Build kernel
+        run: |
+          nix build \
+            --override-input zerozawa-private /tmp/stub-private \
+            ".#kernel-${{ matrix.host }}" \
+            --print-build-logs
+
+      - name: Push to Cachix
+        run: cachix push zerozawa $(readlink -f result)
