@@ -256,7 +256,7 @@
 
     "chromium-bidi": ["chromium-bidi@16.0.1", "https://mirrors.cloud.tencent.com/npm/chromium-bidi/-/chromium-bidi-16.0.1.tgz", { "dependencies": { "mitt": "^3.0.1", "zod": "^3.24.1" }, "peerDependencies": { "devtools-protocol": "*" } }, "sha512-J63PGu/9PpeCwLIcKYyzWP6yaVL5pxuBc0shlYCYM8BaAkmlwiQboXO1iNbOgSDbVklEyYFfNEcHD8oOAWacUA=="],
 
-    "claude-plugins-official": ["claude-plugins-official@github:anthropics/claude-plugins-official#8326199", {}, "anthropics-claude-plugins-official-8326199", "sha512-4cUUKlZD43m8ZPhynF4+C7UlJDFSnKhu3BaDlwKiczq2fbCEsiBiFsnSFftC9HYxYU/jsQRUJ2HF4Sgo9of4rg=="],
+    "claude-plugins-official": ["claude-plugins-official@github:anthropics/claude-plugins-official#21d940e", {}, "anthropics-claude-plugins-official-21d940e", "sha512-4LkfKDXIOLZ4Xd6VIpBSjb2W/zgr7g8LiLdHleVMEx6+YaPl9Irz7zO6bLSrqtA3KE9hSW4whva55mF9QgPJbQ=="],
 
     "cliui": ["cliui@9.0.1", "https://mirrors.cloud.tencent.com/npm/cliui/-/cliui-9.0.1.tgz", { "dependencies": { "string-width": "^7.2.0", "strip-ansi": "^7.1.0", "wrap-ansi": "^9.0.0" } }, "sha512-k7ndgKhwoQveBL+/1tqGJYNz097I7WOvwbmmU2AR5+magtbjPWQTS1C5vzGkBC8Ym8UWRzfKUzUUqFLypY4Q+w=="],
 
@@ -550,7 +550,7 @@
 
     "underscore": ["underscore@1.13.8", "https://mirrors.cloud.tencent.com/npm/underscore/-/underscore-1.13.8.tgz", {}, "sha512-DXtD3ZtEQzc7M8m4cXotyHR+FAS18C64asBYY5vqZexfYryNNnDc02W4hKg3rdQuqOYas1jkseX0+nZXjTXnvQ=="],
 
-    "understand-anything": ["understand-anything@github:Egonex-AI/Understand-Anything#0e8ad84", {}, "Egonex-AI-Understand-Anything-0e8ad84", "sha512-mTdXIp5JQNPCUERBePY2wNbW2UPzTl7sH5s/+YdC5thVNkWBMEKfsbbhZW85cj9WKZrAto6U0RPFWjYDb98zNw=="],
+    "understand-anything": ["understand-anything@github:Egonex-AI/Understand-Anything#3867693", {}, "Egonex-AI-Understand-Anything-3867693", "sha512-pUCh7nv/UBohBT2mMiIhDyog+mUMP70FQ5J1HdECsGHjDO27ywt2qALN2zH8GPEzVIqPzGU8tLj/RBAeegeRzw=="],
 
     "undici-types": ["undici-types@8.3.0", "https://mirrors.cloud.tencent.com/npm/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 
