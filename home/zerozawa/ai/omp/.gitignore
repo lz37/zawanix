@@ -11,5 +11,6 @@ agent/extensions/node_modules
 agent/extensions/README.md
 !agent/AGENTS.md
 !agent/SYSTEM.md
+!agent/RULES.md
 !agent/config.yml
 !agent/mcp.json
