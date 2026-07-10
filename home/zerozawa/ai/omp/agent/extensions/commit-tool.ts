@@ -63,7 +63,7 @@ export default function (pi: ExtensionAPI) {
     description: [
       "Stage and commit changes in logical stages.",
       "Each stage commits a subset of changed files with its own conventional commit message.",
-      "Always adds the `Co-authored-by: OH-MY-PI <omp.sh>` trailer.",
+      "Always adds the `Co-authored-by: OH-MY-PI <omp@can.ac>` trailer.",
       "",
       "Usage: provide `stages` array, each with `files`, `type`, `summary`.",
     ].join("\n"),
@@ -86,7 +86,7 @@ export default function (pi: ExtensionAPI) {
         const body = details.length > 0
           ? `\n\n${details.map(d => `- ${d}`).join("\n")}`
           : "";
-        return `${header}${body}\n\nCo-authored-by: OH-MY-PI <omp.sh>`;
+        return `${header}${body}\n\nCo-authored-by: OH-MY-PI <omp@can.ac>`;
       }
 
       /** Run a git command and return { code, stdout, stderr }. */
