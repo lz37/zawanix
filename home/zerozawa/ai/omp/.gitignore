@@ -6,7 +6,7 @@
 !agent/
 !agent/extensions/
 !plugins/installed_plugins.json
-!agent/extensions/*
+!agent/extensions/**/*
 agent/extensions/node_modules
 agent/extensions/README.md
 !agent/AGENTS.md

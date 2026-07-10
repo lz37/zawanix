@@ -22,7 +22,6 @@ interface PtySessionState {
   command: string;
   cwd: string;
   status: PtyStatus;
-  notifyOnExit: boolean;
   timeoutSeconds?: number;
   exitCode?: number;
   timedOut?: boolean;
@@ -156,12 +155,14 @@ function formatAgeSeconds(state: PtySessionState): number {
   return Math.floor((Date.now() - state.startTime) / 1000);
 }
 
-export default function (pi: ExtensionAPI) {
+export default function(pi: ExtensionAPI) {
   pi.setLabel("OmpPty");
+  let teardownStarted = false;
 
 
   // Kill all running PTY sessions on session shutdown to prevent ghost processes
   pi.on("session_shutdown", async (_event, _ctx) => {
+    teardownStarted = true;
     for (const state of sessions.values()) {
       if (state.status === "running") {
         try {
@@ -181,7 +182,6 @@ export default function (pi: ExtensionAPI) {
     env: z.record(z.string(), z.string()).optional().describe("Additional environment variables"),
     title: z.string().optional().describe("Human-readable title for this PTY session"),
     timeoutSeconds: z.number().positive().optional().describe("Optional timeout in seconds"),
-    notifyOnExit: z.boolean().optional().default(false).describe("Notify the UI and append a <pty_exited> marker when the session exits"),
     shell: z.string().optional().default(DEFAULT_SHELL).describe("Shell used by the native PTY runner"),
   }).strict();
 
@@ -235,7 +235,6 @@ export default function (pi: ExtensionAPI) {
           command: commandDisplay,
           cwd,
           status: "running",
-          notifyOnExit: params.notifyOnExit ?? false,
           startTime: Date.now(),
           runPromise: Promise.resolve(),
         };
@@ -268,16 +267,27 @@ export default function (pi: ExtensionAPI) {
         );
 
         const notifyExit = () => {
-          if (!state.notifyOnExit) {
+          if (teardownStarted) {
             return;
           }
-
           const lines = getBufferedLines(state);
           const lastLine = lines.at(-1) ?? "";
           const truncatedLastLine = lastLine.length > NOTIFICATION_LINE_TRUNCATE
             ? `${lastLine.slice(0, NOTIFICATION_LINE_TRUNCATE)}...`
             : lastLine;
           const exitCode = state.exitCode ?? "unknown";
+          const timedOut = state.timedOut ?? false;
+          const totalLines = lineCount(state);
+          const exitDetails = {
+            id: state.id,
+            title: state.title,
+            command: state.command,
+            status: state.status,
+            exitCode,
+            timedOut,
+            totalLines,
+            lastLine: truncatedLastLine,
+          };
           const exitMessage = [
             "<pty_exited>",
             `ID: ${state.id}`,
@@ -285,13 +295,23 @@ export default function (pi: ExtensionAPI) {
             `命令 / Command: ${state.command}`,
             `状态 / Status: ${state.status}`,
             `退出码 / ExitCode: ${exitCode}`,
-            `超时 / TimedOut: ${state.timedOut ?? false}`,
-            `总行数 / TotalLines: ${lineCount(state)}`,
+            `超时 / TimedOut: ${timedOut}`,
+            `总行数 / TotalLines: ${totalLines}`,
             `最后一行 / LastLine: ${truncatedLastLine}`,
             "</pty_exited>",
           ].join("\n");
 
           appendOutput(state, `\n${exitMessage}\n`);
+          pi.sendMessage(
+            {
+              customType: "omp-pty-exited",
+              content: exitMessage,
+              display: true,
+              attribution: "agent",
+              details: exitDetails,
+            },
+            { deliverAs: "nextTurn", triggerTurn: true },
+          );
           if (ctx.hasUI) {
             try {
               ctx.ui.notify(exitMessage, state.status === "exited" && state.exitCode === 0 ? "info" : "warning");
@@ -332,7 +352,6 @@ export default function (pi: ExtensionAPI) {
           `状态 / Status: running`,
           `Shell: ${params.shell ?? DEFAULT_SHELL}`,
           `超时 / TimeoutSeconds: ${params.timeoutSeconds ?? "none"}`,
-          `NotifyOnExit: ${params.notifyOnExit ?? false}`,
           "</pty_spawned>",
         ].join("\n"));
       } catch (error) {
@@ -344,7 +363,7 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
-  pi.registerTool({
+  pi.registerTool<typeof writeParamsSchema>({
     name: "pty_write",
     label: "PTY Write",
     description: "Writes raw data to a running PTY session's stdin.",
@@ -377,7 +396,7 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
-  pi.registerTool({
+  pi.registerTool<typeof readParamsSchema>({
     name: "pty_read",
     label: "PTY Read",
     description: "Reads buffered output from a PTY session with pagination and optional case-insensitive regex filtering.",
@@ -443,7 +462,7 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
-  pi.registerTool({
+  pi.registerTool<typeof listParamsSchema>({
     name: "pty_list",
     label: "PTY List",
     description: "Lists all known PTY sessions and their status.",
@@ -471,7 +490,6 @@ export default function (pi: ExtensionAPI) {
             `  行数 / LineCount: ${lineCount(state)}`,
             `  已运行 / AgeSeconds: ${formatAgeSeconds(state)}`,
             `  目录 / Cwd: ${state.cwd}`,
-            `  NotifyOnExit: ${state.notifyOnExit}`,
           ];
           if (state.exitCode !== undefined) {
             details.push(`  退出码 / ExitCode: ${state.exitCode}`);
@@ -492,7 +510,7 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
-  pi.registerTool({
+  pi.registerTool<typeof killParamsSchema>({
     name: "pty_kill",
     label: "PTY Kill",
     description: "Kills a PTY session and optionally removes it from the session map.",
