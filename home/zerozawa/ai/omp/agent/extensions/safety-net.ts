@@ -512,8 +512,10 @@ async function maybeBlock(
 
 export default function safetyNet(pi: ExtensionAPI) {
  pi.setLabel("SafetyNet");
+ let enabled = true;
 
  pi.on("tool_call", async (event: ToolCallEvent, ctx: ExtensionContext) => {
+  if (!enabled) return;
   try {
    const input = event.input as Record<string, unknown>;
 
@@ -576,9 +578,25 @@ export default function safetyNet(pi: ExtensionAPI) {
 
  // ─── Slash command: /safety-net ──────────────────────────────
  pi.registerCommand("safety-net", {
-  description: "Show safety-net status and stats",
-  handler: async (_args, cmdCtx) => {
-   cmdCtx.ui.notify("SafetyNet: active — blocking destructive commands", "info");
+  description: "Show or change safety-net status",
+  handler: async (args, cmdCtx) => {
+   const action = args.trim().toLowerCase();
+   if (action === "on") {
+    enabled = true;
+   } else if (action === "off") {
+    enabled = false;
+   } else if (action !== "" && action !== "status") {
+    cmdCtx.ui.notify(
+     "Usage: /safety-net [status|on|off]. An OMP restart returns safety-net to active.",
+     "warning",
+    );
+    return;
+   }
+
+   const status = enabled
+    ? "active — blocking destructive commands"
+    : "inactive — safety checks bypassed";
+   cmdCtx.ui.notify(`SafetyNet: ${status}. An OMP restart returns safety-net to active.`, enabled ? "info" : "warning");
   },
  });
 }
