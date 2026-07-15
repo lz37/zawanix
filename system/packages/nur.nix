@@ -21,6 +21,7 @@
       context-mode
       codegraph
       spec-kit
+      pctx
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })
