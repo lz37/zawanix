@@ -1,16 +1,16 @@
 setupVersion: 1
-memory:
+memory: 
   backend: hindsight
-hindsight:
+hindsight: 
   scoping: per-project-tagged
   mentalModelAutoSeed: true
   autoRetain: false
   recallBudget: high
   recallMaxTokens: 4096
   recallContextTurns: 3
-providers:
+providers: 
   webSearch: auto
-modelRoles:
+modelRoles: 
   tiny: litellm/deepseek-v4-flash:max
   slow: openai-codex/gpt-5.6-sol:max
   smol: litellm/deepseek-v4-flash:max
@@ -20,16 +20,16 @@ modelRoles:
   advisor: openai-codex/gpt-5.6-sol:max
   task: litellm/deepseek-v4-flash:max
   designer: openai-codex/gpt-5.6-sol:max
-extensions:
+extensions: 
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/safety-net.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/direnv.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/omp-pty.ts
-task:
+task: 
   enableLsp: true
   showResolvedModelBadge: true
-  agentModelOverrides:
+  agentModelOverrides: 
     architecture-analyzer: openai-codex/gpt-5.6-sol:max
     article-analyzer: litellm/deepseek-v4-flash:max
     assemble-reviewer: litellm/deepseek-v4-flash:max
@@ -48,48 +48,57 @@ task:
     sonic: litellm/deepseek-v4-flash:max
     task: openai-codex/gpt-5.6-luna:max
   eager: preferred
-dev:
-  autoqa:
+dev: 
+  autoqa: 
     consent: denied
-lsp:
+lsp: 
   diagnosticsOnEdit: true
   formatOnWrite: true
   lazy: false
-tools:
-  discoveryMode: "off"
-display:
+display: 
   showTokenUsage: true
   cacheMissMarker: true
-branchSummary:
+branchSummary: 
   enabled: true
-contextPromotion:
+contextPromotion: 
   enabled: true
-read:
+read: 
   toolResultPreview: true
-github:
+github: 
   enabled: true
-  cache:
+  cache: 
     enabled: true
     softTtlSec: 300
     hardTtlSec: 604800
 defaultThinkingLevel: auto
-advisor:
+advisor: 
   enabled: false
   subagents: false
-tier:
+tier: 
   advisor: none
-provider:
+provider: 
   appendOnlyContext: "on"
 colorBlindMode: true
-statusLine:
+statusLine: 
   separator: powerline
   transparent: false
-python:
+python: 
   kernelMode: session
-edit:
+edit: 
   mode: hashline
 steeringMode: one-at-a-time
-git:
+git: 
   enabled: true
-images:
+images: 
   describeForTextModels: true
+astGrep: 
+  enabled: true
+inspect_image: 
+  enabled: true
+checkpoint: 
+  enabled: true
+mcp: 
+  notifications: true
+autolearn: 
+  enabled: true
+  autoContinue: true
