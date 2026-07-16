@@ -14,12 +14,13 @@ modelRoles:
   tiny: litellm/deepseek-v4-flash:max
   slow: openai-codex/gpt-5.6-sol:max
   smol: litellm/deepseek-v4-flash:max
-  default: openai-codex/gpt-5.6-luna:max
+  default: litellm/deepseek-v4-pro:max
   vision: openai-codex/gpt-5.6-luna:medium
   plan: openai-codex/gpt-5.6-sol:max
   advisor: openai-codex/gpt-5.6-sol:max
   task: litellm/deepseek-v4-flash:max
   designer: openai-codex/gpt-5.6-sol:max
+  commit: litellm/deepseek-v4-flash:max
 extensions: 
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
