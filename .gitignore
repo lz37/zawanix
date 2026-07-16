@@ -5,3 +5,6 @@ tmp*
 result
 node_modules
 design
+
+# Understand Anything generated graph
+.ua/
