@@ -1,6 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    nixbang
     devbox
     nix-du
     nix-script

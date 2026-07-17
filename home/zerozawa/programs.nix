@@ -52,7 +52,6 @@ in {
         gh-s
         gh-i
         gh-notify
-        gh-actions-cache
         gh-markdown-preview
         gh-do
       ];
