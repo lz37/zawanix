@@ -18,6 +18,7 @@
       yaml-language-server
       biome
       snip
+      apm-cli
     ])
     ++ [
       (pkgs.nogpu.python3.withPackages (ps:

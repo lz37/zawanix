@@ -1,0 +1,61 @@
+lockfile_version: '1'
+generated_at: '2026-07-17T06:20:20.662281+00:00'
+apm_version: 0.21.0
+dependencies:
+- repo_url: julianobarbosa/claude-code-skills
+  host: github.com
+  resolved_commit: 7a1fc30bbb3d290f31e865fc870f61f40cfed7e5
+  virtual_path: skills/direnv
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/direnv
+  - .agents/skills/direnv/SKILL.md
+  - .agents/skills/direnv/references/installation.md
+  - .agents/skills/direnv/references/stdlib-functions.md
+  - .agents/skills/direnv/references/troubleshooting.md
+  - .claude/skills/direnv
+  - .claude/skills/direnv/SKILL.md
+  - .claude/skills/direnv/references/installation.md
+  - .claude/skills/direnv/references/stdlib-functions.md
+  - .claude/skills/direnv/references/troubleshooting.md
+  deployed_file_hashes:
+    .agents/skills/direnv/SKILL.md: sha256:580ad2f8d95f980b881bf237e72e8f5036c758b047571ed45d2b231a0e3bdddf
+    .agents/skills/direnv/references/installation.md: sha256:aef8af309c7ef0dd7a3384cba42de2fa09f6e77cfbc11d9e6142bbbbd740344f
+    .agents/skills/direnv/references/stdlib-functions.md: sha256:2082fe7721c957c988e5dbfa6648477a9aed5781a3f458f1251797c0113a6317
+    .agents/skills/direnv/references/troubleshooting.md: sha256:74ee07262b3bde250ecfbd2c8dbbe3fe1db4d76cdf88f84cb5e5bfaa089bf6eb
+    .claude/skills/direnv/SKILL.md: sha256:580ad2f8d95f980b881bf237e72e8f5036c758b047571ed45d2b231a0e3bdddf
+    .claude/skills/direnv/references/installation.md: sha256:aef8af309c7ef0dd7a3384cba42de2fa09f6e77cfbc11d9e6142bbbbd740344f
+    .claude/skills/direnv/references/stdlib-functions.md: sha256:2082fe7721c957c988e5dbfa6648477a9aed5781a3f458f1251797c0113a6317
+    .claude/skills/direnv/references/troubleshooting.md: sha256:74ee07262b3bde250ecfbd2c8dbbe3fe1db4d76cdf88f84cb5e5bfaa089bf6eb
+  content_hash: sha256:5efab990997051b1ef332ffa661b010b24712ea076b00e005949385432baf701
+- repo_url: julianobarbosa/claude-code-skills
+  host: github.com
+  resolved_commit: 7a1fc30bbb3d290f31e865fc870f61f40cfed7e5
+  virtual_path: skills/grill-me
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/grill-me
+  - .agents/skills/grill-me/SKILL.md
+  - .claude/skills/grill-me
+  - .claude/skills/grill-me/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/grill-me/SKILL.md: sha256:9cd352e5b96f1f167875104cf32f434f2ae205087798ad9945ac30778e13f1a4
+    .claude/skills/grill-me/SKILL.md: sha256:9cd352e5b96f1f167875104cf32f434f2ae205087798ad9945ac30778e13f1a4
+  content_hash: sha256:84e33b940f8d5ea96130c07b2eafe9f90e2cb022a8daec11be2f45ef70c7affb
+- repo_url: theneoai/awesome-skills
+  host: github.com
+  resolved_commit: 61fe4f2bb47d6b61505b1b78c2b8ae5fd1ca38dd
+  virtual_path: skills/workflow/engineering/tdd-workflow
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/tdd-workflow
+  - .agents/skills/tdd-workflow/SKILL.md
+  - .claude/skills/tdd-workflow
+  - .claude/skills/tdd-workflow/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/tdd-workflow/SKILL.md: sha256:e9c8115fc9941e52769cd6cb7c8e907eb2717f2f09b2c1ba4937790ef47fa4e8
+    .claude/skills/tdd-workflow/SKILL.md: sha256:e9c8115fc9941e52769cd6cb7c8e907eb2717f2f09b2c1ba4937790ef47fa4e8
+  content_hash: sha256:1f429a1f84c069055ac478669a3af5c135e603f3b5c2dddb5aa8b78dd81b3aa1

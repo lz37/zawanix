@@ -85,3 +85,22 @@ nix flake update
 ```
 
 首次部署或换机需在 `options/` 中配置变量（如用户名、邮箱等）。
+
+## 系统升级流程
+
+```bash
+# 1. 更新 flake lock（nixpkgs 和所有 inputs 到最新）
+nix flake update
+
+# 2. 确认新版本没问题后，构建系统
+#    不要用 sudo nixos-rebuild — zerozawa-private 需要用户 SSH 密钥认证
+zawanix.rebuild
+#    或者
+nixos-rebuild --sudo
+
+# 3. 更新 Bun 依赖
+bun update -r
+
+# 4. 更新 APM 全局 skill
+apm update --global
+```

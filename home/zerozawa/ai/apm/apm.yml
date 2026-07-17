@@ -1,0 +1,12 @@
+name: zerozawa
+version: 1.0.0
+description: APM project for zerozawa
+author: zerozawa
+dependencies:
+  apm:
+  - julianobarbosa/claude-code-skills/skills/direnv
+  - julianobarbosa/claude-code-skills/skills/grill-me
+  - theneoai/awesome-skills/skills/workflow/engineering/tdd-workflow
+  mcp: []
+includes: auto
+scripts: {}
