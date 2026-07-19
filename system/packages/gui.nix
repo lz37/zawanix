@@ -43,7 +43,7 @@ in {
         else old.cmakeFlags;
     }))
     feishin
-    gimp3
+    stable.gimp3
     pinta
     vlc
     dbeaver-bin
