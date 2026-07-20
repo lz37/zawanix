@@ -24,6 +24,7 @@ modelRoles:
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/alarm-clock.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
