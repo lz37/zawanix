@@ -22,6 +22,7 @@
       codegraph
       spec-kit
       pctx
+      LoveIwara
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })
