@@ -12,14 +12,14 @@ providers:
   webSearch: auto
 modelRoles:
   tiny: litellm/deepseek-v4-flash:max
-  slow: openai-codex/gpt-5.6-sol:max
+  slow: kimi-code/k3:max
   smol: litellm/deepseek-v4-flash:max
   default: litellm/deepseek-v4-pro:max
-  vision: openai-codex/gpt-5.6-luna:medium
-  plan: openai-codex/gpt-5.6-sol:max
-  advisor: openai-codex/gpt-5.6-sol:max
+  vision: kimi-code/kimi-k2.5:high
+  plan: kimi-code/k3:max
+  advisor: kimi-code/k3:max
   task: litellm/deepseek-v4-flash:max
-  designer: openai-codex/gpt-5.6-sol:max
+  designer: kimi-code/k3:max
   commit: litellm/deepseek-v4-flash:max
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
@@ -29,27 +29,26 @@ task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    architecture-analyzer: openai-codex/gpt-5.6-sol:max
+    architecture-analyzer: kimi-code/k3:max
     article-analyzer: litellm/deepseek-v4-flash:max
     assemble-reviewer: litellm/deepseek-v4-flash:max
-    design-analyzer: openai-codex/gpt-5.6-sol:max
-    domain-analyzer: openai-codex/gpt-5.6-sol:max
+    design-analyzer: kimi-code/k3:max
+    domain-analyzer: litellm/deepseek-v4-pro:max
     file-analyzer: litellm/deepseek-v4-flash:max
-    graph-reviewer: openai-codex/gpt-5.6-sol:max
+    graph-reviewer: litellm/deepseek-v4-pro:max
     knowledge-graph-guide: litellm/deepseek-v4-flash:max
     project-scanner: litellm/deepseek-v4-flash:max
-    tour-builder: openai-codex/gpt-5.6-sol:max
-    designer: openai-codex/gpt-5.6-sol:max
+    tour-builder: litellm/deepseek-v4-pro:max
+    designer: kimi-code/k3:max
     librarian: litellm/deepseek-v4-flash:max
-    plan: openai-codex/gpt-5.6-sol:max
-    reviewer: openai-codex/gpt-5.6-sol:max
+    plan: kimi-code/k3:max
+    reviewer: litellm/deepseek-v4-pro:max
     scout: litellm/deepseek-v4-flash:max
     sonic: litellm/deepseek-v4-flash:max
-    task: openai-codex/gpt-5.6-luna:max
+    task: litellm/deepseek-v4-flash:max
   eager: preferred
 dev:
-  autoqa:
-    consent: denied
+  autoqaConsent: denied
 lsp:
   diagnosticsOnEdit: true
   formatOnWrite: true
@@ -84,8 +83,9 @@ statusLine:
 python:
   kernelMode: session
 edit:
-  mode: hashline
-steeringMode: one-at-a-time
+  mode: replace
+readLineNumbers: true
+steeringMode: all
 git:
   enabled: true
 images:
@@ -101,3 +101,7 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
+disabledExtensions:
+  []
+shellMinimizer:
+  sourceOutlineLevel: aggressive
