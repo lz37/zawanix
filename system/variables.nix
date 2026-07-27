@@ -1,12 +1,17 @@
 {
   config,
-  # pkgs,
+  pkgs,
   ...
-}: {
+}:
+let
+  gsettings-schema-dir = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
+in
+{
   environment = {
     localBinInPath = true;
     homeBinInPath = true;
     sessionVariables = rec {
+      GSETTINGS_SCHEMA_DIR = gsettings-schema-dir;
       NIXOS_OZONE_WL = "1";
       # npm_config_nodedir = "${pkgs.master.nodejs}/include/node";
       LIBVIRT_DEFAULT_URI = "qemu:///system"; # https://github.com/winapps-org/winapps/blob/main/docs/libvirt.md
