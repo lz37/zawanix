@@ -22,6 +22,8 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("EDITOR", "code --wait")
 hl.env("TERMINAL", "kitty")
 hl.env("XDG_TERMINAL_EMULATOR", "kitty")
+hl.env("QT_ACCESSIBILITY", "1")
+hl.env("GTK_MODULES", "gail:atk-bridge")
 
 -- AQ_DRM_DEVICES (conditional on hardware-specific DRM path)
 if hw.drm.aqDrmDevices ~= "" then
