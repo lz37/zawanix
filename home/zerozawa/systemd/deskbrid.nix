@@ -12,6 +12,7 @@
     Service = {
       Type = "simple";
       ExecStart = "${lib.getExe pkgs.nur.repos.zerozawa.deskbrid} daemon";
+      Environment = "AT_SPI_BUS_ADDRESS=unix:path=%t/at-spi/bus_0";
       Restart = "on-failure";
       RestartSec = 3;
     };
