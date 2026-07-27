@@ -34,11 +34,12 @@ in {
         enable = true;
         openFirewall = true;
         signal.relayHosts =
-          ["localhost"]
+          [
+            "localhost"
+          ]
           ++ builtins.concatLists (
             lib.mapAttrsToList (
-              _: iface:
-                map (addr: addr.address) (iface.ipv4.addresses or [])
+              _: iface: map (addr: addr.address) (iface.ipv4.addresses or [])
             )
             config.networking.interfaces
           );
@@ -64,7 +65,10 @@ in {
     ipp-usb.enable = true;
     udisks2.enable = true;
     fwupd.enable = true;
-    gnome.gnome-keyring.enable = false;
+    gnome = {
+      at-spi2-core.enable = true;
+      gnome-keyring.enable = false;
+    };
     dbus = {
       apparmor = "disabled";
     };
