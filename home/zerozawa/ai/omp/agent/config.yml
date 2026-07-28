@@ -80,6 +80,7 @@ task:
   eager: preferred
 dev:
   autoqaConsent: denied
+  autoqa: false
 lsp:
   diagnosticsOnEdit: true
   formatOnWrite: true
@@ -123,6 +124,7 @@ astGrep:
   enabled: true
 inspect_image:
   enabled: true
+  mode: "auto"
 checkpoint:
   enabled: true
 mcp:
