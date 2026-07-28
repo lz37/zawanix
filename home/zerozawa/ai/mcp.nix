@@ -157,6 +157,7 @@ in {
         "tavily"
         "zhihu-search-global"
         ###
+        "chrome-devtools" # omp有browser
       ];
       mcpServers = servers;
     };

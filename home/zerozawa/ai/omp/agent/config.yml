@@ -43,11 +43,11 @@ generate_image:
   enabled: true
 modelRoles:
   tiny: litellm/deepseek-v4-flash:max
-  slow: kimi-code/k3-256k:max
+  slow: openai-codex/gpt-5.6-sol:max
   smol: litellm/deepseek-v4-flash:max
-  default: litellm/deepseek-v4-pro:max
-  vision: kimi-code/kimi-k2.5:high
-  plan: kimi-code/k3-256k:max
+  default: kimi-code/k3-256k:max
+  vision: kimi-code/kimi-for-coding:high
+  plan: openai-codex/gpt-5.6-sol:max
   advisor: kimi-code/k3-256k:max
   task: litellm/deepseek-v4-flash:max
   designer: kimi-code/k3-256k:max
@@ -64,19 +64,19 @@ task:
     article-analyzer: litellm/deepseek-v4-flash:max
     assemble-reviewer: litellm/deepseek-v4-flash:max
     design-analyzer: kimi-code/k3-256k:max
-    domain-analyzer: litellm/deepseek-v4-pro:max
+    domain-analyzer: openai-codex/gpt-5.6-sol:max
     file-analyzer: litellm/deepseek-v4-flash:max
-    graph-reviewer: litellm/deepseek-v4-pro:max
+    graph-reviewer: openai-codex/gpt-5.6-sol:max
     knowledge-graph-guide: litellm/deepseek-v4-flash:max
     project-scanner: litellm/deepseek-v4-flash:max
-    tour-builder: litellm/deepseek-v4-pro:max
+    tour-builder: openai-codex/gpt-5.6-sol:max
     designer: kimi-code/k3-256k:max
     librarian: litellm/deepseek-v4-flash:max
-    plan: kimi-code/k3-256k:max
-    reviewer: litellm/deepseek-v4-pro:max
+    plan: openai-codex/gpt-5.6-sol:max
+    reviewer: openai-codex/gpt-5.6-sol:max
     scout: litellm/deepseek-v4-flash:max
     sonic: litellm/deepseek-v4-flash:max
-    task: litellm/deepseek-v4-flash:max
+    task: openai-codex/gpt-5.6-luna:max
   eager: preferred
 dev:
   autoqaConsent: denied
