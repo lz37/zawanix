@@ -31,8 +31,9 @@ require("config.windowrules")
 require("config.binds")
 require("config.plugins")
 
--- DMS writes dms/colors.lua after Hyprland starts; first boot must still load.
-pcall(require, "dms.colors")
+-- DMS writes generated configs after Hyprland starts; first boot must still load.
+-- init.lua loads all submodules (colors, layout, ...)
+pcall(require, "dms")
 
 -- hyprsplit is installed by lux under ~/.config/hypr/lux_packages.
 -- Run: cd /etc/nixos/home/zerozawa/hyprland/lua && lx sync
