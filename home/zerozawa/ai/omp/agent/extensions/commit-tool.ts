@@ -1,4 +1,5 @@
 import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
+import * as path from "node:path";
 import { z } from "zod";
 
 /**
@@ -21,6 +22,12 @@ export default function(pi: ExtensionAPI) {
   "perf", "test", "build", "ci", "chore", "revert",
  ]);
 
+ const bodySchema = z.union([z.string(), z.array(z.string())])
+  .optional()
+  .describe(
+   "Long-form body: prose paragraph(s) explaining the why and what, rendered between the header and bullet details (paragraphs separated by blank lines). Pass a string (may contain \n\n) or an array of paragraphs.",
+  );
+
  const stageSchema = z.object({
   files: z.union([
    z.array(z.string()).describe(
@@ -33,18 +40,24 @@ export default function(pi: ExtensionAPI) {
   type: commitType.describe("Conventional commit type"),
   scope: z.string().optional().describe("Optional scope, e.g. 'api', 'cli'"),
   summary: z.string().describe("Short summary, past tense imperative, ≤ 72 chars"),
+  body: bodySchema,
   details: z.array(z.string()).optional().default([])
-   .describe("Detail lines, each a complete sentence ending with period"),
+   .describe("Bullet lines after the body, e.g. per-file change notes ('client.rs: capture request_id ...'). Each a complete sentence ending with period"),
  });
 
 
  const paramsSchema = z.object({
+  // Target repository
+  path: z.string().optional().describe(
+   "Repository directory to commit in. Defaults to the current working directory; '~' and relative paths resolve against it. Use this to commit in repos outside the session cwd.",
+  ),
   // Single-commit mode
   type: commitType.optional().describe("Conventional commit type (single-commit mode)"),
   scope: z.string().optional().describe("Optional scope, e.g. 'api', 'cli'"),
   summary: z.string().optional().describe("Short summary, past tense imperative, ≤ 72 chars"),
+  body: bodySchema,
   details: z.array(z.string()).optional().default([])
-   .describe("Detail lines, each a complete sentence ending with period"),
+   .describe("Bullet lines after the body, e.g. per-file change notes. Each a complete sentence ending with period"),
   stageAll: z.boolean().optional().default(true)
    .describe("Whether to `git add -A` before committing"),
   // Multi-stage mode
@@ -61,30 +74,50 @@ export default function(pi: ExtensionAPI) {
   name: "commit",
   label: "Git Commit (Multi-Stage)",
   description: [
-   "Stage and commit changes. Supports single-stage (`type`+`summary`) and multi-stage (`stages` array) modes.",
+   "Stage and commit changes in a git repository (`path` defaults to session cwd; use it for repos elsewhere). Supports single-stage (`type`+`summary`) and multi-stage (`stages` array) modes.",
+   "Message format: `type(scope): summary` header, optional `body` prose paragraphs, then `details` bullet lines.",
    "Always adds the `Co-authored-by: OH-MY-PI <omp@can.ac>` trailer.",
   ].join("\n"),
   parameters: paramsSchema,
   loadMode: "essential" as const,
 
   execute: async (_toolCallId, params, _signal, _onUpdate, ctx) => {
-   const cwd = ctx.cwd;
+   const cwd = resolveCwd(params.path, ctx.cwd);
 
    // ── Helpers ──────────────────────────────────────────
+
+   /** Resolve the repo dir: explicit path > session cwd; '~' and relative paths resolve against session cwd. */
+   function resolveCwd(input: string | undefined, fallback: string): string {
+    const raw = input?.trim();
+    if (!raw) return fallback;
+    let p = raw;
+    const home = process.env.HOME;
+    if (p === "~" && home) p = home;
+    else if (p.startsWith("~/") && home) p = `${home}${p.slice(1)}`;
+    return path.isAbsolute(p) ? path.normalize(p) : path.resolve(fallback, p);
+   }
+
+   /** Normalize body input into a list of non-empty paragraphs. */
+   function toParagraphs(body: string | string[] | undefined): string[] {
+    if (!body) return [];
+    const list = Array.isArray(body) ? body : [body];
+    return list.map(p => p.trim()).filter(Boolean);
+   }
 
    /** Build a conventional commit message with OH-MY-PI footer. */
    function buildMessage(
     type: string,
     scope: string | undefined,
     summary: string,
+    body: string | string[] | undefined,
     details: string[],
    ): string {
     const scopePart = scope ? `(${scope})` : "";
-    const header = `${type}${scopePart}: ${summary}`;
-    const body = details.length > 0
-     ? `\n\n${details.map(d => `- ${d}`).join("\n")}`
-     : "";
-    return `${header}${body}\n\nCo-authored-by: OH-MY-PI <omp@can.ac>`;
+    const sections = [`${type}${scopePart}: ${summary}`];
+    const paragraphs = toParagraphs(body);
+    if (paragraphs.length > 0) sections.push(paragraphs.join("\n\n"));
+    if (details.length > 0) sections.push(details.map(d => `- ${d}`).join("\n"));
+    return `${sections.join("\n\n")}\n\nCo-authored-by: OH-MY-PI <omp@can.ac>`;
    }
 
    /** Run a git command and return { code, stdout, stderr }. */
@@ -116,6 +149,14 @@ export default function(pi: ExtensionAPI) {
 
 
    // ── Normalize: single-stage → one-element stages array ──
+   const repoCheck = await git(["rev-parse", "--show-toplevel"]);
+   if (repoCheck.code !== 0) {
+    return {
+     content: [{ type: "text", text: `Not a git repository: ${cwd}\n${repoCheck.stderr.trim()}` }],
+     isError: true,
+    };
+   }
+
    if (!params.stages) {
     if (!params.type || !params.summary) {
      return {
@@ -125,7 +166,7 @@ export default function(pi: ExtensionAPI) {
     }
     // stageAll: false → commit only what's already staged (no reset, no add)
     if (params.stageAll === false) {
-     const message = buildMessage(params.type, params.scope, params.summary, params.details || []);
+     const message = buildMessage(params.type, params.scope, params.summary, params.body, params.details || []);
      const result = await git(["commit", "-m", message]);
      if (result.code !== 0) {
       return {
@@ -143,6 +184,7 @@ export default function(pi: ExtensionAPI) {
      type: params.type,
      scope: params.scope,
      summary: params.summary,
+     body: params.body,
      details: params.details || [],
     }];
    }
@@ -205,6 +247,7 @@ export default function(pi: ExtensionAPI) {
      stage.type,
      stage.scope,
      stage.summary,
+     stage.body,
      stage.details ?? [],
     );
     const commitResult = await git(["commit", "-m", message]);
