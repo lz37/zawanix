@@ -12,7 +12,10 @@
     Service = {
       Type = "simple";
       ExecStart = "${lib.getExe pkgs.nur.repos.zerozawa.deskbrid} daemon";
-      Environment = "AT_SPI_BUS_ADDRESS=unix:path=%t/at-spi/bus_0";
+      Environment = [
+        "AT_SPI_BUS_ADDRESS=unix:path=%t/at-spi/bus_0"
+        "LC_ALL=C" # pactl output is locale-localized; deskbrid parses English
+      ];
       Restart = "on-failure";
       RestartSec = 3;
     };
