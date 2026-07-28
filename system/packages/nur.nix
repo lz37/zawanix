@@ -23,6 +23,7 @@
       spec-kit
       pctx
       LoveIwara
+      deskbrid
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

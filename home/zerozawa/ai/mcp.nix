@@ -89,14 +89,15 @@ with pkgs; let
         config.zerozawa.zhihu-mcp.apiKey
       ];
     };
-    recomment = {
-      command = lib.getExe nodejs-slim;
-      args = [
-        "${vscode-selected-extensionsCompatible.vscode-marketplace.vkhey.recomment-pro}/share/vscode/extensions/vkhey.recomment-pro/out/mcpServer.js"
-      ];
-    };
-    hyprland = {
-      command = lib.getExe nur.repos.zerozawa.hyprland-mcp-server;
+    # recomment = {
+    #   command = lib.getExe nodejs-slim;
+    #   args = [
+    #     "${vscode-selected-extensionsCompatible.vscode-marketplace.vkhey.recomment-pro}/share/vscode/extensions/vkhey.recomment-pro/out/mcpServer.js"
+    #   ];
+    # };
+    deskbrid = {
+      command = lib.getExe nur.repos.zerozawa.deskbrid;
+      args = ["mcp"];
     };
     image-tiler = {
       command = lib.getExe' pnpm "pnpx";
@@ -104,11 +105,24 @@ with pkgs; let
     };
     pctx = {
       command = lib.getExe nur.repos.zerozawa.pctx;
-      args = ["--config" (toString ((pkgs.formats.json {}).generate "pctx.json" ((import ./pctx.nix) {inherit pkgs config;}))) "mcp" "start" "--stdio"];
+      args = [
+        "--config"
+        (toString (
+          (pkgs.formats.json {}).generate "pctx.json" ((import ./pctx.nix) {inherit pkgs config;})
+        ))
+        "mcp"
+        "start"
+        "--stdio"
+      ];
     };
     sequential-thinking = {
       command = lib.getExe docker;
-      args = ["run" "--rm" "-i" "mcp/sequentialthinking"];
+      args = [
+        "run"
+        "--rm"
+        "-i"
+        "mcp/sequentialthinking"
+      ];
     };
     agentic-contract = {
       command = lib.getExe nur.repos.zerozawa.agentic-contract.mcp;
@@ -119,7 +133,10 @@ with pkgs; let
     };
     codegraph = {
       command = lib.getExe nur.repos.zerozawa.codegraph;
-      args = ["serve" "--mcp"];
+      args = [
+        "serve"
+        "--mcp"
+      ];
     };
   };
 in {
@@ -133,6 +150,13 @@ in {
         "agentic-contract" # 没啥用
         "context-mode" # 没啥用
         "pctx" # omp 已有 xd:// 动态发现和eval调用
+        "github" # 内置
+        ### 使用自带搜索
+        "brave"
+        "exa"
+        "tavily"
+        "zhihu-search-global"
+        ###
       ];
       mcpServers = servers;
     };

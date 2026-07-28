@@ -11,6 +11,7 @@
       koi
       partitionmanager
       krdc
+      spectacle
     ])
     ++ (with pkgs; [
       plasmusic-toolbar

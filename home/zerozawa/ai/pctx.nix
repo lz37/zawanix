@@ -111,8 +111,9 @@ with pkgs; {
       ];
     }
     {
-      name = "hyprland";
-      command = lib.getExe nur.repos.zerozawa.hyprland-mcp-server;
+      name = "deskbrid";
+      command = lib.getExe nur.repos.zerozawa.deskbrid;
+      args = ["mcp"];
     }
     {
       name = "image-tiler";

@@ -16,9 +16,7 @@ in {
 
   home.packages = with pkgs; [
     awww
-    grim
     slurp
-    wl-clipboard
     swappy
     ydotool
     hyprpolkitagent

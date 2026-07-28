@@ -70,5 +70,7 @@ in {
     wayvnc
     ndi
     discord
+    grim
+    gsettings-desktop-schemas
   ];
 }
