@@ -53,14 +53,18 @@
         "args" = [
           "--acp"
         ];
-        "env" = {};
       };
       "OpenCode" = {
         "command" = lib.getExe opencode;
         "args" = [
           "acp"
         ];
-        "env" = {};
+      };
+      "Oh My Pi" = {
+        command = lib.getExe nur.repos.zerozawa.oh-my-pi;
+        args = [
+          "acp"
+        ];
       };
     };
   };
