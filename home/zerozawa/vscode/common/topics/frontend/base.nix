@@ -24,37 +24,36 @@ in {
   ];
   settings =
     {
-      "typescript.tsserver.maxTsServerMemory" = hw.ram / 4;
-      "typescript.updateImportsOnFileMove.enabled" = "always";
-      "javascript.updateImportsOnFileMove.enabled" = "always";
+      "js/ts.tsserver.maxTsServerMemory" = hw.ram / 4;
+      "js/ts.updateImportsOnFileMove.enabled" = "always";
       # "typescript.experimental.useTsgo" = true;
-      "typescript.inlayHints.parameterNames.enabled" = "all";
+      "js/ts.inlayHints.parameterNames.enabled" = "all";
     }
     // (makeTrue [
-      "typescript.experimental.expandableHover"
-      "typescript.tsserver.experimental.enableProjectDiagnostics"
-      "typescript.implementationsCodeLens.enabled"
-      "typescript.implementationsCodeLens.showOnInterfaceMethods"
-      "typescript.referencesCodeLens.enabled"
-      "typescript.referencesCodeLens.showOnAllFunctions"
-      "typescript.enablePromptUseWorkspaceTsdk"
-      "typescript.inlayHints.enumMemberValues.enabled"
-      "typescript.inlayHints.parameterNames.suppressWhenArgumentMatchesName"
-      "typescript.inlayHints.parameterTypes.enabled"
-      "typescript.inlayHints.functionLikeReturnTypes.enabled"
-      "typescript.inlayHints.propertyDeclarationTypes.enabled"
-      "typescript.inlayHints.variableTypes.enabled"
-      "typescript.inlayHints.variableTypes.suppressWhenTypeMatchesName"
-      "typescript.suggest.autoImports"
-      "typescript.suggest.classMemberSnippets.enabled"
-      "typescript.suggest.completeFunctionCalls"
-      "typescript.suggest.completeJSDocs"
-      "typescript.suggest.enabled"
-      "typescript.suggest.includeAutomaticOptionalChainCompletions"
-      "typescript.suggest.jsdoc.generateReturns"
-      "typescript.suggest.paths"
-      "typescript.suggest.includeCompletionsForImportStatements"
-      "typescript.suggest.objectLiteralMethodSnippets.enabled"
-      "typescript.suggestionActions.enabled"
+      "js/ts.experimental.expandableHover"
+      "js/ts.tsserver.experimental.enableProjectDiagnostics"
+      "js/ts.implementationsCodeLens.enabled"
+      "js/ts.implementationsCodeLens.showOnInterfaceMethods"
+      "js/ts.referencesCodeLens.enabled"
+      "js/ts.referencesCodeLens.showOnAllFunctions"
+      "js/ts.enablePromptUseWorkspaceTsdk"
+      "js/ts.inlayHints.enumMemberValues.enabled"
+      "js/ts.inlayHints.parameterNames.suppressWhenArgumentMatchesName"
+      "js/ts.inlayHints.parameterTypes.enabled"
+      "js/ts.inlayHints.functionLikeReturnTypes.enabled"
+      "js/ts.inlayHints.propertyDeclarationTypes.enabled"
+      "js/ts.inlayHints.variableTypes.enabled"
+      "js/ts.inlayHints.variableTypes.suppressWhenTypeMatchesName"
+      "js/ts.suggest.autoImports"
+      "js/ts.suggest.classMemberSnippets.enabled"
+      "js/ts.suggest.completeFunctionCalls"
+      "js/ts.suggest.completeJSDocs"
+      "js/ts.suggest.enabled"
+      "js/ts.suggest.includeAutomaticOptionalChainCompletions"
+      "js/ts.suggest.jsdoc.generateReturns"
+      "js/ts.suggest.paths"
+      "js/ts.suggest.includeCompletionsForImportStatements"
+      "js/ts.suggest.objectLiteralMethodSnippets.enabled"
+      "js/ts.suggestionActions.enabled"
     ]);
 }
