@@ -8,3 +8,6 @@ design
 
 # Understand Anything generated graph
 .ua/
+
+# APM dependencies
+apm_modules/

@@ -7,6 +7,17 @@ dependencies:
   - julianobarbosa/claude-code-skills/skills/direnv
   - julianobarbosa/claude-code-skills/skills/grill-me
   - theneoai/awesome-skills/skills/workflow/engineering/tdd-workflow
+  - iOfficeAI/OfficeCLI/skills/officecli
+  - iOfficeAI/OfficeCLI/skills/officecli-xlsx
+  - iOfficeAI/OfficeCLI/skills/officecli-word-form
+  - iOfficeAI/OfficeCLI/skills/officecli-pptx
+  - iOfficeAI/OfficeCLI/skills/officecli-pitch-deck
+  - iOfficeAI/OfficeCLI/skills/officecli-financial-model
+  - iOfficeAI/OfficeCLI/skills/officecli-docx
+  - iOfficeAI/OfficeCLI/skills/officecli-data-dashboard
+  - iOfficeAI/OfficeCLI/skills/officecli-academic-paper
+  - iOfficeAI/OfficeCLI/skills/morph-ppt
+  - iOfficeAI/OfficeCLI/skills/morph-ppt-3d
   mcp: []
 includes: auto
 scripts: {}
