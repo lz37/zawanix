@@ -90,7 +90,7 @@ in {
         force = true;
       };
       ".vscode-server/data/Machine/settings.json" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/settings.json";
+        source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/User/settings.json";
         force = true;
       };
     };
