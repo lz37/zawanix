@@ -15,157 +15,60 @@
     }
     // inputs
   );
-  gui = [(import ./common/topics/gui.nix)];
-  base = [(import ./common/topics/base.nix)];
-  lang = [(import ./common/topics/lang.nix)];
-  ai = [(import ./common/topics/ai.nix)];
-  gitlens = [(import ./common/topics/gitlens.nix)];
-  ssh =
-    base
-    ++ gui
-    ++ lang
-    ++ [
-      (import ./common/topics/remote/ssh.nix)
-      (import ./common/topics/remote/common.nix)
-    ];
-  devcontainer =
-    ssh
-    ++ [
-      (import ./common/topics/remote/devcontainer.nix)
-    ];
-  no-ai =
-    ssh
-    ++ gitlens
-    ++ [
-      (import ./common/topics/docker.nix)
-      (import ./common/topics/document/markdown.nix)
-      (import ./common/topics/nix.nix)
-      (import ./common/topics/remote/liveshare.nix)
-      (import ./common/topics/frontend/prettier.nix)
-      (import ./common/topics/settingfile/yaml.nix)
-      (import ./common/topics/settingfile/xml.nix)
-      (import ./common/topics/settingfile/toml.nix)
-      (import ./common/topics/settingfile/json5.nix)
-    ];
-  default = no-ai ++ ai;
-  nixos =
-    default
-    ++ [
-      (import ./common/topics/ci-cd.nix)
-    ];
-  go = default ++ [(import ./common/topics/go.nix)];
-  rust =
-    default
-    ++ [
-      (import ./common/topics/rust.nix)
-    ];
-  frontend-base =
-    default
-    ++ [
-      (import ./common/topics/frontend/prettier.nix)
-      (import ./common/topics/settingfile/dotenv.nix)
-      (import ./common/topics/frontend/tailwind.nix)
-      (import ./common/topics/frontend/base.nix)
-    ];
-  frontend =
-    frontend-base
-    ++ [
-      (import ./common/topics/frontend/styled-components.nix)
-    ];
-  vue =
-    frontend-base
-    ++ [
-      (import ./common/topics/frontend/vue.nix)
-    ];
-  novelsaga =
-    frontend
-    ++ [
-      (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/rust.nix)
-    ];
-  hetu =
-    default
-    ++ [
-      (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/python.nix)
-    ];
-  k8s =
-    default
-    ++ [
-      (import ./common/topics/k8s.nix)
-    ]
-    ++ ai;
-  xd =
-    default
-    ++ [
-      (import ./common/topics/ci-cd.nix)
-      (import ./common/topics/python.nix)
-      (import ./common/topics/bash.nix)
-      (import ./common/topics/document/drawio.nix)
-    ];
-  python =
-    default
-    ++ [
-      (import ./common/topics/python.nix)
-    ];
-  cpp-base =
-    no-ai
-    ++ [
-      # (import ./common/topics/cpp/base.nix)
-      (import ./common/topics/cpp/clang.nix)
-    ];
-  qt = cpp-base ++ [(import ./common/topics/cpp/qt.nix)];
-  xmake-no-ai = qt ++ [(import ./common/topics/cpp/xmake.nix)];
-  xmake = xmake-no-ai ++ ai;
-  leetcode = xmake-no-ai ++ [(import ./common/topics/leetcode.nix)];
-  cmake = cpp-base ++ [(import ./common/topics/cpp/cmake.nix)] ++ ai;
-  novel = default ++ [(import ./common/topics/novel.nix)];
-  java-base =
-    default
-    ++ [
-      (import ./common/topics/java/base.nix)
-    ];
-  spring =
-    java-base
-    ++ [
-      (import ./common/topics/java/spring.nix)
-    ];
-  kotlin =
-    spring
-    ++ [
-      (import ./common/topics/java/kotlin.nix)
-    ];
 in {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
     package = pkgs.vscode-selected;
-    profiles = {
-      default =
-        (merge-imports (default ++ [(import ./common/topics/leetcode.nix)]))
-        // {
-          enableUpdateCheck = false;
-          enableExtensionUpdateCheck = false;
-        };
-      frontend = merge-imports frontend;
-      novelsaga = merge-imports novelsaga;
-      ssh = merge-imports ssh;
-      devcontainer = merge-imports devcontainer;
-      k8s = merge-imports k8s;
-      rust = merge-imports rust;
-      xd = merge-imports xd;
-      nixos = merge-imports nixos;
-      python = merge-imports python;
-      go = merge-imports go;
-      xmake = merge-imports xmake;
-      leetcode = merge-imports leetcode;
-      cmake = merge-imports cmake;
-      vue = merge-imports vue;
-      novel = merge-imports novel;
-      kotlin = merge-imports kotlin;
-      spring = merge-imports spring;
-      hetu = merge-imports hetu;
-    };
+    # AI 时代不再按场景分 profile：所有 topic 统一合入 default。
+    # 前 17 项保持旧 default profile 的原顺序（no-ai ++ ai ++ leetcode），其余 topic 追加在后。
+    profiles.default =
+      (merge-imports [
+        # ── 旧 default profile 顺序 ──────────────────────
+        (import ./common/topics/base.nix)
+        (import ./common/topics/gui.nix)
+        (import ./common/topics/lang.nix)
+        (import ./common/topics/remote/ssh.nix)
+        (import ./common/topics/remote/common.nix)
+        (import ./common/topics/gitlens.nix)
+        (import ./common/topics/docker.nix)
+        (import ./common/topics/document/markdown.nix)
+        (import ./common/topics/nix.nix)
+        (import ./common/topics/remote/liveshare.nix)
+        (import ./common/topics/frontend/prettier.nix)
+        (import ./common/topics/settingfile/yaml.nix)
+        (import ./common/topics/settingfile/xml.nix)
+        (import ./common/topics/settingfile/toml.nix)
+        (import ./common/topics/settingfile/json5.nix)
+        (import ./common/topics/ai.nix)
+        (import ./common/topics/leetcode.nix)
+        # ── 其余 topic（原各专项 profile 独有）───────────
+        (import ./common/topics/remote/devcontainer.nix)
+        (import ./common/topics/ci-cd.nix)
+        (import ./common/topics/python.nix)
+        (import ./common/topics/go.nix)
+        (import ./common/topics/rust.nix)
+        (import ./common/topics/bash.nix)
+        (import ./common/topics/cpp/clang.nix)
+        (import ./common/topics/cpp/cmake.nix)
+        (import ./common/topics/cpp/qt.nix)
+        (import ./common/topics/cpp/xmake.nix)
+        (import ./common/topics/java/base.nix)
+        (import ./common/topics/java/spring.nix)
+        (import ./common/topics/java/kotlin.nix)
+        (import ./common/topics/frontend/base.nix)
+        (import ./common/topics/frontend/tailwind.nix)
+        (import ./common/topics/frontend/styled-components.nix)
+        (import ./common/topics/frontend/vue.nix)
+        (import ./common/topics/document/drawio.nix)
+        (import ./common/topics/settingfile/dotenv.nix)
+        (import ./common/topics/k8s.nix)
+        (import ./common/topics/novel.nix)
+      ])
+      // {
+        enableUpdateCheck = false;
+        enableExtensionUpdateCheck = false;
+      };
   };
   services.vscode-server.enable = true;
   home = {
@@ -188,10 +91,6 @@ in {
       };
       ".vscode-server/data/Machine/settings.json" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/settings.json";
-        force = true;
-      };
-      ".vscode-server/data/User/profiles" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/Code/User/profiles";
         force = true;
       };
     };
