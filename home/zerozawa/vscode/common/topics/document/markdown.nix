@@ -11,6 +11,8 @@
     # mermaidchart.vscode-mermaid-chart
     yzane.markdown-pdf
     bpruitt-goddard.mermaid-markdown-syntax-highlighting
+    unifiedjs.vscode-mdx
+    ggfincke.vsc-mdx-preview
   ];
   settings = {
     # markdown-preview-enhanced.previewTheme = "atom-dark.css";
@@ -18,5 +20,6 @@
       "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
     };
     "markdown-pdf.executablePath" = "${lib.getExe pkgs.chromium}";
+    "mdx-preview.preview.enableScripts" = true;
   };
 }
