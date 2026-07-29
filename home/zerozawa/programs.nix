@@ -11,6 +11,7 @@ in {
   programs = {
     cargo = {
       enable = true;
+      package = null; # installed by system packages;
       settings = {
         source = {
           crates-io.replace-with = "ustc";
