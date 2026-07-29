@@ -131,17 +131,19 @@ export default function(pi: ExtensionAPI) {
 
    /** Collect all changed files (staged + unstaged + untracked). */
    async function collectAllChanged(): Promise<Set<string>> {
+    // `-z` disables core.quotePath C-style quoting (which octal-escapes
+    // non-ASCII/CJK paths) and NUL-separates entries, so filenames with
+    // whitespace or newlines survive intact.
     const [stagedRaw, unstagedRaw, untrackedRaw] = await Promise.all([
-     git(["diff", "--cached", "--name-only"]),
-     git(["diff", "--name-only"]),
-     git(["ls-files", "--others", "--exclude-standard"]),
+     git(["diff", "--cached", "--name-only", "-z"]),
+     git(["diff", "--name-only", "-z"]),
+     git(["ls-files", "--others", "--exclude-standard", "-z"]),
     ]);
 
     const files = new Set<string>();
     for (const raw of [stagedRaw.stdout, unstagedRaw.stdout, untrackedRaw.stdout]) {
-     for (const line of raw.split("\n")) {
-      const trimmed = line.trim();
-      if (trimmed) files.add(trimmed);
+     for (const name of raw.split("\0")) {
+      if (name) files.add(name);
      }
     }
     return files;
