@@ -7,10 +7,21 @@
   hw = config.zerozawa.hardware;
 in {
   environment = {
-    systemPackages = with pkgs; [
-      clinfo
-      gpu-viewer
-    ];
+    systemPackages = with pkgs;
+      [
+        clinfo
+        gpu-viewer
+        # 全显卡监控 (NVIDIA/AMD/Intel)
+        nvtopPackages.full
+        vulkan-tools
+      ]
+      ++ (lib.optionals hw.isNvidiaGPU [
+        nvitop
+      ])
+      ++ (lib.optionals hw.isAmdGPU [
+        radeontop
+        rocmPackages.rocm-smi
+      ]);
     # OpenCL 环境变量
     variables = {
       OCL_ICD_VENDORS = "/run/opengl-driver/etc/OpenCL/vendors";
