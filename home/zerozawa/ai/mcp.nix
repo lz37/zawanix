@@ -14,10 +14,11 @@ with pkgs; let
         "--no-usage-statistics"
       ];
     };
-    vscode = {
-      command = lib.getExe' pnpm "pnpx";
-      args = ["@vscode-mcp/vscode-mcp-server@latest"];
-    };
+    # 需要的时候再在项目下开
+    # vscode = {
+    #   command = lib.getExe' pnpm "pnpx";
+    #   args = ["@vscode-mcp/vscode-mcp-server@latest"];
+    # };
     nixos = {
       command = lib.getExe mcp-nixos;
       args = [];
@@ -29,10 +30,11 @@ with pkgs; let
         GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
       };
     };
-    docker = {
-      command = lib.getExe' uv "uvx";
-      args = ["docker-mcp"];
-    };
+    # 没必要 bash 就ok了
+    # docker = {
+    #   command = lib.getExe' uv "uvx";
+    #   args = ["docker-mcp"];
+    # };
     grep = {
       url = "https://mcp.grep.app";
     };
