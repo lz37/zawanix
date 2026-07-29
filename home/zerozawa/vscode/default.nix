@@ -57,6 +57,7 @@ in {
         (import ./common/topics/java/spring.nix)
         (import ./common/topics/java/kotlin.nix)
         (import ./common/topics/frontend/base.nix)
+        (import ./common/topics/frontend/astro.nix)
         (import ./common/topics/frontend/tailwind.nix)
         (import ./common/topics/frontend/styled-components.nix)
         (import ./common/topics/frontend/vue.nix)
