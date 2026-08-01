@@ -79,7 +79,7 @@ in
       tun.off
     ];
     services.mihomo = {
-      package = pkgs.nur.repos.zerozawa.mihomo-oix;
+      package = pkgs.nur.repos.zerozawa.mihomo-smart;
       tunMode = true;
       processesInfo = true;
       enable = true;

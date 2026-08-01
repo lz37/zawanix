@@ -24,6 +24,7 @@
       pctx
       LoveIwara
       deskbrid
+      truenas-mcp
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })
