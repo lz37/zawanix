@@ -83,30 +83,12 @@ moduleArgs @ {
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
             quickshell = inputs.quickshell.packages.${system}.quickshell;
-            vivaldi = pkgs.vivaldi.override {
+            vivaldi = master.vivaldi.override {
               proprietaryCodecs = true;
               enableWidevine = true;
+              vivaldi-ffmpeg-codecs = master.vivaldi-ffmpeg-codecs;
             };
             opencode = master.opencode;
-            # opencode = let
-            #   origin = inputs.opencode.packages.${system};
-            #   registryUrl = nixpkgsConfig.npmRegistryOverrides."registry.npmjs.org" or null;
-            #   patchedNodeModules = origin.opencode.node_modules.overrideAttrs (_nmOld: {
-            #     BUN_CONFIG_REGISTRY = registryUrl;
-            #   });
-            #   base =
-            #     if registryUrl != null
-            #     then origin.opencode.override {node_modules = patchedNodeModules;}
-            #     else origin.opencode;
-            # in
-            #   base.overrideAttrs (old: {
-            #     postInstall =
-            #       ''
-            #         wrapProgram $out/bin/opencode \
-            #           --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [final.stdenv.cc.cc.lib]}
-            #       ''
-            #       + (old.postInstall or "");
-            #   });
             mcp-nixos = master.mcp-nixos;
           }
         )
