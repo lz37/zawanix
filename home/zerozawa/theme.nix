@@ -17,7 +17,6 @@
   themes-matome = pkgs.buildEnv {
     name = "themes-matome";
     paths = with pkgs; [
-      colloid-gtk-theme
       kdePackages.breeze-gtk
     ];
   };

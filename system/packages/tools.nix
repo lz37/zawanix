@@ -18,7 +18,6 @@
             '')
             (
               with nur.repos.zerozawa; [
-                fortune-mod-zh
                 fortune-mod-hitokoto
               ]
             )
