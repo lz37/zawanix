@@ -1,145 +1,10 @@
 lockfile_version: '1'
-generated_at: '2026-07-29T03:48:22.369434+00:00'
+generated_at: '2026-07-31T05:55:10.293543+00:00'
 apm_version: 0.21.0
 dependencies:
 - repo_url: iOfficeAI/OfficeCLI
   host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli
-  - .agents/skills/officecli/SKILL.md
-  - .claude/skills/officecli
-  - .claude/skills/officecli/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli/SKILL.md: sha256:c950d285ce60021712b4753fb2d9f592308d5622bab776229061dfecb1ce55d4
-    .claude/skills/officecli/SKILL.md: sha256:c950d285ce60021712b4753fb2d9f592308d5622bab776229061dfecb1ce55d4
-  content_hash: sha256:2931b551bfb8c67bf66a7edcf274dba2e7578be94a1c40ec371c096541f8c0a2
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-xlsx
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-xlsx
-  - .agents/skills/officecli-xlsx/SKILL.md
-  - .claude/skills/officecli-xlsx
-  - .claude/skills/officecli-xlsx/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-xlsx/SKILL.md: sha256:5cd79d2c7398525acb9ffb431f5ff52f124a796f3b1a061f1f9f54f99bd367f3
-    .claude/skills/officecli-xlsx/SKILL.md: sha256:5cd79d2c7398525acb9ffb431f5ff52f124a796f3b1a061f1f9f54f99bd367f3
-  content_hash: sha256:c1392fb371385072f2b17e59d8f60e791c5aee5eae3a23ca0cc807abcaebb48d
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-word-form
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-word-form
-  - .agents/skills/officecli-word-form/SKILL.md
-  - .claude/skills/officecli-word-form
-  - .claude/skills/officecli-word-form/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-word-form/SKILL.md: sha256:428eef196cd5b9f6a6267a3f25f85919e6c560b10b53e31513f2a1e6fd7a396a
-    .claude/skills/officecli-word-form/SKILL.md: sha256:428eef196cd5b9f6a6267a3f25f85919e6c560b10b53e31513f2a1e6fd7a396a
-  content_hash: sha256:5149382dac92cdca73387c905b8ec27e8857cb261602faf1441de71e1349fd3a
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-pptx
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-pptx
-  - .agents/skills/officecli-pptx/SKILL.md
-  - .claude/skills/officecli-pptx
-  - .claude/skills/officecli-pptx/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-pptx/SKILL.md: sha256:0d53192751d5770984f16f3c34f9923377651555c667150d7f96e16e8c9757b3
-    .claude/skills/officecli-pptx/SKILL.md: sha256:0d53192751d5770984f16f3c34f9923377651555c667150d7f96e16e8c9757b3
-  content_hash: sha256:4575e69ba6bc4151fc26d8022159f4630417d126fed602eaac5d954a0bd3c670
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-pitch-deck
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-pitch-deck
-  - .agents/skills/officecli-pitch-deck/SKILL.md
-  - .claude/skills/officecli-pitch-deck
-  - .claude/skills/officecli-pitch-deck/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-pitch-deck/SKILL.md: sha256:6b59efdc094451945fd059548771326cce4bd2e3544d0659d3d6acf0825ea2b1
-    .claude/skills/officecli-pitch-deck/SKILL.md: sha256:6b59efdc094451945fd059548771326cce4bd2e3544d0659d3d6acf0825ea2b1
-  content_hash: sha256:3de610cd0ab54818e53f3a93897a5c2a63900c1c901ed4794fc2cb9528a95f47
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-financial-model
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-financial-model
-  - .agents/skills/officecli-financial-model/SKILL.md
-  - .claude/skills/officecli-financial-model
-  - .claude/skills/officecli-financial-model/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-financial-model/SKILL.md: sha256:65280bce9537ff3192bbc8fe1ad94980662929a71390b258d7f38f24772d8c9e
-    .claude/skills/officecli-financial-model/SKILL.md: sha256:65280bce9537ff3192bbc8fe1ad94980662929a71390b258d7f38f24772d8c9e
-  content_hash: sha256:8e60497402ba6a2d4c4abe2a9605b75ee14f036a5d23a3d664c5b17ab961bc48
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-docx
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-docx
-  - .agents/skills/officecli-docx/SKILL.md
-  - .claude/skills/officecli-docx
-  - .claude/skills/officecli-docx/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-docx/SKILL.md: sha256:1da56ed53a308222ab2516a2974ae98c6703b7d504fa5158348c39a18e85a4f1
-    .claude/skills/officecli-docx/SKILL.md: sha256:1da56ed53a308222ab2516a2974ae98c6703b7d504fa5158348c39a18e85a4f1
-  content_hash: sha256:10e5d2a35ed3cfd7d7ed365e29481b9604eb00b66073fe84c99c46d5f622ee6b
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-data-dashboard
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-data-dashboard
-  - .agents/skills/officecli-data-dashboard/SKILL.md
-  - .claude/skills/officecli-data-dashboard
-  - .claude/skills/officecli-data-dashboard/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-data-dashboard/SKILL.md: sha256:38cf745bb04cb7005cd089e6e87073509f190e46e035707528a5d0b01b2dafd0
-    .claude/skills/officecli-data-dashboard/SKILL.md: sha256:38cf745bb04cb7005cd089e6e87073509f190e46e035707528a5d0b01b2dafd0
-  content_hash: sha256:5f0d0ae092647f878c4997bdafb57d3cf42093982b737a091d83da436d86b46e
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
-  virtual_path: skills/officecli-academic-paper
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/officecli-academic-paper
-  - .agents/skills/officecli-academic-paper/SKILL.md
-  - .claude/skills/officecli-academic-paper
-  - .claude/skills/officecli-academic-paper/SKILL.md
-  deployed_file_hashes:
-    .agents/skills/officecli-academic-paper/SKILL.md: sha256:573292e01c2b9b9885c6cd24ffec5f808d88f8a1868aa0e962bcab9a479f40e5
-    .claude/skills/officecli-academic-paper/SKILL.md: sha256:573292e01c2b9b9885c6cd24ffec5f808d88f8a1868aa0e962bcab9a479f40e5
-  content_hash: sha256:1bb75e1c7489a1fd3744b3afd99557e99f0214c20abbef47aabd8d2945084af7
-- repo_url: iOfficeAI/OfficeCLI
-  host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
   virtual_path: skills/morph-ppt
   is_virtual: true
   package_type: claude_skill
@@ -594,7 +459,7 @@ dependencies:
   content_hash: sha256:ab717128752b41aac6d048b2c21ccf8f4962b6f2d8c2c112d39133a4766b782e
 - repo_url: iOfficeAI/OfficeCLI
   host: github.com
-  resolved_commit: 9a1982d1884cf73c9f5d2bb44d1960fa0e5efb28
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
   virtual_path: skills/morph-ppt-3d
   is_virtual: true
   package_type: claude_skill
@@ -607,6 +472,141 @@ dependencies:
     .agents/skills/morph-ppt-3d/SKILL.md: sha256:951080c11ac0995fc3e4fb9a09a67fa6c8f02f353bf735e7ec6f6c02cab9fdad
     .claude/skills/morph-ppt-3d/SKILL.md: sha256:951080c11ac0995fc3e4fb9a09a67fa6c8f02f353bf735e7ec6f6c02cab9fdad
   content_hash: sha256:68dbe5fe780d9a9dcbd674d2485f2a52433920a7114460ebd7c3d6fb6a8cf487
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli
+  - .agents/skills/officecli/SKILL.md
+  - .claude/skills/officecli
+  - .claude/skills/officecli/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli/SKILL.md: sha256:c950d285ce60021712b4753fb2d9f592308d5622bab776229061dfecb1ce55d4
+    .claude/skills/officecli/SKILL.md: sha256:c950d285ce60021712b4753fb2d9f592308d5622bab776229061dfecb1ce55d4
+  content_hash: sha256:2931b551bfb8c67bf66a7edcf274dba2e7578be94a1c40ec371c096541f8c0a2
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-academic-paper
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-academic-paper
+  - .agents/skills/officecli-academic-paper/SKILL.md
+  - .claude/skills/officecli-academic-paper
+  - .claude/skills/officecli-academic-paper/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-academic-paper/SKILL.md: sha256:573292e01c2b9b9885c6cd24ffec5f808d88f8a1868aa0e962bcab9a479f40e5
+    .claude/skills/officecli-academic-paper/SKILL.md: sha256:573292e01c2b9b9885c6cd24ffec5f808d88f8a1868aa0e962bcab9a479f40e5
+  content_hash: sha256:1bb75e1c7489a1fd3744b3afd99557e99f0214c20abbef47aabd8d2945084af7
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-data-dashboard
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-data-dashboard
+  - .agents/skills/officecli-data-dashboard/SKILL.md
+  - .claude/skills/officecli-data-dashboard
+  - .claude/skills/officecli-data-dashboard/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-data-dashboard/SKILL.md: sha256:38cf745bb04cb7005cd089e6e87073509f190e46e035707528a5d0b01b2dafd0
+    .claude/skills/officecli-data-dashboard/SKILL.md: sha256:38cf745bb04cb7005cd089e6e87073509f190e46e035707528a5d0b01b2dafd0
+  content_hash: sha256:5f0d0ae092647f878c4997bdafb57d3cf42093982b737a091d83da436d86b46e
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-docx
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-docx
+  - .agents/skills/officecli-docx/SKILL.md
+  - .claude/skills/officecli-docx
+  - .claude/skills/officecli-docx/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-docx/SKILL.md: sha256:1da56ed53a308222ab2516a2974ae98c6703b7d504fa5158348c39a18e85a4f1
+    .claude/skills/officecli-docx/SKILL.md: sha256:1da56ed53a308222ab2516a2974ae98c6703b7d504fa5158348c39a18e85a4f1
+  content_hash: sha256:10e5d2a35ed3cfd7d7ed365e29481b9604eb00b66073fe84c99c46d5f622ee6b
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-financial-model
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-financial-model
+  - .agents/skills/officecli-financial-model/SKILL.md
+  - .claude/skills/officecli-financial-model
+  - .claude/skills/officecli-financial-model/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-financial-model/SKILL.md: sha256:65280bce9537ff3192bbc8fe1ad94980662929a71390b258d7f38f24772d8c9e
+    .claude/skills/officecli-financial-model/SKILL.md: sha256:65280bce9537ff3192bbc8fe1ad94980662929a71390b258d7f38f24772d8c9e
+  content_hash: sha256:8e60497402ba6a2d4c4abe2a9605b75ee14f036a5d23a3d664c5b17ab961bc48
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-pitch-deck
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-pitch-deck
+  - .agents/skills/officecli-pitch-deck/SKILL.md
+  - .claude/skills/officecli-pitch-deck
+  - .claude/skills/officecli-pitch-deck/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-pitch-deck/SKILL.md: sha256:6b59efdc094451945fd059548771326cce4bd2e3544d0659d3d6acf0825ea2b1
+    .claude/skills/officecli-pitch-deck/SKILL.md: sha256:6b59efdc094451945fd059548771326cce4bd2e3544d0659d3d6acf0825ea2b1
+  content_hash: sha256:3de610cd0ab54818e53f3a93897a5c2a63900c1c901ed4794fc2cb9528a95f47
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-pptx
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-pptx
+  - .agents/skills/officecli-pptx/SKILL.md
+  - .claude/skills/officecli-pptx
+  - .claude/skills/officecli-pptx/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-pptx/SKILL.md: sha256:0d53192751d5770984f16f3c34f9923377651555c667150d7f96e16e8c9757b3
+    .claude/skills/officecli-pptx/SKILL.md: sha256:0d53192751d5770984f16f3c34f9923377651555c667150d7f96e16e8c9757b3
+  content_hash: sha256:4575e69ba6bc4151fc26d8022159f4630417d126fed602eaac5d954a0bd3c670
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-word-form
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-word-form
+  - .agents/skills/officecli-word-form/SKILL.md
+  - .claude/skills/officecli-word-form
+  - .claude/skills/officecli-word-form/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-word-form/SKILL.md: sha256:428eef196cd5b9f6a6267a3f25f85919e6c560b10b53e31513f2a1e6fd7a396a
+    .claude/skills/officecli-word-form/SKILL.md: sha256:428eef196cd5b9f6a6267a3f25f85919e6c560b10b53e31513f2a1e6fd7a396a
+  content_hash: sha256:5149382dac92cdca73387c905b8ec27e8857cb261602faf1441de71e1349fd3a
+- repo_url: iOfficeAI/OfficeCLI
+  host: github.com
+  resolved_commit: e04dee2af5a0822db867edd67fcf29c9e02739fc
+  virtual_path: skills/officecli-xlsx
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/officecli-xlsx
+  - .agents/skills/officecli-xlsx/SKILL.md
+  - .claude/skills/officecli-xlsx
+  - .claude/skills/officecli-xlsx/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/officecli-xlsx/SKILL.md: sha256:5cd79d2c7398525acb9ffb431f5ff52f124a796f3b1a061f1f9f54f99bd367f3
+    .claude/skills/officecli-xlsx/SKILL.md: sha256:5cd79d2c7398525acb9ffb431f5ff52f124a796f3b1a061f1f9f54f99bd367f3
+  content_hash: sha256:c1392fb371385072f2b17e59d8f60e791c5aee5eae3a23ca0cc807abcaebb48d
 - repo_url: julianobarbosa/claude-code-skills
   host: github.com
   resolved_commit: ac701ada10169dc2a7008cb3f8279acdfb3846f5
