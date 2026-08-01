@@ -21,7 +21,16 @@ in {
     scx = {
       enable = true;
       package = pkgs.master.scx.full;
-      scheduler = "scx_rusty";
+      # 性能最猛：scx_lavd（LAVD 延迟敏感 deadline 调度，专为游戏交互优化）
+      scheduler = "scx_lavd";
+      # 按硬件形态选择功耗档：
+      # - 台式机（有无独显）→ 性能档，桌面/游戏保持满血
+      # - 笔记本 + OCuLink eGPU → 性能档
+      # - 笔记本无独显（移动/日常，如高铁上看视频）→ autopilot 自动档，空闲省电、负载自适应
+      extraArgs =
+        if hw.isLaptop && !host.isGameMachine && !hw.isOculink
+        then ["--autopilot"]
+        else ["--performance"];
     };
     xrdp = {
       enable = true;
