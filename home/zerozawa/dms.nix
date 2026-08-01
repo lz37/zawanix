@@ -12,6 +12,12 @@ in {
     xdg-utils
     linux-wallpaperengine
   ];
+  # Nix store files always have mtime epoch 0, which defeats Qt's mtime-based
+  # QML disk-cache validation: stale compiled units survive every plugin/shell
+  # update (e.g. plugin settings UI failing to load with errors pointing at
+  # lines that do not exist in the deployed file). Disable the QML disk cache.
+  systemd.user.services.dms.Service.Environment = ["QML_DISABLE_DISK_CACHE=1"];
+
   programs.dank-material-shell = {
     enable = true;
     systemd = {
