@@ -610,33 +610,6 @@ dependencies:
 - repo_url: julianobarbosa/claude-code-skills
   host: github.com
   resolved_commit: ac701ada10169dc2a7008cb3f8279acdfb3846f5
-  virtual_path: skills/direnv
-  is_virtual: true
-  package_type: claude_skill
-  deployed_files:
-  - .agents/skills/direnv
-  - .agents/skills/direnv/SKILL.md
-  - .agents/skills/direnv/references/installation.md
-  - .agents/skills/direnv/references/stdlib-functions.md
-  - .agents/skills/direnv/references/troubleshooting.md
-  - .claude/skills/direnv
-  - .claude/skills/direnv/SKILL.md
-  - .claude/skills/direnv/references/installation.md
-  - .claude/skills/direnv/references/stdlib-functions.md
-  - .claude/skills/direnv/references/troubleshooting.md
-  deployed_file_hashes:
-    .agents/skills/direnv/SKILL.md: sha256:580ad2f8d95f980b881bf237e72e8f5036c758b047571ed45d2b231a0e3bdddf
-    .agents/skills/direnv/references/installation.md: sha256:aef8af309c7ef0dd7a3384cba42de2fa09f6e77cfbc11d9e6142bbbbd740344f
-    .agents/skills/direnv/references/stdlib-functions.md: sha256:2082fe7721c957c988e5dbfa6648477a9aed5781a3f458f1251797c0113a6317
-    .agents/skills/direnv/references/troubleshooting.md: sha256:74ee07262b3bde250ecfbd2c8dbbe3fe1db4d76cdf88f84cb5e5bfaa089bf6eb
-    .claude/skills/direnv/SKILL.md: sha256:580ad2f8d95f980b881bf237e72e8f5036c758b047571ed45d2b231a0e3bdddf
-    .claude/skills/direnv/references/installation.md: sha256:aef8af309c7ef0dd7a3384cba42de2fa09f6e77cfbc11d9e6142bbbbd740344f
-    .claude/skills/direnv/references/stdlib-functions.md: sha256:2082fe7721c957c988e5dbfa6648477a9aed5781a3f458f1251797c0113a6317
-    .claude/skills/direnv/references/troubleshooting.md: sha256:74ee07262b3bde250ecfbd2c8dbbe3fe1db4d76cdf88f84cb5e5bfaa089bf6eb
-  content_hash: sha256:5efab990997051b1ef332ffa661b010b24712ea076b00e005949385432baf701
-- repo_url: julianobarbosa/claude-code-skills
-  host: github.com
-  resolved_commit: ac701ada10169dc2a7008cb3f8279acdfb3846f5
   virtual_path: skills/grill-me
   is_virtual: true
   package_type: claude_skill

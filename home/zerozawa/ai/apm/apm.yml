@@ -4,7 +4,6 @@ description: APM project for zerozawa
 author: zerozawa
 dependencies:
   apm:
-  - julianobarbosa/claude-code-skills/skills/direnv
   - julianobarbosa/claude-code-skills/skills/grill-me
   - theneoai/awesome-skills/skills/workflow/engineering/tdd-workflow
   - iOfficeAI/OfficeCLI/skills/officecli
