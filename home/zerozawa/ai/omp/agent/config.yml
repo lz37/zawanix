@@ -72,19 +72,20 @@ task:
     tour-builder: openai-codex/gpt-5.6-sol:max
     designer: kimi-code/k3-256k:max
     librarian: litellm/deepseek-v4-flash:max
-    plan: openai-codex/gpt-5.6-sol:max
     reviewer: openai-codex/gpt-5.6-sol:max
     scout: litellm/deepseek-v4-flash:max
+    security-reviewer: openai-codex/gpt-5.6-sol:max
     sonic: litellm/deepseek-v4-flash:max
-    task: openai-codex/gpt-5.6-luna:max
+    task: litellm/deepseek-v4-flash:max
   eager: preferred
+  enableEffort: true
 dev:
   autoqaConsent: denied
-  autoqa: false
+  autoqa: true
 lsp:
   diagnosticsOnEdit: true
   formatOnWrite: true
-  lazy: false
+  lazy: true
 display:
   showTokenUsage: true
   cacheMissMarker: true
@@ -94,6 +95,9 @@ contextPromotion:
   enabled: true
 read:
   toolResultPreview: true
+  renderMarkdown: true
+  summarize:
+    prose: true
 github:
   enabled: true
   cache:
@@ -123,8 +127,7 @@ images:
 astGrep:
   enabled: true
 inspect_image:
-  enabled: true
-  mode: "auto"
+  mode: auto
 checkpoint:
   enabled: true
 mcp:
@@ -140,4 +143,8 @@ exa:
   enableResearcher: true
   enableWebsets: true
 secrets:
+  enabled: true
+bash:
+  direnv: auto
+security:
   enabled: true
