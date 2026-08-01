@@ -6,7 +6,8 @@ hl.plugin.load(home .. "/.config/hypr/plugins/hyprfocus.so")
 hl.config({
     plugin = {
         hyprfocus = {
-            mode = "shrink",
+            keyboard_focus_animation = "shrink",
+            mouse_focus_animation = "shrink",
             only_on_monitor_change = false,
         },
         dynamic_cursors = {
