@@ -67,8 +67,14 @@ in {
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       extest.enable = true;
-      extraCompatPackages = [
-        #pkgs.nur.repos.mio."proton-cachyos_x86_64_v${lib.strings.substring 8 1 hw.amd64Microarchs}"
+      # cachyos-proton 仅发布 v1/v3/arm 变体（arm 用不到），按本机 microarch 就近选择
+      extraCompatPackages = let
+        cachyosProton =
+          if lib.versionAtLeast (lib.strings.substring 8 1 hw.amd64Microarchs) "3"
+          then pkgs.nur.repos.forkprince.proton-cachyos-v3-bin
+          else pkgs.nur.repos.forkprince.proton-cachyos-v1-bin;
+      in [
+        cachyosProton
       ];
       protontricks = {
         enable = true;
