@@ -25,6 +25,8 @@
       # Font settings
       font_size = "12.0";
       disable_ligatures = "never";
+      # CJK 汉字(含假名/全角)回退走霞鹜文楷等宽,避免 fontconfig 选中 NSimSun
+      symbol_map = "U+2E80-U+2EFF,U+2F00-U+2FDF,U+3000-U+30FF,U+31C0-U+31EF,U+31F0-U+31FF,U+3200-U+33FF,U+3400-U+4DBF,U+4E00-U+9FFF,U+F900-U+FAFF,U+FE30-U+FE4F,U+FF00-U+FF65,U+20000-U+2EBEF,U+2F800-U+2FA1F,U+30000-U+323AF LXGW WenKai Mono";
 
       # Cursor settings
       cursor = "#cccccc";
