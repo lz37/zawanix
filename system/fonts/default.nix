@@ -6,7 +6,10 @@
       enable = true;
       cache32Bit = true;
       defaultFonts = {
-        emoji = ["Twitter Color Emoji"];
+        emoji = [
+          "Noto Color Emoji"
+          "Twitter Color Emoji"
+        ];
         monospace = ["meslo-lgs-nf"];
         sansSerif = ["Source Han Sans SC"];
         # steam
@@ -20,6 +23,7 @@
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
+        noto-fonts-color-emoji
         source-han-sans
         source-han-serif
         source-han-mono
