@@ -101,7 +101,7 @@ with pkgs; let
       command = lib.getExe nur.repos.zerozawa.deskbrid;
       args = ["mcp"];
       env = {
-        LC_ALL = "C"; # deskbrid parses English pactl output; inherits zh_CN from parent otherwise
+        # LC_ALL = "C"; # deskbrid parses English pactl output; inherits zh_CN from parent otherwise
       };
     };
     image-tiler = {
