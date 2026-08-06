@@ -148,3 +148,5 @@ bash:
   direnv: auto
 security:
   enabled: true
+browser:
+  relay: true
