@@ -13,8 +13,8 @@
     "home/zerozawa/ai/omp/plugins"
   ],
   "dependencies": {
-    "@oh-my-pi/pi-coding-agent": "^17.2.10",
-    "@oh-my-pi/pi-natives": "^17.2.10",
+    "@oh-my-pi/pi-coding-agent": "^17.2.12",
+    "@oh-my-pi/pi-natives": "^17.2.12",
     "zod": "^4.4.3"
   }
 }
