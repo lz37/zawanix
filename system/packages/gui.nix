@@ -9,7 +9,6 @@
 in {
   environment.systemPackages = with pkgs; [
     cage
-    ssh-askpass-fullscreen
     rustdesk
     blueman
     burpsuite

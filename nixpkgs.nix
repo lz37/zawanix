@@ -80,17 +80,6 @@ moduleArgs @ {
                 forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
                 forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
               };
-            # nixpkgs PR #549253 未进 unstable：glaze 已升 8.0.0 但 hyprland 0.56.1 仍要求
-            # find_package(glaze 7...<8)，回退 FetchContent 克隆（沙箱无 git）导致构建失败。
-            # 抄上游修法：放宽 glaze 版本约束。全局 override 让 grimblast 等传递依赖也生效。
-            hyprland = prev.hyprland.overrideAttrs (old: {
-              postPatch =
-                (old.postPatch or "")
-                + ''
-                  substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
-                    --replace "glaze 7...<8" "glaze"
-                '';
-            });
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
             quickshell = inputs.quickshell.packages.${system}.quickshell;
