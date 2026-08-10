@@ -16,7 +16,10 @@ in {
     # so login.fprintAuth MUST be true (the default) for SDDM to get fprintd.
     # sddm.fprintAuth here is a no-op (SDDM has useDefaultRules=false) but kept as docs.
     security.pam.services = {
-      sddm.fprintAuth = true;
+      sddm = {
+        fprintAuth = true;
+        kwallet.enable = true;
+      };
       sudo.fprintAuth = true;
     };
   };

@@ -12,6 +12,10 @@
       partitionmanager
       krdc
       spectacle
+      (pkgs.runCommand "expose-pam_kwallet_init" {} ''
+        mkdir -p $out/bin
+        ln -s ${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init $out/bin/pam_kwallet_init
+      '')
     ])
     ++ (with pkgs; [
       plasmusic-toolbar
