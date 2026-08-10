@@ -44,16 +44,12 @@ in {
     ${optLua}
     LUAEOF
 
-        # 3. Symlink pam_kwallet_init (libexec, not in PATH)
-        ${pkgs.coreutils}/bin/mkdir -p ${repo}/bin
-        ${pkgs.coreutils}/bin/ln -sfn ${pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init ${repo}/bin/pam_kwallet_init
-
-        # 4. Symlink plugin .so files
+        # 3. Symlink plugin .so files
         ${pkgs.coreutils}/bin/mkdir -p ${repo}/plugins
         ${pkgs.coreutils}/bin/ln -sfn ${pkgs.hyprlandPlugins.hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so ${repo}/plugins/hypr-dynamic-cursors.so
         ${pkgs.coreutils}/bin/ln -sfn ${pkgs.hyprlandPlugins.hyprfocus}/lib/libhyprfocus.so ${repo}/plugins/hyprfocus.so
 
-        # 5. Symlink hyprsplit source (flake = false, just init.lua)
+        # 4. Symlink hyprsplit source (flake = false, just init.lua)
         ${pkgs.coreutils}/bin/mkdir -p ${repo}
         ${pkgs.coreutils}/bin/ln -sfn ${inputs.hyprsplit} ${repo}/hyprsplit
   '';

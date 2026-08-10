@@ -12,9 +12,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("pypr")
     -- kwalletd6 必须先启动，pam_kwallet_init 才能连上它解锁
     hl.exec_cmd("kwalletd6")
-    hl.exec_cmd("bash -c 'sleep 1 && " .. os.getenv("HOME") .. "/.config/hypr/bin/pam_kwallet_init'")
-    -- 空密码 wallet 需显式 open 一次（pam_kwallet_init 用 PAM 密码对空密码无效）
-    hl.exec_cmd("bash -c 'sleep 2 && kwallet-query -f \"\" -l kdewallet >/dev/null 2>&1'")
+    hl.exec_cmd("bash -c 'sleep 1 && pam_kwallet_init'") -- 需要设置空密码之后，使用密码库的应用才不会触发密码询问窗口
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("jellyfin-mpv-shim")
     hl.exec_cmd("remmina")
