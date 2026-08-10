@@ -12,6 +12,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("pypr")
     hl.exec_cmd(os.getenv("HOME") .. "/.config/hypr/bin/pam_kwallet_init")
     hl.exec_cmd("kwalletd6")
+    -- Hyprland 无 Plasma 会话自动解锁，空密码 wallet 也需显式 open 一次
+    hl.exec_cmd("bash -c 'sleep 2 && kwallet-query -f \"\" -l kdewallet >/dev/null 2>&1'")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("jellyfin-mpv-shim")
     hl.exec_cmd("remmina")
