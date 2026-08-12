@@ -71,26 +71,29 @@ with pkgs; let
         BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
       };
     };
-    zhihu-search = {
-      command = lib.getExe' pnpm "pnpx";
-      args = [
-        "supergateway"
-        "--sse"
-        "https://developer.zhihu.com/api/mcp/zhihu_search/v1/sse"
-        "--oauth2Bearer"
-        config.zerozawa.zhihu-mcp.apiKey
-      ];
+    wechatbot = {
+      command = lib.getExe nur.repos.zerozawa.wechatbot-mcp;
     };
-    zhihu-search-global = {
-      command = lib.getExe' pnpm "pnpx";
-      args = [
-        "supergateway"
-        "--sse"
-        "https://developer.zhihu.com/api/mcp/global_search/v1/sse"
-        "--oauth2Bearer"
-        config.zerozawa.zhihu-mcp.apiKey
-      ];
-    };
+    # zhihu-search = {
+    #   command = lib.getExe' pnpm "pnpx";
+    #   args = [
+    #     "supergateway"
+    #     "--sse"
+    #     "https://developer.zhihu.com/api/mcp/zhihu_search/v1/sse"
+    #     "--oauth2Bearer"
+    #     config.zerozawa.zhihu-mcp.apiKey
+    #   ];
+    # };
+    # zhihu-search-global = {
+    #   command = lib.getExe' pnpm "pnpx";
+    #   args = [
+    #     "supergateway"
+    #     "--sse"
+    #     "https://developer.zhihu.com/api/mcp/global_search/v1/sse"
+    #     "--oauth2Bearer"
+    #     config.zerozawa.zhihu-mcp.apiKey
+    #   ];
+    # };
     # recomment = {
     #   command = lib.getExe nodejs-slim;
     #   args = [
@@ -160,7 +163,7 @@ in {
         "brave"
         "exa"
         "tavily"
-        "zhihu-search-global"
+        # "zhihu-search-global"
         ###
         "chrome-devtools" # omp有browser
       ];

@@ -28,6 +28,7 @@
       # 文档/CLI 运行时依赖
       poppler-utils # pdf2image 依赖 pdftoppm/pdfinfo
       pandoc
+      nogpu.whisper-cpp
       (tesseract.override {
         enableLanguages = [
           "eng"
@@ -57,9 +58,10 @@
             pdf2image
             pdfplumber
             pymupdf
-            # 图像 / OCR
+            # 图像 / OCR / 语音
             pillow
             pytesseract
+            faster-whisper
             # web / 文本处理
             httpx
             beautifulsoup4

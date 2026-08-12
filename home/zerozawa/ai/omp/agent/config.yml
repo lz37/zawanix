@@ -46,7 +46,7 @@ modelRoles:
   slow: openai-codex/gpt-5.6-sol:max
   smol: litellm/deepseek-v4-flash:max
   default: kimi-code/k3-256k:max
-  vision: kimi-code/kimi-for-coding:high
+  vision: openai-codex/gpt-5.6-luna:max
   plan: openai-codex/gpt-5.6-sol:max
   advisor: kimi-code/k3-256k:max
   task: litellm/deepseek-v4-flash:max
