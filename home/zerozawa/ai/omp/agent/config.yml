@@ -64,21 +64,20 @@ task:
     article-analyzer: litellm/deepseek-v4-flash:max
     assemble-reviewer: litellm/deepseek-v4-flash:max
     design-analyzer: kimi-code/k3-256k:max
-    domain-analyzer: openai-codex/gpt-5.6-sol:max
+    domain-analyzer: litellm/deepseek-v4-pro:max
     file-analyzer: litellm/deepseek-v4-flash:max
-    graph-reviewer: openai-codex/gpt-5.6-sol:max
+    graph-reviewer: litellm/deepseek-v4-pro:max
     knowledge-graph-guide: litellm/deepseek-v4-flash:max
     project-scanner: litellm/deepseek-v4-flash:max
-    tour-builder: openai-codex/gpt-5.6-sol:max
+    tour-builder: litellm/deepseek-v4-pro:max
     designer: kimi-code/k3-256k:max
     librarian: litellm/deepseek-v4-flash:max
-    reviewer: openai-codex/gpt-5.6-sol:max
+    reviewer: litellm/deepseek-v4-pro:max
     scout: litellm/deepseek-v4-flash:max
-    security-reviewer: openai-codex/gpt-5.6-sol:max
+    security-reviewer: litellm/deepseek-v4-pro:max
     sonic: litellm/deepseek-v4-flash:max
     task: litellm/deepseek-v4-flash:max
   eager: preferred
-  enableEffort: true
 dev:
   autoqaConsent: denied
   autoqa: true
@@ -139,13 +138,12 @@ disabledExtensions:
   []
 shellMinimizer:
   sourceOutlineLevel: aggressive
-exa:
-  enableResearcher: true
-  enableWebsets: true
 secrets:
   enabled: true
 bash:
   direnv: auto
+  autoBackground:
+    enabled: true
 security:
   enabled: true
 browser:

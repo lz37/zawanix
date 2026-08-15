@@ -26,12 +26,6 @@
       hide-scrollbar = "mljepckcnbghmcdmaebjhejiplcngbkm"; # Hide Scrollbar
       # anime4kUpscaler = "gbmcofgfofhmalicafdelmgnogepnnjb"; # Anime4K Upscaler
       # faststream-video-player = "kkeakohpadmbldjaiggikmnldlfkdfog"; # FastStream 视频播放器
-      ompBrowserRelayExtension = let
-        relayExt = pkgs.nur.repos.zerozawa.oh-my-pi.browserRelayExtension;
-      in {
-        inherit (relayExt) id version;
-        crxPath = relayExt;
-      };
     }
     |> lib.mapAttrsToList (
       name: value: {

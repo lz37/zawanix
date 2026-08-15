@@ -89,6 +89,7 @@
       url = "github:shezdy/hyprsplit";
       flake = false;
     };
+    omp.url = "github:can1357/oh-my-pi";
     # devenv
     devenv-root = {
       url = "file+file:///dev/null";
@@ -172,6 +173,7 @@
                   verbose = true;
                   backupFileExtension = "hm.bak";
                   sharedModules = [
+                    inputs.omp.homeManagerModules.default
                     inputs.plasma-manager.homeModules.plasma-manager
                     inputs.vscode-server.homeModules.default
                     ./options
@@ -250,7 +252,7 @@
               }
             }"
             # 防止被 node_modules 下覆盖
-            export PATH=${pkgs.nur.repos.zerozawa.oh-my-pi}/bin:$PATH
+            export PATH=${inputs.omp.packages.${system}.omp}/bin:$PATH
           '';
         };
         pre-commit = {

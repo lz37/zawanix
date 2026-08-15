@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
@@ -61,7 +62,7 @@
         ];
       };
       "Oh My Pi" = {
-        command = lib.getExe nur.repos.zerozawa.oh-my-pi;
+        command = lib.getExe config.programs.omp.package;
         args = [
           "acp"
         ];

@@ -17,7 +17,6 @@
       bilibili_live_tui
       agentic-contract
       banguminet
-      oh-my-pi
       context-mode
       codegraph
       spec-kit
