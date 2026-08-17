@@ -31,13 +31,13 @@ in {
         # 校园网 mirrorz
         #"https://mirrors.cernet.edu.cn/nix-channels/store?priority=10"
         # 上交
-        # "https://mirror.sjtu.edu.cn/nix-channels/store?priority=10"
+        "https://mirror.sjtu.edu.cn/nix-channels/store?priority=11"
         # 清华
         "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store?priority=11"
         # 中科院
         # "https://mirror.iscas.ac.cn/nix-channels/store?priority=11"
         # 南大
-        "https://mirror.nju.edu.cn/nix-channels/store?priority=11"
+        # "https://mirror.nju.edu.cn/nix-channels/store?priority=11"
         # 重庆邮电
         # "https://mirrors.cqupt.edu.cn/nix-channels/store?priority=12" # 这玩意儿有雷池 咋用？
 
@@ -47,29 +47,30 @@ in {
         "https://zerozawa.cachix.org"
         "https://mio.cachix.org"
         "https://nix-community.cachix.org"
-        "https://hyprland.cachix.org"
+        # "https://hyprland.cachix.org"
         "https://nix-gaming.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://watersucks.cachix.org"
         "https://numtide.cachix.org"
-        "https://devenv.cachix.org"
+        # "https://devenv.cachix.org"
         "https://forkprince.cachix.org"
         # "https://zed.cachix.org"
-        #"https://cache.garnix.io?priority=99"
         "https://neorocks.cachix.org"
+        "https://cache.garnix.io?priority=99"
       ];
       trusted-public-keys = [
-        #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         # "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
         "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ="
         "mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "watersucks.cachix.org-1:6gadPC5R8iLWQ3EUtfu3GFrVY7X6I4Fwz/ihW25Jbv8="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
         "neorocks.cachix.org-1:WqMESxmVTOJX7qoBC54TwrMMoVI1xAM+7yFin8NRfwk="
       ];

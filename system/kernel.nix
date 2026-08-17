@@ -31,7 +31,8 @@ in {
             then "300"
             else "1000";
           hugepage = "always";
-        }).overrideAttrs (prev: {
+        }).overrideAttrs
+        (prev: {
           # nixos-unstable accesses these attrs on the kernel derivation,
           # but cachyos doesn't expose them. Supply sane defaults.
           target =
@@ -48,9 +49,7 @@ in {
       # kernelModuleLLVMOverride only patches Makefiles (gcc→cc), but doesn't
       # pass LLVM=1 to make. External modules need LLVM=1 for kbuild to use
       # clang instead of gcc. We chain another .extend to inject the flags.
-      (helpers.kernelModuleLLVMOverride (
-        pkgs.linuxKernel.packagesFor cachyosKernel
-      )).extend (
+      (helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor cachyosKernel)).extend (
         _final: prev:
           lib.mapAttrs (
             n: v:
@@ -96,7 +95,10 @@ in {
           "thunderbolt"
           "rtsx_pci_sdmmc"
         ]
-        ++ (lib.optionals hw.isIntelGPU ["i915" "xe"]);
+        ++ (lib.optionals hw.isIntelGPU [
+          "i915"
+          "xe"
+        ]);
       kernelModules = ["kyber-iosched"] ++ (lib.optionals hw.isAMDCPU ["kvm-amd"]);
     };
     kernelParams =
@@ -219,7 +221,25 @@ in {
   # Ananicy-cpp for process scheduling optimization
   services.ananicy = {
     enable = true;
-    package = pkgs.ananicy-cpp;
+    package = pkgs.ananicy-cpp.overrideAttrs (old: {
+      # 1.2.0 依赖已被 Clang 21 清理掉的传递标准库头；上游修复后移除。
+      postPatch =
+        (old.postPatch or "")
+        + ''
+          substituteInPlace src/platform/linux/backtrace.cpp \
+            --replace-fail \
+              '#include <cstdlib>    // for free' \
+              $'#include <cstdint>\n#include <cstdlib>    // for free'
+          substituteInPlace src/utility/argument_parsing/argument.cpp \
+            --replace-fail \
+              '#include <cstdlib>' \
+              $'#include <cstdlib>\n#include <cstring>'
+          substituteInPlace src/platform/linux/singleton_process.cpp \
+            --replace-fail \
+              '#include <chrono>' \
+              $'#include <chrono>\n#include <cstring>'
+        '';
+    });
     rulesProvider = pkgs.ananicy-rules-cachyos;
   };
 }

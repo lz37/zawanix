@@ -24,6 +24,7 @@
       LoveIwara
       deskbrid
       truenas-mcp
+      deepseek-harness
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

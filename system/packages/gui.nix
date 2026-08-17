@@ -21,9 +21,9 @@ in {
         "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}"
       '';
     })
-    master.wechat
+    wechat
     (
-      patchDesktop master.wechat "wechat" "^Exec=wechat %U"
+      patchDesktop wechat "wechat" "^Exec=wechat %U"
       "Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U"
     )
     master.wemeet

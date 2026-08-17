@@ -1,6 +1,5 @@
 import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
 import * as path from "node:path";
-import { z } from "zod";
 
 /**
  * OMP Extension: multi-stage commit tool with automatic OH-MY-PI footer.
@@ -11,9 +10,15 @@ import { z } from "zod";
  *
  * Installation:
  *   extensions: ["~/.omp/agent/extensions/commit-tool.ts"]
+ *
+ * NOTE: schemas MUST use the injected omptype zod (`pi.zod.z`), never npm
+ * `zod` — OMP's toolWireSchema only converts omptype/TypeBox/raw JSON
+ * schemas, and a real-zod object leaks through unconverted, leaving models
+ * with a parameters schema of just the injected `i` intent field.
  */
 export default function(pi: ExtensionAPI) {
  pi.setLabel("CommitTool");
+ const { z } = pi.zod;
 
  // ── Shared schemas ────────────────────────────────────
 
@@ -41,7 +46,7 @@ export default function(pi: ExtensionAPI) {
   scope: z.string().optional().describe("Optional scope, e.g. 'api', 'cli'"),
   summary: z.string().describe("Short summary, past tense imperative, ≤ 72 chars"),
   body: bodySchema,
-  details: z.array(z.string()).optional().default([])
+  details: z.array(z.string()).optional().default(() => [])
    .describe("Bullet lines after the body, e.g. per-file change notes ('client.rs: capture request_id ...'). Each a complete sentence ending with period"),
  });
 
@@ -56,7 +61,7 @@ export default function(pi: ExtensionAPI) {
   scope: z.string().optional().describe("Optional scope, e.g. 'api', 'cli'"),
   summary: z.string().optional().describe("Short summary, past tense imperative, ≤ 72 chars"),
   body: bodySchema,
-  details: z.array(z.string()).optional().default([])
+  details: z.array(z.string()).optional().default(() => [])
    .describe("Bullet lines after the body, e.g. per-file change notes. Each a complete sentence ending with period"),
   stageAll: z.boolean().optional().default(true)
    .describe("Whether to `git add -A` before committing"),
@@ -66,11 +71,11 @@ export default function(pi: ExtensionAPI) {
    .describe("Multi-stage: each stage commits a subset with its own message"),
  });
 
- type CommitParams = z.infer<typeof paramsSchema>;
+ type CommitParams = typeof paramsSchema extends { readonly _output: infer Out } ? Out : never;
 
  // ── Tool registration ─────────────────────────────────
 
- pi.registerTool<z.ZodType<CommitParams>>({
+ pi.registerTool<typeof paramsSchema>({
   name: "commit",
   label: "Git Commit (Multi-Stage)",
   description: [

@@ -1,5 +1,4 @@
 import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
-import { z } from "zod";
 
 /**
  * OMP Extension: alarm clock / timer for agent self-scheduling.
@@ -22,9 +21,15 @@ import { z } from "zod";
  *
  * Installation:
  *   extensions: ["~/.omp/agent/extensions/alarm-clock.ts"]
+ *
+ * NOTE: schemas MUST use the injected omptype zod (`pi.zod.z`), never npm
+ * `zod` — OMP's toolWireSchema only converts omptype/TypeBox/raw JSON
+ * schemas, and a real-zod object leaks through unconverted, leaving models
+ * with a parameters schema of just the injected `i` intent field.
  */
 export default function(pi: ExtensionAPI) {
  pi.setLabel("AlarmClock");
+ const { z } = pi.zod;
 
  // ── State ──────────────────────────────────────────────
 
@@ -134,9 +139,9 @@ export default function(pi: ExtensionAPI) {
    .describe("Optional label for listing / cancelling the timer"),
  });
 
- type SetTimerArgs = z.infer<typeof SetTimerParams>;
+ type SetTimerArgs = typeof SetTimerParams extends { readonly _output: infer Out } ? Out : never;
 
- pi.registerTool<z.ZodType<SetTimerArgs>>({
+ pi.registerTool<typeof SetTimerParams>({
   name: "set_timer",
   label: "Set Timer",
   description: [
@@ -205,9 +210,9 @@ export default function(pi: ExtensionAPI) {
  // ── Tool: list_timers ──────────────────────────────────
 
  const ListTimersParams = z.object({});
- type ListTimersArgs = z.infer<typeof ListTimersParams>;
+ type ListTimersArgs = typeof ListTimersParams extends { readonly _output: infer Out } ? Out : never;
 
- pi.registerTool<z.ZodType<ListTimersArgs>>({
+ pi.registerTool<typeof ListTimersParams>({
   name: "list_timers",
   label: "List Timers",
   description: "List all active (pending) timers with labels, remaining time, and messages.",
@@ -249,9 +254,9 @@ export default function(pi: ExtensionAPI) {
   label: z.string().optional()
    .describe("Label to cancel (cancels all timers with this label)."),
  });
- type CancelTimerArgs = z.infer<typeof CancelTimerParams>;
+ type CancelTimerArgs = typeof CancelTimerParams extends { readonly _output: infer Out } ? Out : never;
 
- pi.registerTool<z.ZodType<CancelTimerArgs>>({
+ pi.registerTool<typeof CancelTimerParams>({
   name: "cancel_timer",
   label: "Cancel Timer",
   description: "Cancel an active timer by its ID or label.",
