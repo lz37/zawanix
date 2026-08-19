@@ -42,41 +42,42 @@ providers:
 generate_image:
   enabled: true
 modelRoles:
-  tiny: openai-codex/gpt-5.6-luna:max
+  tiny: litellm/deepseek-v4-flash:max
   slow: openai-codex/gpt-5.6-sol:max
-  smol: openai-codex/gpt-5.6-luna:max
+  smol: litellm/deepseek-v4-flash:max
   default: kimi-code/k3-256k:max
-  vision: openai-codex/gpt-5.6-luna:max
+  vision: litellm/deepseek-v4-flash:max
   plan: openai-codex/gpt-5.6-sol:max
   advisor: kimi-code/k3-256k:max
-  task: openai-codex/gpt-5.6-luna:max
+  task: litellm/deepseek-v4-flash:max
   designer: kimi-code/k3-256k:max
-  commit: openai-codex/gpt-5.6-luna:max
+  commit: litellm/deepseek-v4-flash:max
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/alarm-clock.ts
+  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/dspeak.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
     architecture-analyzer: kimi-code/k3-256k:max
-    article-analyzer: openai-codex/gpt-5.6-luna:max
-    assemble-reviewer: openai-codex/gpt-5.6-luna:max
+    article-analyzer: litellm/deepseek-v4-flash:max
+    assemble-reviewer: litellm/deepseek-v4-flash:max
     design-analyzer: kimi-code/k3-256k:max
     domain-analyzer: kimi-code/k3-256k:max
-    file-analyzer: openai-codex/gpt-5.6-luna:max
+    file-analyzer: litellm/deepseek-v4-flash:max
     graph-reviewer: kimi-code/k3-256k:max
-    knowledge-graph-guide: openai-codex/gpt-5.6-luna:max
-    project-scanner: openai-codex/gpt-5.6-luna:max
+    knowledge-graph-guide: litellm/deepseek-v4-flash:max
+    project-scanner: litellm/deepseek-v4-flash:max
     tour-builder: kimi-code/k3-256k:max
     designer: kimi-code/k3-256k:max
-    librarian: openai-codex/gpt-5.6-luna:max
+    librarian: litellm/deepseek-v4-flash:max
     reviewer: kimi-code/k3-256k:max
-    scout: openai-codex/gpt-5.6-luna:max
+    scout: litellm/deepseek-v4-flash:max
     security-reviewer: openai-codex/gpt-5.6-sol:max
-    sonic: openai-codex/gpt-5.6-luna:max
-    task: openai-codex/gpt-5.6-luna:max
+    sonic: litellm/deepseek-v4-flash:max
+    task: litellm/deepseek-v4-flash:max
   eager: preferred
 dev:
   autoqaConsent: denied
@@ -134,8 +135,7 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions:
-  []
+disabledExtensions: []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
