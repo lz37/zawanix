@@ -13,4 +13,5 @@ agent/extensions/README.md
 !agent/SYSTEM.md
 !agent/RULES.md
 !agent/config.yml
+!agent/models.yml
 !agent/mcp.json
