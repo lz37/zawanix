@@ -214,7 +214,11 @@
           lib.mapAttrs' (
             name: cfg: lib.nameValuePair "kernel-${name}" cfg.config.system.build.kernel
           )
-          nixosConfigs;
+          nixosConfigs
+          // {
+            # common/omp-package.nix: bun.nix fix for upstream 17.3.8, see file header
+            omp = import ./common/omp-package.nix {inherit inputs system lib;};
+          };
         devenv.shells.default = {
           name = "zawanix";
           packages = [
@@ -252,7 +256,7 @@
               }
             }"
             # 防止被 node_modules 下覆盖
-            export PATH=${inputs.omp.packages.${system}.omp}/bin:$PATH
+            export PATH=${config.packages.omp}/bin:$PATH
           '';
         };
         pre-commit = {
