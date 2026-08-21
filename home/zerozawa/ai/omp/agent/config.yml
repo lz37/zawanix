@@ -1,4 +1,4 @@
-setupVersion: 1
+setupVersion: 2
 memory:
   backend: hindsight
 hindsight:
@@ -79,6 +79,8 @@ task:
     sonic: litellm/deepseek-v4-flash:max
     task: litellm/deepseek-v4-flash:max
   eager: preferred
+  agentAdvisor:
+    task: "off"
 dev:
   autoqaConsent: denied
   autoqa: true
@@ -107,7 +109,6 @@ github:
 defaultThinkingLevel: auto
 advisor:
   enabled: false
-  subagents: false
 tier:
   advisor: none
 provider:
@@ -135,7 +136,8 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions: []
+disabledExtensions:
+  []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
@@ -148,3 +150,7 @@ security:
   enabled: true
 browser:
   relay: true
+composer:
+  shape: rule
+snapcompact:
+  toolResults: true

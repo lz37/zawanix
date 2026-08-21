@@ -139,8 +139,6 @@ export default function(pi: ExtensionAPI) {
    .describe("Optional label for listing / cancelling the timer"),
  });
 
- type SetTimerArgs = typeof SetTimerParams extends { readonly _output: infer Out } ? Out : never;
-
  pi.registerTool<typeof SetTimerParams>({
   name: "set_timer",
   label: "Set Timer",
@@ -210,7 +208,6 @@ export default function(pi: ExtensionAPI) {
  // ── Tool: list_timers ──────────────────────────────────
 
  const ListTimersParams = z.object({});
- type ListTimersArgs = typeof ListTimersParams extends { readonly _output: infer Out } ? Out : never;
 
  pi.registerTool<typeof ListTimersParams>({
   name: "list_timers",
@@ -254,7 +251,6 @@ export default function(pi: ExtensionAPI) {
   label: z.string().optional()
    .describe("Label to cancel (cancels all timers with this label)."),
  });
- type CancelTimerArgs = typeof CancelTimerParams extends { readonly _output: infer Out } ? Out : never;
 
  pi.registerTool<typeof CancelTimerParams>({
   name: "cancel_timer",
