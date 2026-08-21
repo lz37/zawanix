@@ -56,11 +56,11 @@ in {
         "https://forkprince.cachix.org"
         # "https://zed.cachix.org"
         "https://neorocks.cachix.org"
-        "https://cache.garnix.io?priority=99"
+        pkgs.nur.repos.xddxdd._meta.atticUrl
       ];
       trusted-public-keys = [
+        pkgs.nur.repos.xddxdd._meta.atticPublicKey
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         # "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
         "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ="
         "mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM="
