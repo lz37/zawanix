@@ -205,9 +205,9 @@ rules:
   - RULE-SET,zerozawa.direct,🎯 全球直连
   - RULE-SET,STUN,🎯 全球直连
   - RULE-SET,zerozawa.proxy,🚀 节点选择
-  - RULE-SET,Direct,🎯 全球直连
   - GEOSITE,google-cn,🇬 谷歌服务
   - RULE-SET,GoogleCNProxyIP,🇬 谷歌服务
+  - RULE-SET,Direct,🎯 全球直连
   - GEOSITE,npmjs,🎯 全球直连
   - GEOSITE,category-games@cn,🎯 全球直连
   - GEOSITE,category-game-accelerator-cn,🎯 全球直连

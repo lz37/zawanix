@@ -221,25 +221,8 @@ in {
   # Ananicy-cpp for process scheduling optimization
   services.ananicy = {
     enable = true;
-    package = pkgs.ananicy-cpp.overrideAttrs (old: {
-      # 1.2.0 依赖已被 Clang 21 清理掉的传递标准库头；上游修复后移除。
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace src/platform/linux/backtrace.cpp \
-            --replace-fail \
-              '#include <cstdlib>    // for free' \
-              $'#include <cstdint>\n#include <cstdlib>    // for free'
-          substituteInPlace src/utility/argument_parsing/argument.cpp \
-            --replace-fail \
-              '#include <cstdlib>' \
-              $'#include <cstdlib>\n#include <cstring>'
-          substituteInPlace src/platform/linux/singleton_process.cpp \
-            --replace-fail \
-              '#include <chrono>' \
-              $'#include <chrono>\n#include <cstring>'
-        '';
-    });
+    package =
+      pkgs.ananicy-cpp;
     rulesProvider = pkgs.ananicy-rules-cachyos;
   };
 }

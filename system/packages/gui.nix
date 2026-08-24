@@ -34,7 +34,7 @@ in {
     libreoffice-qt6-fresh
     drawio
     jellyfin-media-player
-    fladder
+    tsukimi
     (switchfin.overrideAttrs (old: {
       cmakeFlags =
         if hw.isNvidiaGPU

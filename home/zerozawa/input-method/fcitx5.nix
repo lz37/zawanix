@@ -39,7 +39,9 @@
                     (old: {
                       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.opencc];
                       postInstall = ''
-                        opencc -i $out/share/rime-data/opencc/kaomoji_category.txt -o $out/share/rime-data/opencc/kaomoji_category.txt -c t2s.json
+                        mv $out/share/rime-data/opencc/kaomoji_category.txt $out/share/rime-data/opencc/kaomoji_category.txt.bak
+                        opencc -i $out/share/rime-data/opencc/kaomoji_category.txt.bak -o $out/share/rime-data/opencc/kaomoji_category.txt -c t2s.json
+                        rm $out/share/rime-data/opencc/kaomoji_category.txt.bak
                       '';
                     }))
                 ]
