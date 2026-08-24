@@ -6,7 +6,6 @@
   hw = osConfig.zerozawa.hardware;
 in {
   home.packages = with pkgs; [
-    grimblast
     gpu-screen-recorder
     gpu-screen-recorder-gtk
     xdg-utils
@@ -42,7 +41,6 @@ in {
         emojiLauncher.enable = true;
         commandRunner.enable = true;
         calculator.enable = true;
-        grimblast.enable = true;
         githubHeatmap.enable = true;
         githubNotifier.enable = true;
         musicLyrics.enable = true;
@@ -58,6 +56,23 @@ in {
         vscodeLauncher.enable = true;
         cavaVisualizer.enable = true;
         linuxWallpaperEngine.enable = true;
+        quickCapture.enable = true;
+        dankKDEConnect.enable = true;
+        gameControllerBattery.enable = true;
+        dmsThemeSync.enable = true;
+        aiOverviewControl.enable = true;
+        screenCaptureToolbar.enable = true;
+        dankConsoleSteam.enable = true;
+        musicTheme.enable = true;
+        systemMonitorPlus.enable = true;
+        deepseekWidget.enable = true;
+        dankHyprlandWindows.enable = true;
+        steamFlagsPlugin.enable = true;
+        hostnameWidget.enable = true;
+        localServices.enable = true;
+        enderPulse.enable = true;
+        modernClock.enable = true;
+        nextBootSelector.enable = true;
       }
       // (
         if hw.isLaptop

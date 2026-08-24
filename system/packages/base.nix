@@ -34,8 +34,6 @@
     unar
     toolbox
     nmap
-    # waydroid 剪贴版
-    wl-clipboard
     cifs-utils
     cachix
     distrobox
@@ -48,10 +46,16 @@
     flac
     exiftool
     imagemagick
+    img2pdf
+    tesseract
+    zbar
     opencc
     android-tools
     libva-utils
+    iproute2
     mesa-demos
     sshfs
+    upower
+    efibootmgr
   ];
 }

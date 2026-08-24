@@ -31,7 +31,7 @@ in {
     rio
     # office
     # onlyoffice-desktopeditors
-    libreoffice-qt6-fresh
+    libreoffice-qt-stable
     drawio
     jellyfin-media-player
     tsukimi
@@ -71,5 +71,10 @@ in {
     discord
     grim
     gsettings-desktop-schemas
+    flameshot
+    slurp
+    grimblast
+    wl-clipboard
+    satty
   ];
 }

@@ -218,11 +218,4 @@ in {
       font = "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode/FiraCodeNerdFontMono-Regular.ttf";
     };
   };
-  # Ananicy-cpp for process scheduling optimization
-  services.ananicy = {
-    enable = true;
-    package =
-      pkgs.ananicy-cpp;
-    rulesProvider = pkgs.ananicy-rules-cachyos;
-  };
 }

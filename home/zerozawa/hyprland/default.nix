@@ -16,7 +16,6 @@ in {
 
   home.packages = with pkgs; [
     awww
-    slurp
     swappy
     ydotool
     hyprpolkitagent
