@@ -5,7 +5,6 @@
   ...
 }: {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
-    sst-dev.opencode-v2
     formulahendry.acp-client
   ];
   settings = {
@@ -53,12 +52,6 @@
         "command" = lib.getExe github-copilot-cli;
         "args" = [
           "--acp"
-        ];
-      };
-      "OpenCode" = {
-        "command" = lib.getExe opencode;
-        "args" = [
-          "acp"
         ];
       };
       "Oh My Pi" = {
