@@ -1,11 +1,8 @@
 {pkgs, ...}: {
-  extensions = with pkgs.vscode-selected-extensionsCompatible; (
-    (with vscode-marketplace; [
-      golang.go
-      msyrus.go-doc
-    ])
-    ++ [vscode-marketplace."766b".go-outliner]
-  );
+  extensions = with pkgs.vscode-selected-extensionsCompatible; (with vscode-marketplace; [
+    golang.go
+    msyrus.go-doc
+  ]);
   settings = {
     "go.toolsManagement.autoUpdate" = true;
     "[go]" = {
