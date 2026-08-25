@@ -5,6 +5,7 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
  *
  * 背景：DeepSeek 官方峰谷定价（2026-08-17 生效），高峰时段为北京时间
  * 09:00–12:00、14:00–18:00，即 UTC 01:00–04:00、06:00–10:00（每日）。
+ * 2026-08-23 起周六、周日（北京时间）全天统一按低谷价，周末永不高峰。
  * 高峰期间 config.yml 里所有 `litellm/deepseek-v4-flash:*` 引用在运行时改指
  * `openai-codex/gpt-5.6-luna`（保留 `:thinking` 后缀）。
  *
@@ -59,7 +60,7 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
 const FLASH_SPEC = "litellm/deepseek-v4-flash";
 const LUNA_SPEC = "openai-codex/gpt-5.6-luna";
 
-/** DeepSeek 高峰窗，UTC 分钟数区间 [start, end)：北京 09:00-12:00 / 14:00-18:00。 */
+/** DeepSeek 高峰窗，UTC 分钟数区间 [start, end)：北京 09:00-12:00 / 14:00-18:00，仅周一至周五（北京时间周末全天低谷）。 */
 const PEAK_WINDOWS_UTC: ReadonlyArray<readonly [number, number]> = [
  [1 * 60, 4 * 60], // 01:00–04:00 UTC
  [6 * 60, 10 * 60], // 06:00–10:00 UTC
@@ -149,6 +150,9 @@ function sharedState(): DspeakShared {
 // ── Time & target helpers ───────────────────────────────────
 
 function isPeakUtc(nowMs: number): boolean {
+ // 北京时间周六/周日全天低谷（2026-08-23 起）；UTC+8 无夏令时。
+ const bjDay = new Date(nowMs + 8 * 3_600_000).getUTCDay();
+ if (bjDay === 0 || bjDay === 6) return false;
  const d = new Date(nowMs);
  const mins = d.getUTCHours() * 60 + d.getUTCMinutes();
  return PEAK_WINDOWS_UTC.some(([start, end]) => mins >= start && mins < end);
@@ -534,7 +538,7 @@ export default function(pi: ExtensionAPI) {
     shared.lunaQuota === "exhausted" ? "耗尽(周窗口)" : shared.lunaQuota === "ok" ? "可用" : "未知(查询失败放行)";
    const chainText = shared.chainUserOwned ? "用户自管" : shared.chainManaged ? "已安装 luna→flash" : "未安装";
    const lines = [
-    `UTC ${hhmm} — ${peak ? "高峰时段" : "非高峰时段"}（窗口 01:00-04:00 / 06:00-10:00 UTC）`,
+    `UTC ${hhmm} — ${peak ? "高峰时段" : "非高峰时段"}（窗口 01:00-04:00 / 06:00-10:00 UTC，北京时间周末全天低谷）`,
     `锚定: ${shared.anchor ?? "无"} | 本会话角色: ${shared.pinnedTarget} | 新 subagent: ${pick(shared)}`,
     `luna 额度: ${quotaText} | OMP 回落链: ${chainText}`,
     `托管 modelRoles: [${[...shared.roleManaged.keys()].join(", ") || "无"}]`,
