@@ -51,12 +51,12 @@ in {
         "https://nix-gaming.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
         "https://watersucks.cachix.org"
-        "https://numtide.cachix.org"
         # "https://devenv.cachix.org"
         "https://forkprince.cachix.org"
         # "https://zed.cachix.org"
         "https://neorocks.cachix.org"
         pkgs.nur.repos.xddxdd._meta.atticUrl
+        "https://cache.numtide.com"
       ];
       trusted-public-keys = [
         pkgs.nur.repos.xddxdd._meta.atticPublicKey
@@ -69,10 +69,10 @@ in {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "watersucks.cachix.org-1:6gadPC5R8iLWQ3EUtfu3GFrVY7X6I4Fwz/ihW25Jbv8="
-        "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
         "neorocks.cachix.org-1:WqMESxmVTOJX7qoBC54TwrMMoVI1xAM+7yFin8NRfwk="
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
       ];
       trusted-users = [
         "zerozawa"
