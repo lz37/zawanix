@@ -18,13 +18,10 @@
       agentic-contract
       banguminet
       context-mode
-      codegraph
-      spec-kit
       pctx
       LoveIwara
       deskbrid
       truenas-mcp
-      deepseek-harness
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })

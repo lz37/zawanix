@@ -30,6 +30,7 @@ moduleArgs @ {
         inputs.nix-alien.overlays.default
         inputs.nix4vscode.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
+        inputs.llm-agents.overlays.shared-nixpkgs
         # inputs.hyprland.overlays.default
         # inputs.hyprland.overlays.hyprland-packages
         (
@@ -88,7 +89,6 @@ moduleArgs @ {
               enableWidevine = true;
               vivaldi-ffmpeg-codecs = master.vivaldi-ffmpeg-codecs;
             };
-            opencode = master.opencode;
             mcp-nixos = master.mcp-nixos;
           }
         )

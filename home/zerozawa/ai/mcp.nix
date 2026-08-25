@@ -140,7 +140,7 @@ with pkgs; let
       command = lib.getExe nur.repos.zerozawa.context-mode;
     };
     codegraph = {
-      command = lib.getExe nur.repos.zerozawa.codegraph;
+      command = lib.getExe llm-agents.codegraph;
       args = [
         "serve"
         "--mcp"

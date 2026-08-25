@@ -25,8 +25,13 @@
       yaml-language-server
       biome
       snip
-      apm-cli
       officecli
+    ])
+    ++ (with pkgs.llm-agents; [
+      dsh
+      spec-kit
+      codegraph
+      apm
     ])
     ++ (with pkgs; [
       # 文档/CLI 运行时依赖

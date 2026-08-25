@@ -77,9 +77,6 @@
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # opencode = {
-    #   url = "github:anomalyco/opencode/dev";
-    # };
     # hyprland.url = "github:hyprwm/Hyprland/main";
     # hypr-dynamic-cursors = {
     #   url = "github:VirtCode/hypr-dynamic-cursors";
@@ -91,6 +88,7 @@
     };
     omp.url = "github:can1357/oh-my-pi";
     nix-bun.url = "github:ryoppippi/nix-bun";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     # devenv
     devenv-root = {
       url = "file+file:///dev/null";
