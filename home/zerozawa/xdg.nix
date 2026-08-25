@@ -2,13 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   home.file = {
     ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/git/config";
-    ".cherrystudio/bin/bun".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.bun}/bin/bun";
-    ".cherrystudio/bin/uv".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.uv}/bin/uv";
-    ".cherrystudio/bin/uvx".source = config.lib.file.mkOutOfStoreSymlink "${pkgs.uv}/bin/uvx";
+    ".cherrystudio/bin/bun".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe inputs.nix-bun.packages.${pkgs.stdenv.system}.bun);
+    ".cherrystudio/bin/uv".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe pkgs.uv);
+    ".cherrystudio/bin/uvx".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe pkgs.uv);
   };
   xdg = {
     userDirs = {

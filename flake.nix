@@ -90,6 +90,7 @@
       flake = false;
     };
     omp.url = "github:can1357/oh-my-pi";
+    nix-bun.url = "github:ryoppippi/nix-bun";
     # devenv
     devenv-root = {
       url = "file+file:///dev/null";
@@ -227,10 +228,7 @@
               enable = true;
               bun = {
                 enable = true;
-                package =
-                  (import inputs.nixpkgs-master {
-                    inherit system;
-                  }).bun;
+                package = inputs.nix-bun.packages.${system}.bun;
                 install.enable = true;
               };
             };

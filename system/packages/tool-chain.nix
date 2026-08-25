@@ -1,9 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # may needed for skills
   environment.systemPackages =
     (with pkgs.master; [
       # cli
-      bun
+      inputs.nix-bun.packages.${pkgs.stdenv.system}.bun
       uv
       nodejs
       jq
