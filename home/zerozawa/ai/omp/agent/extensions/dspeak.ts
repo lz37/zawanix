@@ -44,12 +44,10 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
  *   （authStorage.getModelUsageHealth，数据来自 Codex usage 端点 + 响应头解析，
  *   5min 缓存；本扩展再加 60s 本地缓存）。额度 depleted → 视同 luna 不可用，
  *   钉住与浮动判定都回 flash；额度恢复后自动切回。
- * - 双保险：任一目标为 luna 时，运行时安装 `retry.fallbackChains`
- *   {openai-codex/gpt-5.6-luna: [litellm/deepseek-v4-flash:max]} 并开启
- *   `retry.usageAwareFallback`（默认关）。 OMP 原生 per-turn 预检在 luna
- *   耗尽时自动路由 flash（冷却结束自动恢复）；硬错误（429/quota）也走
- *   handleRetryableError → 同链回落。全部目标回 flash 时移除链与开关。
- *   用户自建的 luna 链键会被识别并让出，永不覆盖。
+ * - 不安装 OMP 回落链、不开 `retry.usageAwareFallback`：luna 瞬时错误
+ *   （429/超时/网络抖动）只走 OMP 原生同模型重试，不再自动改道 deepseek——
+ *   避免峰时回落到峰时计费的 flash，也避免 OMP 把 luna 压入 5–30min 冷却。
+ *   luna 硬错误时当前 turn 直接报错，重发即可；额度耗尽由上面的额度门接管。
  * - 运行中用户通过 /models 手动改过的托管键会被检测到并让出（尊重手动选择）。
  * - clearOverride 会清掉整条路径的运行时覆盖层（含 --smol 等 CLI flag 的
  *   modelRoles 覆盖）；本机未使用此类 flag，可接受。
@@ -70,10 +68,6 @@ const MARKER_TYPE = "dspeak.pin";
 
 /** luna 额度健康本地缓存时长（上游 usage 报告本身还有 ~5min 缓存）。 */
 const QUOTA_CACHE_MS = 60_000;
-
-/** OMP 原生回落链：luna 耗尽/硬错误时 per-turn 自动路由到 flash。 */
-const LUNA_CHAIN_KEY = LUNA_SPEC;
-const LUNA_CHAIN_VALUE: string[] = [`${FLASH_SPEC}:max`];
 
 // ── Types & shared process state ────────────────────────────
 
@@ -110,14 +104,8 @@ interface DspeakShared {
  /** luna 额度健康（不调用模型；usage 端点/响应头数据）。 */
  lunaQuota: LunaQuota;
  lunaQuotaAt: number;
- /** retry.fallbackChains 运行时层是否由我们写入。 */
- chainManaged: boolean;
- /** 用户自有 luna 链（或改/删过我们写的键）→ 永不接管。 */
- chainUserOwned: boolean;
  /** 上次「额度耗尽」提示时刻；0 = 当前未处于已告知的耗尽期。 */
  quotaWarnedAt: number;
- /** 上次转发 OMP retry_fallback_applied 的提示时刻（限频）。 */
- fallbackNotifiedAt: number;
 }
 
 const GLOBAL_KEY = Symbol.for("omp.dspeak.v1");
@@ -137,10 +125,7 @@ function sharedState(): DspeakShared {
    warnedUnavailable: false,
    lunaQuota: "unknown",
    lunaQuotaAt: 0,
-   chainManaged: false,
-   chainUserOwned: false,
    quotaWarnedAt: 0,
-   fallbackNotifiedAt: 0,
   };
   g[GLOBAL_KEY] = s;
  }
@@ -197,10 +182,10 @@ async function refreshLunaQuota(
    baseUrl: ctx.modelRegistry.getProviderBaseUrl("openai-codex"),
    reserveFraction: pi.pi.settings.get("retry.usageReservePct") / 100,
   });
-  // reserve（最后 10%）不算耗尽：OMP per-turn 预检会按策略处理余量带。
+  // reserve（最后 10%）不算耗尽：余量带继续用 luna（本扩展不开 usageAwareFallback，无预检改道）。
   next = health.state === "depleted" ? "exhausted" : "ok";
  } catch {
-  next = "unknown"; // 查询失败放行，由 OMP 回落链兜底
+  next = "unknown"; // 查询失败放行：无回落链，luna 真挂时走 OMP 同模型重试
  }
  const changed = next !== shared.lunaQuota;
  shared.lunaQuota = next;
@@ -344,39 +329,6 @@ function applyOverrides(pi: ExtensionAPI, ctx: ExtensionContext, shared: DspeakS
   }
  }
  writeOverride(settings, "task.agentModelOverrides", agentOut, shared, "wroteAgents");
-
- syncFallbackChain(settings, shared, floatTarget === "luna" || pinnedTarget === "luna");
-}
-
-/**
- * 任一目标为 luna 时安装 OMP 原生回落链（luna → flash:max）并开启
- * usageAwareFallback（默认关）;全部回 flash 时移除,恢复 OMP 默认行为。
- * 链键被用户自建/改删时让出,永不覆盖用户配置。
- */
-function syncFallbackChain(settings: Settings, shared: DspeakShared, lunaActive: boolean): void {
- const merged = settings.get("retry.fallbackChains") ?? {};
- const current = merged[LUNA_CHAIN_KEY];
- if (current !== undefined && !shared.chainManaged) shared.chainUserOwned = true;
- if (shared.chainManaged && !Array.isArray(current)) {
-  // 用户删掉了我们写的键 → 让出
-  shared.chainManaged = false;
-  shared.chainUserOwned = true;
- }
- if (shared.chainManaged && Array.isArray(current) && !sameValue(current, LUNA_CHAIN_VALUE)) {
-  // 用户改动了我们写的键 → 让出
-  shared.chainManaged = false;
-  shared.chainUserOwned = true;
- }
- if (shared.chainUserOwned) return;
- if (lunaActive && !shared.chainManaged) {
-  settings.override("retry.fallbackChains", { ...merged, [LUNA_CHAIN_KEY]: [...LUNA_CHAIN_VALUE] });
-  settings.override("retry.usageAwareFallback", true);
-  shared.chainManaged = true;
- } else if (!lunaActive && shared.chainManaged) {
-  settings.clearOverride("retry.fallbackChains");
-  settings.clearOverride("retry.usageAwareFallback");
-  shared.chainManaged = false;
- }
 }
 
 // ── Pin marker persistence ──────────────────────────────────
@@ -486,14 +438,6 @@ export default function(pi: ExtensionAPI) {
   applyOverrides(pi, ctx, shared);
  });
 
- // OMP 原生回落链生效时转发一次提示（10min 限频；subagent ctx notify 为空操作）。
- pi.on("retry_fallback_applied", (event, ctx) => {
-  if (!event.from.includes(LUNA_SPEC)) return;
-  if (Date.now() - shared.fallbackNotifiedAt < 10 * 60_000) return;
-  shared.fallbackNotifiedAt = Date.now();
-  ctx.ui.notify(`dspeak: luna 请求失败,OMP 已自动回落 ${event.to}(冷却后自动恢复)`, "warning");
- });
-
  pi.on("session_shutdown", async () => {
   if (isOwner) shared.ownerClaimed = false;
  });
@@ -536,11 +480,10 @@ export default function(pi: ExtensionAPI) {
    const peak = isPeakUtc(Date.now());
    const quotaText =
     shared.lunaQuota === "exhausted" ? "耗尽(周窗口)" : shared.lunaQuota === "ok" ? "可用" : "未知(查询失败放行)";
-   const chainText = shared.chainUserOwned ? "用户自管" : shared.chainManaged ? "已安装 luna→flash" : "未安装";
    const lines = [
     `UTC ${hhmm} — ${peak ? "高峰时段" : "非高峰时段"}（窗口 01:00-04:00 / 06:00-10:00 UTC，北京时间周末全天低谷）`,
     `锚定: ${shared.anchor ?? "无"} | 本会话角色: ${shared.pinnedTarget} | 新 subagent: ${pick(shared)}`,
-    `luna 额度: ${quotaText} | OMP 回落链: ${chainText}`,
+    `luna 额度: ${quotaText}`,
     `托管 modelRoles: [${[...shared.roleManaged.keys()].join(", ") || "无"}]`,
     `托管 agentModelOverrides: [${[...shared.agentManaged.keys()].join(", ") || "无"}]`,
    ];
