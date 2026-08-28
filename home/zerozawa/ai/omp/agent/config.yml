@@ -54,9 +54,6 @@ modelRoles:
   commit: litellm/deepseek-v4-flash:max
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
-  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/commit-tool.ts
-  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/alarm-clock.ts
-  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/dspeak.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
@@ -136,8 +133,7 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions:
-  []
+disabledExtensions: []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
