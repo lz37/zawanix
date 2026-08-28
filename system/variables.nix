@@ -2,11 +2,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   gsettings-schema-dir = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
-in
-{
+in {
   environment = {
     localBinInPath = true;
     homeBinInPath = true;
@@ -17,7 +15,8 @@ in
       LIBVIRT_DEFAULT_URI = "qemu:///system"; # https://github.com/winapps-org/winapps/blob/main/docs/libvirt.md
       NH_OS_FLAKE = config.zerozawa.path.cfgRoot;
       NH_FLAKE = NH_OS_FLAKE;
-      npm_config_registry = config.nixpkgs.config.npmRegistryOverrides."registry.npmjs.org";
+      # 仅供交互式包管理器使用；nixpkgs 的 npmRegistryOverrides 会改变 fetchNpmDeps FOD 哈希。
+      npm_config_registry = "https://mirrors.cloud.tencent.com/npm/";
       pnpm_config_registry = npm_config_registry;
       BUN_CONFIG_REGISTRY = npm_config_registry;
       YARN_NPM_REGISTRY_SERVER = npm_config_registry;
