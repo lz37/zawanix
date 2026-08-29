@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }: {
   environment.systemPackages = with pkgs; [
@@ -57,5 +56,6 @@
     sshfs
     upower
     efibootmgr
+    net-tools
   ];
 }
