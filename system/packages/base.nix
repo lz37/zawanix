@@ -12,7 +12,7 @@
     xsel
     yq-go
     nettools
-    busybox
+    dnsutils
     (lib.hiPrio uutils-coreutils-noprefix)
     tcping-go
     lua
@@ -56,6 +56,5 @@
     sshfs
     upower
     efibootmgr
-    net-tools
   ];
 }
