@@ -15,7 +15,6 @@
       wechat-web-devtools-linux
       StartLive
       bilibili_live_tui
-      agentic-contract
       banguminet
       context-mode
       pctx

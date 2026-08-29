@@ -132,10 +132,6 @@ with pkgs; let
         "mcp/sequentialthinking"
       ];
     };
-    agentic-contract = {
-      command = lib.getExe nur.repos.zerozawa.agentic-contract.mcp;
-      args = ["serve"];
-    };
     context-mode = {
       command = lib.getExe nur.repos.zerozawa.context-mode;
     };
@@ -155,7 +151,6 @@ in {
   xdg.configFile = {
     "mcp/omp.config".text = lib.generators.toJSON {} {
       disabledServers = [
-        "agentic-contract" # 没啥用
         "context-mode" # 没啥用
         "pctx" # omp 已有 xd:// 动态发现和eval调用
         "github" # 内置
