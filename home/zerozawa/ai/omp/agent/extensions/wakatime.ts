@@ -1,3 +1,5 @@
+import * as fs from "node:fs";
+import * as path from "node:path";
 import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
 
 /**
@@ -20,8 +22,9 @@ import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
  *   User-Agent is the only model channel. `ai_session`/`ai_input_tokens`/
  *   `ai_output_tokens` exist in the API but are only populated by the CLI's
  *   own transcript parsers, not settable via flags or extra heartbeats.
-  * - Project resolved via OMP's own git detection (repo.primaryRootSync,
-  *   the same logic as the status line and memory scoping), sent as
+ * - Project resolved by a local sync `.git`/`commondir` walk (ported from
+ *   OMP ≤17's `repo.primaryRootSync`, which OMP 18 removed when VCS
+ *   detection moved into the native pi-natives binding), sent as
  *   --alternate-project + --project-folder.
  * - Fires a debounced `--sync-ai-activity` every 120s so wakatime-cli's own
  *   AI transcript parsers (Claude/Codex/Cursor/…) sync even when no OMP
@@ -60,18 +63,57 @@ export default function(pi: ExtensionAPI) {
 
  // ── Helpers ────────────────────────────────────────────
 
- /** Resolve the project via OMP's own git worktree detection. */
+ /**
+  * Primary checkout root via a sync `.git`/`commondir` walk, no subprocess.
+  * Local port of OMP ≤17's `pi.pi.repo.primaryRootSync` — OMP 18 removed that
+  * export when VCS detection moved into the native @oh-my-pi/pi-natives
+  * binding, which extensions cannot portably import. Returns null outside any
+  * repository. Bare-repo worktrees resolve to the shared common dir (foo.git).
+  */
+ function primaryRootSync(cwd: string): string | null {
+  let dir = cwd;
+  for (; ;) {
+   const entry = path.join(dir, ".git");
+   let isDir = false;
+   let isFile = false;
+   try {
+    const st = fs.statSync(entry);
+    isDir = st.isDirectory();
+    isFile = st.isFile();
+   } catch {
+    // No .git entry here — keep walking up.
+   }
+   if (isDir) return dir; // Regular checkout: common dir is the .git dir itself.
+   if (isFile) {
+    // Linked worktree or submodule: the .git file carries "gitdir: <path>".
+    try {
+     const raw = fs.readFileSync(entry, "utf8");
+     const target = /^gitdir:\s*(.+?)\s*$/m.exec(raw)?.[1];
+     if (!target) return null;
+     const gitDir = path.isAbsolute(target) ? target : path.resolve(dir, target);
+     let commonDir = gitDir;
+     try {
+      const link = fs.readFileSync(path.join(gitDir, "commondir"), "utf8").trim();
+      commonDir = path.isAbsolute(link) ? link : path.resolve(gitDir, link);
+     } catch {
+      // Submodule layout: no commondir file → common dir is the git dir.
+     }
+     if (commonDir === gitDir) return dir;
+     return path.basename(commonDir) === ".git" ? path.dirname(commonDir) : commonDir;
+    } catch {
+     return null;
+    }
+   }
+   const parent = path.dirname(dir);
+   if (parent === dir) return null;
+   dir = parent;
+  }
+ }
+
+ /** Resolve the project root via the local git worktree walk. */
  function resolveProject(ctx: ExtensionContext): void {
   const cwd = ctx.cwd || process.cwd();
-  let primary: string | null = null;
-  try {
-   // Same source OMP uses for the status line and memory scoping.
-   // Sync .git/commondir walk, no subprocess.
-   primary = pi.pi.repo.primaryRootSync(cwd);
-  } catch {
-   primary = null;
-  }
-  projectFolder = primary ?? cwd;
+  projectFolder = primaryRootSync(cwd) ?? cwd;
   let base = projectFolder.split("/").filter(Boolean).pop() ?? "";
   if (base.endsWith(".git")) base = base.slice(0, -4);
   projectName = base;
