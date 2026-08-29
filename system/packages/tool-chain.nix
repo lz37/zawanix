@@ -7,7 +7,7 @@
   environment.systemPackages =
     (with pkgs.master; [
       # cli
-      inputs.nix-bun.packages.${pkgs.stdenv.system}.bun
+      inputs.nix-bun.packages.${pkgs.stdenv.hostPlatform.system}.bun
       uv
       nodejs
       jq

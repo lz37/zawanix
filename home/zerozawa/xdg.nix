@@ -7,7 +7,7 @@
 }: {
   home.file = {
     ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/git/config";
-    ".cherrystudio/bin/bun".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe inputs.nix-bun.packages.${pkgs.stdenv.system}.bun);
+    ".cherrystudio/bin/bun".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe inputs.nix-bun.packages.${pkgs.stdenv.hostPlatform.system}.bun);
     ".cherrystudio/bin/uv".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe pkgs.uv);
     ".cherrystudio/bin/uvx".source = config.lib.file.mkOutOfStoreSymlink (lib.getExe pkgs.uv);
   };
