@@ -67,14 +67,6 @@ moduleArgs @ {
                 })
               ];
             };
-            # apm 0.28.0 declares websockets, but llm-agents omits it from dependencies.
-            llm-agents =
-              prev.llm-agents
-              // {
-                apm = prev.llm-agents.apm.overridePythonAttrs (old: {
-                  dependencies = (old.dependencies or []) ++ [prev.python3Packages.websockets];
-                });
-              };
             vscode-selected = master.vscode.override {
               # commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
             };
