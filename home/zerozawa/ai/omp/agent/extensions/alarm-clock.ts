@@ -5,10 +5,20 @@ import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
  *
  * Agents can set timers with an absolute ISO 8601 timestamp or a relative
  * duration. When the timer fires, the stored message is delivered as a
- * custom message, waking the agent if idle or queuing for the next turn.
+ * custom message, waking the agent if idle or (optionally) cutting into a
+ * running agent loop.
+ *
+ * 投递模式（deliverAs）— agent 长时间自主运行不中断时闹钟是否切入 loop：
+ *   nextTurn — 默认。agent 忙时排队隐藏消息，当前 turn 完全结束才消费；
+ *              空闲立即开 turn。长时间不中断的自主任务会迟迟收不到闹钟。
+ *   aside    — agent 忙时在下一个 step 边界注入，不打断在飞的工具批次；
+ *              空闲直接开 turn（plan 模式折入上下文；尊重 Esc 打断不自动恢复）。
+ *   steer    — 立即 agent.steer 进运行中的 loop，最激进。
+ * 全局默认：config.yml 的 `alarmClock.deliverAs`（扩展命名空间 raw 键，
+ * 每次投递时重读，改配置即生效）。单个闹钟：set_timer 的 deliver_as 参数覆盖。
  *
  * Tools:
- *   set_timer    — create a timer (at ISO or after_seconds + message)
+ *   set_timer    — create a timer (at ISO or after_seconds + message, optional deliver_as)
  *   list_timers  — list pending timers
  *   cancel_timer — cancel by id or label
  *
@@ -37,6 +47,23 @@ export default function(pi: ExtensionAPI) {
  const cancelledThisSession = new Set<string>();
  let counter = 0;
 
+ /** 投递模式：nextTurn 等 turn 结束（不打断）/ aside step 边界切入 / steer 立即切入 loop。 */
+ type DeliverMode = "nextTurn" | "aside" | "steer";
+
+ function asDeliverMode(value: unknown): DeliverMode | null {
+  return value === "nextTurn" || value === "aside" || value === "steer" ? value : null;
+ }
+
+ /** 全局默认投递模式：config.yml 的 `alarmClock.deliverAs`；缺省 nextTurn（保持旧行为）。每次投递时重读，改配置即生效。 */
+ function readDefaultDeliverAs(): DeliverMode {
+  const raw: unknown = pi.pi.settings.getGlobalSettings().alarmClock;
+  if (raw && typeof raw === "object" && "deliverAs" in raw) {
+   const mode = asDeliverMode(raw.deliverAs);
+   if (mode) return mode;
+  }
+  return "nextTurn";
+ }
+
  // ── Types ──────────────────────────────────────────────
 
  interface TimerEntry {
@@ -44,6 +71,8 @@ export default function(pi: ExtensionAPI) {
   label: string | null;
   message: string;
   at: string; // ISO 8601
+  /** 投递模式覆盖；缺省用全局 alarmClock.deliverAs（再缺省 nextTurn）。 */
+  deliverAs?: DeliverMode;
  }
 
  // ── Type guards for session history entries ───────────
@@ -51,7 +80,12 @@ export default function(pi: ExtensionAPI) {
  function isTimerEntry(data: unknown): data is TimerEntry {
   if (!data || typeof data !== "object") return false;
   const d = data as Record<string, unknown>;
-  return typeof d.id === "string" && typeof d.message === "string" && typeof d.at === "string";
+  return (
+   typeof d.id === "string" &&
+   typeof d.message === "string" &&
+   typeof d.at === "string" &&
+   (d.deliverAs === undefined || asDeliverMode(d.deliverAs) !== null)
+  );
  }
 
  function hasId(data: unknown): data is { id: string } {
@@ -84,12 +118,12 @@ export default function(pi: ExtensionAPI) {
   return pending.filter(t => !fired.has(t.id) && !cancelled.has(t.id));
  }
 
- /** Deliver an alarm message to the agent. */
- function deliver(message: string, overdue: boolean) {
+ /** Deliver an alarm message to the agent. mode 缺省读全局配置（投递时求值）。 */
+ function deliver(message: string, overdue: boolean, mode: DeliverMode | undefined) {
   const prefix = overdue ? "⏰ **Alarm** (overdue)" : "⏰ **Alarm**";
   pi.sendMessage(
    { customType: "alarm", content: `${prefix}: ${message}`, display: true, attribution: "user" },
-   { deliverAs: "nextTurn", triggerTurn: true },
+   { deliverAs: mode ?? readDefaultDeliverAs(), triggerTurn: true },
   );
  }
 
@@ -99,13 +133,14 @@ export default function(pi: ExtensionAPI) {
   atISO: string,
   message: string,
   delayMs: number,
+  mode: DeliverMode | undefined,
   setTimeoutFn: (fn: () => void, ms: number) => unknown,
  ) {
   setTimeoutFn(() => {
    if (cancelledThisSession.has(id)) return;
    cancelledThisSession.delete(id);
    pi.appendEntry("timer-fired", { id, at: atISO, firedAt: new Date().toISOString() });
-   deliver(message, false);
+   deliver(message, false, mode);
   }, delayMs);
  }
 
@@ -120,9 +155,9 @@ export default function(pi: ExtensionAPI) {
 
    if (delayMs <= 0) {
     pi.appendEntry("timer-fired", { id: t.id, at: t.at, firedAt: new Date().toISOString(), late: true });
-    deliver(t.message, true);
+    deliver(t.message, true, t.deliverAs);
    } else {
-    schedule(t.id, t.at, t.message, delayMs, (fn, ms) => ctx.setTimeout(fn, ms));
+    schedule(t.id, t.at, t.message, delayMs, t.deliverAs, (fn, ms) => ctx.setTimeout(fn, ms));
    }
   }
  });
@@ -137,6 +172,8 @@ export default function(pi: ExtensionAPI) {
    .describe("Seconds from now. Mutually exclusive with at."),
   label: z.string().optional()
    .describe("Optional label for listing / cancelling the timer"),
+  deliver_as: z.enum(["nextTurn", "aside", "steer"]).optional()
+   .describe("Delivery when the timer fires: nextTurn = queue until the current turn fully ends (default; never interrupts long autonomous runs); aside = inject at the next step boundary without interrupting the in-flight tool batch; steer = steer into the running loop immediately. Overrides config alarmClock.deliverAs."),
  });
 
  pi.registerTool<typeof SetTimerParams>({
@@ -193,14 +230,16 @@ export default function(pi: ExtensionAPI) {
     message: params.message,
     at: atISO,
    };
+   if (params.deliver_as) entry.deliverAs = params.deliver_as;
    pi.appendEntry("timer-set", entry);
-   schedule(id, atISO, params.message, atMs - Date.now(), (fn, ms) => ctx.setTimeout(fn, ms));
+   schedule(id, atISO, params.message, atMs - Date.now(), entry.deliverAs, (fn, ms) => ctx.setTimeout(fn, ms));
 
    const labelStr = params.label ? ` ("${params.label}")` : "";
+   const modeStr = entry.deliverAs ? ` 投递: ${entry.deliverAs}.` : "";
    const atLocal = new Date(atISO).toLocaleString();
    return {
-    content: [{ type: "text", text: `Timer set${labelStr}. Fires at ${atLocal} (${atISO})\nID: ${id}` }],
-    details: { id, at: atISO, label: params.label ?? null },
+    content: [{ type: "text", text: `Timer set${labelStr}. Fires at ${atLocal} (${atISO})${modeStr}\nID: ${id}` }],
+    details: { id, at: atISO, label: params.label ?? null, deliverAs: entry.deliverAs ?? null },
    };
   },
  });
@@ -233,7 +272,8 @@ export default function(pi: ExtensionAPI) {
      ? formatDuration(remainingMs)
      : "overdue";
     const labelStr = t.label ? ` [${t.label}]` : "";
-    return `- \`${t.id}\`${labelStr}: "${t.message}" → ${t.at} (in ${remaining})`;
+    const modeStr = t.deliverAs ? ` {${t.deliverAs}}` : "";
+    return `- \`${t.id}\`${labelStr}${modeStr}: "${t.message}" → ${t.at} (in ${remaining})`;
    });
 
    return {
@@ -300,7 +340,7 @@ export default function(pi: ExtensionAPI) {
    const nowMs = Date.now();
 
    if (active.length === 0) {
-    ctx.ui.notify("No active timers", "info");
+    ctx.ui.notify(`No active timers（默认投递: ${readDefaultDeliverAs()}）`, "info");
     return;
    }
 
@@ -311,7 +351,7 @@ export default function(pi: ExtensionAPI) {
     return `${t.id}${labelStr}: "${t.message}" (${remaining})`;
    });
 
-   ctx.ui.notify(lines.join(" | "), "info");
+   ctx.ui.notify(`默认投递: ${readDefaultDeliverAs()} | ` + lines.join(" | "), "info");
   },
  });
 }

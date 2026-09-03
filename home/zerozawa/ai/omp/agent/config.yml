@@ -41,6 +41,9 @@ providers:
   unexpectedStopModel: llama3.2:3b
 generate_image:
   enabled: true
+alarmClock:
+  # 闹钟投递模式：aside = 切入运行中的 loop（step 边界注入，不打断在飞工具）；nextTurn = 等 turn 结束；steer = 立即 steer
+  deliverAs: aside
 modelRoles:
   tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
   slow: openai-codex/gpt-5.6-sol:max
