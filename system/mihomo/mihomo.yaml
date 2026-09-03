@@ -169,6 +169,8 @@ rules:
   - GEOSITE,category-game-accelerator-cn,🎯 全球直连
   - GEOSITE,category-communication,💬 即时通讯
   - GEOSITE,category-social-media-!cn,🌐 社交媒体
+  # Keep Ollama Cloud on a stable direct egress; rotating proxy exits truncate streams.
+  - DOMAIN-SUFFIX,ollama.com,🎯 全球直连
   - GEOSITE,openai,🤖 AI服务
   - GEOSITE,anthropic,🤖 AI服务
   - GEOSITE,google-gemini,🤖 AI服务
@@ -281,6 +283,7 @@ dns:
     "geosite:category-social-media-!cn":
       - "https://1.1.1.1/dns-query#🌐 社交媒体"
       - "https://8.8.8.8/dns-query#🌐 社交媒体"
+    "+.ollama.com": *direct-dns
     "geosite:openai": &ai-dns
       - "https://1.1.1.1/dns-query#🤖 AI服务"
       - "https://8.8.8.8/dns-query#🤖 AI服务"

@@ -48,7 +48,7 @@ modelRoles:
   default: kimi-code/k3-256k:max
   vision: litellm/deepseek-v4-flash:max
   plan: openai-codex/gpt-5.6-sol:max
-  advisor: kimi-code/k3-256k:max
+  advisor: litellm/deepseek-v4-flash:max
   task: litellm/deepseek-v4-flash:max
   designer: kimi-code/k3-256k:max
   commit: litellm/deepseek-v4-flash:max
@@ -133,7 +133,8 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions: []
+disabledExtensions:
+  []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
