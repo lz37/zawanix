@@ -49,10 +49,10 @@ modelRoles:
   slow: openai-codex/gpt-5.6-sol:max
   smol: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
   default: kimi-code/k3-256k:max
-  vision: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+  vision: openai-codex/gpt-5.6-luna:max
   plan: openai-codex/gpt-5.6-sol:max
-  advisor: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-  task: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+  advisor: litellm/deepseek-v4-flash:max
+  task: litellm/deepseek-v4-flash:max
   designer: kimi-code/k3-256k:max
   commit: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
 extensions:
@@ -76,8 +76,8 @@ task:
     reviewer: kimi-code/k3-256k:max
     scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
     security-reviewer: openai-codex/gpt-5.6-sol:max
-    sonic: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    task: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+    sonic: litellm/deepseek-v4-flash:max
+    task: litellm/deepseek-v4-flash:max
   eager: preferred
   agentAdvisor:
     task: "off"
