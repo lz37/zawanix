@@ -42,12 +42,11 @@ providers:
 generate_image:
   enabled: true
 alarmClock:
-  # 闹钟投递模式：aside = 切入运行中的 loop（step 边界注入，不打断在飞工具）；nextTurn = 等 turn 结束；steer = 立即 steer
   deliverAs: aside
 modelRoles:
   tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
   slow: openai-codex/gpt-5.6-sol:max
-  smol: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+  smol: deepseek-v4-flash:max
   default: kimi-code/k3-256k:max
   vision: openai-codex/gpt-5.6-luna:max
   plan: openai-codex/gpt-5.6-sol:max
@@ -61,19 +60,8 @@ task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    architecture-analyzer: kimi-code/k3-256k:max
-    article-analyzer: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    assemble-reviewer: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    design-analyzer: kimi-code/k3-256k:max
-    domain-analyzer: kimi-code/k3-256k:max
-    file-analyzer: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    graph-reviewer: kimi-code/k3-256k:max
-    knowledge-graph-guide: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    project-scanner: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    tour-builder: kimi-code/k3-256k:max
-    designer: kimi-code/k3-256k:max
     librarian: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    reviewer: kimi-code/k3-256k:max
+    reviewer: openai-codex/gpt-5.6-sol:max
     scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
     security-reviewer: openai-codex/gpt-5.6-sol:max
     sonic: litellm/deepseek-v4-flash:max
@@ -81,6 +69,8 @@ task:
   eager: preferred
   agentAdvisor:
     task: "off"
+  disabledAgents:
+    []
 dev:
   autoqaConsent: denied
   autoqa: true
@@ -136,7 +126,8 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions: []
+disabledExtensions:
+  []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
@@ -152,4 +143,4 @@ browser:
 composer:
   shape: rule
 snapcompact:
-  toolResults: true
+  toolResults: false
