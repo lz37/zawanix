@@ -45,11 +45,11 @@ alarmClock:
   deliverAs: aside
 modelRoles:
   tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-  slow: openai-codex/gpt-5.6-sol:max
+  slow: openai-codex/gpt-6-astra:max
   smol: deepseek-v4-flash:max
   default: kimi-code/k3-256k:max
   vision: openai-codex/gpt-5.6-luna:max
-  plan: openai-codex/gpt-5.6-sol:max
+  plan: openai-codex/gpt-6-astra:max
   advisor: litellm/deepseek-v4-flash:max
   task: litellm/deepseek-v4-flash:max
   designer: kimi-code/k3-256k:max
@@ -61,9 +61,9 @@ task:
   showResolvedModelBadge: true
   agentModelOverrides:
     librarian: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    reviewer: openai-codex/gpt-5.6-sol:max
+    reviewer: openai-codex/gpt-6-astra:max
     scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
-    security-reviewer: openai-codex/gpt-5.6-sol:max
+    security-reviewer: openai-codex/gpt-6-astra:max
     sonic: litellm/deepseek-v4-flash:max
     task: litellm/deepseek-v4-flash:max
   eager: preferred
