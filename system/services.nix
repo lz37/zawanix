@@ -34,8 +34,8 @@ in {
       defaultWindowManager = "openbox-session";
     };
     rustdesk-server =
-      if !config.networking.networkmanager.enable && !config.networking.useDHCP
-      then {
+      lib.mkIf (!config.networking.networkmanager.enable && !config.networking.useDHCP)
+      {
         enable = true;
         openFirewall = true;
         signal.relayHosts =
@@ -48,8 +48,7 @@ in {
             )
             config.networking.interfaces
           );
-      }
-      else {enable = false;};
+      };
     printing = {
       enable = true;
       drivers = with pkgs; [
