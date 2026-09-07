@@ -2,8 +2,6 @@
   "name": "omp-plugins",
   "private": true,
   "dependencies": {
-    "@oh-my-pi/swarm-extension": "^13.17.0",
-    "claude-plugins-official": "anthropics/claude-plugins-official",
-    "understand-anything": "Egonex-AI/Understand-Anything"
+    "@oh-my-pi/swarm-extension": "^13.17.0"
   }
 }

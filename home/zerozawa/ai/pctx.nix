@@ -111,14 +111,6 @@ with pkgs; {
       ];
     }
     {
-      name = "deskbrid";
-      command = lib.getExe nur.repos.zerozawa.deskbrid;
-      args = ["mcp"];
-      env = {
-        LC_ALL = "C"; # parses English pactl output
-      };
-    }
-    {
       name = "image-tiler";
       command = lib.getExe' pnpm "pnpx";
       args = ["image-tiler-mcp-server"];

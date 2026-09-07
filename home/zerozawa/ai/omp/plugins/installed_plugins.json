@@ -1,17 +1,5 @@
 {
   "version": 2,
   "plugins": {
-    "commit-commands@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/etc/nixos/home/zerozawa/ai/omp/plugins/node_modules/claude-plugins-official/plugins/commit-commands"
-      }
-    ],
-    "understand-anything@understand-anything": [
-      {
-        "scope": "user",
-        "installPath": "/etc/nixos/home/zerozawa/ai/omp/plugins/node_modules/understand-anything/understand-anything-plugin"
-      }
-    ]
   }
 }

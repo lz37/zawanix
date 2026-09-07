@@ -71,9 +71,6 @@ with pkgs; let
         BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
       };
     };
-    wechatbot = {
-      command = lib.getExe nur.repos.zerozawa.wechatbot-mcp;
-    };
     # zhihu-search = {
     #   command = lib.getExe' pnpm "pnpx";
     #   args = [
@@ -100,12 +97,12 @@ with pkgs; let
     #     "${vscode-selected-extensionsCompatible.vscode-marketplace.vkhey.recomment-pro}/share/vscode/extensions/vkhey.recomment-pro/out/mcpServer.js"
     #   ];
     # };
-    deskbrid = {
-      command = lib.getExe nur.repos.zerozawa.deskbrid;
-      args = ["mcp"];
-      env = {
-        # LC_ALL = "C"; # deskbrid parses English pactl output; inherits zh_CN from parent otherwise
-      };
+    computer-use = {
+      command = lib.getExe' pnpm "pnpx";
+      args = [
+        "@agent-sh/computer-use-linux"
+        "mcp"
+      ];
     };
     image-tiler = {
       command = lib.getExe' pnpm "pnpx";

@@ -26,7 +26,7 @@
     )
     wakatime-cli
     fd
-    pulseaudio # pactl — deskbrid audio backend shells out to it
+    pulseaudio
     translate-shell
     tldr
     ventoy-full
