@@ -4,10 +4,15 @@ memory:
 hindsight:
   scoping: per-project-tagged
   mentalModelAutoSeed: true
-  autoRetain: false
+  autoRetain: true
+  retainMode: last-turn
   recallBudget: high
   recallMaxTokens: 4096
   recallContextTurns: 3
+  recallTypes:
+    - world
+    - experience
+    - observation
 providers:
   webSearchOrder:
     - exa
@@ -35,7 +40,7 @@ providers:
     - anthropic
   imageOrder:
     - openai-codex
-  tinyModel: lfm2-700m
+  tinyModel: lfm2.5-230m
   tinyModelDevice: gpu
   tinyModelDtype: q4
   unexpectedStopModel: llama3.2:3b
@@ -44,35 +49,35 @@ generate_image:
 alarmClock:
   deliverAs: aside
 modelRoles:
-  tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+  tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
   slow: openai-codex/gpt-6-astra:max
-  smol: deepseek-v4-flash:max
+  smol: litellm/deepseek-v4.1-flash:max
   default: kimi-code/k3-256k:max
   vision: openai-codex/gpt-5.6-luna:max
   plan: openai-codex/gpt-6-astra:max
-  advisor: litellm/deepseek-v4-flash:max
-  task: litellm/deepseek-v4-flash:max
+  advisor: litellm/deepseek-v4.1-flash:max
+  task: litellm/deepseek-v4.1-flash:max
   designer: kimi-code/k3-256k:max
-  commit: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+  commit: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    librarian: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+    librarian: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
     reviewer: openai-codex/gpt-6-astra:max
-    scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+    scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
     security-reviewer: openai-codex/gpt-6-astra:max
-    sonic: litellm/deepseek-v4-flash:max
-    task: litellm/deepseek-v4-flash:max
+    sonic: litellm/deepseek-v4.1-flash:max
+    task: litellm/deepseek-v4.1-flash:max
   eager: preferred
   agentAdvisor:
     task: "off"
   disabledAgents:
     []
 dev:
-  autoqaConsent: denied
+  autoqaConsent: granted
   autoqa: true
 lsp:
   diagnosticsOnEdit: true
@@ -117,8 +122,6 @@ images:
   describeForTextModels: true
 astGrep:
   enabled: true
-inspect_image:
-  mode: auto
 checkpoint:
   enabled: true
 mcp:
@@ -144,3 +147,5 @@ composer:
   shape: rule
 snapcompact:
   toolResults: false
+features:
+  unexpectedStopDetection: smart
