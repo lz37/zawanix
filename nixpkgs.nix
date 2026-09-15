@@ -87,6 +87,21 @@ moduleArgs @ {
               vivaldi-ffmpeg-codecs = master.vivaldi-ffmpeg-codecs;
             };
             mcp-nixos = master.mcp-nixos;
+            # upstream oh-my-pi 18.1.20 (rev 1bd60c6) makes
+            # packages/coding-agent/src/cli/collab-cli.ts import `chalk`,
+            # which is not declared in packages/coding-agent/package.json (it
+            # only arrives transitively via dev-only @typescript/analyze-trace).
+            # Hoisted installs resolve it anyway; bun2nix builds with
+            # `bun install --linker=isolated`, so Bun.build aborts with
+            # `Could not resolve: "chalk"`. Swap in pi-utils' in-repo chalk
+            # reimplementation (already a declared dependency, same surface).
+            # Drop once the omp flake input passes an upstream fix.
+            omp = inputs.omp.packages.${system}.omp.overrideAttrs (_old: {
+              postPatch = ''
+                substituteInPlace packages/coding-agent/src/cli/collab-cli.ts \
+                  --replace 'import chalk from "chalk";' 'import chalk from "@oh-my-pi/pi-utils/chalk";'
+              '';
+            });
           }
         )
       ];
