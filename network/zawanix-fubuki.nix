@@ -56,7 +56,10 @@ in {
             # Equal DNS priority and routing domains keep both per-link paths usable.
             dns-priority = 100;
             dns-search = "~.;";
-            route-metric = 10;
+            # The I226-V silently detaches from PCIe while carrier stays 1, so NM
+            # can never withdraw this NIC's dead /24 route. Let Wi-Fi win the
+            # shared /24 in the main table; wired still answers .123 via table 10.
+            route-metric = 20;
             route-table = 254;
             # Source-pinned replies stay symmetric; NM owns their lifecycle.
             route1 = "192.168.2.0/24";
@@ -69,7 +72,7 @@ in {
             method = "auto";
             addr-gen-mode = "stable-privacy";
             ignore-auto-dns = true;
-            route-metric = 10;
+            route-metric = 20;
           };
         };
 
@@ -81,6 +84,8 @@ in {
             interface-name = "wlp7s0";
             autoconnect = true;
             autoconnect-retries = 0;
+            # Outrank the hand-made .nmconnection profile (priority 10) so table 20 exists.
+            autoconnect-priority = 20;
           };
           wifi = {
             mode = "infrastructure";
@@ -99,7 +104,8 @@ in {
             dns = "${router};";
             dns-priority = 100;
             dns-search = "~.;";
-            route-metric = 20;
+            # Preferred on the shared /24; see fubuki-wired.
+            route-metric = 10;
             route-table = 254;
             route1 = "192.168.2.0/24";
             route1_options = "table=20";
@@ -111,7 +117,7 @@ in {
             method = "auto";
             addr-gen-mode = "stable-privacy";
             ignore-auto-dns = true;
-            route-metric = 20;
+            route-metric = 10;
           };
         };
       };
