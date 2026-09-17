@@ -203,13 +203,6 @@
                   zerozawa = import inputs.zerozawa-nur {inherit pkgs;};
                 };
               };
-              # keep in sync with ./nixpkgs.nix (devshell has its own nixpkgs instance)
-              omp = inputs.omp.packages.${system}.omp.overrideAttrs (_old: {
-                postPatch = ''
-                  substituteInPlace packages/coding-agent/src/cli/collab-cli.ts \
-                    --replace 'import chalk from "chalk";' 'import chalk from "@oh-my-pi/pi-utils/chalk";'
-                '';
-              });
             })
           ];
         };
@@ -254,8 +247,6 @@
                 kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
               }
             }"
-            # 防止被 node_modules 下覆盖
-            export PATH=${pkgs.omp}/bin:$PATH
           '';
         };
         pre-commit = {

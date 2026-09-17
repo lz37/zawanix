@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfgRoot = config.zerozawa.path.cfgRoot;
@@ -9,7 +8,6 @@
 in {
   programs.omp = {
     enable = true;
-    package = pkgs.omp;
   };
   home.activation.linkOmpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     if [ ! -L "$HOME/.omp" ] && [ -d "$HOME/.omp" ]; then
