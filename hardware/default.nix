@@ -30,7 +30,11 @@
     ++ lib.optionals hw.isAMDCPU [
       inputs.nixos-hardware.nixosModules.common-cpu-amd
       inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-      inputs.nixos-hardware.nixosModules.common-cpu-amd-zenpower
+      # zenpower 移除（2026-09）：树外模块随内核升级反复断编译，
+      # k10temp 自 5.11 起已覆盖电压/电流/功率遥测。
+      {
+        boot.kernelModules = ["k10temp"];
+      }
     ]
     ++ lib.optionals hw.isIntelGPU [
       inputs.nixos-hardware.nixosModules.common-gpu-intel
