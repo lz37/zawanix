@@ -379,6 +379,14 @@ dns:
   proxy-server-nameserver:
     - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query
+  # E-IX resolves its node hostnames through its own resolvers; public
+  # resolvers return different addresses that stop working after the
+  # 2026-09-25 node upgrade. Scope the override to eixcloud.com so every
+  # other provider keeps the public resolvers above.
+  proxy-server-nameserver-policy:
+    "+.eixcloud.com":
+      - "https://zone.rlose.com:39933/api-query"
+      - "https://radar.rlose.com/api-query"
 sniffer:
   enable: true
   override-destination: true
