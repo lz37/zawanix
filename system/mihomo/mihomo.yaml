@@ -284,6 +284,14 @@ dns:
       - "https://1.1.1.1/dns-query#🌐 社交媒体"
       - "https://8.8.8.8/dns-query#🌐 社交媒体"
     "+.ollama.com": *direct-dns
+    # E-IX ships its own resolvers; public DNS returns different addresses for
+    # both its node hostnames and (after the 2026-09-25 upgrade) potentially its
+    # subscription endpoint, so route both through these. The proxy-node slot
+    # below reuses this anchor.
+    "+.eixcloud.com": &eix-dns
+      - "https://zone.rlose.com:39933/api-query"
+      - "https://radar.rlose.com/api-query"
+    "+.usfoo.com": *eix-dns
     "geosite:openai": &ai-dns
       - "https://1.1.1.1/dns-query#🤖 AI服务"
       - "https://8.8.8.8/dns-query#🤖 AI服务"
@@ -384,9 +392,7 @@ dns:
   # 2026-09-25 node upgrade. Scope the override to eixcloud.com so every
   # other provider keeps the public resolvers above.
   proxy-server-nameserver-policy:
-    "+.eixcloud.com":
-      - "https://zone.rlose.com:39933/api-query"
-      - "https://radar.rlose.com/api-query"
+    "+.eixcloud.com": *eix-dns
 sniffer:
   enable: true
   override-destination: true
