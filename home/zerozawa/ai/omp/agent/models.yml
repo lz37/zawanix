@@ -1,5 +1,9 @@
 providers:
-  openai-codex:
+  # openai-codex:
+  #   modelOverrides:
+  #     gpt-6-astra:
+  #       contextWindow: 272000
+  kimi-code:
     modelOverrides:
-      gpt-6-astra:
-        contextWindow: 272000
+      k3:
+        contextWindow: 262144

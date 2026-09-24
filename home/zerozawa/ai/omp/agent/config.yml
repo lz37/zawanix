@@ -14,68 +14,40 @@ hindsight:
     - experience
     - observation
 providers:
-  webSearchOrder:
-    - exa
-    - tavily
-    - brave
-    - codex
-    - kimi
-    - firecrawl
-    - duckduckgo
-    - perplexity
-    - startpage
-    - google
-    - ecosia
-    - mojeek
-    - public
-    - gemini
-    - xai
-    - zai
-    - tinyfish
-    - jina
-    - kagi
-    - parallel
-    - synthetic
-    - searxng
-    - anthropic
-  imageOrder:
-    - openai-codex
-  tinyModel: lfm2.5-230m
   tinyModelDevice: gpu
   tinyModelDtype: q4
-  unexpectedStopModel: llama3.2:3b
 generate_image:
   enabled: true
 alarmClock:
   deliverAs: aside
 modelRoles:
-  tiny: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
+  tiny: "local/lfm2.5-230m"
   slow: openai-codex/gpt-6-astra:max
-  smol: litellm/deepseek-v4.1-flash:max
-  default: kimi-code/k3-256k:max
-  vision: openai-codex/gpt-5.6-luna:max
+  smol: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+  default: kimi-code/k3:max
+  vision: openai-codex/gpt-6-luna:max
   plan: openai-codex/gpt-6-astra:max
-  advisor: litellm/deepseek-v4.1-flash:max
-  task: litellm/deepseek-v4.1-flash:max
-  designer: kimi-code/k3-256k:max
-  commit: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
+  advisor: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+  task: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+  commit: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+  web: web/exa
+  image: openai-codex/gpt-image-1
+  judge: typesafe/jev-latest
 extensions:
   - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    librarian: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
-    reviewer: kimi-code/k3-256k:max
-    scout: dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4.1-flash:max
-    security-reviewer: kimi-code/k3-256k:max
-    sonic: litellm/deepseek-v4.1-flash:max
-    task: litellm/deepseek-v4.1-flash:max
+    reviewer: kimi-code/k3:max
+    scout: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+    security-reviewer: kimi-code/k3:max
+    sonic: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+    task: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
   eager: preferred
   agentAdvisor:
     task: "off"
-  disabledAgents:
-    []
+  disabledAgents: []
 dev:
   autoqaConsent: granted
   autoqa: true
@@ -129,8 +101,7 @@ mcp:
 autolearn:
   enabled: true
   autoContinue: true
-disabledExtensions:
-  []
+disabledExtensions: []
 shellMinimizer:
   sourceOutlineLevel: aggressive
 secrets:
@@ -138,7 +109,7 @@ secrets:
 bash:
   direnv: auto
   autoBackground:
-    enabled: true
+    enabled: false
 security:
   enabled: true
 browser:
@@ -149,3 +120,46 @@ snapcompact:
   toolResults: false
 features:
   unexpectedStopDetection: smart
+retry:
+  fallbackChains:
+    web:
+      - web/tavily
+      - web/brave
+      - openai-codex/gpt-5.6-luna
+      - web/kimi
+      - web/firecrawl
+      - web/duckduckgo
+      - web/perplexity
+      - web/startpage
+      - web/google
+      - web/ecosia
+      - web/mojeek
+      - web/public
+      - google/gemini-2.5-flash
+      - xai/grok-4.5
+      - web/zai
+      - web/tinyfish
+      - web/jina
+      - web/kagi
+      - web/parallel
+      - web/synthetic
+      - web/searxng
+      - anthropic/claude-haiku-4-5
+      - google-antigravity/gemini-2.5-flash
+      - openai-codex/gpt-5.6
+      - openai-codex/gpt-5.5
+      - xai-oauth/grok-4.5
+      - web/ollama
+    image:
+      - openai/gpt-image-1
+      - google-antigravity/gemini-3-pro-image
+      - xai/grok-imagine-image
+      - xai-oauth/grok-imagine-image
+      - openrouter/google/gemini-3-pro-image-preview
+      - google/gemini-3-pro-image-preview
+      - deepinfra/black-forest-labs/FLUX-2-pro
+    judge:
+      - local/llama3.2:3b
+      - "@tiny"
+      - "@smol"
+      - "@default"

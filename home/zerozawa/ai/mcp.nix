@@ -120,15 +120,6 @@ with pkgs; let
         "--stdio"
       ];
     };
-    sequential-thinking = {
-      command = lib.getExe docker;
-      args = [
-        "run"
-        "--rm"
-        "-i"
-        "mcp/sequentialthinking"
-      ];
-    };
     context-mode = {
       command = lib.getExe nur.repos.zerozawa.context-mode;
     };
