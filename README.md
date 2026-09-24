@@ -64,7 +64,7 @@ CI（GitHub Actions）自动编译各机内核并推送到 Cachix。
 
 ### AI 工具集成
 
-- [Oh My Pi](https://ohmypi.com) — AI 编码助手，含自定义 TypeScript 扩展（safety-net、direnv、wakatime 等）
+- [Oh My Pi](https://ohmypi.com) — AI 编码助手，含自定义 TypeScript 扩展（dspeak、alarm-clock、commit-tool）
 - [OpenCode](https://github.com/anomalyco/opencode) — 终端 AI 编码
 - [PCTX](https://github.com/zerozawa/pctx) — 私有上下文 MCP 代理
 

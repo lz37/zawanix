@@ -9,7 +9,7 @@
 - 硬件自检测（`nixos-facter` → 自动推导 GPU/CPU/SSD 等标记）
 - 每台主机独立编译 CachyOS 优化内核
 - 通过 Home Manager 管理 100+ 用户级程序配置
-- 5 个自定义 OMP TypeScript 扩展（safety-net、direnv、wakatime、commit-tool、omp-pty）
+- 3 个自定义 OMP TypeScript 扩展（dspeak、alarm-clock、commit-tool）
 - 18 个 MCP 服务端集成
 
 ## Architecture & Data Flow
@@ -52,7 +52,7 @@ flake.nix (entry)
 | `home/zerozawa/vscode/` | VS Code 扩展配置 | 按 topic 分 20+ 子配置，merge 工具合入 |
 | `home/zerozawa/hyprland/` | Hyprland 桌面 | Nix 生成 Lua 配置，`home.activation` 部署 |
 | `home/zerozawa/ai/` | AI 工具 | OMP + OpenCode + MCP(18 servers) + PCTX |
-| `home/zerozawa/ai/omp/agent/extensions/` | OMP TypeScript 扩展 | 5 个自定义 `pi.registerTool()` 扩展 |
+| `home/zerozawa/ai/omp/agent/extensions/` | OMP TypeScript 扩展 | 3 个自定义扩展（dspeak / alarm-clock / commit-tool），由 `config.yml` 的 `extensions` 列表声明 |
 | `options/` | 自定义选项树 | 单文件 `zerozawa.*` 命名空间 |
 | `common/` | 共享工具函数 | `facter-derived.nix` 硬件推导 |
 | `.github/workflows/` | CI/CD | 矩阵构建 4 主机内核 |

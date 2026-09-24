@@ -33,8 +33,6 @@ modelRoles:
   web: web/exa
   image: openai-codex/gpt-image-1
   judge: typesafe/jev-latest
-extensions:
-  - /etc/nixos/home/zerozawa/ai/omp/agent/extensions/wakatime.ts
 task:
   enableLsp: true
   showResolvedModelBadge: true
