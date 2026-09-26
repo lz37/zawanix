@@ -6,6 +6,8 @@
       General = {
         Enable = "Source,Sink,Media,Socket";
         Experimental = true;
+        Privacy = "device";
+        JustWorksRepairing = "always";
       };
     };
   };

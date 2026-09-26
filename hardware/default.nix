@@ -51,4 +51,8 @@ in {
       (modulesPath + "/installer/scan/not-detected.nix")
     ]
     ++ hardwareImports;
+  hardware = {
+    xpadneo.enable = true;
+    xone.enable = true;
+  };
 }
