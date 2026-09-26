@@ -1,4 +1,8 @@
 import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-coding-agent";
+import { cfgModelRoles } from "@oh-my-pi/pi-coding-agent/config/model-settings";
+import type { AnySetting } from "@oh-my-pi/pi-coding-agent/config/registry";
+import { cfgRetryUsageReservePct } from "@oh-my-pi/pi-coding-agent/session/settings";
+import { cfgTaskAgentModelOverrides } from "@oh-my-pi/pi-coding-agent/task/settings";
 
 /**
  * OMP Extension: dspeak — DeepSeek 高峰期自动避让（`dspeak/` 占位符条件选择器）。
@@ -25,8 +29,8 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
  * - 非 `dspeak/` 前缀的值（即手动指定的真实模型名）一律不托管、不动。
  *
  * 机制（纯扩展 API，不改 config.yml、不 patch 任何东西）：
- * - 通过 `pi.pi.settings.override(path, value)` 写 Settings 的「运行时覆盖层」
- *   （官方机制：优先级最高、永不持久化，进程退出即消失）。覆盖两个键：
+ * - 通过注册式设置句柄的 `override(pi.pi.settings, value)` 写「运行时覆盖层」
+ *   （OMP 18.3 API：优先级最高、永不持久化，进程退出即消失）。覆盖两个键：
  *   `modelRoles` 与 `task.agentModelOverrides` 中含占位符的条目。
  * - 与旧版（按真实模型名发现）的关键差异：占位符本身不可被 OMP 解析，因此
  *   覆盖层对托管键【始终在场】（高峰→peak 分支 spec，非高峰→default 分支 spec），
@@ -52,7 +56,7 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
  *
  * openai-codex 额度门（零模型调用）：
  * - 对所有出现在占位符分支里的 openai-codex 模型，读 OMP 的 usage 报告
- *   （authStorage.getModelUsageHealth，数据来自 Codex usage 端点 + 响应头解析，
+ *   （authStorage.health.model，数据来自 Codex usage 端点 + 响应头解析，
  *   5min 缓存；本扩展再加 60s 本地缓存）。额度 depleted → 该分支视同不可用被
  *   跳过（钉住与浮动判定都一样）；额度恢复后自动切回。查询失败按可用放行。
  * - 不安装 OMP 回落链、不开 `retry.usageAwareFallback`：分支模型的瞬时错误
@@ -69,7 +73,7 @@ import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-codi
  *
  * 注意：
  * - 运行中用户通过 /models 手动改过的托管键会被检测到并让出（尊重手动选择）。
- * - override(path, …) / clearOverride(path) 作用在整条 modelRoles 覆盖层上，
+ * - 句柄的 override(settings, …) / clearOverride(settings) 作用在整条 modelRoles 覆盖层上，
  *   会顶掉 --smol 等 CLI flag 写入同层的覆盖；本机未使用此类 flag，可接受。
  * - 扩展未加载时占位符不可解析：OMP 对各角色打 "No models match pattern"
  *   警告并按各自回退链降级（不硬错误）。恢复扩展即恢复正常。
@@ -91,7 +95,7 @@ const MARKER_TYPE = "dspeak.pin";
 /** 额度健康本地缓存时长（上游 usage 报告本身还有 ~5min 缓存）。 */
 const QUOTA_CACHE_MS = 60_000;
 
-/** 额度门只对该 provider 生效（authStorage.getModelUsageHealth 的数据源）。 */
+/** 额度门只对该 provider 生效（authStorage.health.model 的数据源）。 */
 const QUOTA_PROVIDER = "openai-codex";
 
 // ── Types & shared process state ────────────────────────────
@@ -270,8 +274,8 @@ function collectQuotaSpecs(settings: Settings, shared: DspeakShared): Set<string
    }
   }
  };
- const roles = settings.get("modelRoles");
- const agents = settings.get("task.agentModelOverrides");
+ const roles = cfgModelRoles.get(settings);
+ const agents = cfgTaskAgentModelOverrides.get(settings);
  for (const v of Object.values(roles ?? {})) scan(v);
  for (const v of Object.values(agents ?? {})) scan(v);
  // 覆盖层在场时 merged 视图里是我们解析后的真实 spec，占位符只在 original 里。
@@ -309,11 +313,11 @@ async function refreshQuotas(
   if (!pm) continue;
   let next: QuotaState;
   try {
-   const health = await ctx.modelRegistry.authStorage.getModelUsageHealth(pm.provider, {
+   const health = await ctx.modelRegistry.authStorage.health.model(pm.provider, {
     modelId: pm.modelId,
     sessionId: ctx.sessionManager.getSessionId(),
     baseUrl: ctx.modelRegistry.getProviderBaseUrl(pm.provider),
-    reserveFraction: pi.pi.settings.get("retry.usageReservePct") / 100,
+    reserveFraction: cfgRetryUsageReservePct.get(pi.pi.settings) / 100,
    });
    // reserve（最后 10%）不算耗尽：余量带继续用（本扩展不开 usageAwareFallback，无预检改道）。
    next = health.state === "depleted" ? "exhausted" : "ok";
@@ -450,16 +454,16 @@ function syncManaged(merged: Record<string, string | string[]> | undefined, mana
 
 function writeOverride(
  settings: Settings,
- path: "modelRoles" | "task.agentModelOverrides",
+ setting: AnySetting,
  out: Record<string, string | string[]>,
  shared: DspeakShared,
  flag: "wroteRoles" | "wroteAgents",
 ): void {
  if (Object.keys(out).length > 0) {
-  settings.override(path, out);
+  setting.override(settings, out);
   shared[flag] = true;
  } else if (shared[flag]) {
-  settings.clearOverride(path);
+  setting.clearOverride(settings);
   shared[flag] = false;
  }
 }
@@ -492,8 +496,8 @@ function warnSkips(ctx: ExtensionContext, shared: DspeakShared, skips: Skip[]): 
  */
 function applyOverrides(pi: ExtensionAPI, ctx: ExtensionContext, shared: DspeakShared): void {
  const settings = pi.pi.settings;
- syncManaged(settings.get("modelRoles"), shared.roleManaged);
- syncManaged(settings.get("task.agentModelOverrides"), shared.agentManaged);
+ syncManaged(cfgModelRoles.get(settings), shared.roleManaged);
+ syncManaged(cfgTaskAgentModelOverrides.get(settings), shared.agentManaged);
 
  const env: ResolveEnv = {
   peak: false, // 每个键写入前设置
@@ -516,7 +520,7 @@ function applyOverrides(pi: ExtensionAPI, ctx: ExtensionContext, shared: DspeakS
    entry.lastWritten = null;
   }
  }
- writeOverride(settings, "modelRoles", roleOut, shared, "wroteRoles");
+ writeOverride(settings, cfgModelRoles, roleOut, shared, "wroteRoles");
 
  const agentOut: Record<string, string | string[]> = {};
  for (const [key, entry] of shared.agentManaged) {
@@ -531,7 +535,7 @@ function applyOverrides(pi: ExtensionAPI, ctx: ExtensionContext, shared: DspeakS
    entry.lastWritten = null;
   }
  }
- writeOverride(settings, "task.agentModelOverrides", agentOut, shared, "wroteAgents");
+ writeOverride(settings, cfgTaskAgentModelOverrides, agentOut, shared, "wroteAgents");
 }
 
 // ── Pin marker persistence ──────────────────────────────────

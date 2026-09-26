@@ -68,6 +68,10 @@ CI（GitHub Actions）自动编译各机内核并推送到 Cachix。
 - [OpenCode](https://github.com/anomalyco/opencode) — 终端 AI 编码
 - [PCTX](https://github.com/zerozawa/pctx) — 私有上下文 MCP 代理
 
+OMP 扩展由 `~/.omp/agent/extensions/` 自动发现，该目录链接到仓库中的 `home/zerozawa/ai/omp/agent/extensions/`。修改扩展后需重启 OMP。
+
+`dspeak` 使用 OMP 18.3 的注册式设置句柄和 `authStorage.health.model()`，模型切换仅写运行时覆盖层，不修改 `config.yml`。回归验证：`bun test home/zerozawa/ai/omp/agent/extensions/tests/`。
+
 ## 使用
 
 ```bash
