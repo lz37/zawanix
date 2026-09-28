@@ -1,7 +1,6 @@
 {
   pkgs,
   commonVSCVars,
-  config,
   lib,
   ...
 }: {
@@ -15,17 +14,17 @@
   ];
   settings = {
     "accessibility.signalOptions.volume" = 0;
-    "indentRainbow.errorColor" = "#${config.lib.stylix.colors.base05}";
-    "indentRainbow.colors" = [
-      "#${config.lib.stylix.colors.base0F}4d"
-      "#${config.lib.stylix.colors.base0E}4d"
-      "#${config.lib.stylix.colors.base0D}4d"
-      "#${config.lib.stylix.colors.base0C}4d"
-      "#${config.lib.stylix.colors.base0B}4d"
-      "#${config.lib.stylix.colors.base0A}4d"
-      "#${config.lib.stylix.colors.base09}4d"
-      "#${config.lib.stylix.colors.base08}4d"
-    ];
+    # "indentRainbow.errorColor" = "#${config.lib.stylix.colors.base05}";
+    # "indentRainbow.colors" = [
+    #   "#${config.lib.stylix.colors.base0F}4d"
+    #   "#${config.lib.stylix.colors.base0E}4d"
+    #   "#${config.lib.stylix.colors.base0D}4d"
+    #   "#${config.lib.stylix.colors.base0C}4d"
+    #   "#${config.lib.stylix.colors.base0B}4d"
+    #   "#${config.lib.stylix.colors.base0A}4d"
+    #   "#${config.lib.stylix.colors.base09}4d"
+    #   "#${config.lib.stylix.colors.base08}4d"
+    # ];
     "editor.fontFamily" = lib.mkForce "Sarasa Mono SC,JetBrainsMono Nerd Font Mono,monospace,Unifont";
     "editor.fontLigatures" = true;
     "editor.fontSize" = 16;

@@ -38,14 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    stylix = {
-      url = "github:nix-community/stylix/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nur.follows = "nur";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     zerozawa-private = {
       url = "git+ssh://git@github.com/lz37/zawanix-private?ref=main";
       flake = false;
@@ -156,9 +148,7 @@
               inputs.nix-flatpak.nixosModules.nix-flatpak
               inputs.nix-index-database.nixosModules.nix-index
               {programs.nix-index-database.comma.enable = true;}
-              inputs.stylix.nixosModules.stylix
               inputs.nixos-cli.nixosModules.nixos-cli
-              ./stylix/nixos.nix
               ./network
               ./hardware
               ./system

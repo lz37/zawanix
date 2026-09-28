@@ -16,7 +16,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("jellyfin-mpv-shim")
     hl.exec_cmd("remmina")
-    hl.exec_cmd("svp")
     hl.exec_cmd("telegram-desktop")
     if opt.features and opt.features.nm_applet then
         hl.exec_cmd("nm-applet --indicator")

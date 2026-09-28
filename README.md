@@ -31,7 +31,6 @@
 │   ├── zsh/               # ZSH 配置
 │   ├── yazi/              # Yazi 文件管理器
 │   └── ...
-├── stylix/                # StyLix 主题引擎
 ├── profile/               # Shell profile 配置
 └── .github/workflows/     # CI/CD - 多机内核构建
 ```

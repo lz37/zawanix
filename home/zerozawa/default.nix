@@ -34,7 +34,6 @@
     ./fzf.nix
     ./cava.nix
     ./yazi
-    ./wlogout
     ./mimelist.nix
     ./mpv.nix
     ./input-method
@@ -46,7 +45,6 @@
     ./wallpapers
     ./systemd
   ];
-  stylix.enableReleaseChecks = false;
   home = {
     stateVersion = inputs.nixpkgs.lib.trivial.release;
     packages = [

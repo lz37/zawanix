@@ -7,10 +7,10 @@
   theme = pkgs.nur.repos.zerozawa.sddm-eucalyptus-drop.override {
     overrideTheme =
       {
-        Background = "${pkgs.lib.cleanSource config.stylix.image}";
-        MainColour = "#${config.lib.stylix.colors.base05}";
-        AccentColour = "#${config.lib.stylix.colors.base04}";
-        BackgroundColour = "#${config.lib.stylix.colors.base0F}";
+        # Background = "${pkgs.lib.cleanSource config.stylix.image}";
+        # MainColour = "#${config.lib.stylix.colors.base05}";
+        # AccentColour = "#${config.lib.stylix.colors.base04}";
+        # BackgroundColour = "#${config.lib.stylix.colors.base0F}";
         Font = "LXGW WenKai Mono";
         FormPosition = "center";
         BlurRadius = "30";

@@ -7,7 +7,6 @@ in {
   services = {
     mpris-proxy.enable = true;
   };
-  stylix.targets.fish.enable = true;
   programs = {
     cargo = {
       enable = true;

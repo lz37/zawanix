@@ -9,7 +9,6 @@
   hw = config.zerozawa.hardware;
   host = config.zerozawa.host;
 in {
-  stylix.targets.console.enable = true;
   boot = {
     kernelPackages = let
       # helpers.nix provides a few utilities for building kernel with LTO.
@@ -210,12 +209,6 @@ in {
           }
           else {}
         );
-    };
-    plymouth = {
-      enable = true;
-      themePackages = [pkgs.catppuccin-plymouth];
-      theme = "catppuccin-macchiato";
-      font = "${pkgs.nerd-fonts.fira-code}/share/fonts/truetype/NerdFonts/FiraCode/FiraCodeNerdFontMono-Regular.ttf";
     };
   };
 }
