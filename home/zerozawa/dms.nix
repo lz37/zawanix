@@ -32,10 +32,8 @@ in {
         mediaPlayer.enable = true;
         wallpaperDiscovery.enable = true;
         alarmClock.enable = true;
-        wallpaperShufflerPlugin.enable = true;
         dankActions.enable = true;
         dankHooks.enable = true;
-        dankBatteryAlerts.enable = true;
         dockerManager.enable = true;
         webSearch.enable = true;
         emojiLauncher.enable = true;

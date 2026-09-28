@@ -59,23 +59,7 @@ in
 
       nvidiaSettings = true;
 
-      package = (
-        config.boot.kernelPackages.nvidiaPackages.new_feature.overrideAttrs (old: {
-          # NVIDIA 610.57.04 的 __to_hwgpio() 兼容 shim（内核 7.1 移除 of_gpio.h 后启用）
-          # 签名带 const，与内核 7.1 非 const 的 gpio_device_get_chip() 冲突，
-          # clang -Werror 报 discards qualifiers 导致构建失败。去掉 const 对齐内核签名。
-          # 必须替换 passthru.open（内核模块包）：new_feature 是 generic 直接调用结果，
-          # 无 generic 参数级 override，overrideAttrs 只改主体不影响 open 模块。
-          # NVIDIA 上游修复后移除此补丁。
-          passthru =
-            old.passthru
-            // {
-              open = old.passthru.open.override {
-                patches = [./nvidia-open-gpio-const.patch];
-              };
-            };
-        })
-      );
+      package = config.boot.kernelPackages.nvidiaPackages.new_feature;
 
       prime = {
         offload = {
