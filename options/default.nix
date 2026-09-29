@@ -173,6 +173,9 @@ in {
         id = str;
         netmask = str;
       };
+      easytier = lib.mkOption {
+        type = lib.types.raw;
+      };
       hindsight = {
         url = str;
         token = str;

@@ -22,7 +22,7 @@
     ./hyprland.nix
     ./other-packages.nix
     ./clamav-scanner.nix
-    ./zerotier.nix
+    ./vpn.nix
     ./powerManagement.nix
     ./udev.nix
     ./mihomo

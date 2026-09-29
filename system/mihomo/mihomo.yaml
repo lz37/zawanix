@@ -436,6 +436,8 @@ tun:
   auto-detect-interface: true
   gso: true
   strict-route: false
+  exclude-interface:
+    - tun0
   # endpoint-independent-nat: true
   udp-timeout: 300
   route-exclude-address: []

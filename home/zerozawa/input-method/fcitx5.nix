@@ -245,9 +245,9 @@
             # 使用输入法的语言来显示文字
             UseInputMethodLanguageToDisplayText = True;
             # 主题
-            # Theme = "stylix";
+            Theme = "dms";
             # 深色主题
-            # DarkTheme = "stylix";
+            DarkTheme = "dms";
             # 跟随系统浅色/深色设置
             UseDarkTheme = lib.mkForce False;
             # 当被主题和桌面支持时使用系统的重点色
