@@ -66,6 +66,12 @@ in {
           )
           prev
       );
+    kernelPatches = lib.optionals (hostName == "zawanix-thinkbook") [
+      {
+        name = "ideapad-laptop-thinkbook-prtsc";
+        patch = ./patches/ideapad-laptop-thinkbook-prtsc.patch;
+      }
+    ];
     extraModulePackages = with config.boot.kernelPackages; [
       v4l2loopback
     ];
