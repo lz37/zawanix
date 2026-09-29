@@ -18,6 +18,7 @@
         smtpuser = config.zerozawa.git.userEmail;
         smtpencryption = "tls";
         smtpserverport = 587;
+        smtpPass = config.zerozawa.git.smtpPass;
       };
       push.default = "simple"; # Match modern push behavior
       credential.helper = "cache --timeout=7200";

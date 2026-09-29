@@ -232,6 +232,7 @@ in {
       git = {
         userName = str;
         userEmail = str;
+        smtpPass = str;
       };
       ssh = {
         machines = lib.mkOption {
