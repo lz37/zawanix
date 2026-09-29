@@ -250,6 +250,7 @@ profile:
   store-selected: true
   store-fake-ip: true
 dns:
+  enhanced-mode: redir-host
   enable: true
   ipv6: true
   listen: 0.0.0.0:7874
