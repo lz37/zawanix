@@ -80,7 +80,13 @@ moduleArgs @ {
               };
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
-            quickshell = inputs.quickshell.packages.${system}.quickshell;
+            quickshell = inputs.quickshell.packages.${system}.quickshell.withModules (
+              with pkgs.kdePackages; [
+                kirigami
+                kirigami-addons
+                kirigami-gallery
+              ]
+            );
             vivaldi = master.vivaldi.override {
               proprietaryCodecs = true;
               enableWidevine = true;

@@ -79,12 +79,5 @@ in {
         }
         else {}
       );
-    quickshell.package = pkgs.quickshell.withModules (
-      with pkgs.kdePackages; [
-        kirigami
-        kirigami-addons
-        kirigami-gallery
-      ]
-    );
   };
 }

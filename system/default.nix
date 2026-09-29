@@ -16,7 +16,6 @@
     ./packages
     ./opengl.nix
     ./fs.nix
-    ./sddm
     ./fonts
     ./xdg-portal.nix
     ./hyprland.nix
@@ -28,5 +27,4 @@
     ./mihomo
   ];
   system.stateVersion = inputs.nixpkgs.lib.trivial.release;
-  documentation.nixos.enable = false;
 }

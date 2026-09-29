@@ -9,6 +9,16 @@
   host = config.zerozawa.host;
 in {
   programs = {
+    dms-greeter = {
+      enable = true;
+      compositor.name = "hyprland"; # Or "hyprland" or "sway"
+      configHome = config.zerozawa.path.home;
+      logs = {
+        save = true;
+        path = "/tmp/dms-greeter.log";
+      };
+    };
+    nix-index-database.comma.enable = true;
     gamemode = {
       enable = host.isGameMachine;
       enableRenice = true;

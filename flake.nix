@@ -65,6 +65,10 @@
       url = "github:AvengeMedia/dms-plugin-registry";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dank-greeter = {
+      url = "github:AvengeMedia/dank-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix4vscode = {
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -147,8 +151,8 @@
               ./nixpkgs.nix
               inputs.nix-flatpak.nixosModules.nix-flatpak
               inputs.nix-index-database.nixosModules.nix-index
-              {programs.nix-index-database.comma.enable = true;}
               inputs.nixos-cli.nixosModules.nixos-cli
+              inputs.dank-greeter.nixosModules.default
               ./network
               ./hardware
               ./system
