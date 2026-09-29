@@ -13,6 +13,12 @@
         name = config.zerozawa.git.userName;
         email = config.zerozawa.git.userEmail;
       };
+      sendemail = {
+        smtpserver = "smtp.gmail.com";
+        smtpuser = config.zerozawa.git.userEmail;
+        smtpencryption = "tls";
+        smtpserverport = 587;
+      };
       push.default = "simple"; # Match modern push behavior
       credential.helper = "cache --timeout=7200";
       init.defaultBranch = "main"; # Set default new branches to 'main'
