@@ -44,6 +44,10 @@
     };
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nixos-cli.url = "github:nix-community/nixos-cli";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     zerozawa-nur = {
       url = "github:lz37/nur/main";
       inputs = {
@@ -152,6 +156,7 @@
               inputs.nix-flatpak.nixosModules.nix-flatpak
               inputs.nix-index-database.nixosModules.nix-index
               inputs.nixos-cli.nixosModules.nixos-cli
+              inputs.lanzaboote.nixosModules.lanzaboote
               inputs.dank-greeter.nixosModules.default
               ./network
               ./hardware
