@@ -170,7 +170,7 @@ rules:
   - GEOSITE,category-communication,💬 即时通讯
   - GEOSITE,category-social-media-!cn,🌐 社交媒体
   # Keep Ollama Cloud on a stable direct egress; rotating proxy exits truncate streams.
-  - DOMAIN-SUFFIX,ollama.com,🎯 全球直连
+  - DOMAIN-SUFFIX,ollama.com,🤖 AI服务
   - GEOSITE,openai,🤖 AI服务
   - GEOSITE,anthropic,🤖 AI服务
   - GEOSITE,google-gemini,🤖 AI服务
@@ -284,7 +284,9 @@ dns:
     "geosite:category-social-media-!cn":
       - "https://1.1.1.1/dns-query#🌐 社交媒体"
       - "https://8.8.8.8/dns-query#🌐 社交媒体"
-    "+.ollama.com": *direct-dns
+    "+.ollama.com": &ai-dns
+      - "https://1.1.1.1/dns-query#🤖 AI服务"
+      - "https://8.8.8.8/dns-query#🤖 AI服务"
     # E-IX ships its own resolvers; public DNS returns different addresses for
     # both its node hostnames and (after the 2026-09-25 upgrade) potentially its
     # subscription endpoint, so route both through these. The proxy-node slot
@@ -293,9 +295,7 @@ dns:
       - "https://zone.rlose.com:39933/api-query"
       - "https://radar.rlose.com/api-query"
     "+.usfoo.com": *eix-dns
-    "geosite:openai": &ai-dns
-      - "https://1.1.1.1/dns-query#🤖 AI服务"
-      - "https://8.8.8.8/dns-query#🤖 AI服务"
+    "geosite:openai": *ai-dns
     "geosite:anthropic": *ai-dns
     "geosite:google-gemini": *ai-dns
     "geosite:docker":
@@ -394,6 +394,13 @@ dns:
   # other provider keeps the public resolvers above.
   proxy-server-nameserver-policy:
     "+.eixcloud.com": *eix-dns
+    "+.nchc.cc":
+      - https://223.5.5.5/dns-query
+      - https://119.29.29.29/dns-query
+      - https://doh.dns.sb/dns-query
+      - https://dns.cloudflare.com/dns-query
+      - https://dns.twnic.tw/dns-query
+      - https://8.8.4.4/dns-query
 sniffer:
   enable: true
   override-destination: true
