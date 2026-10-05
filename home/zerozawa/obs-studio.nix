@@ -14,7 +14,7 @@
       waveform
       obs-vaapi
       obs-tuna
-      obs-advanced-masks
+      # obs-advanced-masks
       obs-vnc
       obs-rgb-levels
       # obs-media-controls

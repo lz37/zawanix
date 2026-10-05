@@ -3,7 +3,7 @@
     mads-hartmann.bash-ide-vscode
     jeff-hykin.better-shellscript-syntax
     rogalmic.bash-debug
-    timonwong.shellcheck
+    # timonwong.shellcheck
     foxundermoon.shell-format
   ];
   settings = {

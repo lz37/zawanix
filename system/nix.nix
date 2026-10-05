@@ -10,11 +10,11 @@ in {
   nix = {
     package = pkgs.master.nix;
     # for nixd
-    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     extraOptions = ''
       access-tokens = github.com=${config.zerozawa.github.access-token.pat}
     '';
     settings = {
+      nix-path = ["nixpkgs=${inputs.nixpkgs}"];
       # 实验性功能
       experimental-features = [
         "nix-command"

@@ -39,7 +39,6 @@ in {
         emojiLauncher.enable = true;
         commandRunner.enable = true;
         calculator.enable = true;
-        githubHeatmap.enable = true;
         githubNotifier.enable = true;
         musicLyrics.enable = true;
         developerUtilities.enable = true;
