@@ -66,6 +66,9 @@
             "Crimson Text"
           ];
         })
+        ipafont
+        ipaexfont
+        migmix
       ])
       ++ (with pkgs.nerd-fonts; [
         fira-code
