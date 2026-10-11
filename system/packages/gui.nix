@@ -59,6 +59,7 @@ in {
     wineWow64Packages.stagingFull
     winetricks
     lutris
+    umu-launcher
     protonplus
     mission-center
     qalculate-gtk
