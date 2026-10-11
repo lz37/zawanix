@@ -7,3 +7,10 @@ providers:
     modelOverrides:
       k3:
         contextWindow: 262144
+  litellm:
+    # 这些模型以 anthropic-messages 协议访问（网关侧对应 anthropic 形态上游）
+    modelOverrides:
+      MiniMax-M2.5: { api: anthropic-messages }
+      MiniMax-M2.7: { api: anthropic-messages }
+      MiniMax-M3: { api: anthropic-messages }
+      deepseek-v4.1-flash: { api: anthropic-messages }
