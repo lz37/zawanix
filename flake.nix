@@ -87,6 +87,24 @@
       flake = false;
     };
     omp.url = "github:can1357/oh-my-pi";
+    # Agent Skills, declared in home/zerozawa/ai/skills.nix. The three skill
+    # repositories below are plain checkouts; flake.lock is the only pin.
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    skills-officecli = {
+      url = "github:iOfficeAI/OfficeCLI";
+      flake = false;
+    };
+    skills-claude-code = {
+      url = "github:julianobarbosa/claude-code-skills";
+      flake = false;
+    };
+    skills-awesome = {
+      url = "github:theneoai/awesome-skills";
+      flake = false;
+    };
     nix-bun.url = "github:ryoppippi/nix-bun";
     llm-agents.url = "github:numtide/llm-agents.nix";
     # devenv
@@ -172,6 +190,7 @@
                   backupFileExtension = "hm.bak";
                   sharedModules = [
                     inputs.omp.homeManagerModules.default
+                    inputs.agent-skills.homeManagerModules.default
                     inputs.plasma-manager.homeModules.plasma-manager
                     inputs.vscode-server.homeModules.default
                     ./options

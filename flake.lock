@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agent-skills": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790154098,
+        "narHash": "sha256-SviEpvFefXCPOmQ2b41c4ujE7BzWYJ/h8p/HZNxD2B8=",
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "rev": "dc122af897ab9a685c20ae54c639021619dbbb52",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kyure-A",
+        "repo": "agent-skills-nix",
+        "type": "github"
+      }
+    },
     "bun2nix": {
       "inputs": {
         "flake-parts": [
@@ -1598,6 +1618,7 @@
     },
     "root": {
       "inputs": {
+        "agent-skills": "agent-skills",
         "dank-greeter": "dank-greeter",
         "dankMaterialShell": "dankMaterialShell",
         "devenv": "devenv",
@@ -1629,6 +1650,9 @@
         "omp": "omp",
         "plasma-manager": "plasma-manager",
         "quickshell": "quickshell",
+        "skills-awesome": "skills-awesome",
+        "skills-claude-code": "skills-claude-code",
+        "skills-officecli": "skills-officecli",
         "treefmt-nix": "treefmt-nix_5",
         "vscode-server": "vscode-server",
         "zerozawa-nur": "zerozawa-nur",
@@ -1695,6 +1719,54 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "skills-awesome": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778888551,
+        "narHash": "sha256-Qb5TpcvL0WaaDYuCOcQesBcMEjriKhNu7NoR3ecsc5U=",
+        "owner": "theneoai",
+        "repo": "awesome-skills",
+        "rev": "61fe4f2bb47d6b61505b1b78c2b8ae5fd1ca38dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "theneoai",
+        "repo": "awesome-skills",
+        "type": "github"
+      }
+    },
+    "skills-claude-code": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791384848,
+        "narHash": "sha256-aGl3cWGmDZadlIeClGsG76lN45LPsO1sbpE62w1l5IE=",
+        "owner": "julianobarbosa",
+        "repo": "claude-code-skills",
+        "rev": "10f76d55afd646962f2747b241afb84ea68ca304",
+        "type": "github"
+      },
+      "original": {
+        "owner": "julianobarbosa",
+        "repo": "claude-code-skills",
+        "type": "github"
+      }
+    },
+    "skills-officecli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791565370,
+        "narHash": "sha256-HcHu1TOiOe+fl9/sLX95q9MKknXJlRYGL4cWqpUHS8s=",
+        "owner": "iOfficeAI",
+        "repo": "OfficeCLI",
+        "rev": "699cafbc8f0b8a7841c6cca53dafd0c24e982f56",
+        "type": "github"
+      },
+      "original": {
+        "owner": "iOfficeAI",
+        "repo": "OfficeCLI",
         "type": "github"
       }
     },

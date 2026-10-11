@@ -4,5 +4,6 @@
     ./mcp.nix
     ./snip.nix
     ./codex.nix
+    ./skills.nix
   ];
 }
