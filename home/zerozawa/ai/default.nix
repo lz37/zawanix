@@ -5,6 +5,5 @@
     ./snip.nix
     ./codex.nix
     ./agents
-    ./apm
   ];
 }
