@@ -19,7 +19,7 @@
     "[markdown]" = {
       "editor.defaultFormatter" = "DavidAnson.vscode-markdownlint";
     };
-    "markdown-pdf.executablePath" = "${lib.getExe pkgs.chromium}";
+    "markdown-pdf.executablePath" = lib.getExe pkgs.chromium;
     "mdx-preview.preview.enableScripts" = true;
   };
 }

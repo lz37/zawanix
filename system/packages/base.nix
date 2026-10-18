@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     ethtool
     pciutils
@@ -13,7 +9,6 @@
     yq-go
     nettools
     dnsutils
-    (lib.hiPrio uutils-coreutils-noprefix)
     tcping-go
     lua
     ffmpeg

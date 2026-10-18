@@ -77,6 +77,8 @@ in {
       HINDSIGHT_API_TOKEN = config.zerozawa.hindsight.token;
       LITELLM_BASE_URL = config.zerozawa.litellm.url;
       LITELLM_API_KEY = config.zerozawa.litellm.apiKey;
+      # envfs 能让 ls 单个二进制文件也能成功 否则只会在 open/exe c时成功
+      ENVFS_RESOLVE_ALWAYS = 1;
       # 转义细节见文件顶部 reaSecretPatternsJson。
       REA_REFERENCE_SECRET_PATTERNS_JSON = reaSecretPatternsJson;
     };

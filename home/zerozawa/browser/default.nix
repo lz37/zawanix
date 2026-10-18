@@ -64,7 +64,7 @@
 in {
   home = {
     sessionVariables = {
-      CHROME_PATH = "${pkgs.chromium}/bin/chromium";
+      CHROME_PATH = lib.getExe pkgs.chromium;
     };
   };
   programs = {
