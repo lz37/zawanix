@@ -26,6 +26,13 @@
       biome
       snip
       officecli
+      gdb
+      ghidra
+      apktool
+      ilspycmd
+      binwalk
+      mitmproxy
+      unblob
     ])
     ++ (with pkgs.llm-agents; [
       spec-kit
@@ -54,6 +61,10 @@
       (pkgs.nogpu.python3.withPackages (
         ps:
           with ps; [
+            # reverse engineering
+            pwntools
+            pyelftools
+            unicorn
             # office 文档解析
             python-docx
             openpyxl

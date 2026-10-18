@@ -14,6 +14,12 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # REA 的 pwndbg 增强（inspect_recorded_crash --debugger-context）用的 gdb/pwndbg+venv。
+    # 刻意不加 inputs.nixpkgs.follows：上游 flake.lock 钉的 rev 与官方 cachix 的产物一致，
+    # 一旦 follows 就会换哈希 → 命中不了 pwndbg.cachix.org，退化成编译 gdb（>30min）。
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+    };
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";

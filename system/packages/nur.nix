@@ -23,5 +23,6 @@
       (lightnovel-crawler.override {
         calibre = pkgs.nogpu.calibre;
       })
+      wakaru
     ]));
 }

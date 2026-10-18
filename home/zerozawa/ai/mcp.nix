@@ -2,9 +2,29 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 with pkgs; let
+  # REA 的 pwndbg 增强（inspect_recorded_crash --debugger-context）三键成套；缺一个只在调用期报错。
+  pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.pwndbg;
+  pwndbgVenv = pwndbg.meta.pwndbgVenv;
+  # venv 的 site-packages 是符号链接农场，find 默认不跟随 → 用 bash glob + readlink -f
+  # （python 版本号也一并 wildcard 掉）
+  pwndbgGdbinit = pkgs.runCommandLocal "rea-pwndbg-gdbinit.py" {} ''
+    src=""
+    for x in ${pwndbgVenv}/lib/python3*/site-packages/pwndbginit/gdbinit.py; do
+      if [ -f "$x" ]; then
+        src=$(readlink -f "$x")
+        break
+      fi
+    done
+    [ -n "$src" ] || {
+      echo "pwndbginit/gdbinit.py not found under ${pwndbgVenv}" >&2
+      exit 1
+    }
+    install -Dm444 "$src" $out
+  '';
   servers = {
     chrome-devtools = {
       command = lib.getExe' pnpm "pnpx";
@@ -129,6 +149,22 @@ with pkgs; let
         "serve"
         "--mcp"
       ];
+    };
+    rea = {
+      command = lib.getExe nur.repos.zerozawa.rea-agents;
+      args = [
+        "mcp"
+      ];
+      # 这里只放「本机 / 本人」的策略项，会覆盖 NUR 包 wrapper 里的 --set-default。
+      env = {
+        # tools/list 体积：off = 不再下发 output schema（REA 仍按内部契约校验每个结果）
+        REA_MCP_OUTPUT_SCHEMA_PROFILE = "off";
+        # pwndbg 增强（仅 inspect_recorded_crash --debugger-context 用到）：三键必须成套
+        # （GDB 必须是 pwndbg 入口；GDBINIT 必须是 Python 文件；VENV 目录必须存在）
+        REA_PWNDBG_GDB = "${pwndbg}/bin/pwndbg";
+        REA_PWNDBG_GDBINIT = "${pwndbgGdbinit}";
+        REA_PWNDBG_VENV_PATH = "${pwndbgVenv}";
+      };
     };
   };
 in {

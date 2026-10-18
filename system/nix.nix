@@ -58,6 +58,8 @@ in {
         pkgs.nur.repos.xddxdd._meta.atticUrl
         "https://cache.numtide.com"
         "https://deepseek-harness-nix.cachix.org"
+        # pwndbg 官方 cache：不加这条，pwndbg 输入会退化成从源码编译 gdb
+        "https://pwndbg.cachix.org"
       ];
       trusted-public-keys = [
         pkgs.nur.repos.xddxdd._meta.atticPublicKey
@@ -75,6 +77,7 @@ in {
         "neorocks.cachix.org-1:WqMESxmVTOJX7qoBC54TwrMMoVI1xAM+7yFin8NRfwk="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         "deepseek-harness-nix.cachix.org-1:5NrkwLN9veNMhiINtU5ZeV4isXFhFsOwn6Ms7J1M+TA="
+        "pwndbg.cachix.org-1:HhtIpP7j73SnuzLgobqqa8LVTng5Qi36sQtNt79cD3k="
       ];
       trusted-users = [
         "zerozawa"
