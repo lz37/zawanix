@@ -1,12 +1,4 @@
 providers:
-  # openai-codex:
-  #   modelOverrides:
-  #     gpt-6-astra:
-  #       contextWindow: 272000
-  kimi-code:
-    modelOverrides:
-      k3:
-        contextWindow: 262144
   litellm:
     # 这些模型以 anthropic-messages 协议访问（网关侧对应 anthropic 形态上游）
     modelOverrides:

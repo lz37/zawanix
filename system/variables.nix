@@ -16,7 +16,7 @@ in {
       NH_OS_FLAKE = config.zerozawa.path.cfgRoot;
       NH_FLAKE = NH_OS_FLAKE;
       # 仅供交互式包管理器使用；nixpkgs 的 npmRegistryOverrides 会改变 fetchNpmDeps FOD 哈希。
-      npm_config_registry = "https://mirrors.cloud.tencent.com/npm/";
+      npm_config_registry = "https://registry.npmmirror.com";
       pnpm_config_registry = npm_config_registry;
       BUN_CONFIG_REGISTRY = npm_config_registry;
       YARN_NPM_REGISTRY_SERVER = npm_config_registry;
