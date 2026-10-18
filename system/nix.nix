@@ -57,6 +57,7 @@ in {
         "https://neorocks.cachix.org"
         pkgs.nur.repos.xddxdd._meta.atticUrl
         "https://cache.numtide.com"
+        "https://deepseek-harness-nix.cachix.org"
       ];
       trusted-public-keys = [
         pkgs.nur.repos.xddxdd._meta.atticPublicKey
@@ -73,6 +74,7 @@ in {
         "forkprince.cachix.org-1:9cN+fX492ZKlfd228xpYAC3T9gNKwS1sZvCqH8iAy1M="
         "neorocks.cachix.org-1:WqMESxmVTOJX7qoBC54TwrMMoVI1xAM+7yFin8NRfwk="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "deepseek-harness-nix.cachix.org-1:5NrkwLN9veNMhiINtU5ZeV4isXFhFsOwn6Ms7J1M+TA="
       ];
       trusted-users = [
         "zerozawa"

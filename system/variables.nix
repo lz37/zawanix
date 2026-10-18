@@ -24,9 +24,11 @@ in {
       PIP_TRUSTED_HOST = "pypi.tuna.tsinghua.edu.cn";
       GOPROXY = "https://goproxy.cn,direct";
       GITSTATUS_LOG_LEVEL = "DEBUG";
-      EXA_APL_KEY = config.zerozawa.exa-mcp.apiKey;
+      EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
+      CONTEXT7_API_KEY = config.zerozawa.context7.apiKey;
       TAVILY_API_KEY = config.zerozawa.tavily-mcp.apiKey;
       BRAVE_API_KEY = config.zerozawa.brave-mcp.apiKey;
+      GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
       HINDSIGHT_API_URL = config.zerozawa.hindsight.url;
       HINDSIGHT_API_TOKEN = config.zerozawa.hindsight.token;
       LITELLM_BASE_URL = config.zerozawa.litellm.url;

@@ -1,0 +1,186 @@
+# 密钥契约：本文件进 git，因此只放 !!js 环境变量引用，不放任何字面量 key/地址。
+# 需要注入的环境变量（与 ~/.omp/agent/mcp.json 的 mcp.nix 同源）：
+#   CONTEXT7_API_KEY            上游 mcp.nix: config.zerozawa.context7.apiKey
+#   EXA_API_KEY                 上游 mcp.nix: config.zerozawa.exa-mcp.apiKey
+#                               （现环境导出成 EXA_APL_KEY，拼写错误，这里做了兼容）
+#   TAVILY_API_KEY              上游 mcp.nix: config.zerozawa.tavily-mcp.apiKey
+#   BRAVE_API_KEY               上游 mcp.nix: config.zerozawa.brave-mcp.apiKey
+#   GITHUB_PERSONAL_ACCESS_TOKEN 上游 mcp.nix: config.zerozawa.github.access-token.classic
+#   LITELLM_BASE_URL / LITELLM_API_KEY  pi-ai 网关（地址本身也算敏感信息）
+# 未设置时任一项为 undefined，不报错，只影响对应 MCP server。
+# !!js 标签在 patch 文件里同样生效——上游 bundle 自带 patch 就这么用
+# （见 dsh-web-app/cordis.patch.yml 的 `mode: !!js process.env.DSH_TOOLS_MODE`）。
+#
+# MCP 集合与 ~/.omp/agent/mcp.json 对齐（OMP 侧 disabledServers 里的
+# context-mode / pctx 不迁移）。每个 server 是独立的 @deepseek-ai/dsh-mcp-client
+# 插件实例；模型看到的工具名是 mcp__<serverName>__<rawName>。
+#
+# 命令约定：全部用 PATH 上的裸命令名（NixOS system profile /run/current-system/sw/bin），
+# 不钉 /nix/store 路径——store 路径会在 rebuild/GC 后失效，且文件进 git 后完全不受 Nix 保护。
+# 缺哪个命令就往 system/packages/tool-chain.nix 里加（github-mcp-server 就是这么加上的）。
+- insert:
+    - id: mcp-codegraph
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: codegraph
+        transport: stdio
+        command: codegraph
+        args: ["serve", "--mcp"]
+
+    - id: mcp-computer-use
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: computer-use
+        transport: stdio
+        command: pnpx
+        args: ["@agent-sh/computer-use-linux", "mcp"]
+
+    - id: mcp-chrome-devtools
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: chrome-devtools
+        transport: stdio
+        command: pnpx
+        args:
+          [
+            "chrome-devtools-mcp@latest",
+            "--browser-url=http://127.0.0.1:9222",
+            "--no-usage-statistics",
+          ]
+
+    - id: mcp-github
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: github
+        transport: stdio
+        command: github-mcp-server
+        args: ["stdio"]
+        env:
+          GITHUB_PERSONAL_ACCESS_TOKEN: !!js "process.env.GITHUB_PERSONAL_ACCESS_TOKEN"
+
+    - id: mcp-grep
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: grep
+        transport: streamable-http
+        url: https://mcp.grep.app
+
+    - id: mcp-nixos
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: nixos
+        transport: stdio
+        command: mcp-nixos
+
+    - id: mcp-context7
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: context7
+        transport: stdio
+        command: pnpx
+        args:
+          [
+            "@upstash/context7-mcp",
+            "--api-key",
+            !!js "process.env.CONTEXT7_API_KEY",
+          ]
+
+    - id: mcp-image-tiler
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: image-tiler
+        transport: stdio
+        command: pnpx
+        args: ["image-tiler-mcp-server"]
+
+    - id: mcp-exa
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: exa
+        transport: stdio
+        command: pnpx
+        args: ["exa-mcp-server"]
+        env:
+          # 兜底 system/variables.nix 里 EXA_APL_KEY 的旧拼写（已改回 EXA_API_KEY），下次 rebuild 后可删
+          EXA_API_KEY: !!js "process.env.EXA_API_KEY ?? process.env.EXA_APL_KEY"
+
+    - id: mcp-tavily
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: tavily
+        transport: stdio
+        command: pnpx
+        args: ["tavily-mcp@latest"]
+        env:
+          TAVILY_API_KEY: !!js "process.env.TAVILY_API_KEY"
+
+    - id: mcp-brave
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: brave
+        transport: stdio
+        command: pnpx
+        args: ["@brave/brave-search-mcp-server", "--transport", "stdio"]
+        env:
+          BRAVE_API_KEY: !!js "process.env.BRAVE_API_KEY"
+
+# 关闭原生 web_search（2026-10-12 用户要求）。disabled 语义见上游
+# plugin-manager/src/patch.ts writePluginEnabled（disabled: true 即卸载该条目）。
+# 注意：MCP 搜索三件套（exa/tavily/brave）是独立的 dsh-mcp-client 条目，不在此列。
+- id: web-search-deepseek
+  disabled: true
+
+# Explicit model-facing tool order — omp's providers.webSearchOrder head
+# (exa -> tavily -> brave) mapped onto the MCP public tool names; every other
+# tool lands at '<unlisted-tools>' in lexicographic order. NOTE: an id-targeted
+# patch replaces the whole entry config, so persona is restated verbatim.
+# Fail-loud contract: each listed name must be a registered tool at prompt
+# assembly, otherwise every turn fails until the server reconnects.
+- id: system-prompt
+  config:
+    persona: >-
+      You are a coding agent powered by the {{model}} model. Your working
+      directory is {{cwd}}.
+    toolOrder:
+      - mcp__exa__web_search_exa
+      - mcp__tavily__tavily_search
+      - mcp__brave__brave_web_search
+      - "<unlisted-tools>"
+- id: ui-settings-general
+  name: "@deepseek-ai/dsh-client-ui-settings-general"
+  config:
+    welcomeNoticeVersion: 2026-09-28.1
+
+# Provider → litellm 网关，走 llm-pi-ai 自定义路由（base bundle 默认挂载、 dormant，
+# 配置 providers 后才注册——web Models 页写的就是这个 section；2026-10-12 用户要求
+# 不再复用 deepseek-official provider）。
+#   api: anthropic-messages —— 与 omp models.yml 一致（网关侧 anthropic 形态上游）；
+#   baseURL 不含 /v1 —— pi-ai 自拼 /v1/messages，带了会变 /v1/v1/messages（404 实测）；
+#   apiKeyEnv 走 LITELLM_API_KEY（与 LITELLM_BASE_URL 同前缀，避免和上游内置
+#   deepseek provider 的 DEEPSEEK_API_KEY 混淆，那不是同一个东西）；
+#   models 只留 deepseek-v4.1-flash（2026-10-12 用户：MiniMax 不需要）；
+#   手写条目必须自声明 reasoningEfforts，否则不思考。
+- id: llm-pi-ai
+  name: "@deepseek-ai/dsh-llm-pi-ai"
+  config:
+    providers:
+      litellm:
+        displayName: LiteLLM
+        apiKeyEnv: LITELLM_API_KEY
+        api: anthropic-messages
+        baseURL: !!js "process.env.LITELLM_BASE_URL"
+        models:
+          - id: deepseek-v4.1-flash
+            contextWindow: 1000000
+            maxTokens: 384000
+            input: [text, image]
+            reasoningEfforts:
+              low: low
+              high: high
+              max: max
+- id: agent-default-model
+  name: "@deepseek-ai/dsh-agent-default-model"
+  config:
+    provider: litellm
+    model: deepseek-v4.1-flash
+    reasoningEffort: max

@@ -107,6 +107,8 @@
     };
     nix-bun.url = "github:ryoppippi/nix-bun";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    # dsh 打包：跟踪 GitHub tag（alpha），源码构建 + expose-internals patch；勿 follows nixpkgs，否则 Cachix 全 miss
+    deepseek-harness.url = "github:moraxyc/deepseek-harness.nix";
     # devenv
     devenv-root = {
       url = "file+file:///dev/null";

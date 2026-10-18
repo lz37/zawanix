@@ -1,0 +1,7 @@
+# ~/.dsh/profiles/web -> 本目录（home.activation.linkDshWebProfile）。
+# 只版本化人写的文件；cordis.yml 是 dsh 生成的解析树，node_modules 是 pnpm 安装产物。
+*
+!.gitignore
+!cordis.patch.yml
+!package.json
+!pnpm-workspace.yaml
