@@ -4,5 +4,14 @@ providers:
     modelOverrides:
       MiniMax-M3: { api: anthropic-messages, contextWindow: 512000 }
       MiniMax-M3.1-Flash-Preview:
-        { api: anthropic-messages, contextWindow: 512000 }
+        api: anthropic-messages
+        contextWindow: 512000
+        thinking:
+          mode: anthropic-adaptive
+          efforts: [low, medium, high, xhigh, max]
+          effortMap:
+            low: low
+            medium: medium
+            high: high
+          requiresEffort: true
       deepseek-v4.1-flash: { api: anthropic-messages }
