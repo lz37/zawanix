@@ -1,29 +1,36 @@
 import type { ExtensionAPI, ExtensionContext, Settings } from "@oh-my-pi/pi-coding-agent";
 import { cfgModelRoles } from "@oh-my-pi/pi-coding-agent/config/model-settings";
 import type { AnySetting } from "@oh-my-pi/pi-coding-agent/config/registry";
-import { cfgRetryUsageReservePct } from "@oh-my-pi/pi-coding-agent/session/settings";
 import { cfgTaskAgentModelOverrides } from "@oh-my-pi/pi-coding-agent/task/settings";
+import { getHolidaysInRange, isHoliday } from "chinese-workday";
+
+/**
+ * 中国法定节假日由 `chinese-workday` 判定（离线数据，含调休与完整连休）。
+ * 覆盖年份通过年度假期列表探测；未覆盖年份按“无节假日”处理，并在会话
+ * 启动时提示一次。
+ */
 
 /**
  * OMP Extension: dspeak — DeepSeek 高峰期自动避让（`dspeak/` 占位符条件选择器）。
  *
- * 背景：DeepSeek 官方峰谷定价（2026-08-17 生效），高峰时段为北京时间
- * 09:00–12:00、14:00–18:00，即 UTC 01:00–04:00、06:00–10:00（每日）。
- * 2026-08-23 起周六、周日（北京时间）全天统一按低谷价，周末永不高峰。
+ * 背景：DeepSeek 官方峰谷定价（2026-08-17 生效）。官方规则原文：北京时间
+ * 周一至周五（不含中国法定节假日）09:00–12:00、14:00–18:00 为高峰时段；
+ * 其余时段，包括周末及中国法定节假日全天均为空闲时段。
+ * 即 UTC 01:00–04:00、06:00–10:00；周末（含调休补班的周六/周日）与法定
+ * 节假日（含落在工作日上的）全天低谷。
  *
  * 占位符语法（写在 config.yml 的 modelRoles / task.agentModelOverrides 值里）：
  *
  *   dspeak/<条件>=<原生spec>[&<条件>=<原生spec>...]
  *
- *   例：dspeak/peak=openai-codex/gpt-5.6-luna:max&default=litellm/deepseek-v4-flash:max
+ *   例：dspeak/peak=litellm/MiniMax-M3.1-Flash-Preview:xhigh&default=litellm/deepseek-v4.1-flash:max
  *
  * - 条件：`peak`（DeepSeek 高峰窗）、`offpeak`（非高峰窗）、`default`（兜底）。
  * - 求值顺序：先按书写顺序试非 default 分支，再按书写顺序试 default 分支
  *   （default 写在哪都是最后兜底）。每个分支的 spec 是完整的原生
  *   `provider/model[:thinking]`，原样进入 OMP 解析。
- * - 分支闸门：条件命中后还要求 (a) spec 可被 modelRegistry 解析（未认证/未
- *   发现则跳过），(b) 若 provider 是 openai-codex 则其额度未耗尽（见下）。
- *   所有命中分支都被闸门拦下时，退化为「第一个 default 分支 ?? 第一个分支」
+ * - 分支闸门：条件命中后还要求 spec 可被 modelRegistry 解析（未认证/未发现则
+ *   跳过）。所有命中分支都被拦下时，退化为「第一个 default 分支 ?? 第一个分支」
  *   的原样 spec（ungated —— 配置错误会经由 OMP 自身的 unresolved 警告暴露）。
  * - 占位符可出现在逗号优先级列表或数组值的任意一项里，改写保持原有形状。
  * - 非 `dspeak/` 前缀的值（即手动指定的真实模型名）一律不托管、不动。
@@ -54,15 +61,6 @@ import { cfgTaskAgentModelOverrides } from "@oh-my-pi/pi-coding-agent/task/setti
  *   进程内首个会话为 owner，独占 pinned 键的写入权；非 owner 实例写入的
  *   全量映射与 owner 按时间确定性收敛，互不踩踏。
  *
- * openai-codex 额度门（零模型调用）：
- * - 对所有出现在占位符分支里的 openai-codex 模型，读 OMP 的 usage 报告
- *   （authStorage.health.model，数据来自 Codex usage 端点 + 响应头解析，
- *   5min 缓存；本扩展再加 60s 本地缓存）。额度 depleted → 该分支视同不可用被
- *   跳过（钉住与浮动判定都一样）；额度恢复后自动切回。查询失败按可用放行。
- * - 不安装 OMP 回落链、不开 `retry.usageAwareFallback`：分支模型的瞬时错误
- *   （429/超时/网络抖动）只走 OMP 原生同模型重试，不自动改道——避免峰时回落
- *   到峰时计费的 flash，也避免 OMP 把 luna 压入 5–30min 冷却。
- *
  * 命令：
  *   /dspeak            — 查看状态（含每个托管键当前解析到的真实 spec）
  *   /dspeak peak       — 手动锚定高峰分支（别名 luna；立即 re-pin + 写 marker）
@@ -84,19 +82,13 @@ import { cfgTaskAgentModelOverrides } from "@oh-my-pi/pi-coding-agent/task/setti
 /** 占位符前缀：设置值中以此开头的条目由本扩展托管解析。 */
 const DSPEAK_PREFIX = "dspeak/";
 
-/** DeepSeek 高峰窗，UTC 分钟数区间 [start, end)：北京 09:00-12:00 / 14:00-18:00，仅周一至周五（北京时间周末全天低谷）。 */
+/** DeepSeek 高峰窗，UTC 分钟数区间 [start, end)：北京 09:00-12:00 / 14:00-18:00，仅周一至周五。 */
 const PEAK_WINDOWS_UTC: ReadonlyArray<readonly [number, number]> = [
  [1 * 60, 4 * 60], // 01:00–04:00 UTC
  [6 * 60, 10 * 60], // 06:00–10:00 UTC
 ];
 
 const MARKER_TYPE = "dspeak.pin";
-
-/** 额度健康本地缓存时长（上游 usage 报告本身还有 ~5min 缓存）。 */
-const QUOTA_CACHE_MS = 60_000;
-
-/** 额度门只对该 provider 生效（authStorage.health.model 的数据源）。 */
-const QUOTA_PROVIDER = "openai-codex";
 
 // ── Types & shared process state ────────────────────────────
 
@@ -105,9 +97,6 @@ type Mode = "peak" | "offpeak";
 
 /** 占位符分支条件。default 无条件命中，兜底。 */
 type Cond = "peak" | "offpeak" | "default";
-
-/** 额度三态：depleted → exhausted；查询失败 → unknown（判定时按可用放行）。 */
-type QuotaState = "ok" | "exhausted" | "unknown";
 
 interface Branch {
  cond: Cond;
@@ -130,16 +119,9 @@ interface ManagedEntry {
  lastWritten: string | string[] | null;
 }
 
-interface QuotaEntry {
- state: QuotaState;
- at: number;
- /** 上次「额度耗尽」提示时刻；0 = 当前未处于已告知的耗尽期。 */
- warnedAt: number;
-}
-
 interface Skip {
  spec: string;
- reason: "unresolvable" | "quota";
+ reason: "unresolvable";
 }
 
 interface DspeakShared {
@@ -153,12 +135,12 @@ interface DspeakShared {
  agentManaged: Map<string, ManagedEntry>;
  wroteRoles: boolean;
  wroteAgents: boolean;
- /** openai-codex 模型额度健康，key = 无后缀的 provider/model。 */
- quota: Map<string, QuotaEntry>;
  /** 已提示过的畸形占位符键（path.key）。 */
  malformedWarned: Set<string>;
  /** 已提示过的不可解析分支 spec。 */
  unresolvableWarned: Set<string>;
+ /** 已提示过「该年份节假日未收录」的年份。 */
+ holidayYearWarned: Set<string>;
 }
 
 const GLOBAL_KEY = Symbol.for("omp.dspeak.v2");
@@ -175,9 +157,9 @@ function sharedState(): DspeakShared {
    agentManaged: new Map(),
    wroteRoles: false,
    wroteAgents: false,
-   quota: new Map(),
    malformedWarned: new Set(),
    unresolvableWarned: new Set(),
+   holidayYearWarned: new Set(),
   };
   g[GLOBAL_KEY] = s;
  }
@@ -185,20 +167,6 @@ function sharedState(): DspeakShared {
 }
 
 // ── Placeholder parsing ─────────────────────────────────────
-
-/** `provider/id:thinking` → ["provider/id", ":thinking"]；无后缀时 suffix = ""。 */
-function splitThinkingSuffix(spec: string): [base: string, suffix: string] {
- const i = spec.lastIndexOf(":");
- if (i <= 0) return [spec, ""];
- return [spec.slice(0, i), spec.slice(i)];
-}
-
-/** `provider/model` → { provider, modelId }（modelId 可含 `/`）。 */
-function specProviderModel(base: string): { provider: string; modelId: string } | null {
- const i = base.indexOf("/");
- if (i <= 0 || i === base.length - 1) return null;
- return { provider: base.slice(0, i), modelId: base.slice(i + 1) };
-}
 
 /**
  * 解析一个占位符条目：`dspeak/<cond>=<spec>[&<cond>=<spec>...]`。
@@ -243,10 +211,28 @@ function hasPlaceholder(value: string | string[]): boolean {
 
 // ── Time & mode helpers ─────────────────────────────────────
 
-function isPeakUtc(nowMs: number): boolean {
- // 北京时间周六/周日全天低谷（2026-08-23 起）；UTC+8 无夏令时。
- const bjDay = new Date(nowMs + 8 * 3_600_000).getUTCDay();
- if (bjDay === 0 || bjDay === 6) return false;
+/** 北京时间（UTC+8，无夏令时）的日期与星期。 */
+function beijingDate(nowMs: number): { date: string; day: number } {
+ const d = new Date(nowMs + 8 * 3_600_000);
+ return { date: d.toISOString().slice(0, 10), day: d.getUTCDay() };
+}
+
+/** 北京日期是否为中国法定放假日（含调休连休；周末由调用方先行处理）。 */
+function isCnPublicHoliday(date: string): boolean {
+ return isHoliday(date);
+}
+
+/** 该年份是否有节假日数据（年度假期列表为空即未覆盖）。 */
+function hasHolidayData(year: string): boolean {
+ return getHolidaysInRange(`${year}-01-01`, `${year}-12-31`).length > 0;
+}
+
+export function isPeakUtc(nowMs: number): boolean {
+ const bj = beijingDate(nowMs);
+ // 周末（含调休补班）全天低谷。
+ if (bj.day === 0 || bj.day === 6) return false;
+ // 中国法定节假日（含落在工作日上的）全天低谷。
+ if (isCnPublicHoliday(bj.date)) return false;
  const d = new Date(nowMs);
  const mins = d.getUTCHours() * 60 + d.getUTCMinutes();
  return PEAK_WINDOWS_UTC.some(([start, end]) => mins >= start && mins < end);
@@ -258,106 +244,22 @@ function pick(shared: DspeakShared): Mode {
  return isPeakUtc(Date.now()) ? "peak" : "offpeak";
 }
 
-// ── Quota gate (openai-codex usage, zero model calls) ───────
-
-/** 收集所有占位符分支里出现的 openai-codex 模型（无后缀的 provider/model）。 */
-function collectQuotaSpecs(settings: Settings, shared: DspeakShared): Set<string> {
- const out = new Set<string>();
- const scan = (value: unknown): void => {
-  if (typeof value !== "string" && !Array.isArray(value)) return;
-  for (const item of flattenItems(value as string | string[])) {
-   const parsed = parsePlaceholder(item);
-   if (!parsed || "error" in parsed) continue;
-   for (const b of parsed.branches) {
-    const pm = specProviderModel(splitThinkingSuffix(b.spec)[0]);
-    if (pm?.provider === QUOTA_PROVIDER) out.add(splitThinkingSuffix(b.spec)[0]);
-   }
-  }
- };
- const roles = cfgModelRoles.get(settings);
- const agents = cfgTaskAgentModelOverrides.get(settings);
- for (const v of Object.values(roles ?? {})) scan(v);
- for (const v of Object.values(agents ?? {})) scan(v);
- // 覆盖层在场时 merged 视图里是我们解析后的真实 spec，占位符只在 original 里。
- for (const e of shared.roleManaged.values()) scan(e.original);
- for (const e of shared.agentManaged.values()) scan(e.original);
- return out;
-}
-
-function quotaNeedsRefresh(settings: Settings, shared: DspeakShared): boolean {
- const now = Date.now();
- for (const base of collectQuotaSpecs(settings, shared)) {
-  const e = shared.quota.get(base);
-  if (!e || now - e.at >= QUOTA_CACHE_MS) return true;
- }
- return false;
-}
-
-/**
- * 刷新所有占位符分支里 openai-codex 模型的额度健康（零模型调用）。
- * 60s 本地缓存；force 跳过缓存。返回是否有状态变化。
- * 耗尽↔恢复的迁移各提示一次（subagent 实例 ctx.hasUI=false，notify 为空操作）。
- */
-async function refreshQuotas(
- pi: ExtensionAPI,
- ctx: ExtensionContext,
- shared: DspeakShared,
- force = false,
-): Promise<boolean> {
- const now = Date.now();
- let changed = false;
- for (const base of collectQuotaSpecs(pi.pi.settings, shared)) {
-  const existing = shared.quota.get(base);
-  if (!force && existing && now - existing.at < QUOTA_CACHE_MS) continue;
-  const pm = specProviderModel(base);
-  if (!pm) continue;
-  let next: QuotaState;
-  try {
-   const health = await ctx.modelRegistry.authStorage.health.model(pm.provider, {
-    modelId: pm.modelId,
-    sessionId: ctx.sessionManager.getSessionId(),
-    baseUrl: ctx.modelRegistry.getProviderBaseUrl(pm.provider),
-    reserveFraction: cfgRetryUsageReservePct.get(pi.pi.settings) / 100,
-   });
-   // reserve（最后 10%）不算耗尽：余量带继续用（本扩展不开 usageAwareFallback，无预检改道）。
-   next = health.state === "depleted" ? "exhausted" : "ok";
-  } catch {
-   next = "unknown"; // 查询失败放行：无回落链，真挂时走 OMP 同模型重试
-  }
-  if (existing && existing.state !== next) changed = true;
-  const entry: QuotaEntry = { state: next, at: now, warnedAt: existing?.warnedAt ?? 0 };
-  shared.quota.set(base, entry);
-  if (next === "exhausted" && entry.warnedAt === 0) {
-   entry.warnedAt = now;
-   ctx.ui.notify(`dspeak: ${base} 额度耗尽（周窗口），其占位符分支暂被跳过；恢复后自动切回`, "warning");
-  } else if (next !== "exhausted" && entry.warnedAt !== 0) {
-   entry.warnedAt = 0;
-   if (next === "ok") ctx.ui.notify(`dspeak: ${base} 额度已恢复`, "info");
-  }
- }
- return changed;
-}
-
 // ── Placeholder resolution ──────────────────────────────────
 
 interface ResolveEnv {
  peak: boolean;
  isResolvable: (spec: string) => boolean;
- quotaOk: (spec: string) => boolean;
 }
 
 interface Resolution {
  spec: string;
- cond: Cond;
- /** true = 所有命中分支都被闸门拦下，本次返回的是 ungated 兜底分支。 */
- gated: boolean;
  skips: Skip[];
 }
 
 /**
  * 求值占位符：先按书写顺序试非 default 分支，再按书写顺序试 default 分支。
- * 条件命中 + 可解析 + 额度未耗尽 → 采用。全部被拦 → 第一个 default 分支 ??
- * 第一个分支的 ungated 原样 spec（让配置错误暴露而非静默）。
+ * 条件命中 + 可解析 → 采用。全部被拦 → 第一个 default 分支 ??
+ * 第一个分支的原样 spec（让配置错误暴露而非静默）。
  */
 function resolvePlaceholder(branches: Branch[], env: ResolveEnv): Resolution {
  const ordered = [...branches.filter(b => b.cond !== "default"), ...branches.filter(b => b.cond === "default")];
@@ -369,14 +271,10 @@ function resolvePlaceholder(branches: Branch[], env: ResolveEnv): Resolution {
    skips.push({ spec: b.spec, reason: "unresolvable" });
    continue;
   }
-  if (!env.quotaOk(b.spec)) {
-   skips.push({ spec: b.spec, reason: "quota" });
-   continue;
-  }
-  return { spec: b.spec, cond: b.cond, gated: false, skips };
+  return { spec: b.spec, skips };
  }
  const fallback = (ordered.find(b => b.cond === "default") ?? ordered[0])!;
- return { spec: fallback.spec, cond: fallback.cond, gated: true, skips };
+ return { spec: fallback.spec, skips };
 }
 
 interface RewriteResult {
@@ -480,7 +378,7 @@ function warnMalformed(ctx: ExtensionContext, shared: DspeakShared, path: string
  }
 }
 
-/** 被闸门跳过的分支一次性提示（按 spec；quota 跳过的迁移提示由 refreshQuotas 负责）。 */
+/** 被闸门跳过的分支一次性提示（按 spec）。 */
 function warnSkips(ctx: ExtensionContext, shared: DspeakShared, skips: Skip[]): void {
  for (const skip of skips) {
   if (skip.reason !== "unresolvable" || shared.unresolvableWarned.has(skip.spec)) continue;
@@ -502,7 +400,6 @@ function applyOverrides(pi: ExtensionAPI, ctx: ExtensionContext, shared: DspeakS
  const env: ResolveEnv = {
   peak: false, // 每个键写入前设置
   isResolvable: spec => ctx.models.resolve(spec) !== undefined,
-  quotaOk: spec => shared.quota.get(splitThinkingSuffix(spec)[0])?.state !== "exhausted",
  };
  const floatPeak = pick(shared) === "peak";
  const pinnedPeak = shared.pinnedMode === "peak";
@@ -604,8 +501,19 @@ export default function(pi: ExtensionAPI) {
    .map(([key, entry]) => `${key}→${fmtValue(entry.lastWritten)}`);
   if (parts.length === 0) return;
   ctx.ui.notify(
-   `dspeak: DeepSeek 高峰时段（UTC 01:00-04:00 / 06:00-10:00，北京时间周末全天低谷），本会话锚定 peak 分支：${parts.join(", ")}`,
+   `dspeak: DeepSeek 高峰时段（UTC 01:00-04:00 / 06:00-10:00，北京时间周末及法定节假日全天低谷），本会话锚定 peak 分支：${parts.join(", ")}`,
    "info",
+  );
+ }
+
+ /** 当年节假日数据未覆盖时提示一次（否则落在工作日的法定节假日会被误判为高峰）。 */
+ function warnUncoveredHolidayYear(ctx: ExtensionContext, shared: DspeakShared): void {
+  const year = beijingDate(Date.now()).date.slice(0, 4);
+  if (hasHolidayData(year) || shared.holidayYearWarned.has(year)) return;
+  shared.holidayYearWarned.add(year);
+  ctx.ui.notify(
+   `dspeak: chinese-workday 未覆盖 ${year} 年中国法定节假日，工作日将按正常峰谷判定；请升级 chinese-workday`,
+   "warning",
   );
  }
 
@@ -613,28 +521,21 @@ export default function(pi: ExtensionAPI) {
 
  pi.on("session_start", async (_event, ctx) => {
   if (isOwner) {
-   // 钉住判定不依赖额度（闸门在每次 apply 时执行），但提前刷新让首个 apply 即准确。
-   await refreshQuotas(pi, ctx, shared, true);
    rebuildPin(pi, ctx, shared);
    applyOverrides(pi, ctx, shared);
    notifyPinnedMode(ctx);
-   // 心跳:保证空闲跨过高峰边界/额度迁移后,下一个新 subagent 拿到当下判定。
-   ctx.setInterval(() => {
-    void refreshQuotas(pi, ctx, shared).then(() => applyOverrides(pi, ctx, shared));
-   }, 60_000);
+   warnUncoveredHolidayYear(ctx, shared);
+   // 心跳:保证空闲跨过高峰边界后,下一个新 subagent 拿到当下判定。
+   ctx.setInterval(() => applyOverrides(pi, ctx, shared), 60_000);
   } else {
    // subagent 实例:只收敛浮动键(pinnedMode 已由 owner 写入注册表)。
    applyOverrides(pi, ctx, shared);
-   void refreshQuotas(pi, ctx, shared).then(changed => {
-    if (changed) applyOverrides(pi, ctx, shared);
-   });
   }
  });
 
  // 会话内切换/分支/历史导航：branch 继承 marker；switch 换分支后按新分支重建。
- const rebind = async (_event: unknown, ctx: ExtensionContext) => {
+ const rebind = (_event: unknown, ctx: ExtensionContext) => {
   if (!isOwner) return;
-  await refreshQuotas(pi, ctx, shared);
   rebuildPin(pi, ctx, shared);
   applyOverrides(pi, ctx, shared);
  };
@@ -643,21 +544,14 @@ export default function(pi: ExtensionAPI) {
  pi.on("session_tree", rebind);
 
  // 新 subagent spawn 前（pre-exec，先于 preflight 读 settings）刷新浮动键。
- // 额度缓存过期时后台刷新（不阻塞 tool 执行），状态翻转后补一次 apply。
  pi.on("tool_call", (event, ctx) => {
   if (event.toolName !== "task") return;
-  if (quotaNeedsRefresh(pi.pi.settings, shared)) {
-   void refreshQuotas(pi, ctx, shared).then(changed => {
-    if (changed) applyOverrides(pi, ctx, shared);
-   });
-  }
   applyOverrides(pi, ctx, shared);
  });
 
- // 主会话每个 turn 开始刷新一次浮动键与额度（覆盖 vibe/runtime 等其他 spawn 路径）。
- pi.on("turn_start", async (_event, ctx) => {
+ // 主会话每个 turn 开始刷新一次浮动键（覆盖 vibe/runtime 等其他 spawn 路径）。
+ pi.on("turn_start", (_event, ctx) => {
   if (!isOwner) return;
-  await refreshQuotas(pi, ctx, shared);
   applyOverrides(pi, ctx, shared);
  });
 
@@ -671,7 +565,6 @@ export default function(pi: ExtensionAPI) {
   description: "DeepSeek 高峰避让：/dspeak peak|offpeak|auto|status（别名 luna→peak，flash→offpeak）",
   handler: async (args, ctx) => {
    const sub = (args.trim().split(/\s+/)[0] ?? "").toLowerCase() || "status";
-   await refreshQuotas(pi, ctx, shared, true);
 
    const anchorMap: Record<string, Mode | null> = {
     peak: "peak",
@@ -705,17 +598,20 @@ export default function(pi: ExtensionAPI) {
    }
 
    const now = new Date();
+   const nowMs = Date.now();
    const hhmm = `${String(now.getUTCHours()).padStart(2, "0")}:${String(now.getUTCMinutes()).padStart(2, "0")}`;
-   const peak = isPeakUtc(Date.now());
-   const quotaLines = [...shared.quota.entries()].map(
-    ([base, e]) => `  ${base}: ${e.state === "exhausted" ? "耗尽(周窗口)" : e.state === "ok" ? "可用" : "未知(查询失败放行)"}`,
-   );
+   const peak = isPeakUtc(nowMs);
+   const bj = beijingDate(nowMs);
+   const weekend = bj.day === 0 || bj.day === 6;
+   const holiday = !weekend && isCnPublicHoliday(bj.date);
+   const dayKind = holiday ? "法定节假日" : weekend ? "周末" : peak ? "工作日高峰" : "工作日低谷";
+   const yearCovered = hasHolidayData(bj.date.slice(0, 4));
    const roleLines = [...shared.roleManaged.entries()].map(([k, e]) => `  ${k} → ${fmtValue(e.lastWritten)}`);
    const agentLines = [...shared.agentManaged.entries()].map(([k, e]) => `  ${k} → ${fmtValue(e.lastWritten)}`);
    const lines = [
-    `UTC ${hhmm} — ${peak ? "高峰时段" : "非高峰时段"}（窗口 01:00-04:00 / 06:00-10:00 UTC，北京时间周末全天低谷）`,
+    `UTC ${hhmm} / 北京 ${bj.date}：${dayKind} → ${peak ? "高峰" : "低谷"}计价（高峰窗 01:00-04:00 / 06:00-10:00 UTC）`,
+    `节假日库: chinese-workday（${bj.date.slice(0, 4)} ${yearCovered ? "已覆盖" : "未覆盖，按无节假日处理"}）`,
     `锚定: ${shared.anchor ?? "无"} | 本会话角色: ${shared.pinnedMode} | 新 subagent: ${pick(shared)}`,
-    `额度:\n${quotaLines.join("\n") || "  (无 openai-codex 分支)"}`,
     `托管 modelRoles:\n${roleLines.join("\n") || "  无"}`,
     `托管 agentModelOverrides:\n${agentLines.join("\n") || "  无"}`,
    ];

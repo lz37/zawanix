@@ -69,7 +69,7 @@ CI（GitHub Actions）自动编译各机内核并推送到 Cachix。
 
 OMP 扩展由 `~/.omp/agent/extensions/` 自动发现，该目录链接到仓库中的 `home/zerozawa/ai/omp/agent/extensions/`。修改扩展后需重启 OMP。
 
-`dspeak` 使用 OMP 18.3 的注册式设置句柄和 `authStorage.health.model()`，模型切换仅写运行时覆盖层，不修改 `config.yml`。回归验证：`bun test home/zerozawa/ai/omp/agent/extensions/tests/`。
+`dspeak` 使用 OMP 的注册式设置句柄，模型切换仅写运行时覆盖层，不修改 `config.yml`。峰谷判定跟随 DeepSeek 官方规则：北京时间周一至周五 09:00–12:00、14:00–18:00 为高峰，周末（含调休补班）与中国法定节假日全天低谷；节假日由 `chinese-workday` 离线数据判定，升级该依赖即可获得新年度安排。回归验证：`bun test home/zerozawa/ai/omp/agent/extensions/tests/`。
 
 ## 使用
 

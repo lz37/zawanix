@@ -22,25 +22,25 @@ alarmClock:
   deliverAs: aside
 modelRoles:
   tiny: local/lfm2.5-230m
-  slow: openai-codex/gpt-6-astra:max
-  smol: litellm/deepseek-v4.1-flash:max
-  default: kimi-code/k3-256k:max
-  vision: openai-codex/gpt-6-luna:max
-  plan: openai-codex/gpt-6-astra:max
-  advisor: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
-  task: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
-  commit: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+  slow: kimi-code/k3-256k:max
+  smol: dspeak/peak=litellm/MiniMax-M3.1-Flash-Preview:xhigh&default=litellm/deepseek-v4.1-flash:max
+  default: litellm/deepseek-v4.1-flash:max
+  vision: kimi-code/kimi-for-coding:max
+  plan: kimi-code/k3-256k:max
+  advisor: litellm/deepseek-v4.1-flash:max
+  task: litellm/deepseek-v4.1-flash:max
+  commit: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
   web: web/exa
-  image: openai-codex/gpt-image-2
+  # image: openai-codex/gpt-image-2
 task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
     reviewer: kimi-code/k3-256k:max
-    scout: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+    scout: dspeak/peak=litellm/MiniMax-M3.1-Flash-Preview:xhigh&default=litellm/deepseek-v4.1-flash:max
     security-reviewer: kimi-code/k3-256k:max
-    sonic: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
-    task: dspeak/peak=openai-codex/gpt-6-luna:max&default=litellm/deepseek-v4.1-flash:max
+    sonic: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+    task: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
   eager: preferred
   agentAdvisor:
     task: "off"
@@ -126,7 +126,6 @@ retry:
       - web/tavily
       - web/brave
       - web/kimi
-      - openai-codex/gpt-5.6-luna
     # image:
     #   - openai/gpt-image-2
     judge:

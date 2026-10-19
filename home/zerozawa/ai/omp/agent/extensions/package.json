@@ -1,4 +1,7 @@
 {
   "name": "extensions",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "chinese-workday": "2.0.0"
+  }
 }
