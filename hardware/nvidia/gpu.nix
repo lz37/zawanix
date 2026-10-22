@@ -1,9 +1,37 @@
 {
   lib,
   config,
+  pkgs,
+  inputs,
   ...
 }: let
   hw = config.zerozawa.hardware;
+
+  # 610.57.04: 最后一个 Wilds 不触发 Xid 109 的分支。
+  # 用仍把 610 作为 new_feature 的旧 nixpkgs 表达式 + 当前 kernel 实例化，
+  # 保证内核模块与 libs 同版本、且模块针对当前 CachyOS 内核编译。
+  nvidia610 = let
+    oldPkgs = import inputs.nixpkgs-nvidia610 {
+      system = pkgs.stdenv.hostPlatform.system;
+      config = {
+        allowUnfree = true;
+        nvidia.acceptLicense = true;
+      };
+    };
+    driver = (oldPkgs.linuxPackagesFor config.boot.kernelPackages.kernel).nvidiaPackages.new_feature;
+  in
+    driver.overrideAttrs (old: {
+      # 内核 7.2 的 gpio_device_get_chip() 参数为非 const，610 的 __to_hwgpio()
+      # 兼容 shim 仍是 const，clang -Werror 报 discards qualifiers。
+      # new_feature 是 generic 直接调用结果，必须替换 passthru.open 才能影响内核模块。
+      passthru =
+        old.passthru
+        // {
+          open = old.passthru.open.override {
+            patches = [./nvidia-open-gpio-const.patch];
+          };
+        };
+    });
 
   # Does this host have a non-NVIDIA GPU (Intel or AMD integrated/discrete)?
   hasNonNvidiaGpu = hw.isIntelGPU || hw.isAmdGPU;
@@ -59,7 +87,7 @@ in
 
       nvidiaSettings = true;
 
-      package = config.boot.kernelPackages.nvidiaPackages.new_feature;
+      package = nvidia610;
 
       prime = {
         offload = {

@@ -4,6 +4,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    # 只取 nvidia 610.57.04 的驱动表达式（2026-09-09 前的 new_feature）。
+    # 615 在 Monster Hunter Wilds 下稳定复现 Xid 109 CTX SWITCH TIMEOUT。
+    nixpkgs-nvidia610.url = "github:nixos/nixpkgs/d6524aaca2ff07876657ae2b323f24be4874944b";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
