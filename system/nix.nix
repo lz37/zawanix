@@ -55,14 +55,14 @@ in {
         "https://forkprince.cachix.org"
         # "https://zed.cachix.org"
         "https://neorocks.cachix.org"
-        pkgs.nur.repos.xddxdd._meta.atticUrl
+        # pkgs.nur.repos.xddxdd._meta.atticUrl
         "https://cache.numtide.com"
         "https://deepseek-harness-nix.cachix.org"
         # pwndbg 官方 cache：不加这条，pwndbg 输入会退化成从源码编译 gdb
         "https://pwndbg.cachix.org"
       ];
       trusted-public-keys = [
-        pkgs.nur.repos.xddxdd._meta.atticPublicKey
+        # pkgs.nur.repos.xddxdd._meta.atticPublicKey
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         # "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
         "zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ="
