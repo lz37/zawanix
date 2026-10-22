@@ -30,7 +30,7 @@ test("peak windows exclude weekends, make-up workdays, and Chinese public holida
 });
 
 test("pin restores recorded mode, skips unresolvable selectors, and never persists resolved values", async () => {
- const peak = "litellm/MiniMax-M3.1-Flash-Preview:xhigh";
+ const peak = "litellm/MiniMax-M3.1-Flash:xhigh";
  const offpeak = "litellm/deepseek-v4.1-flash:max";
  const selector = `dspeak/peak=${peak}&default=${offpeak}`;
  const settings = Settings.isolated();

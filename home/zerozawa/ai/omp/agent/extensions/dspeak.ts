@@ -23,7 +23,7 @@ import { getHolidaysInRange, isHoliday } from "chinese-workday";
  *
  *   dspeak/<条件>=<原生spec>[&<条件>=<原生spec>...]
  *
- *   例：dspeak/peak=litellm/MiniMax-M3.1-Flash-Preview:xhigh&default=litellm/deepseek-v4.1-flash:max
+ *   例：dspeak/peak=litellm/MiniMax-M3.1-Flash:xhigh&default=litellm/deepseek-v4.1-flash:max
  *
  * - 条件：`peak`（DeepSeek 高峰窗）、`offpeak`（非高峰窗）、`default`（兜底）。
  * - 求值顺序：先按书写顺序试非 default 分支，再按书写顺序试 default 分支

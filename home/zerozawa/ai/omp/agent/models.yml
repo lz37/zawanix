@@ -2,8 +2,7 @@ providers:
   litellm:
     # 这些模型以 anthropic-messages 协议访问（网关侧对应 anthropic 形态上游）
     modelOverrides:
-      MiniMax-M3: { api: anthropic-messages, contextWindow: 512000 }
-      MiniMax-M3.1-Flash-Preview:
+      MiniMax-M3.1-Flash:
         api: anthropic-messages
         contextWindow: 512000
         thinking:
