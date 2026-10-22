@@ -51,7 +51,13 @@
       url = "git+ssh://git@github.com/lz37/zawanix-private?ref=main";
       flake = false;
     };
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      # 上游 release 分支锁的 nixpkgs（545c226a, 2026-09-27）还没有 modules.cer 生成逻辑，
+      # 而本仓库 nixpkgs 的 kmod 聚集器强制 `readlink modules.cer`，两者错配会让
+      # system-path 装配失败。让内核跟随本仓库 nixpkgs，使双方用同一套内核构建脚本。
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-cli.url = "github:nix-community/nixos-cli";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.2.0";

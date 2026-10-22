@@ -51,5 +51,6 @@
     sshfs
     upower
     efibootmgr
+    file
   ];
 }
