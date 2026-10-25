@@ -37,7 +37,7 @@ modelRoles:
   # 模式，被 litellm 发现显式排除（exclude-discovery-modes），若在 models.yml 里
   # 声明静态条目又必须写 baseUrl（会把内网域名带进仓库）。因此不设 image 角色：
   # 会话模型是 gpt-6.x 组时，generate_image 走该模型的 hosted-image 载体自动出图。
-  # image: litellm/gpt-6.1-sol
+  image: litellm-image/gpt-image-2
 task:
   enableLsp: true
   showResolvedModelBadge: true
