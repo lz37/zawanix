@@ -74,12 +74,14 @@
     map (
       card: let
         vendor = normalizeGpuVendor (cardVendorName card);
+        vendorHex = normalizeHex (lib.attrByPath ["vendor" "hex"] null card);
         deviceHex = cardDeviceHex card;
         subVendorHex = cardSubVendorHex card;
         subDeviceHex = cardSubDeviceHex card;
       in {
         inherit
           vendor
+          vendorHex
           deviceHex
           subVendorHex
           subDeviceHex
@@ -145,6 +147,12 @@ in {
             type = lib.types.listOf lib.types.attrs;
           };
           aqDrmDevices = lib.mkOption {
+            default = "";
+            type = lib.types.str;
+          };
+          # Vulkan 默认设备的 MESA_VK_DEVICE_SELECT 取值（vendor:device 十六进制）。
+          # 优先 dGPU，没有 dGPU 就用 iGPU；两者都没有或有缺 id 的卡时为空串。
+          vulkanDeviceSelect = lib.mkOption {
             default = "";
             type = lib.types.str;
           };
@@ -348,6 +356,17 @@ in {
           );
         in {
           devices = devices;
+          vulkanDeviceSelect = let
+            dgpu = lib.findFirst (card: card.role == "dgpu") null derivedGraphicsCards;
+            igpu = lib.findFirst (card: card.role == "igpu") null derivedGraphicsCards;
+            card =
+              if dgpu != null
+              then dgpu
+              else igpu;
+          in
+            if card == null || card.vendorHex == null || card.deviceHex == null
+            then ""
+            else "${card.vendorHex}:${card.deviceHex}";
           aqDrmDevices = lib.concatStringsSep ":" (
             if hasIgpu
             then
