@@ -39,6 +39,11 @@ in {
         path = reaSkills;
         filter.maxDepth = 1;
       };
+      # 本仓库自带的跨机器 skill（非上游发布），随 /etc/nixos 版本走。
+      local = {
+        path = ./skills;
+        filter.maxDepth = 1;
+      };
     };
     skills = {
       enable = [
@@ -55,6 +60,7 @@ in {
         "officecli-word-form"
         "officecli-xlsx"
         "reverse-engineer-anything"
+        "litellm-image-generation"
       ];
       # Upstream path is nested; publish it as a flat skill dir.
       explicit.tdd-workflow = {
