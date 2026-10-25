@@ -13,4 +13,25 @@ providers:
             medium: medium
             high: high
           requiresEffort: true
-      deepseek-v4.1-flash: { api: anthropic-messages }
+      # 该 model group 的主上游 Ollama 有时在 thinking 模式下返回不带 thinking
+      # 块的 assistant turn；DeepSeek 官方端点逐条校验，缺一条就整轮 400
+      # （content[].thinking ... must be passed back）。组内以更严的一方定义重放契约：
+      # 每条 assistant turn 都补一个空 thinking 块（官方实测接受空内容+空签名）。
+      deepseek-v4.1-flash:
+        api: anthropic-messages
+        # compat:
+        #   requiresThinkingPresence: true
+      # 网关侧这三个 group 是 chatgpt/ provider（上游 Codex 只有 Responses 形态），
+      # 但 litellm 发现把 providers=["chatgpt"] 归到 openai 以外的路由，api 默认
+      # 落成 openai-completions，只能走 litellm 的 chat→Responses 桥。这里显式
+      # 改回 openai-responses，直接用 /v1/responses：原生加密 reasoning、
+      # reasoning.effort 语义、以及 image_generation 等 Responses-only 工具。
+      # thinking 档位仍来自 /model_group/info 的 reasoning_effort_levels 发现。
+      gpt-6.1-sol: &litellm_responses
+        api: openai-responses
+      gpt-6-astra: *litellm_responses
+      gpt-6-luna: *litellm_responses
+      # 网关侧 1M 窗口原样透传上游，本地按 256K 封顶（256*1024 = 262144，
+      # 与 kimi-code provider 的 k3.1-pro 覆盖同档），控制长上下文消耗。
+      kimi-k3.1-pro:
+        contextWindow: 262144

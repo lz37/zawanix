@@ -22,25 +22,31 @@ alarmClock:
   deliverAs: aside
 modelRoles:
   tiny: local/lfm2.5-230m
-  slow: kimi-code/k3-256k:max
-  smol: dspeak/peak=litellm/MiniMax-M3.1-Flash:xhigh&default=litellm/deepseek-v4.1-flash:max
+  # 决策/判定统一走本地 230M 小模型，不升级到云端
+  judge: local/lfm2.5-230m
+  slow: litellm/kimi-k3.1-pro:max
+  smol: litellm/MiniMax-M3.1-Flash:max
   default: litellm/deepseek-v4.1-flash:max
-  vision: kimi-code/kimi-for-coding:max
-  plan: kimi-code/k3-256k:max
+  vision: litellm/gpt-6-luna:max
+  plan: litellm/gpt-6-astra:max
   advisor: litellm/deepseek-v4.1-flash:max
   task: litellm/deepseek-v4.1-flash:max
-  commit: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+  commit: litellm/deepseek-v4.1-flash:max
   web: web/exa
-  # image: openai-codex/gpt-image-2
+  # image 角色需要 kind=image 的模型；网关的 gpt-image-2 组是 image_generation
+  # 模式，被 litellm 发现显式排除（exclude-discovery-modes），若在 models.yml 里
+  # 声明静态条目又必须写 baseUrl（会把内网域名带进仓库）。因此不设 image 角色：
+  # 会话模型是 gpt-6.x 组时，generate_image 走该模型的 hosted-image 载体自动出图。
+  # image: litellm/gpt-6.1-sol
 task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    reviewer: kimi-code/k3-256k:max
-    scout: dspeak/peak=litellm/MiniMax-M3.1-Flash:xhigh&default=litellm/deepseek-v4.1-flash:max
-    security-reviewer: kimi-code/k3-256k:max
-    sonic: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
-    task: dspeak/peak=kimi-code/kimi-for-coding:max&default=litellm/deepseek-v4.1-flash:max
+    reviewer: litellm/kimi-k3.1-pro:max
+    scout: litellm/gpt-6-luna:max
+    security-reviewer: litellm/gpt-6.1-sol:max
+    sonic: dspeak/peak=litellm/MiniMax-M3.1-Flash:max&default=litellm/deepseek-v4.1-flash:max
+    task: litellm/deepseek-v4.1-flash:max
   eager: preferred
   agentAdvisor:
     task: "off"
@@ -70,7 +76,8 @@ github:
     enabled: true
     softTtlSec: 300
     hardTtlSec: 604800
-defaultThinkingLevel: auto
+# 固定档位，避免 auto 分类器（它走 judge 角色）
+defaultThinkingLevel: high
 advisor:
   enabled: false
 tier:
@@ -117,7 +124,8 @@ composer:
 snapcompact:
   toolResults: false
 features:
-  unexpectedStopDetection: smart
+  # 关闭「意外停止」自动恢复（原 smart：机械重试 + 小模型判定纯文本停止）
+  unexpectedStopDetection: none
 retry:
   fallbackChains:
     web:
@@ -127,7 +135,4 @@ retry:
     # image:
     #   - openai/gpt-image-2
     judge:
-      - local/llama3.2:3b
-      - "@tiny"
-      - "@smol"
-      - "@default"
+      - local/lfm2.5-230m
