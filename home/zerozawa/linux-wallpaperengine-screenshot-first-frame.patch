@@ -1,0 +1,241 @@
+diff --git a/src/WallpaperEngine/Application/ApplicationContext.cpp b/src/WallpaperEngine/Application/ApplicationContext.cpp
+index 510ec9588..4645c6688 100644
+--- a/src/WallpaperEngine/Application/ApplicationContext.cpp
++++ b/src/WallpaperEngine/Application/ApplicationContext.cpp
+@@ -548,7 +548,7 @@ void ApplicationContext::loadSettingsFromArgv () {
+ 	});
+ 
+     screenshotGroup.add_argument ("--screenshot-delay")
+-	.help ("Frames to wait before taking the screenshot")
++	.help ("Minimum frames to wait before taking the screenshot (video wallpapers also wait for their first frame)")
+ 	.default_value<uint32_t> (5)
+ 	.store_into (this->settings.screenshot.delay);
+ 
+@@ -663,8 +663,6 @@ void ApplicationContext::loadSettingsFromArgv () {
+ 	}
+ 
+ 	this->settings.audio.volume = std::max (0, std::min (this->settings.audio.volume, 128));
+-	this->settings.screenshot.delay
+-	    = std::max<uint32_t> (0, std::min<uint32_t> (this->settings.screenshot.delay, 5));
+ 
+ 	// use std::cout on this in case logging is disabled, this way it's easy to look at what is running
+ 	std::stringbuf buffer;
+diff --git a/src/WallpaperEngine/Application/WallpaperApplication.cpp b/src/WallpaperEngine/Application/WallpaperApplication.cpp
+index c9107afce..918b4a4ab 100644
+--- a/src/WallpaperEngine/Application/WallpaperApplication.cpp
++++ b/src/WallpaperEngine/Application/WallpaperApplication.cpp
+@@ -32,6 +32,9 @@
+ 
+ #define FULLSCREEN_CHECK_WAIT_TIME 250
+ 
++/** How long to wait for video wallpapers to produce their first frame before capturing anyway */
++constexpr auto SCREENSHOT_READY_TIMEOUT = std::chrono::seconds (3);
++
+ float g_Time;
+ float g_TimeLast;
+ float g_Daytime;
+@@ -231,12 +234,14 @@ ProjectUniquePtr WallpaperApplication::loadBackground (const std::string& bg) {
+     // this allows taking screenshots after a background changes
+     // useful for playlists
+     if (this->m_context.settings.screenshot.take) {
+-	this->m_nextFrameScreenshot = this->m_context.settings.screenshot.delay;
+-
+-	if (this->m_videoDriver != nullptr) {
+-	    this->m_nextFrameScreenshot += this->m_videoDriver->getFrameCounter ();
+-	}
+-
++	const uint32_t baseFrame = this->m_videoDriver != nullptr ? this->m_videoDriver->getFrameCounter () : 0;
++
++	this->m_nextFrameScreenshot = baseFrame + this->m_context.settings.screenshot.delay;
++	// the delay is only the lower bound: video wallpapers need their first decoded frame too.
++	// The readiness wait is bounded by a wall-clock deadline (started once the delay elapses),
++	// so paused rendering or a broken stream can never block the capture forever.
++	this->m_screenshotDeadline = {};
++	this->m_screenshotReadyFrame = 0;
+ 	this->m_screenShotTaken = false;
+     }
+ 
+@@ -539,6 +544,21 @@ void WallpaperApplication::setupBrowser () {
+     this->m_browserContext = std::make_unique<WebBrowser::WebBrowserContext> (*this);
+ }
+ 
++bool WallpaperApplication::backgroundsReadyForScreenshot () const {
++    if (this->m_renderContext == nullptr) {
++	return true;
++    }
++
++    for (const auto& entry : this->m_renderContext->getWallpapers ()) {
++	// screens without a wallpaper cannot hold the capture back
++	if (entry.second != nullptr && !entry.second->isReadyForScreenshot ()) {
++	    return false;
++	}
++    }
++
++    return true;
++}
++
+ void WallpaperApplication::takeScreenshot (const std::filesystem::path& filename) const {
+     const int width = this->m_renderContext->getOutput ().getFullWidth ();
+     const int height = this->m_renderContext->getOutput ().getFullHeight ();
+@@ -943,10 +963,34 @@ void WallpaperApplication::render () {
+ 	return;
+     }
+ 
+-    if (this->m_videoDriver->getFrameCounter () < this->m_nextFrameScreenshot) {
++    const uint32_t currentFrame = this->m_videoDriver->getFrameCounter ();
++
++    if (currentFrame < this->m_nextFrameScreenshot) {
+ 	return;
+     }
+ 
++    // the minimum frame delay elapsed, start the wall-clock fallback once
++    if (this->m_screenshotDeadline == std::chrono::steady_clock::time_point {}) {
++	this->m_screenshotDeadline = std::chrono::steady_clock::now () + SCREENSHOT_READY_TIMEOUT;
++    }
++
++    if (std::chrono::steady_clock::now () < this->m_screenshotDeadline) {
++	// give video wallpapers time to decode and upload their first frame
++	if (!this->backgroundsReadyForScreenshot ()) {
++	    return;
++	}
++
++	if (this->m_screenshotReadyFrame == 0) {
++	    this->m_screenshotReadyFrame = currentFrame;
++	}
++
++	// rendering happens through the output driver's callbacks, so wait a couple of frames
++	// after the backend reports a frame to make sure it landed in the wallpaper FBO
++	if (currentFrame < this->m_screenshotReadyFrame + 2) {
++	    return;
++	}
++    }
++
+     this->takeScreenshot (this->m_context.settings.screenshot.path);
+     this->m_screenShotTaken = true;
+ }
+diff --git a/src/WallpaperEngine/Application/WallpaperApplication.h b/src/WallpaperEngine/Application/WallpaperApplication.h
+index 1d1302a9f..fbb1c8542 100644
+--- a/src/WallpaperEngine/Application/WallpaperApplication.h
++++ b/src/WallpaperEngine/Application/WallpaperApplication.h
+@@ -140,6 +140,10 @@ class WallpaperApplication {
+      * @param filename
+      */
+     void takeScreenshot (const std::filesystem::path& filename) const;
++    /**
++     * @return Whether every background has content ready to be captured
++     */
++    [[nodiscard]] bool backgroundsReadyForScreenshot () const;
+ 
+     struct ActivePlaylist {
+ 	ApplicationContext::PlaylistDefinition definition;
+@@ -180,6 +184,8 @@ class WallpaperApplication {
+     bool m_isPaused = false;
+     bool m_screenShotTaken = false;
+     uint32_t m_nextFrameScreenshot = 0;
++    std::chrono::steady_clock::time_point m_screenshotDeadline {};
++    uint32_t m_screenshotReadyFrame = 0;
+     std::chrono::steady_clock::time_point m_pauseStart {};
+     GLuint m_destinationFramebuffer = 0;
+ };
+diff --git a/src/WallpaperEngine/Render/CWallpaper.cpp b/src/WallpaperEngine/Render/CWallpaper.cpp
+index d0f7eabb7..e7ac6fdda 100644
+--- a/src/WallpaperEngine/Render/CWallpaper.cpp
++++ b/src/WallpaperEngine/Render/CWallpaper.cpp
+@@ -56,6 +56,8 @@ CWallpaper::~CWallpaper () {
+     glDeleteVertexArrays (1, &this->m_vaoBuffer);
+ }
+ 
++bool CWallpaper::isReadyForScreenshot () const { return true; }
++
+ const AssetLocator& CWallpaper::getAssetLocator () const { return *this->m_wallpaperData.project.assetLocator; }
+ 
+ const Wallpaper& CWallpaper::getWallpaperData () const { return this->m_wallpaperData; }
+diff --git a/src/WallpaperEngine/Render/CWallpaper.h b/src/WallpaperEngine/Render/CWallpaper.h
+index 87b2b07e5..45c297a78 100644
+--- a/src/WallpaperEngine/Render/CWallpaper.h
++++ b/src/WallpaperEngine/Render/CWallpaper.h
+@@ -59,6 +59,11 @@ class CWallpaper : public Helpers::ContextAware, public FBOProvider, public Type
+      */
+     virtual void setPause (bool newState);
+ 
++    /**
++     * @return Whether the wallpaper has content that can be captured by --screenshot
++     */
++    [[nodiscard]] virtual bool isReadyForScreenshot () const;
++
+     /**
+      * @return The container to resolve files for this wallpaper
+      */
+diff --git a/src/WallpaperEngine/Render/Wallpapers/CVideo.cpp b/src/WallpaperEngine/Render/Wallpapers/CVideo.cpp
+index bf61e2a8f..4a9b5f172 100644
+--- a/src/WallpaperEngine/Render/Wallpapers/CVideo.cpp
++++ b/src/WallpaperEngine/Render/Wallpapers/CVideo.cpp
+@@ -51,6 +51,8 @@ void CVideo::renderFrame (const glm::ivec4& viewport) {
+     this->m_player->render ();
+ }
+ 
++bool CVideo::isReadyForScreenshot () const { return this->m_player->hasFrame (); }
++
+ const Data::Model::Video& CVideo::getVideo () const { return *this->getWallpaperData ().as<Data::Model::Video> (); }
+ 
+ void CVideo::setPause (bool newState) {
+diff --git a/src/WallpaperEngine/Render/Wallpapers/CVideo.h b/src/WallpaperEngine/Render/Wallpapers/CVideo.h
+index a0813d806..e57a99945 100644
+--- a/src/WallpaperEngine/Render/Wallpapers/CVideo.h
++++ b/src/WallpaperEngine/Render/Wallpapers/CVideo.h
+@@ -23,6 +23,8 @@ class CVideo final : public CWallpaper {
+ 
+     void setPause (bool newState) override;
+ 
++    [[nodiscard]] bool isReadyForScreenshot () const override;
++
+ protected:
+     void renderFrame (const glm::ivec4& viewport) override;
+ 
+diff --git a/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.cpp b/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.cpp
+index 39f1ff8c2..96f0ff710 100644
+--- a/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.cpp
++++ b/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.cpp
+@@ -172,9 +172,18 @@ void GLPlayer::render () const {
+ 				  { MPV_RENDER_PARAM_FLIP_Y, &flip_y },
+ 				  { MPV_RENDER_PARAM_INVALID, nullptr } };
+ 
++    // remember whether mpv had a decoded frame ready for this render pass; --screenshot uses
++    // this to avoid capturing a video wallpaper before its first frame made it into the FBO
++    if (!this->m_hasFrame) {
++	const uint64_t updateFlags = mpv_render_context_update (this->m_renderContext);
++	this->m_hasFrame = (updateFlags & MPV_RENDER_UPDATE_FRAME) != 0;
++    }
++
+     mpv_render_context_render (this->m_renderContext, params);
+ }
+ 
++bool GLPlayer::hasFrame () const { return this->m_hasFrame; }
++
+ int GLPlayer::getWidth () const { return this->m_width; }
+ int GLPlayer::getHeight () const { return this->m_height; }
+ 
+diff --git a/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.h b/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.h
+index 2cf788a36..f0ab78e1f 100644
+--- a/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.h
++++ b/src/WallpaperEngine/VideoPlayback/MPV/GLPlayer.h
+@@ -48,6 +48,11 @@ class GLPlayer : public Helpers::ContextAware {
+ 
+     void render () const;
+ 
++    /**
++     * @return Whether at least one video frame has been rendered by this player
++     */
++    [[nodiscard]] bool hasFrame () const;
++
+     int getWidth () const;
+     int getHeight () const;
+ 
+@@ -74,6 +79,7 @@ class GLPlayer : public Helpers::ContextAware {
+     std::optional<std::filesystem::path> m_file;
+     std::optional<MemoryStreamProtocolUniquePtr> m_stream;
+     uint32_t m_usageCount = 0;
++    mutable bool m_hasFrame = false;
+ };
+ 
+ using GLPlayerUniquePtr = std::unique_ptr<GLPlayer>;

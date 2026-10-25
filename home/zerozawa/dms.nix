@@ -4,6 +4,14 @@
   ...
 }: let
   hw = osConfig.zerozawa.hardware;
+  # Upstream clamps --screenshot-delay to 5 frames and captures before a video
+  # wallpaper decoded its first frame, so we_screenshots gets black/uninitialized
+  # noise JPGs (and the theme derived from them is wrong). This patch is PR #701
+  # (honour the delay, wait for the first video frame, bounded by a 3s deadline);
+  # drop it once nixpkgs picks the commit up.
+  linux-wallpaperengine = pkgs.linux-wallpaperengine.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [./linux-wallpaperengine-screenshot-first-frame.patch];
+  });
 in {
   home.packages = with pkgs; [
     gpu-screen-recorder
