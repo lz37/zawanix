@@ -33,6 +33,7 @@
       binwalk
       mitmproxy
       unblob
+      spring-boot-cli
     ])
     ++ (with pkgs.llm-agents; [
       spec-kit

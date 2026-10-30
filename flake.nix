@@ -63,12 +63,7 @@
       url = "github:nix-community/lanzaboote/v1.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    zerozawa-nur = {
-      url = "github:lz37/nur/main";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    zerozawa-nur.url = "github:lz37/nur/main";
     nix_version_search_cli.url = "github:jeff-hykin/nix_version_search_cli";
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";

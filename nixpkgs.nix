@@ -39,7 +39,7 @@ moduleArgs @ {
               nurpkgs = prev;
               pkgs = prev;
               repoOverrides = {
-                zerozawa = import inputs.zerozawa-nur {inherit pkgs;};
+                zerozawa = inputs.zerozawa-nur.legacyPackages.${system};
               };
             };
             stable = import inputs.nixpkgs-stable {

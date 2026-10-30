@@ -15,12 +15,15 @@ providers:
           requiresEffort: true
       # 该 model group 的主上游 Ollama 有时在 thinking 模式下返回不带 thinking
       # 块的 assistant turn；DeepSeek 官方端点逐条校验，缺一条就整轮 400
-      # （content[].thinking ... must be passed back）。组内以更严的一方定义重放契约：
-      # 每条 assistant turn 都补一个空 thinking 块（官方实测接受空内容+空签名）。
+      # （content[].thinking ... must be passed back）。组内以更严的一方定义重放契约。
+      # OMP 18.13.1 起（上游按 #16739 自实现）只在“本轮”补块：最后一条带文本的
+      # user 之后、缺 thinking 的 assistant 会被前置一个占位 thinking 块，文本必须
+      # 非空（litellm 适配层丢弃空块），签名可为空；更早的历史轮不补。只在本次请求
+      # 开启 thinking 时生效。
       deepseek-v4.1-flash:
         api: anthropic-messages
-        # compat:
-        #   requiresThinkingPresence: true
+        compat:
+          requiresThinkingPresence: true
       # 网关侧这三个 group 是 chatgpt/ provider（上游 Codex 只有 Responses 形态），
       # 但 litellm 发现把 providers=["chatgpt"] 归到 openai 以外的路由，api 默认
       # 落成 openai-completions，只能走 litellm 的 chat→Responses 桥。这里显式
