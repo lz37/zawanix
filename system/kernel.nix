@@ -122,7 +122,6 @@ in {
       ++ (lib.optionals hw.isNvidiaGPU [
         "nvidia_drm.modeset=1"
         "nvidia.NVreg_UsePageAttributeTable=1"
-        "nvidia.NVreg_EnablePCIeGen3=1"
         "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
       ])
       ++ (lib.optionals hw.isOculink [
@@ -131,6 +130,9 @@ in {
         # "pci=noaer" # 这玩意就屏蔽日志用的，没意义
       ])
       ++ (lib.optionals (hw.isOculink && hw.isNvidiaGPU) [
+        # OCuLink eGPU：Gen4 协商不稳时退回 Gen3 换稳定。
+        # 桌面机直连 x16 槽不需要，留着只会白白砍掉一半链路带宽。
+        "nvidia.NVreg_EnablePCIeGen3=1"
         "pcie_ports=native"
         "pcie_aspm=off"
         "pci=realloc"
@@ -138,14 +140,11 @@ in {
       ++ (lib.optionals (hw.isOculink && hw.isAmdGPU) [
         "amdgpu.runpm=0"
       ])
-      ++ (lib.optionals (host.isGameMachine && hw.ram >= 32 * 1024) [
-        "hugepages=4"
-        "hugepagesz=1G"
-        "transparent_hugepage=always"
-      ])
-      ++ (lib.optionals (host.isGameMachine && hw.ram < 32 * 1024 && hw.ram >= 16 * 1024) [
-        "hugepages=2"
-        "hugepagesz=1G"
+      ++ (lib.optionals (host.isGameMachine && hw.ram >= 16 * 1024) [
+        # 静态 1G 大页（hugepages=4/2 + hugepagesz=1G）已移除：
+        # `hugepages=N` 写在 `hugepagesz=1G` 之前，内核按默认 2M 页结算，
+        # 实际只预留 8 MiB（/proc/meminfo 证实），从未按预期生效；
+        # 而 4 GiB 常驻预留在 32 GB 机器上会直接挤压大模型工作集。
         "transparent_hugepage=always"
       ])
       ++ (lib.optionals (!host.isGameMachine || hw.ram < 16 * 1024) ["transparent_hugepage=madvise"]);
