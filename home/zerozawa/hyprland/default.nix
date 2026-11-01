@@ -27,7 +27,6 @@ in {
     brightnessctl
     kdePackages.qt6ct
     wev
-    ccal
   ];
 
   home.activation.deployHyprConfig = lib.hm.dag.entryBefore ["writeBoundary"] ''
