@@ -1412,11 +1412,11 @@
     },
     "nixpkgs_13": {
       "locked": {
-        "lastModified": 1793225069,
-        "narHash": "sha256-sx1f99WGrDfJ83KKuQrqGPmot0rnDgmpLJDzpU2oHQQ=",
+        "lastModified": 1793735720,
+        "narHash": "sha256-smoxPKrzAhdGuFd2LLnG4m8P6IrZuW95DVyzjnlab7w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e62746b0b472753ef019baceab6f1e2e52014980",
+        "rev": "9d3b8db48266c17be0b5f9c6360c3ecfbac3d1f5",
         "type": "github"
       },
       "original": {
@@ -1586,11 +1586,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1793297708,
-        "narHash": "sha256-Sr8yXXGXOtiNZBLd+fYjEiydEK6L4rhY77M+Yc2URlw=",
+        "lastModified": 1793648373,
+        "narHash": "sha256-hnb0yuRuuBY/DK+bLUNKFQkmBfPfAN67xOrycDL6OmA=",
         "owner": "can1357",
         "repo": "oh-my-pi",
-        "rev": "31147f9d1a76608549821c3759f8487b4d66c72d",
+        "rev": "650f3a108229ee11bf68ba3377f4e8c3391cd424",
         "type": "github"
       },
       "original": {
@@ -2205,11 +2205,11 @@
         "nixpkgs": "nixpkgs_13"
       },
       "locked": {
-        "lastModified": 1793274860,
-        "narHash": "sha256-w2AltMy91qIYBYxRuYxU2zQIXVl/Owp+BBTYITQ4Dns=",
+        "lastModified": 1793798641,
+        "narHash": "sha256-P4lddut6xBbSMlMGQdYd7Q1rjcswQ5la4gaP1lS7qfI=",
         "owner": "lz37",
         "repo": "nur",
-        "rev": "93c86b51594c0e161f4475fa9d625a2a0f296114",
+        "rev": "909425e678b20275197213f7c3aa8593ad0f17f5",
         "type": "github"
       },
       "original": {
@@ -2222,11 +2222,11 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1790695592,
-        "narHash": "sha256-aR9IiMpHEoyKFni5rUdu0Mev0UIGu1ovoTtSgt62sxk=",
+        "lastModified": 1793594210,
+        "narHash": "sha256-Wtm9TaYTDvZydB3Cdqu/RKqQkPZbBLpuZ9BvwroumGE=",
         "ref": "main",
-        "rev": "0293b4411bc23e99fa2546ec9088a9485dd9ec24",
-        "revCount": 51,
+        "rev": "49334f20b05314749ce7b73deb3e8d3f512fd19e",
+        "revCount": 52,
         "type": "git",
         "url": "ssh://git@github.com/lz37/zawanix-private"
       },
