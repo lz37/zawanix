@@ -34,6 +34,7 @@
       mitmproxy
       unblob
       spring-boot-cli
+      efm-langserver
     ])
     ++ (with pkgs.llm-agents; [
       spec-kit

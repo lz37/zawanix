@@ -5,9 +5,6 @@
         "nixpkgs": {
           "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs"
         },
-        "formatting": {
-          "command": ["alejandra"]
-        },
         "options": {
           "nixos": {
             "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.options"
@@ -20,6 +17,17 @@
           }
         }
       }
+    },
+    "nil": {
+      "disabled": true
+    },
+    "efm-nix": {
+      "command": "efm-langserver",
+      "args": ["-c", "/etc/nixos/.omp/efm-nix.yaml"],
+      "fileTypes": [".nix"],
+      "languageId": "nix",
+      "rootMarkers": ["flake.nix", "default.nix", "shell.nix"],
+      "isLinter": true
     },
     "lua-hypr": {
       "command": "lua-language-server",
