@@ -2,7 +2,11 @@ hl.window_rule({ match = { xwayland = true }, no_blur = true })
 hl.window_rule({ match = { xwayland = true, class = "^(\\bresolve\\b)$" }, no_blur = true })
 
 hl.window_rule({ match = { class = "^([Tt]hunar|org.gnome.Nautilus|[Pp]cmanfm-qt)$" }, tag = "+file-manager" })
-hl.window_rule({ match = { class = "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty|kitty-dropterm)$" }, tag = "+terminal" })
+hl.window_rule({
+  match = { class = "^(com.mitchellh.ghostty|org.wezfurlong.wezterm|Alacritty|kitty|kitty-dropterm)$" },
+  tag =
+  "+terminal"
+})
 hl.window_rule({ match = { class = "^(Brave-browser(-beta|-dev|-unstable)?)$" }, tag = "+browser" })
 hl.window_rule({ match = { class = "^([Ff]irefox|org.mozilla.firefox|[Ff]irefox-esr)$" }, tag = "+browser" })
 hl.window_rule({ match = { class = "^([Gg]oogle-chrome(-beta|-dev|-unstable)?)$" }, tag = "+browser" })
@@ -23,7 +27,11 @@ hl.window_rule({ match = { class = "^(gnome-disks|wihotspot(-gui)?)$" }, tag = "
 hl.window_rule({ match = { class = "^([Rr]ofi)$" }, tag = "+settings" })
 hl.window_rule({ match = { class = "^(file-roller|org.gnome.FileRoller)$" }, tag = "+settings" })
 hl.window_rule({ match = { class = "^(nm-applet|nm-connection-editor|blueman-manager)$" }, tag = "+settings" })
-hl.window_rule({ match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$" }, tag = "+settings" })
+hl.window_rule({
+  match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$" },
+  tag =
+  "+settings"
+})
 hl.window_rule({ match = { class = "^(nwg-look|qt5ct|qt6ct|[Yy]ad)$" }, tag = "+settings" })
 hl.window_rule({ match = { class = "(xdg-desktop-portal-gtk)" }, tag = "+settings" })
 hl.window_rule({ match = { class = "(.blueman-manager-wrapped)" }, tag = "+settings" })
@@ -35,9 +43,7 @@ hl.window_rule({ match = { class = "^([Ww]aypaper)$" }, float = true })
 hl.window_rule({ match = { class = "^(pavucontrol|org.pulseaudio.pavucontrol|com.saivert.pwvucontrol)$" }, center = true })
 hl.window_rule({ match = { class = "([Tt]hunar)", title = "negative:(.*[Tt]hunar.*)" }, center = true })
 hl.window_rule({ match = { title = "^(Authentication Required)$" }, center = true })
-hl.window_rule({ match = { class = "^(*)$" }, idle_inhibit = "fullscreen" })
-hl.window_rule({ match = { title = "^(*)$" }, idle_inhibit = "fullscreen" })
-hl.window_rule({ match = { fullscreen = true }, idle_inhibit = "fullscreen" })
+hl.window_rule({ match = { class = ".*" }, idle_inhibit = "fullscreen" })
 hl.window_rule({ match = { tag = "settings*" }, float = true, size = "70% 70%", opacity = "0.8 0.7" })
 hl.window_rule({ match = { class = "^([Ff]erdium)$" }, float = true, size = "60% 70%" })
 hl.window_rule({ match = { class = "^(mpv|com.github.rafostar.Clapper)$" }, float = true })
@@ -62,7 +68,9 @@ hl.window_rule({ match = { class = "^(mpv|com.github.rafostar.Clapper)$" }, opac
 hl.window_rule({ match = { tag = "games*" }, no_blur = true, fullscreen = true })
 hl.window_rule({ match = { class = "Waydroid" }, fullscreen = true })
 hl.window_rule({ match = { class = "labwc" }, fullscreen = true })
-hl.window_rule({ match = { class = "^([Vv]ivaldi ((Settings)|(设置)).*))$" }, float = true })
+-- Vivaldi 的 app_id 恒为 vivaldi-stable，设置页只在标题里体现，且顺序不定
+-- （"Settings - Vivaldi" / "设置 - Vivaldi"），故按 title 双向匹配。
+hl.window_rule({ match = { title = "(?i)(vivaldi.*(settings|设置)|(settings|设置).*vivaldi)" }, float = true })
 hl.window_rule({ match = { class = "wechat" }, float = true })
 hl.window_rule({ match = { class = "QQ" }, float = true })
 hl.window_rule({ match = { title = "^(DevTools.*)$", initial_class = "^((code)|(chromium-browser))$" }, float = true })

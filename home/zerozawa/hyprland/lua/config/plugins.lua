@@ -1,37 +1,7 @@
-local home = os.getenv("HOME")
+-- 所有第三方插件已禁用：nixpkgs 里没有与当前 Hyprland 版本匹配的构建。
+--   dynamic-cursors: 打包版本与 Hyprland >= 0.56 的 ABI 不兼容。
+--   hyprfocus: 只有 0.57.0 构建，而 Hyprland 是 0.57.1，配置键无法注册。
+-- 恢复方式：把 .so 放回 ~/.config/hypr/plugins/，取消对应 load 与 hl.config 插件块。
 
--- Temporarily disabled: the packaged plugin is incompatible with Hyprland 0.56.2.
--- hl.plugin.load(home .. "/.config/hypr/plugins/hypr-dynamic-cursors.so")
-hl.plugin.load(home .. "/.config/hypr/plugins/hyprfocus.so")
-
-hl.config({
-    plugin = {
-        hyprfocus = {
-            keyboard_focus_animation = "flash",
-            mouse_focus_animation = "flash",
-            only_on_monitor_change = false,
-            fade_opacity = 0.9,
-        },
-        -- dynamic_cursors = {
-        --     enabled = true,
-        --     mode = "none",
-        --     shake = {
-        --         enabled = true,
-        --         threshold = 6.0,
-        --         base = 4.0,
-        --         speed = 4.0,
-        --         influence = 0.0,
-        --         limit = 0.0,
-        --         timeout = 2000,
-        --         effects = false,
-        --         ipc = false,
-        --     },
-        --     hyprcursor = {
-        --         nearest = true,
-        --         enabled = true,
-        --         resolution = -1,
-        --         fallback = "clientside",
-        --     },
-        -- },
-    },
-})
+-- hl.plugin.load(os.getenv("HOME") .. "/.config/hypr/plugins/hypr-dynamic-cursors.so")
+-- hl.plugin.load(os.getenv("HOME") .. "/.config/hypr/plugins/hyprfocus.so")

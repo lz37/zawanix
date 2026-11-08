@@ -19,7 +19,7 @@ in {
     swappy
     ydotool
     hyprpolkitagent
-    hyprland-qtutils
+    hyprland-guiutils
     hyprpicker
     swayimg
     hyprcursor
@@ -42,12 +42,7 @@ in {
     ${optLua}
     LUAEOF
 
-        # 3. Symlink plugin .so files
-        ${pkgs.coreutils}/bin/mkdir -p ${repo}/plugins
-        ${pkgs.coreutils}/bin/ln -sfn ${pkgs.hyprlandPlugins.hypr-dynamic-cursors}/lib/libhypr-dynamic-cursors.so ${repo}/plugins/hypr-dynamic-cursors.so
-        ${pkgs.coreutils}/bin/ln -sfn ${pkgs.hyprlandPlugins.hyprfocus}/lib/libhyprfocus.so ${repo}/plugins/hyprfocus.so
-
-        # 4. Symlink hyprsplit source (flake = false, just init.lua)
+        # 3. Symlink hyprsplit source (flake = false, just init.lua)
         ${pkgs.coreutils}/bin/mkdir -p ${repo}
         ${pkgs.coreutils}/bin/ln -sfn ${inputs.hyprsplit} ${repo}/hyprsplit
   '';

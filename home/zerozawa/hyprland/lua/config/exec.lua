@@ -2,8 +2,10 @@ local opt = require("option")
 
 -- Startup commands executed once on Hyprland start
 hl.on("hyprland.start", function()
-    hl.exec_cmd(
-    "dbus-update-activation-environment --systemd --all && systemctl --user stop hyprland-session.target && systemctl --user start hyprland-session.target")
+    -- 不要手动 stop/start 会话 target：Hyprland 0.57 起自带 hyprland-session.target，
+    -- 其 PropagatesStopTo=graphical-session.target 会把整个图形会话一起停掉。
+    -- UWSM (withUWSM = true) 已经负责会话 target 与环境导出，这里只需补 dbus 环境。
+    hl.exec_cmd("dbus-update-activation-environment --systemd --all")
     hl.exec_cmd("bash -c 'wl-paste --type text --watch cliphist store &'")
     hl.exec_cmd("bash -c 'wl-paste --type image --watch cliphist store &'")
     hl.exec_cmd("dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP GTK_MODULES")
