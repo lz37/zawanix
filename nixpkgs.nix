@@ -80,19 +80,9 @@ moduleArgs@{
                 forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
                 forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
               };
-            # vscode-selected 用 master 的 VS Code（1.144.0），上面按引擎版本过滤的集合会
-            # 丢掉只在旧版本声明过 `engines.vscode` 的扩展；而且并非所有扩展都发布到了
-            # 市场/Open VSX 数据集里（pkl-vscode 只发 GitHub release 的 vsix）。
-            # 这两个直接按固定版本 + hash 构建，不参与版本过滤。
+            # pkl-vscode 只发 GitHub release 的 vsix（publisher 是 `Pkl`），
+            # marketplace 和 open-vsx 两套数据集里都没有，只能固定版本 + hash 构建。
             vscode-extra = {
-              barsikus007.nix-injection = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-                mktplcRef = {
-                  publisher = "barsikus007";
-                  name = "nix-injection";
-                  version = "0.0.4";
-                  hash = "sha256-I5lk0lweByRskgobccVLufC8XD/RY72Y4VIqjRQNRzo=";
-                };
-              };
               pkl.pkl-vscode = pkgs.vscode-utils.buildVscodeExtension {
                 pname = "pkl-vscode";
                 version = "0.24.0";
