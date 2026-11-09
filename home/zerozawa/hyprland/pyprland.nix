@@ -1,8 +1,8 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [pyprland];
-  xdg.configFile."pypr/config.toml".source = (pkgs.formats.toml {}).generate "pyprland.toml" {
+{ pkgs, ... }: {
+  home.packages = with pkgs; [ pyprland ];
+  xdg.configFile."pypr/config.toml".source = (pkgs.formats.toml { }).generate "pyprland.toml" {
     pyprland = {
-      plugins = ["scratchpads"];
+      plugins = [ "scratchpads" ];
     };
     scratchpads.term = {
       animation = "fromTop";

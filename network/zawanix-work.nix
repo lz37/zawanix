@@ -2,17 +2,18 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   networking = {
     enableIPv6 = true;
     firewall.enable = false;
     networkmanager.enable = false;
     useDHCP = lib.mkForce false;
-    nameservers = ["192.168.233.1"];
-    timeServers = ["192.168.233.1"];
+    nameservers = [ "192.168.233.1" ];
+    timeServers = [ "192.168.233.1" ];
     wireless = {
       enable = true;
-      interfaces = ["wlo1"];
+      interfaces = [ "wlo1" ];
       userControlled = false;
       networks.${config.zerozawa.network.wireless.ssid} = {
         psk = config.zerozawa.network.wireless.psk;

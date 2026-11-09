@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     yzhang.markdown-all-in-one
     # "shd101wyy.markdown-preview-enhanced"

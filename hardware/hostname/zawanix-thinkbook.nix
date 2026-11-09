@@ -3,9 +3,11 @@
   lib,
   rootPath,
   ...
-}: let
+}:
+let
   oculinkFacter = rootPath + "/hardware/facter/zawanix-thinkbook.oculink.json";
-in {
+in
+{
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/c681d414-0087-40c2-8c1b-9e5c71eac1c2";

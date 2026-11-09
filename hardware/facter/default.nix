@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   hostName = config.networking.hostName;
   dhcpByHost = {
     zawanix-work = false;
@@ -6,15 +7,13 @@
     zawanix-fubuki = false;
     zawanix-thinkbook = true;
   };
-in {
+in
+{
   hardware.facter = {
     enable = true;
     reportPath = ./. + "/${hostName}.json";
     detected = {
-      dhcp.enable =
-        if builtins.hasAttr hostName dhcpByHost
-        then dhcpByHost.${hostName}
-        else false;
+      dhcp.enable = if builtins.hasAttr hostName dhcpByHost then dhcpByHost.${hostName} else false;
     };
   };
 }

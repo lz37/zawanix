@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./waydroid-labwc.nix
   ];

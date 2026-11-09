@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-uuid/4A52-0070";

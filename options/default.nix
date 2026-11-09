@@ -2,8 +2,10 @@
   lib,
   config,
   ...
-}: let
-  mkOptionType = type:
+}:
+let
+  mkOptionType =
+    type:
     lib.mkOption {
       inherit type;
     };
@@ -11,122 +13,122 @@
   int = mkOptionType lib.types.int;
   str = mkOptionType lib.types.str;
 
-  report = lib.attrByPath ["hardware" "facter" "report"] {} config;
+  report = lib.attrByPath [ "hardware" "facter" "report" ] { } config;
   facter = import ../common/facter-derived.nix {
     inherit lib report;
   };
-  inherit
-    (facter)
+  inherit (facter)
     graphicsCards
     cardVendorName
     ;
   hardwareFlags = facter.flags;
-  normalizeHex = value:
-    if builtins.isString value
-    then lib.toLower value
-    else null;
-  identityPart = value:
-    if value == null
-    then "unknown"
-    else value;
-  normalizeGpuVendor = vendorName:
-    if vendorName == null
-    then throw "zerozawa.hardware.drm: unsupported GPU vendor: null"
-    else if vendorName == "Intel Corporation"
-    then "intel"
-    else if vendorName == "nVidia Corporation"
-    then "nvidia"
+  normalizeHex = value: if builtins.isString value then lib.toLower value else null;
+  identityPart = value: if value == null then "unknown" else value;
+  normalizeGpuVendor =
+    vendorName:
+    if vendorName == null then
+      throw "zerozawa.hardware.drm: unsupported GPU vendor: null"
+    else if vendorName == "Intel Corporation" then
+      "intel"
+    else if vendorName == "nVidia Corporation" then
+      "nvidia"
     else if
       lib.elem vendorName [
         "ATI Technologies Inc"
         "AMD"
         "Advanced Micro Devices, Inc. [AMD/ATI]"
       ]
-    then "amd"
-    else throw "zerozawa.hardware.drm: unsupported GPU vendor '${vendorName}'";
-  cardPciBusId = card: lib.attrByPath ["sysfs_bus_id"] null card;
-  cardDeviceHex = card: normalizeHex (lib.attrByPath ["device" "hex"] null card);
-  cardSubVendorHex = card: normalizeHex (lib.attrByPath ["sub_vendor" "hex"] null card);
-  cardSubDeviceHex = card: normalizeHex (lib.attrByPath ["sub_device" "hex"] null card);
-  cardDriver = card: lib.attrByPath ["driver"] null card;
-  cardLabel = card: lib.attrByPath ["label"] null card;
-  cardSlotBus = card: lib.attrByPath ["slot" "bus"] null card;
-  cardAttachedTo = card: lib.attrByPath ["attached_to"] null card;
-  cardModuleAlias = card: lib.attrByPath ["module_alias"] null card;
-  cardBaseClassHex = card: normalizeHex (lib.attrByPath ["base_class" "hex"] null card);
-  cardSubClassHex = card: normalizeHex (lib.attrByPath ["sub_class" "hex"] null card);
-  cardSlotNumber = card: lib.attrByPath ["slot" "number"] null card;
-  cardFunction = card: lib.attrByPath ["detail" "function"] null card;
-  cardPrimeBusId = card: let
-    bus = cardSlotBus card;
-    slot = cardSlotNumber card;
-    func = cardFunction card;
-  in
-    if bus != null && slot != null && func != null
-    then "PCI:${toString bus}:${toString slot}:${toString func}"
-    else null;
+    then
+      "amd"
+    else
+      throw "zerozawa.hardware.drm: unsupported GPU vendor '${vendorName}'";
+  cardPciBusId = card: lib.attrByPath [ "sysfs_bus_id" ] null card;
+  cardDeviceHex = card: normalizeHex (lib.attrByPath [ "device" "hex" ] null card);
+  cardSubVendorHex = card: normalizeHex (lib.attrByPath [ "sub_vendor" "hex" ] null card);
+  cardSubDeviceHex = card: normalizeHex (lib.attrByPath [ "sub_device" "hex" ] null card);
+  cardDriver = card: lib.attrByPath [ "driver" ] null card;
+  cardLabel = card: lib.attrByPath [ "label" ] null card;
+  cardSlotBus = card: lib.attrByPath [ "slot" "bus" ] null card;
+  cardAttachedTo = card: lib.attrByPath [ "attached_to" ] null card;
+  cardModuleAlias = card: lib.attrByPath [ "module_alias" ] null card;
+  cardBaseClassHex = card: normalizeHex (lib.attrByPath [ "base_class" "hex" ] null card);
+  cardSubClassHex = card: normalizeHex (lib.attrByPath [ "sub_class" "hex" ] null card);
+  cardSlotNumber = card: lib.attrByPath [ "slot" "number" ] null card;
+  cardFunction = card: lib.attrByPath [ "detail" "function" ] null card;
+  cardPrimeBusId =
+    card:
+    let
+      bus = cardSlotBus card;
+      slot = cardSlotNumber card;
+      func = cardFunction card;
+    in
+    if bus != null && slot != null && func != null then
+      "PCI:${toString bus}:${toString slot}:${toString func}"
+    else
+      null;
   gpuRoleOverrides = {
     "amd:13c0:1043:8877" = "igpu";
     "intel:b080:17aa:8099" = "igpu"; # ThinkBook 14 G8+ IPH iGPU (xe driver)
     "amd:73bf:1002:0e3a" = "dgpu"; # ThinkBook 14 G8+ OCuLink AMD eGPU (amdgpu)
   };
-  normalizedGraphicsCards =
-    map (
-      card: let
-        vendor = normalizeGpuVendor (cardVendorName card);
-        vendorHex = normalizeHex (lib.attrByPath ["vendor" "hex"] null card);
-        deviceHex = cardDeviceHex card;
-        subVendorHex = cardSubVendorHex card;
-        subDeviceHex = cardSubDeviceHex card;
-      in {
-        inherit
-          vendor
-          vendorHex
-          deviceHex
-          subVendorHex
-          subDeviceHex
-          ;
-        pciBusId = cardPciBusId card;
-        driver = cardDriver card;
-        label = cardLabel card;
-        slotBus = cardSlotBus card;
-        attachedTo = cardAttachedTo card;
-        moduleAlias = cardModuleAlias card;
-        baseClassHex = cardBaseClassHex card;
-        subClassHex = cardSubClassHex card;
-        primeBusId = cardPrimeBusId card;
-        identityKey = lib.concatStringsSep ":" [
-          vendor
-          (identityPart deviceHex)
-          (identityPart subVendorHex)
-          (identityPart subDeviceHex)
-        ];
-      }
-    )
-    graphicsCards;
-  derivedGraphicsCards =
-    map (
-      card: let
-        overriddenRole = gpuRoleOverrides.${card.identityKey} or null;
-        role =
-          if overriddenRole != null
-          then overriddenRole
-          else if card.label == "Onboard - Video"
-          then "igpu"
-          else if card.vendor == "nvidia"
-          then "dgpu"
-          else null;
-      in
-        card
-        // {
-          inherit role;
-        }
-    )
-    normalizedGraphicsCards;
+  normalizedGraphicsCards = map (
+    card:
+    let
+      vendor = normalizeGpuVendor (cardVendorName card);
+      vendorHex = normalizeHex (lib.attrByPath [ "vendor" "hex" ] null card);
+      deviceHex = cardDeviceHex card;
+      subVendorHex = cardSubVendorHex card;
+      subDeviceHex = cardSubDeviceHex card;
+    in
+    {
+      inherit
+        vendor
+        vendorHex
+        deviceHex
+        subVendorHex
+        subDeviceHex
+        ;
+      pciBusId = cardPciBusId card;
+      driver = cardDriver card;
+      label = cardLabel card;
+      slotBus = cardSlotBus card;
+      attachedTo = cardAttachedTo card;
+      moduleAlias = cardModuleAlias card;
+      baseClassHex = cardBaseClassHex card;
+      subClassHex = cardSubClassHex card;
+      primeBusId = cardPrimeBusId card;
+      identityKey = lib.concatStringsSep ":" [
+        vendor
+        (identityPart deviceHex)
+        (identityPart subVendorHex)
+        (identityPart subDeviceHex)
+      ];
+    }
+  ) graphicsCards;
+  derivedGraphicsCards = map (
+    card:
+    let
+      overriddenRole = gpuRoleOverrides.${card.identityKey} or null;
+      role =
+        if overriddenRole != null then
+          overriddenRole
+        else if card.label == "Onboard - Video" then
+          "igpu"
+        else if card.vendor == "nvidia" then
+          "dgpu"
+        else
+          null;
+    in
+    card
+    // {
+      inherit role;
+    }
+  ) normalizedGraphicsCards;
   roleCount = role: builtins.length (lib.filter (card: card.role == role) derivedGraphicsCards);
   igpuCount = roleCount "igpu";
   dgpuCount = roleCount "dgpu";
-in {
+in
+{
   options = {
     zerozawa = {
       hardware = {
@@ -143,7 +145,7 @@ in {
         amd64Microarchs = str;
         drm = {
           devices = lib.mkOption {
-            default = [];
+            default = [ ];
             type = lib.types.listOf lib.types.attrs;
           };
           aqDrmDevices = lib.mkOption {
@@ -244,7 +246,7 @@ in {
       };
       ssh = {
         machines = lib.mkOption {
-          default = [];
+          default = [ ];
           type = lib.types.listOf (
             lib.types.submodule {
               options = {
@@ -300,8 +302,7 @@ in {
     ];
     zerozawa = {
       hardware = {
-        inherit
-          (hardwareFlags)
+        inherit (hardwareFlags)
           isNvidiaGPU
           isIntelGPU
           isIntelCPU
@@ -314,17 +315,19 @@ in {
           amd64Microarchs
           ;
         isOculink = false;
-        drm = let
-          vendorCount = vendor: builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
-          devices =
-            map (
-              device: let
+        drm =
+          let
+            vendorCount =
+              vendor: builtins.length (lib.filter (device: device.vendor == vendor) derivedGraphicsCards);
+            devices = map (
+              device:
+              let
                 role = device.role;
-                vendorAlias = lib.optionals (vendorCount device.vendor == 1) [device.vendor];
-                roleAlias = lib.optionals (role != null) [role];
-              in {
-                inherit
-                  (device)
+                vendorAlias = lib.optionals (vendorCount device.vendor == 1) [ device.vendor ];
+                roleAlias = lib.optionals (role != null) [ role ];
+              in
+              {
+                inherit (device)
                   vendor
                   pciBusId
                   driver
@@ -334,56 +337,51 @@ in {
                   ;
                 symlinkNames = vendorAlias ++ roleAlias;
               }
-            )
-            derivedGraphicsCards;
-          hasIgpu = builtins.any (device: lib.elem "igpu" device.symlinkNames) devices;
-          hasDgpu = builtins.any (device: lib.elem "dgpu" device.symlinkNames) devices;
-          vendorPaths = lib.concatStringsSep ":" (
-            lib.concatLists (
-              map
-              (
-                vendor: let
-                  matches = lib.filter (device: device.vendor == vendor && device.role == null) devices;
-                in
-                  lib.optionals (vendorCount vendor == 1 && matches != []) ["/dev/dri/${vendor}"]
+            ) derivedGraphicsCards;
+            hasIgpu = builtins.any (device: lib.elem "igpu" device.symlinkNames) devices;
+            hasDgpu = builtins.any (device: lib.elem "dgpu" device.symlinkNames) devices;
+            vendorPaths = lib.concatStringsSep ":" (
+              lib.concatLists (
+                map
+                  (
+                    vendor:
+                    let
+                      matches = lib.filter (device: device.vendor == vendor && device.role == null) devices;
+                    in
+                    lib.optionals (vendorCount vendor == 1 && matches != [ ]) [ "/dev/dri/${vendor}" ]
+                  )
+                  [
+                    "intel"
+                    "amd"
+                    "nvidia"
+                  ]
               )
-              [
-                "intel"
-                "amd"
-                "nvidia"
-              ]
-            )
-          );
-        in {
-          devices = devices;
-          vulkanDeviceSelect = let
-            dgpu = lib.findFirst (card: card.role == "dgpu") null derivedGraphicsCards;
-            igpu = lib.findFirst (card: card.role == "igpu") null derivedGraphicsCards;
-            card =
-              if dgpu != null
-              then dgpu
-              else igpu;
+            );
           in
-            if card == null || card.vendorHex == null || card.deviceHex == null
-            then ""
-            else "${card.vendorHex}:${card.deviceHex}";
-          aqDrmDevices = lib.concatStringsSep ":" (
-            if hasIgpu
-            then
-              if config.zerozawa.hardware.isOculink
-              then ["/dev/dri/igpu"] ++ (lib.optionals hasDgpu ["/dev/dri/dgpu"])
+          {
+            devices = devices;
+            vulkanDeviceSelect =
+              let
+                dgpu = lib.findFirst (card: card.role == "dgpu") null derivedGraphicsCards;
+                igpu = lib.findFirst (card: card.role == "igpu") null derivedGraphicsCards;
+                card = if dgpu != null then dgpu else igpu;
+              in
+              if card == null || card.vendorHex == null || card.deviceHex == null then
+                ""
               else
-                (lib.optionals hasDgpu ["/dev/dri/dgpu"])
-                ++ (lib.optionals (!hasDgpu || config.zerozawa.hardware.isLaptop) ["/dev/dri/igpu"])
-            else
-              (
-                if vendorPaths == ""
-                then []
-                else lib.splitString ":" vendorPaths
-              )
-              ++ lib.optionals hasDgpu ["/dev/dri/dgpu"]
-          );
-        };
+                "${card.vendorHex}:${card.deviceHex}";
+            aqDrmDevices = lib.concatStringsSep ":" (
+              if hasIgpu then
+                if config.zerozawa.hardware.isOculink then
+                  [ "/dev/dri/igpu" ] ++ (lib.optionals hasDgpu [ "/dev/dri/dgpu" ])
+                else
+                  (lib.optionals hasDgpu [ "/dev/dri/dgpu" ])
+                  ++ (lib.optionals (!hasDgpu || config.zerozawa.hardware.isLaptop) [ "/dev/dri/igpu" ])
+              else
+                (if vendorPaths == "" then [ ] else lib.splitString ":" vendorPaths)
+                ++ lib.optionals hasDgpu [ "/dev/dri/dgpu" ]
+            );
+          };
       };
       path = rec {
         cfgRoot = "/etc/nixos";

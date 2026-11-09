@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.plasma.configFile.kdeglobals = {
     General = {
       fixed = "Hack,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1";

@@ -11,7 +11,7 @@
     tab_width = 1;
     border_symbol = "│";
   };
-  mode = {};
+  mode = { };
   status = {
     overall = {
       bold = true;
@@ -37,8 +37,8 @@
       fg = "blue";
       bold = true;
     };
-    content = {};
-    list = {};
+    content = { };
+    list = { };
     btn_yes = {
       bg = "green";
       fg = "black";
@@ -83,22 +83,22 @@
     icon_warn = "";
     icon_error = "";
   };
-  pick = {};
-  input = {};
+  pick = { };
+  input = { };
   cmp = {
     active = {
       reversed = true;
     };
-    inactive = {};
+    inactive = { };
     icon_file = "";
     icon_folder = "";
     icon_command = "";
   };
-  tasks = {};
-  help = {};
-  filetype = {};
+  tasks = { };
+  help = { };
+  filetype = { };
   icon = {
-    globs = [];
+    globs = [ ];
     dirs = [
       {
         name = ".config";

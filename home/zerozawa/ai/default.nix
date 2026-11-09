@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./omp.nix
     ./mcp.nix

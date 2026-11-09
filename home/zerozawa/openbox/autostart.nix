@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   xdg.configFile."openbox/autostart" = {
     executable = true;
     text = ''

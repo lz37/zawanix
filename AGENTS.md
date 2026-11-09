@@ -79,7 +79,7 @@ nix develop
 nix build .#kernel-zawanix-fubuki --no-link --print-build-logs
 
 # 代码格式化
-treefmt              # 按 treefmt.nix 配置格式化（alejandra for Nix, shellcheck for scripts）
+treefmt              # 按 treefmt.nix 配置格式化（nixfmt for Nix, shellcheck for scripts）
 
 # 预提交检查
 nix flake check      # 等效于 CI 中的 pre-commit 钩子
@@ -150,7 +150,7 @@ nix flake check      # 等效于 CI 中的 pre-commit 钩子
 - **Nix**：Flake 模式，`flake-parts` 组织，最低 NixOS 25.05
 - **Node.js / TypeScript**：通过 Bun 运行（`bun.lock` + `@types/bun`），非 Node.js
 - **包管理器**：`pnpm`（OMP 插件），`bun`（OMP 扩展），`npm`（CI 产物）
-- **格式化**：`treefmt`（`alejandra` for Nix + `shellcheck` for scripts），pre-commit 强制
+- **格式化**：`treefmt`（`nixfmt` for Nix + `shellcheck` for scripts），pre-commit 强制
 - **Shell**：ZSH + Powerlevel10k（`profile/.p10k.zsh` lean 风格）
 - **编辑器**：VS Code（20+ topic 扩展配置）+ Zed（轻量备选）
 - **内核编译**：使用 `nix-cachyos-kernel` overlay，每主机独立 kernel package

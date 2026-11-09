@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ lib, ... }: {
   programs.zsh = {
     initContent = lib.mkAfter ''
       zstyle ':completion:*:*:docker:*' option-stacking yes

@@ -2,7 +2,8 @@
   pkgs,
   config,
 }:
-with pkgs; {
+with pkgs;
+{
   name = "global";
   version = "0.1.0";
   description = "Search the catalog to find the right tool for NixOS and flake docs, multi-engine web search (Brave, Tavily, Exa, Zhihu), GitHub, Docker, VS Code, Chrome DevTools automation, Hyprland desktop control, or image tiling for LLM vision.";
@@ -20,17 +21,17 @@ with pkgs; {
     {
       name = "vscode";
       command = lib.getExe' pnpm "pnpx";
-      args = ["@vscode-mcp/vscode-mcp-server@latest"];
+      args = [ "@vscode-mcp/vscode-mcp-server@latest" ];
     }
     {
       name = "nixos";
       command = lib.getExe mcp-nixos;
-      args = [];
+      args = [ ];
     }
     {
       name = "github";
       command = lib.getExe github-mcp-server;
-      args = ["stdio"];
+      args = [ "stdio" ];
       env = {
         GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
       };
@@ -38,7 +39,7 @@ with pkgs; {
     {
       name = "docker";
       command = lib.getExe' uv "uvx";
-      args = ["docker-mcp"];
+      args = [ "docker-mcp" ];
     }
     {
       name = "grep";
@@ -56,7 +57,7 @@ with pkgs; {
     {
       name = "exa";
       command = lib.getExe' pnpm "pnpx";
-      args = ["exa-mcp-server"];
+      args = [ "exa-mcp-server" ];
       env = {
         EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
       };
@@ -64,7 +65,7 @@ with pkgs; {
     {
       name = "tavily";
       command = lib.getExe' pnpm "pnpx";
-      args = ["tavily-mcp@latest"];
+      args = [ "tavily-mcp@latest" ];
       env = {
         TAVILY_API_KEY = config.zerozawa.tavily-mcp.apiKey;
       };
@@ -113,7 +114,7 @@ with pkgs; {
     {
       name = "image-tiler";
       command = lib.getExe' pnpm "pnpx";
-      args = ["image-tiler-mcp-server"];
+      args = [ "image-tiler-mcp-server" ];
     }
   ];
   logger = {
@@ -129,11 +130,11 @@ with pkgs; {
         strategy = "always";
         rate = 1.0;
       };
-      exporters = [];
+      exporters = [ ];
     };
     metrics = {
       enabled = false;
-      exporters = [];
+      exporters = [ ];
     };
   };
 }

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   xdg.configFile = {
     "snip/config.toml".source = pkgs.writers.writeTOML "config.toml" {
       display = {

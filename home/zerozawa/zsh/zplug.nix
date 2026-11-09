@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.zsh = with pkgs; {
     # nixpkgs 有的插件用 home-manager 原生加载（无 zplug 运行时开销）
     plugins = [
@@ -23,9 +23,9 @@
     zplug = {
       enable = true;
       plugins = [
-        {name = "wbingli/zsh-wakatime";}
-        {name = "MenkeTechnologies/zsh-cargo-completion";}
-        {name = "BronzeDeer/zsh-completion-sync";} # work with XDG_DATA_DIRS env var
+        { name = "wbingli/zsh-wakatime"; }
+        { name = "MenkeTechnologies/zsh-cargo-completion"; }
+        { name = "BronzeDeer/zsh-completion-sync"; } # work with XDG_DATA_DIRS env var
       ];
     };
   };

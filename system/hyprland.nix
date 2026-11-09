@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.hyprland = with pkgs; {
     enable = true;
     xwayland.enable = true;

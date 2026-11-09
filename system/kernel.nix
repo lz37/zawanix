@@ -4,67 +4,67 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   hostName = config.networking.hostName;
   hw = config.zerozawa.hardware;
   host = config.zerozawa.host;
-in {
+in
+{
   boot = {
-    kernelPackages = let
-      # helpers.nix provides a few utilities for building kernel with LTO.
-      # I haven't figured out a clean way to expose it in flakes.
-      helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" {};
-      cachyosKernel =
-        (pkgs.cachyosKernels.linux-cachyos-latest.override {
-          lto = "thin";
-          processorOpt =
-            if hw.isAMDCPU
-            then "zen4"
-            else "x86_64-v${lib.strings.substring 8 1 hw.amd64Microarchs}";
-          rt = false;
-          cpusched = "bore";
-          bbr3 = true;
-          ccHarder = true;
-          hzTicks =
-            if hw.isLaptop && (!host.isGameMachine || (host.isGameMachine && hw.isOculink))
-            then "300"
-            else "1000";
-          hugepage = "always";
-        }).overrideAttrs
-        (prev: {
-          # nixos-unstable accesses these attrs on the kernel derivation,
-          # but cachyos doesn't expose them. Supply sane defaults.
-          target =
-            prev.target or (
-              if pkgs.stdenv.hostPlatform.isx86_64
-              then "bzImage"
-              else if pkgs.stdenv.hostPlatform.isAarch64
-              then "Image"
-              else "vmlinux"
-            );
-          buildDTBs = prev.buildDTBs or pkgs.stdenv.hostPlatform.isAarch64;
-        });
-    in
+    kernelPackages =
+      let
+        # helpers.nix provides a few utilities for building kernel with LTO.
+        # I haven't figured out a clean way to expose it in flakes.
+        helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+        cachyosKernel =
+          (pkgs.cachyosKernels.linux-cachyos-latest.override {
+            lto = "thin";
+            processorOpt =
+              if hw.isAMDCPU then "zen4" else "x86_64-v${lib.strings.substring 8 1 hw.amd64Microarchs}";
+            rt = false;
+            cpusched = "bore";
+            bbr3 = true;
+            ccHarder = true;
+            hzTicks =
+              if hw.isLaptop && (!host.isGameMachine || (host.isGameMachine && hw.isOculink)) then
+                "300"
+              else
+                "1000";
+            hugepage = "always";
+          }).overrideAttrs
+            (prev: {
+              # nixos-unstable accesses these attrs on the kernel derivation,
+              # but cachyos doesn't expose them. Supply sane defaults.
+              target =
+                prev.target or (
+                  if pkgs.stdenv.hostPlatform.isx86_64 then
+                    "bzImage"
+                  else if pkgs.stdenv.hostPlatform.isAarch64 then
+                    "Image"
+                  else
+                    "vmlinux"
+                );
+              buildDTBs = prev.buildDTBs or pkgs.stdenv.hostPlatform.isAarch64;
+            });
+      in
       # kernelModuleLLVMOverride only patches Makefiles (gcc→cc), but doesn't
       # pass LLVM=1 to make. External modules need LLVM=1 for kbuild to use
       # clang instead of gcc. We chain another .extend to inject the flags.
       (helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor cachyosKernel)).extend (
         _final: prev:
-          lib.mapAttrs (
-            n: v:
-              if lib.isDerivation v && (v.overrideAttrs or null) != null && n != "kernel"
-              then
-                v.overrideAttrs (old: {
-                  makeFlags =
-                    (old.makeFlags or [])
-                    ++ [
-                      "LLVM=1"
-                      "LLVM_IAS=1"
-                    ];
-                })
-              else v
-          )
-          prev
+        lib.mapAttrs (
+          n: v:
+          if lib.isDerivation v && (v.overrideAttrs or null) != null && n != "kernel" then
+            v.overrideAttrs (old: {
+              makeFlags = (old.makeFlags or [ ]) ++ [
+                "LLVM=1"
+                "LLVM_IAS=1"
+              ];
+            })
+          else
+            v
+        ) prev
       );
     kernelPatches = lib.optionals (hostName == "zawanix-thinkbook") [
       {
@@ -83,71 +83,69 @@ in {
     ];
     initrd = {
       enable = true;
-      availableKernelModules =
-        [
-          "xhci_pci"
-          "ahci"
-          "nvme"
-          "usbhid"
-          "uas"
-          "sd_mod"
-          "ata_piix"
-          "uhci_hcd"
-          "sr_mod"
-          "usb_storage"
-          "thunderbolt"
-          "rtsx_pci_sdmmc"
-        ]
-        ++ (lib.optionals hw.isIntelGPU [
-          "i915"
-          "xe"
-        ]);
-      kernelModules = ["kyber-iosched"] ++ (lib.optionals hw.isAMDCPU ["kvm-amd"]);
-    };
-    kernelParams =
-      [
-        "systemd.mask=systemd-vconsole-setup.service"
-        "systemd.mask=dev-tpmrm0.device" # this is to mask that stupid 1.5 mins systemd bug
-        "nowatchdog"
-        "modprobe.blacklist=sp5100_tco" # watchdog for AMD
-        "modprobe.blacklist=iTCO_wdt" # watchdog for Intel
-        "iommu=pt"
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usbhid"
+        "uas"
+        "sd_mod"
+        "ata_piix"
+        "uhci_hcd"
+        "sr_mod"
+        "usb_storage"
+        "thunderbolt"
+        "rtsx_pci_sdmmc"
       ]
-      ++ (lib.optionals hw.isAMDCPU [
-        "amd_iommu=on"
-      ])
-      ++ (lib.optionals hw.isIntelCPU [
-        "intel_iommu=on"
-      ])
-      ++ (lib.optionals hw.isNvidiaGPU [
-        "nvidia_drm.modeset=1"
-        "nvidia.NVreg_UsePageAttributeTable=1"
-        "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-      ])
-      ++ (lib.optionals hw.isOculink [
-        "pcie_port_pm=off"
-        # "pcie_aspm=off"
-        # "pci=noaer" # 这玩意就屏蔽日志用的，没意义
-      ])
-      ++ (lib.optionals (hw.isOculink && hw.isNvidiaGPU) [
-        # OCuLink eGPU：Gen4 协商不稳时退回 Gen3 换稳定。
-        # 桌面机直连 x16 槽不需要，留着只会白白砍掉一半链路带宽。
-        "nvidia.NVreg_EnablePCIeGen3=1"
-        "pcie_ports=native"
-        "pcie_aspm=off"
-        "pci=realloc"
-      ])
-      ++ (lib.optionals (hw.isOculink && hw.isAmdGPU) [
-        "amdgpu.runpm=0"
-      ])
-      ++ (lib.optionals (host.isGameMachine && hw.ram >= 16 * 1024) [
-        # 静态 1G 大页（hugepages=4/2 + hugepagesz=1G）已移除：
-        # `hugepages=N` 写在 `hugepagesz=1G` 之前，内核按默认 2M 页结算，
-        # 实际只预留 8 MiB（/proc/meminfo 证实），从未按预期生效；
-        # 而 4 GiB 常驻预留在 32 GB 机器上会直接挤压大模型工作集。
-        "transparent_hugepage=always"
-      ])
-      ++ (lib.optionals (!host.isGameMachine || hw.ram < 16 * 1024) ["transparent_hugepage=madvise"]);
+      ++ (lib.optionals hw.isIntelGPU [
+        "i915"
+        "xe"
+      ]);
+      kernelModules = [ "kyber-iosched" ] ++ (lib.optionals hw.isAMDCPU [ "kvm-amd" ]);
+    };
+    kernelParams = [
+      "systemd.mask=systemd-vconsole-setup.service"
+      "systemd.mask=dev-tpmrm0.device" # this is to mask that stupid 1.5 mins systemd bug
+      "nowatchdog"
+      "modprobe.blacklist=sp5100_tco" # watchdog for AMD
+      "modprobe.blacklist=iTCO_wdt" # watchdog for Intel
+      "iommu=pt"
+    ]
+    ++ (lib.optionals hw.isAMDCPU [
+      "amd_iommu=on"
+    ])
+    ++ (lib.optionals hw.isIntelCPU [
+      "intel_iommu=on"
+    ])
+    ++ (lib.optionals hw.isNvidiaGPU [
+      "nvidia_drm.modeset=1"
+      "nvidia.NVreg_UsePageAttributeTable=1"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    ])
+    ++ (lib.optionals hw.isOculink [
+      "pcie_port_pm=off"
+      # "pcie_aspm=off"
+      # "pci=noaer" # 这玩意就屏蔽日志用的，没意义
+    ])
+    ++ (lib.optionals (hw.isOculink && hw.isNvidiaGPU) [
+      # OCuLink eGPU：Gen4 协商不稳时退回 Gen3 换稳定。
+      # 桌面机直连 x16 槽不需要，留着只会白白砍掉一半链路带宽。
+      "nvidia.NVreg_EnablePCIeGen3=1"
+      "pcie_ports=native"
+      "pcie_aspm=off"
+      "pci=realloc"
+    ])
+    ++ (lib.optionals (hw.isOculink && hw.isAmdGPU) [
+      "amdgpu.runpm=0"
+    ])
+    ++ (lib.optionals (host.isGameMachine && hw.ram >= 16 * 1024) [
+      # 静态 1G 大页（hugepages=4/2 + hugepagesz=1G）已移除：
+      # `hugepages=N` 写在 `hugepagesz=1G` 之前，内核按默认 2M 页结算，
+      # 实际只预留 8 MiB（/proc/meminfo 证实），从未按预期生效；
+      # 而 4 GiB 常驻预留在 32 GB 机器上会直接挤压大模型工作集。
+      "transparent_hugepage=always"
+    ])
+    ++ (lib.optionals (!host.isGameMachine || hw.ram < 16 * 1024) [ "transparent_hugepage=madvise" ]);
     extraModprobeConfig = lib.mkIf (hw.isOculink && hw.isAmdGPU) ''
       options amdgpu pcie_gen_cap=0x80000
     '';
@@ -162,56 +160,55 @@ in {
             zawanix-work = "nvme0n1";
             zawanix-thinkbook = "nvme0n1";
           }
-          .${
-            hostName
-          }
-        }.queue.scheduler = "kyber";
+          .${hostName}
+        }.queue.scheduler =
+          "kyber";
       };
-      sysctl =
-        {
-          # Steam games requirement
-          "vm.max_map_count" = 2147483642;
-          "fs.file-max" = 1024 * 1024 * 2;
-          "fs.inotify.max_user_watches" = 524288; # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+      sysctl = {
+        # Steam games requirement
+        "vm.max_map_count" = 2147483642;
+        "fs.file-max" = 1024 * 1024 * 2;
+        "fs.inotify.max_user_watches" = 524288; # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 
-          # CachyOS performance tuning
-          "kernel.sched_autogroup_enabled" = 1;
-          "kernel.sched_cfs_bandwidth_slice_us" = 3000;
-          "net.core.netdev_max_backlog" = 16384;
-          "net.core.somaxconn" = 8192;
-          "net.core.rmem_default" = 1048576;
-          "net.core.rmem_max" = 16777216;
-          "net.core.wmem_default" = 1048576;
-          "net.core.wmem_max" = 16777216;
-          "net.core.optmem_max" = 65536;
-          "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
-          "net.ipv4.tcp_wmem" = "4096 65536 16777216";
-          "net.ipv4.udp_rmem_min" = 8192;
-          "net.ipv4.udp_wmem_min" = 8192;
-          "net.ipv4.tcp_fastopen" = 3;
-          "net.ipv4.tcp_max_syn_backlog" = 8192;
-          "net.ipv4.tcp_max_tw_buckets" = 2000000;
-          "net.ipv4.tcp_tw_reuse" = 1;
-          "net.ipv4.tcp_fin_timeout" = 10;
-          "net.ipv4.tcp_slow_start_after_idle" = 0;
-          "net.ipv4.tcp_mtu_probing" = 1;
+        # CachyOS performance tuning
+        "kernel.sched_autogroup_enabled" = 1;
+        "kernel.sched_cfs_bandwidth_slice_us" = 3000;
+        "net.core.netdev_max_backlog" = 16384;
+        "net.core.somaxconn" = 8192;
+        "net.core.rmem_default" = 1048576;
+        "net.core.rmem_max" = 16777216;
+        "net.core.wmem_default" = 1048576;
+        "net.core.wmem_max" = 16777216;
+        "net.core.optmem_max" = 65536;
+        "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
+        "net.ipv4.tcp_wmem" = "4096 65536 16777216";
+        "net.ipv4.udp_rmem_min" = 8192;
+        "net.ipv4.udp_wmem_min" = 8192;
+        "net.ipv4.tcp_fastopen" = 3;
+        "net.ipv4.tcp_max_syn_backlog" = 8192;
+        "net.ipv4.tcp_max_tw_buckets" = 2000000;
+        "net.ipv4.tcp_tw_reuse" = 1;
+        "net.ipv4.tcp_fin_timeout" = 10;
+        "net.ipv4.tcp_slow_start_after_idle" = 0;
+        "net.ipv4.tcp_mtu_probing" = 1;
 
-          # VM tuning
-          "vm.dirty_ratio" = 10;
-          "vm.dirty_background_ratio" = 5;
-          "vm.vfs_cache_pressure" = 50;
-          "vm.swappiness" = 100; # 开zarm后可以抬高
-          "vm.page-cluster" = 0;
-        }
-        // (
-          if !hw.isLaptop || host.isGameMachine
-          then {
+        # VM tuning
+        "vm.dirty_ratio" = 10;
+        "vm.dirty_background_ratio" = 5;
+        "vm.vfs_cache_pressure" = 50;
+        "vm.swappiness" = 100; # 开zarm后可以抬高
+        "vm.page-cluster" = 0;
+      }
+      // (
+        if !hw.isLaptop || host.isGameMachine then
+          {
             "kernel.sched_latency_ns" = 4000000;
             "kernel.sched_min_granularity_ns" = 500000;
             "kernel.sched_wakeup_granularity_ns" = 500000;
           }
-          else {}
-        );
+        else
+          { }
+      );
     };
   };
 }

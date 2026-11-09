@@ -5,10 +5,12 @@
   inputs,
   osConfig,
   ...
-}: let
-  optLua = import ./option.nix {inherit config osConfig lib;};
+}:
+let
+  optLua = import ./option.nix { inherit config osConfig lib; };
   repo = "${config.zerozawa.path.cfgRoot}/home/zerozawa/hyprland/lua";
-in {
+in
+{
   imports = [
     ./hypridle.nix
     ./pyprland.nix
@@ -29,7 +31,7 @@ in {
     wev
   ];
 
-  home.activation.deployHyprConfig = lib.hm.dag.entryBefore ["writeBoundary"] ''
+  home.activation.deployHyprConfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
         # 1. Symlink lua/ from repo (writable for DMS and lux)
         if [ ! -L "$HOME/.config/hypr" ] && [ -d "$HOME/.config/hypr" ]; then
           mv "$HOME/.config/hypr" "$HOME/.config/hypr.bak.$(date +%s)"

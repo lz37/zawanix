@@ -2,7 +2,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   programs.zsh = {
     initContent = lib.mkOrder 1000 ''
       # p10k

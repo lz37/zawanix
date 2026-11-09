@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   icons = with pkgs; [
     (lib.hiPrio zafiro-icons)
     morewaita-icon-theme
@@ -14,7 +15,8 @@
     paths = icons;
   };
   icons-path = "${icons-matome}/share/icons";
-in {
+in
+{
   home = {
     packages = icons;
     file.".icons".source = icons-path;

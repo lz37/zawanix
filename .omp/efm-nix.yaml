@@ -1,5 +1,5 @@
 version: 2
 languages:
   nix:
-    - format-command: alejandra
+    - format-command: nixfmt
       format-stdin: true

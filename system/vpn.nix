@@ -7,7 +7,7 @@ lib.mkIf config.zerozawa.away-from-home {
   services = {
     zerotierone = {
       enable = true;
-      joinNetworks = [config.zerozawa.zerotier.id];
+      joinNetworks = [ config.zerozawa.zerotier.id ];
     };
     easytier = {
       enable = true;

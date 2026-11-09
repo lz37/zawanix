@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     leetcode.vscode-leetcode
   ];

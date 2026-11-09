@@ -2,13 +2,15 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   router = "192.168.2.1";
   wiredAddress = "192.168.2.123";
   wifiAddress = "192.168.2.124";
-in {
+in
+{
   networking = {
-    timeServers = [router];
+    timeServers = [ router ];
     enableIPv6 = true;
     firewall.enable = false;
     useDHCP = lib.mkForce false;
@@ -91,11 +93,11 @@ in {
             mode = "infrastructure";
             cloned-mac-address = "permanent";
             # ensureProfiles runs envsubst; preserve literal dollar signs.
-            ssid = lib.replaceStrings ["$"] ["$$"] config.zerozawa.network.wireless.ssid;
+            ssid = lib.replaceStrings [ "$" ] [ "$$" ] config.zerozawa.network.wireless.ssid;
           };
           wifi-security = {
             key-mgmt = "wpa-psk";
-            psk = lib.replaceStrings ["$"] ["$$"] config.zerozawa.network.wireless.psk;
+            psk = lib.replaceStrings [ "$" ] [ "$$" ] config.zerozawa.network.wireless.psk;
           };
           ipv4 = {
             method = "manual";

@@ -1,12 +1,12 @@
-{...}: {
+{ ... }: {
   # The I226-V (0000:06:00.0) hangs on ASPM L1 and the igc driver detaches it
   # ("PCIe link lost, device now detached") while carrier still reads 1.
   # Disable ASPM for this device only, not the whole platform.
-  boot.kernelParams = ["pcie_aspm.policy=performance"];
+  boot.kernelParams = [ "pcie_aspm.policy=performance" ];
   systemd.services.disable-igc-aspm = {
     description = "Disable PCIe ASPM for the I226-V NIC";
-    wantedBy = ["multi-user.target"];
-    after = ["sysinit.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "sysinit.target" ];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
@@ -23,7 +23,7 @@
     "/" = {
       device = "/dev/disk/by-uuid/eaa43e13-12b3-47f2-ad61-efaacc0b1b70";
       fsType = "ext4";
-      options = ["noatime"];
+      options = [ "noatime" ];
     };
     "/boot" = {
       device = "/dev/disk/by-uuid/2915-349A";

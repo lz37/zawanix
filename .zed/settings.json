@@ -20,7 +20,7 @@
           "expr": "(builtins.getFlake (\"git+file://\" + toString ./.)).currentSystem.legacyPackages.nixosConfigurations.${(builtins.replaceStrings [ \"\n\" ] [ \"\" ] (builtins.readFile /etc/hostname))}.pkgs",
         },
         "formatting": {
-          "command": ["alejandra", "--quiet", "--"],
+          "command": ["nixfmt"],
         },
         "options": {
           "nixos": {

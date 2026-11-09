@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.plasma.configFile.plasmanotifyrc = {
     "Applications/koi"."Seen" = true;
     "Applications/org.telegram.desktop"."Seen" = true;

@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   chromium-extensions =
     {
       browsermcp = "bjfgambnhccakkhmkepdoekmckoijdlc"; # Browser MCP - Automate your browser using VS Code, Cursor, Claude, and more
@@ -29,15 +30,12 @@
     }
     |> lib.mapAttrsToList (
       name: value: {
-        "${name}" =
-          if builtins.isString value
-          then {id = value;}
-          else value;
+        "${name}" = if builtins.isString value then { id = value; } else value;
       }
     )
     |> lib.zipAttrsWith (name: values: (builtins.elemAt values 0));
   chromium-base = {
-    commandLineArgs = ["--password-store=kwallet6"];
+    commandLineArgs = [ "--password-store=kwallet6" ];
     enable = true;
     dictionaries = [
       pkgs.hunspellDictsChromium.en_US
@@ -45,8 +43,9 @@
     nativeMessagingHosts = [
       pkgs.kdePackages.plasma-browser-integration
     ];
-    extensions = with chromium-extensions;
-    # only developer tools
+    extensions =
+      with chromium-extensions;
+      # only developer tools
       [
         browsermcp
         jsonFormatter
@@ -56,12 +55,11 @@
         lighthouse
       ];
   };
-  chromium-common =
-    chromium-base
-    // {
-      extensions = builtins.attrValues chromium-extensions;
-    };
-in {
+  chromium-common = chromium-base // {
+    extensions = builtins.attrValues chromium-extensions;
+  };
+in
+{
   home = {
     sessionVariables = {
       CHROME_PATH = lib.getExe pkgs.chromium;

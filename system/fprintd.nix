@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   hw = config.zerozawa.hardware;
-in {
+in
+{
   config = lib.mkIf hw.isFingerprint {
     # fprintd — fingerprint authentication daemon
     # Uses mainline libfprint (supports USB Elan 04f3:0c8c natively).

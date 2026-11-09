@@ -2,27 +2,29 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     (
       (fortune.override {
         withOffensive = true;
       }).overrideAttrs
-      (old: {
-        postFixup =
-          old.postFixup
-          + (lib.concatStringsSep "\n" (
-            lib.map
-            (fortune-mod: ''
-              cp -r ${fortune-mod}/share/fortune/* $out/share/games/fortunes/
-            '')
-            (
-              with nur.repos.zerozawa; [
-                fortune-mod-hitokoto
-              ]
-            )
-          ));
-      })
+        (old: {
+          postFixup =
+            old.postFixup
+            + (lib.concatStringsSep "\n" (
+              lib.map
+                (fortune-mod: ''
+                  cp -r ${fortune-mod}/share/fortune/* $out/share/games/fortunes/
+                '')
+                (
+                  with nur.repos.zerozawa;
+                  [
+                    fortune-mod-hitokoto
+                  ]
+                )
+            ));
+        })
     )
     wakatime-cli
     fd

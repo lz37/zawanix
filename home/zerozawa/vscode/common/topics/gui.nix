@@ -3,7 +3,8 @@
   commonVSCVars,
   lib,
   ...
-}: {
+}:
+{
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     usernamehw.errorlens
     fisheva.eva-theme
@@ -40,7 +41,8 @@
     "editor.wrappingIndent" = "same";
     "explorer.confirmDelete" = false;
     "explorer.confirmDragAndDrop" = false;
-    "terminal.integrated.fontFamily" = "MesloLGS Nerd Font Mono,FiraCode Nerd Font Mono,LXGW WenKai Mono,Source Han Mono,JetBrainsMono Nerd Font Mono,monospace,Unifont";
+    "terminal.integrated.fontFamily" =
+      "MesloLGS Nerd Font Mono,FiraCode Nerd Font Mono,LXGW WenKai Mono,Source Han Mono,JetBrainsMono Nerd Font Mono,monospace,Unifont";
     "terminal.integrated.fontLigatures.enabled" = true;
     "terminal.integrated.fontSize" = 12;
     "terminal.integrated.inheritEnv" = false;

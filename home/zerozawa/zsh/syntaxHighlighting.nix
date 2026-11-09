@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   zsh-syntax-highlighting-with-url-highlighter = pkgs.buildEnv {
     name = "zsh-syntax-highlighting-with-url-highlighter";
     paths = with pkgs; [
@@ -6,7 +7,8 @@
       nur.repos.zerozawa.zsh-url-highlighter
     ];
   };
-in {
+in
+{
   programs.zsh = {
     localVariables = {
       ZSH_HIGHLIGHT_MAXLENGTH = "512";

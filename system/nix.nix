@@ -4,9 +4,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   hw = config.zerozawa.hardware;
-in {
+in
+{
   nix = {
     package = pkgs.master.nix;
     # for nixd
@@ -14,7 +16,7 @@ in {
       access-tokens = github.com=${config.zerozawa.github.access-token.pat}
     '';
     settings = {
-      nix-path = ["nixpkgs=${inputs.nixpkgs}"];
+      nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
       # 实验性功能
       experimental-features = [
         "nix-command"
@@ -23,7 +25,7 @@ in {
       ];
       system-features = [
         "big-parallel"
-        "gccarch-${lib.strings.replaceStrings ["_"] ["-"] hw.amd64Microarchs}"
+        "gccarch-${lib.strings.replaceStrings [ "_" ] [ "-" ] hw.amd64Microarchs}"
       ];
       substituters = lib.mkForce [
         # 中科大
@@ -92,7 +94,7 @@ in {
     };
     optimise = {
       automatic = true;
-      dates = ["03:45"];
+      dates = [ "03:45" ];
     };
   };
 }

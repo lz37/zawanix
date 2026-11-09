@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     tamasfe.even-better-toml
   ];

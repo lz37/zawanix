@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.codex = {
     enable = true;
   };

@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./install-fonts.nix
   ];

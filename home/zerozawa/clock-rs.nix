@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   programs.clock-rs = {
     enable = true;
     settings = {

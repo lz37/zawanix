@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   hw = config.zerozawa.hardware;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     quickemu
     quickgui
@@ -14,7 +16,7 @@ in {
 
   # 修复 libvirtd 12.1.0 secret 加密密钥问题
   # 使用 systemd-creds encrypt 生成符合 LoadCredentialEncrypted 的加密格式
-  system.activationScripts.fix-libvirtd-secret = lib.stringAfter ["var"] ''
+  system.activationScripts.fix-libvirtd-secret = lib.stringAfter [ "var" ] ''
     # 创建 secrets 目录
     mkdir -p /var/lib/libvirt/secrets
 
@@ -50,27 +52,28 @@ in {
     libvirtd = {
       enable = true;
       qemu = {
-        vhostUserPackages = [virtiofsd];
+        vhostUserPackages = [ virtiofsd ];
         package = qemu;
         swtpm = {
           enable = true;
           package = swtpm;
         };
         verbatimConfig =
-          if hw.isNvidiaGPU
-          then ''
-            namespaces = []
-            cgroup_device_acl = [
-              "/dev/null", "/dev/full", "/dev/zero",
-              "/dev/random", "/dev/urandom",
-              "/dev/ptmx", "/dev/kvm",
-              "/dev/nvidiactl", "/dev/nvidia0", "/dev/nvidia-modeset", "/dev/dri/renderD128"
-            ]
-            seccomp_sandbox = 0
-          ''
-          else ''
-            namespaces = []
-          '';
+          if hw.isNvidiaGPU then
+            ''
+              namespaces = []
+              cgroup_device_acl = [
+                "/dev/null", "/dev/full", "/dev/zero",
+                "/dev/random", "/dev/urandom",
+                "/dev/ptmx", "/dev/kvm",
+                "/dev/nvidiactl", "/dev/nvidia0", "/dev/nvidia-modeset", "/dev/dri/renderD128"
+              ]
+              seccomp_sandbox = 0
+            ''
+          else
+            ''
+              namespaces = []
+            '';
       };
     };
     spiceUSBRedirection.enable = true;

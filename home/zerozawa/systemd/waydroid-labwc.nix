@@ -2,12 +2,13 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   systemd.user.services.waydroid-labwc = {
     Unit = {
       Description = "Waydroid in labwc";
-      After = ["graphical-session.target"];
-      PartOf = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
     };
     Service = {
       Type = "simple";

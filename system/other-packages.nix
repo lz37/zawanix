@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   services = {
     linyaps.enable = true;
     flatpak = {

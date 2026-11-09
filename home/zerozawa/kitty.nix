@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   programs.kitty = {
     enable = true;
     enableGitIntegration = true;

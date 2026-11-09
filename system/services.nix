@@ -3,25 +3,28 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   hw = config.zerozawa.hardware;
   host = config.zerozawa.host;
-in {
+in
+{
   services = {
     hardware.openrgb = {
       enable = host.isGameMachine && !hw.isLaptop;
       motherboard =
-        if hw.isIntelCPU
-        then "intel"
-        else if hw.isAMDCPU
-        then "amd"
-        else null;
+        if hw.isIntelCPU then
+          "intel"
+        else if hw.isAMDCPU then
+          "amd"
+        else
+          null;
       package = pkgs.openrgb-with-all-plugins;
     };
     scx-loader = {
       enable = true;
       package = pkgs.master.scx-loader;
-      schedsPackages = [pkgs.master.scx.rustscheds];
+      schedsPackages = [ pkgs.master.scx.rustscheds ];
       # scx_loader 1.1.2 拒绝空配置；仅设置模式可保持配置有效且不自动启动调度器。
       config = {
         default_mode = "Auto";
@@ -35,20 +38,18 @@ in {
     };
     rustdesk-server =
       lib.mkIf (!config.networking.networkmanager.enable && !config.networking.useDHCP)
-      {
-        enable = true;
-        openFirewall = true;
-        signal.relayHosts =
-          [
+        {
+          enable = true;
+          openFirewall = true;
+          signal.relayHosts = [
             "localhost"
           ]
           ++ builtins.concatLists (
             lib.mapAttrsToList (
-              _: iface: map (addr: addr.address) (iface.ipv4.addresses or [])
-            )
-            config.networking.interfaces
+              _: iface: map (addr: addr.address) (iface.ipv4.addresses or [ ])
+            ) config.networking.interfaces
           );
-      };
+        };
     printing = {
       enable = true;
       drivers = with pkgs; [

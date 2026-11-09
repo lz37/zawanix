@@ -5,13 +5,14 @@
   inputs,
   ...
 }:
-with pkgs; let
+with pkgs;
+let
   # REA 的 pwndbg 增强（inspect_recorded_crash --debugger-context）三键成套；缺一个只在调用期报错。
   pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.pwndbg;
   pwndbgVenv = pwndbg.meta.pwndbgVenv;
   # venv 的 site-packages 是符号链接农场，find 默认不跟随 → 用 bash glob + readlink -f
   # （python 版本号也一并 wildcard 掉）
-  pwndbgGdbinit = pkgs.runCommandLocal "rea-pwndbg-gdbinit.py" {} ''
+  pwndbgGdbinit = pkgs.runCommandLocal "rea-pwndbg-gdbinit.py" { } ''
     src=""
     for x in ${pwndbgVenv}/lib/python3*/site-packages/pwndbginit/gdbinit.py; do
       if [ -f "$x" ]; then
@@ -41,11 +42,11 @@ with pkgs; let
     # };
     nixos = {
       command = lib.getExe mcp-nixos;
-      args = [];
+      args = [ ];
     };
     github = {
       command = lib.getExe github-mcp-server;
-      args = ["stdio"];
+      args = [ "stdio" ];
       env = {
         GITHUB_PERSONAL_ACCESS_TOKEN = config.zerozawa.github.access-token.classic;
       };
@@ -68,14 +69,14 @@ with pkgs; let
     };
     exa = {
       command = lib.getExe' pnpm "pnpx";
-      args = ["exa-mcp-server"];
+      args = [ "exa-mcp-server" ];
       env = {
         EXA_API_KEY = config.zerozawa.exa-mcp.apiKey;
       };
     };
     tavily = {
       command = lib.getExe' pnpm "pnpx";
-      args = ["tavily-mcp@latest"];
+      args = [ "tavily-mcp@latest" ];
       env = {
         TAVILY_API_KEY = config.zerozawa.tavily-mcp.apiKey;
       };
@@ -126,14 +127,14 @@ with pkgs; let
     };
     image-tiler = {
       command = lib.getExe' pnpm "pnpx";
-      args = ["image-tiler-mcp-server"];
+      args = [ "image-tiler-mcp-server" ];
     };
     pctx = {
       command = lib.getExe nur.repos.zerozawa.pctx;
       args = [
         "--config"
         (toString (
-          (pkgs.formats.json {}).generate "pctx.json" ((import ./pctx.nix) {inherit pkgs config;})
+          (pkgs.formats.json { }).generate "pctx.json" ((import ./pctx.nix) { inherit pkgs config; })
         ))
         "mcp"
         "start"
@@ -167,13 +168,14 @@ with pkgs; let
       };
     };
   };
-in {
+in
+{
   programs.mcp = {
     enable = true;
     inherit servers;
   };
   xdg.configFile = {
-    "mcp/omp.config".text = lib.generators.toJSON {} {
+    "mcp/omp.config".text = lib.generators.toJSON { } {
       disabledServers = [
         "context-mode" # 没啥用
         "pctx" # omp 已有 xd:// 动态发现和eval调用

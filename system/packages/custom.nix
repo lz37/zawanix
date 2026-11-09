@@ -3,7 +3,8 @@
   config,
   colorsh,
   ...
-}: let
+}:
+let
   zawanix = rec {
     update = pkgs.writeScriptBin "zawanix.update" ''
       #!${pkgs.bash}/bin/bash
@@ -36,11 +37,12 @@
       ${update}/bin/zawanix.update
       ${rebuild}/bin/zawanix.rebuild
     '';
-    system.packages = let
-      packages = map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in
+    system.packages =
+      let
+        packages = map (p: "${p.name}") config.environment.systemPackages;
+        sortedUnique = builtins.sort builtins.lessThan (pkgs.lib.lists.unique packages);
+        formatted = builtins.concatStringsSep "\n" sortedUnique;
+      in
       pkgs.writeScriptBin "zawanix.system.packages" ''
         #!${pkgs.bash}/bin/bash
         ${pkgs.coreutils}/bin/echo -e "${formatted}"
@@ -56,7 +58,8 @@
         }"
       '';
   };
-in {
+in
+{
   environment.systemPackages = with zawanix; [
     update
     rebuild

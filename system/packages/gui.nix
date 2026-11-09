@@ -3,10 +3,12 @@
   config,
   lib,
   ...
-}: let
-  patchDesktop = import ./utils.nix {inherit pkgs lib;};
+}:
+let
+  patchDesktop = import ./utils.nix { inherit pkgs lib; };
   hw = config.zerozawa.hardware;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     cage
     rustdesk
@@ -22,8 +24,7 @@ in {
       '';
     })
     wechat
-    (
-      patchDesktop wechat "wechat" "^Exec=wechat %U"
+    (patchDesktop wechat "wechat" "^Exec=wechat %U"
       "Exec=env XIM=fcitx GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx wechat %U"
     )
     master.wemeet
@@ -37,9 +38,10 @@ in {
     tsukimi
     (switchfin.overrideAttrs (old: {
       cmakeFlags =
-        if hw.isNvidiaGPU
-        then map (flag: lib.replaceStrings ["-DUSE_EGL=ON"] ["-DUSE_EGL=OFF"] flag) (old.cmakeFlags or [])
-        else old.cmakeFlags;
+        if hw.isNvidiaGPU then
+          map (flag: lib.replaceStrings [ "-DUSE_EGL=ON" ] [ "-DUSE_EGL=OFF" ] flag) (old.cmakeFlags or [ ])
+        else
+          old.cmakeFlags;
     }))
     feishin
     stable.gimp3

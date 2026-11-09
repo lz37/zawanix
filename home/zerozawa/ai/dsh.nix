@@ -4,11 +4,13 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   system = pkgs.stdenv.hostPlatform.system;
   dshPackages = inputs.deepseek-harness.packages.${system};
   webProfileDir = "${config.zerozawa.path.cfgRoot}/home/zerozawa/ai/dsh/profiles/web";
-in {
+in
+{
   # 只装二进制，不用 programs.dsh 模块。
   #
   # 模块的唯一价值是"由 Nix 声明并播种 profile"：managed 每次启动按指纹回滚，
@@ -36,7 +38,7 @@ in {
   #   package.json         bundle 列表
   #   pnpm-workspace.yaml  常量
   #   cordis.yml           dsh 每次启动重写的解析树，被 gitignore
-  home.activation.linkDshWebProfile = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.linkDshWebProfile = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     target="$HOME/.dsh/profiles/web"
     if [ ! -L "$target" ] && [ -d "$target" ]; then
       mv "$target" "$target.bak.$(date +%s)"

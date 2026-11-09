@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   icons-matome = pkgs.buildEnv {
     name = "icons-matome";
     paths = with pkgs; [
@@ -21,7 +22,8 @@
     ];
   };
   themes-path = "${themes-matome}/share/themes";
-in {
+in
+{
   home.file = {
     ".icons".source = icons-path;
     ".themes".source = themes-path;

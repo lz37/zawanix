@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   xdg.configFile."openbox/environment" = {
     text = ''
       export XDG_CURRENT_DESKTOP="''${XDG_CURRENT_DESKTOP:-Openbox}"

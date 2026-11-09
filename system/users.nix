@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   users.users = {
     zerozawa = {
       uid = config.zerozawa.users.zerozawa.uid;

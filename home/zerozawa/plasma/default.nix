@@ -1,4 +1,4 @@
-{...}: {
+{ ... }: {
   imports = [
     ./kwinrc.nix
     ./kdeglobals.nix

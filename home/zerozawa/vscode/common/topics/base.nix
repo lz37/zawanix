@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     tintinweb.vscode-inline-bookmarks
     wakatime.vscode-wakatime

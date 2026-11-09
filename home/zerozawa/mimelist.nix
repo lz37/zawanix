@@ -1,11 +1,13 @@
-{...}: let
+{ ... }:
+let
   browser = "vivaldi-stable.desktop";
   editor = "code.desktop";
   file-manager = "yazi.desktop";
   image-viewer = "swayimg.desktop";
   image-editor = "gimp.desktop";
   # torrent = "transmission-gtk.desktop";
-in {
+in
+{
   xdg.configFile."mimeapps.list".force = true;
   xdg.mimeApps = rec {
     enable = true;

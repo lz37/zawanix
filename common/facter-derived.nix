@@ -1,50 +1,47 @@
 {
   lib,
   report,
-}: let
-  hardware = lib.attrByPath ["hardware"] {} report;
-  smbios = lib.attrByPath ["smbios"] {} report;
+}:
+let
+  hardware = lib.attrByPath [ "hardware" ] { } report;
+  smbios = lib.attrByPath [ "smbios" ] { } report;
 
-  asList = value:
-    if builtins.isList value
-    then value
-    else if value == null
-    then []
-    else [value];
+  asList =
+    value:
+    if builtins.isList value then
+      value
+    else if value == null then
+      [ ]
+    else
+      [ value ];
 
-  cpuEntries = asList (lib.attrByPath ["cpu"] [] hardware);
-  cpu =
-    if cpuEntries == []
-    then {}
-    else builtins.head cpuEntries;
-  graphicsCards = asList (lib.attrByPath ["graphics_card"] [] hardware);
-  disks = asList (lib.attrByPath ["disk"] [] hardware);
-  inputs = asList (lib.attrByPath ["input"] [] hardware);
-  touchpads =
-    lib.filter (
-      input: let
-        baseClassName = lib.toLower (lib.attrByPath ["base_class" "name"] "" input);
-        classList = map lib.toLower (asList (lib.attrByPath ["class_list"] [] input));
-      in
-        baseClassName == "touchpad" || lib.elem "touchpad" classList
-    )
-    inputs;
-  chassisEntries = asList (lib.attrByPath ["chassis"] [] smbios);
-  chassisTypeNames =
-    map (
-      entry: lib.toLower (lib.attrByPath ["chassis_type" "name"] "" entry)
-    )
-    chassisEntries;
-  memoryDevices = asList (lib.attrByPath ["memory_device"] [] smbios);
-  cpuFeatures = map lib.toLower (asList (lib.attrByPath ["features"] [] cpu));
-  cpuVendorName = lib.attrByPath ["vendor_name"] null cpu;
+  cpuEntries = asList (lib.attrByPath [ "cpu" ] [ ] hardware);
+  cpu = if cpuEntries == [ ] then { } else builtins.head cpuEntries;
+  graphicsCards = asList (lib.attrByPath [ "graphics_card" ] [ ] hardware);
+  disks = asList (lib.attrByPath [ "disk" ] [ ] hardware);
+  inputs = asList (lib.attrByPath [ "input" ] [ ] hardware);
+  touchpads = lib.filter (
+    input:
+    let
+      baseClassName = lib.toLower (lib.attrByPath [ "base_class" "name" ] "" input);
+      classList = map lib.toLower (asList (lib.attrByPath [ "class_list" ] [ ] input));
+    in
+    baseClassName == "touchpad" || lib.elem "touchpad" classList
+  ) inputs;
+  chassisEntries = asList (lib.attrByPath [ "chassis" ] [ ] smbios);
+  chassisTypeNames = map (
+    entry: lib.toLower (lib.attrByPath [ "chassis_type" "name" ] "" entry)
+  ) chassisEntries;
+  memoryDevices = asList (lib.attrByPath [ "memory_device" ] [ ] smbios);
+  cpuFeatures = map lib.toLower (asList (lib.attrByPath [ "features" ] [ ] cpu));
+  cpuVendorName = lib.attrByPath [ "vendor_name" ] null cpu;
   hasFeature = feature: lib.elem feature cpuFeatures;
   hasAllFeatures = features: lib.all hasFeature features;
 
-  cardVendorName = card: lib.attrByPath ["vendor" "name"] null card;
+  cardVendorName = card: lib.attrByPath [ "vendor" "name" ] null card;
   vendorNames = {
-    intel = ["Intel Corporation"];
-    nvidia = ["nVidia Corporation"];
+    intel = [ "Intel Corporation" ];
+    nvidia = [ "nVidia Corporation" ];
     amd = [
       "Advanced Micro Devices, Inc. [AMD/ATI]"
       "ATI Technologies Inc"
@@ -61,90 +58,79 @@
     "Goodix Technology Co.,Ltd."
     "Synaptics"
   ];
-  usbDevices = asList (lib.attrByPath ["usb"] [] hardware);
-  hasFingerprint =
-    lib.any (
-      usb: let
-        vendorName = lib.attrByPath ["vendor" "name"] "" usb;
-        interfaceClass = lib.toLower (lib.attrByPath ["detail" "interface_class" "name"] "" usb);
-      in
-        lib.elem vendorName fpVendorNames && interfaceClass == "vendor_spec"
-    )
-    usbDevices;
+  usbDevices = asList (lib.attrByPath [ "usb" ] [ ] hardware);
+  hasFingerprint = lib.any (
+    usb:
+    let
+      vendorName = lib.attrByPath [ "vendor" "name" ] "" usb;
+      interfaceClass = lib.toLower (lib.attrByPath [ "detail" "interface_class" "name" ] "" usb);
+    in
+    lib.elem vendorName fpVendorNames && interfaceClass == "vendor_spec"
+  ) usbDevices;
 
-  diskStrings = disk:
+  diskStrings =
+    disk:
     map lib.toLower (
       (lib.filter builtins.isString [
-        (lib.attrByPath ["sysfs_id"] null disk)
-        (lib.attrByPath ["sysfs_bus_id"] null disk)
-        (lib.attrByPath ["driver"] null disk)
-        (lib.attrByPath ["driver_module"] null disk)
-        (lib.attrByPath ["model"] null disk)
-        (lib.attrByPath ["bus_type" "name"] null disk)
+        (lib.attrByPath [ "sysfs_id" ] null disk)
+        (lib.attrByPath [ "sysfs_bus_id" ] null disk)
+        (lib.attrByPath [ "driver" ] null disk)
+        (lib.attrByPath [ "driver_module" ] null disk)
+        (lib.attrByPath [ "model" ] null disk)
+        (lib.attrByPath [ "bus_type" "name" ] null disk)
       ])
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["drivers"] [] disk)))
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["driver_modules"] [] disk)))
-      ++ (lib.filter builtins.isString (asList (lib.attrByPath ["unix_device_names"] [] disk)))
+      ++ (lib.filter builtins.isString (asList (lib.attrByPath [ "drivers" ] [ ] disk)))
+      ++ (lib.filter builtins.isString (asList (lib.attrByPath [ "driver_modules" ] [ ] disk)))
+      ++ (lib.filter builtins.isString (asList (lib.attrByPath [ "unix_device_names" ] [ ] disk)))
     );
 
-  hasSolidStateDisk =
+  hasSolidStateDisk = lib.any (
+    disk:
     lib.any (
-      disk:
-        lib.any (
-          text:
-            lib.any (needle: lib.hasInfix needle text) [
-              "nvme"
-              "ssd"
-              "solid state"
-            ]
-        ) (diskStrings disk)
-    )
-    disks;
+      text:
+      lib.any (needle: lib.hasInfix needle text) [
+        "nvme"
+        "ssd"
+        "solid state"
+      ]
+    ) (diskStrings disk)
+  ) disks;
 
   isLaptop =
     lib.any (
       name:
-        lib.elem name [
-          "laptop"
-          "notebook"
-          "convertible"
-          "portable"
-          "tablet"
-          "slim notebook"
-        ]
-    )
-    chassisTypeNames
+      lib.elem name [
+        "laptop"
+        "notebook"
+        "convertible"
+        "portable"
+        "tablet"
+        "slim notebook"
+      ]
+    ) chassisTypeNames
     || (builtins.length touchpads > 0);
 
-  memoryBytes =
-    builtins.foldl' (
-      sum: entry:
-        sum
-        + builtins.foldl' (
-          entrySum: resource:
-            if (lib.attrByPath ["type"] "" resource) == "phys_mem"
-            then entrySum + (lib.attrByPath ["range"] 0 resource)
-            else entrySum
-        )
-        0 (asList (lib.attrByPath ["resources"] [] entry))
-    )
-    0 (asList (lib.attrByPath ["memory"] [] hardware));
-  memoryDeviceKiB =
-    builtins.foldl' (
-      sum: device: let
-        size = lib.attrByPath ["size"] 0 device;
-      in
-        if builtins.isInt size && size > 0
-        then sum + size
-        else sum
-    )
-    0
-    memoryDevices;
+  memoryBytes = builtins.foldl' (
+    sum: entry:
+    sum
+    + builtins.foldl' (
+      entrySum: resource:
+      if (lib.attrByPath [ "type" ] "" resource) == "phys_mem" then
+        entrySum + (lib.attrByPath [ "range" ] 0 resource)
+      else
+        entrySum
+    ) 0 (asList (lib.attrByPath [ "resources" ] [ ] entry))
+  ) 0 (asList (lib.attrByPath [ "memory" ] [ ] hardware));
+  memoryDeviceKiB = builtins.foldl' (
+    sum: device:
+    let
+      size = lib.attrByPath [ "size" ] 0 device;
+    in
+    if builtins.isInt size && size > 0 then sum + size else sum
+  ) 0 memoryDevices;
   rawMemoryMiB = builtins.div memoryBytes (1024 * 1024);
   installedMemoryMiB =
-    if memoryDeviceKiB > 0
-    then builtins.div memoryDeviceKiB 1024
-    else rawMemoryMiB;
+    if memoryDeviceKiB > 0 then builtins.div memoryDeviceKiB 1024 else rawMemoryMiB;
 
   microarch =
     if
@@ -168,7 +154,8 @@
         "avx512dq"
         "avx512vl"
       ]
-    then "x86_64_v4"
+    then
+      "x86_64_v4"
     else if
       hasAllFeatures [
         "ssse3"
@@ -185,7 +172,8 @@
         "fma"
         "movbe"
       ]
-    then "x86_64_v3"
+    then
+      "x86_64_v3"
     else if
       hasAllFeatures [
         "ssse3"
@@ -195,9 +183,12 @@
         "cx16"
         "lahf_lm"
       ]
-    then "x86_64_v2"
-    else "x86_64_v1";
-in {
+    then
+      "x86_64_v2"
+    else
+      "x86_64_v1";
+in
+{
   inherit
     asList
     hardware

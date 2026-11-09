@@ -129,11 +129,13 @@
     mk-shell-bin.url = "github:rrbutani/nix-mk-shell-bin";
   };
 
-  outputs = inputs: let
-    inherit (inputs.nixpkgs) lib;
-    colorsh = import ./common/color.sh.nix;
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs:
+    let
+      inherit (inputs.nixpkgs) lib;
+      colorsh = import ./common/color.sh.nix;
+    in
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
       imports = [
         inputs.treefmt-nix.flakeModule
@@ -142,164 +144,167 @@
         inputs.devenv.flakeModule
       ];
       systems = lib.systems.flakeExposed;
-      perSystem = {
-        config,
-        # self',
-        # inputs',
-        pkgs,
-        system,
-        ...
-      }: let
-        hostProfiles = {
-          zawanix-work = {
-            hostName = "zawanix-work";
-            system = "x86_64-linux";
+      perSystem =
+        {
+          config,
+          # self',
+          # inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        let
+          hostProfiles = {
+            zawanix-work = {
+              hostName = "zawanix-work";
+              system = "x86_64-linux";
+            };
+            zawanix-glap = {
+              hostName = "zawanix-glap";
+              system = "x86_64-linux";
+            };
+            zawanix-fubuki = {
+              hostName = "zawanix-fubuki";
+              system = "x86_64-linux";
+            };
+            zawanix-thinkbook = {
+              hostName = "zawanix-thinkbook";
+              system = "x86_64-linux";
+            };
           };
-          zawanix-glap = {
-            hostName = "zawanix-glap";
-            system = "x86_64-linux";
-          };
-          zawanix-fubuki = {
-            hostName = "zawanix-fubuki";
-            system = "x86_64-linux";
-          };
-          zawanix-thinkbook = {
-            hostName = "zawanix-thinkbook";
-            system = "x86_64-linux";
-          };
-        };
-        hostsForSystem = lib.filterAttrs (_: p: p.system == system) hostProfiles;
-        mkNixosConfig = profile: let
-          specialArgs = {
-            rootPath = ./.;
-            inherit (profile) hostName;
-            inherit inputs colorsh;
-          };
-        in {
-          inherit system specialArgs;
-          modules =
-            [
-              ./options
-              (inputs.zerozawa-private + "/default.nix")
-              ./nixpkgs.nix
-              inputs.nix-flatpak.nixosModules.nix-flatpak
-              inputs.nix-index-database.nixosModules.nix-index
-              inputs.nixos-cli.nixosModules.nixos-cli
-              inputs.lanzaboote.nixosModules.lanzaboote
-              inputs.dank-greeter.nixosModules.default
-              ./network
-              ./hardware
-              ./system
-            ]
-            ++ [
-              inputs.home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = false;
-                  useUserPackages = true;
-                  verbose = true;
-                  backupFileExtension = "hm.bak";
-                  sharedModules = [
-                    inputs.omp.homeManagerModules.default
-                    inputs.agent-skills.homeManagerModules.default
-                    inputs.plasma-manager.homeModules.plasma-manager
-                    inputs.vscode-server.homeModules.default
-                    ./options
-                    (import (inputs.zerozawa-private + "/default.nix") {
-                      hostName = profile.hostName;
-                    })
-                    inputs.dankMaterialShell.homeModules.dank-material-shell
-                    inputs.dms-plugin-registry.homeModules.default
-                    ./nixpkgs.nix
-                  ];
-                  users.zerozawa = import ./home/zerozawa;
-                  extraSpecialArgs = specialArgs;
+          hostsForSystem = lib.filterAttrs (_: p: p.system == system) hostProfiles;
+          mkNixosConfig =
+            profile:
+            let
+              specialArgs = {
+                rootPath = ./.;
+                inherit (profile) hostName;
+                inherit inputs colorsh;
+              };
+            in
+            {
+              inherit system specialArgs;
+              modules = [
+                ./options
+                (inputs.zerozawa-private + "/default.nix")
+                ./nixpkgs.nix
+                inputs.nix-flatpak.nixosModules.nix-flatpak
+                inputs.nix-index-database.nixosModules.nix-index
+                inputs.nixos-cli.nixosModules.nixos-cli
+                inputs.lanzaboote.nixosModules.lanzaboote
+                inputs.dank-greeter.nixosModules.default
+                ./network
+                ./hardware
+                ./system
+              ]
+              ++ [
+                inputs.home-manager.nixosModules.home-manager
+                {
+                  home-manager = {
+                    useGlobalPkgs = false;
+                    useUserPackages = true;
+                    verbose = true;
+                    backupFileExtension = "hm.bak";
+                    sharedModules = [
+                      inputs.omp.homeManagerModules.default
+                      inputs.agent-skills.homeManagerModules.default
+                      inputs.plasma-manager.homeModules.plasma-manager
+                      inputs.vscode-server.homeModules.default
+                      ./options
+                      (import (inputs.zerozawa-private + "/default.nix") {
+                        hostName = profile.hostName;
+                      })
+                      inputs.dankMaterialShell.homeModules.dank-material-shell
+                      inputs.dms-plugin-registry.homeModules.default
+                      ./nixpkgs.nix
+                    ];
+                    users.zerozawa = import ./home/zerozawa;
+                    extraSpecialArgs = specialArgs;
+                  };
+                }
+              ];
+            };
+          nixosConfigs = lib.mapAttrs (_: profile: lib.nixosSystem (mkNixosConfig profile)) hostsForSystem;
+        in
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = pkg: true;
+            overlays = [
+              (final: prev: {
+                nur = import inputs.nur {
+                  nurpkgs = prev;
+                  pkgs = prev;
+                  repoOverrides = {
+                    zerozawa = import inputs.zerozawa-nur { inherit pkgs; };
+                  };
                 };
-              }
+              })
             ];
-        };
-        nixosConfigs = lib.mapAttrs (_: profile: lib.nixosSystem (mkNixosConfig profile)) hostsForSystem;
-      in {
-        _module.args.pkgs = import inputs.nixpkgs {
-          inherit system;
-          config.allowUnfreePredicate = pkg: true;
-          overlays = [
-            (final: prev: {
-              nur = import inputs.nur {
-                nurpkgs = prev;
-                pkgs = prev;
-                repoOverrides = {
-                  zerozawa = import inputs.zerozawa-nur {inherit pkgs;};
+          };
+          legacyPackages = {
+            nixosConfigurations = nixosConfigs;
+          };
+          packages = lib.mapAttrs' (
+            name: cfg: lib.nameValuePair "kernel-${name}" cfg.config.system.build.kernel
+          ) nixosConfigs;
+          devenv.shells.default = {
+            name = "zawanix";
+            packages = [
+              (import inputs.nixpkgs-stable {
+                inherit system;
+              }).lux-cli
+            ];
+            languages = {
+              javascript = {
+                enable = true;
+                bun = {
+                  enable = true;
+                  package = inputs.nix-bun.packages.${system}.bun;
+                  install.enable = true;
                 };
               };
-            })
-          ];
-        };
-        legacyPackages = {
-          nixosConfigurations = nixosConfigs;
-        };
-        packages =
-          lib.mapAttrs' (
-            name: cfg: lib.nameValuePair "kernel-${name}" cfg.config.system.build.kernel
-          )
-          nixosConfigs;
-        devenv.shells.default = {
-          name = "zawanix";
-          packages = [
-            (import inputs.nixpkgs-stable {
-              inherit system;
-            }).lux-cli
-          ];
-          languages = {
-            javascript = {
-              enable = true;
-              bun = {
+              lua = {
                 enable = true;
-                package = inputs.nix-bun.packages.${system}.bun;
-                install.enable = true;
+                package = pkgs.lua5_5;
+                lsp.enable = true;
               };
             };
-            lua = {
-              enable = true;
-              package = pkgs.lua5_5;
-              lsp.enable = true;
-            };
+            enterShell = ''
+              ${config.nix-health.outputs.devShell.shellHook}
+              ${config.pre-commit.installationScript}
+              ${pkgs.coreutils}/bin/echo -e "${
+                colorsh.utils.chunibyo.gothic.kaomoji.unicode {
+                  gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
+                  scope = "魔導結界";
+                  action = "異空覚醒";
+                  kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
+                }
+              }"
+            '';
           };
-          enterShell = ''
-            ${config.nix-health.outputs.devShell.shellHook}
-            ${config.pre-commit.installationScript}
-            ${pkgs.coreutils}/bin/echo -e "${
-              colorsh.utils.chunibyo.gothic.kaomoji.unicode {
-                gothic = "𝔡𝔦𝔯𝔢𝔫𝔳";
-                scope = "魔導結界";
-                action = "異空覚醒";
-                kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
-              }
-            }"
-          '';
-        };
-        pre-commit = {
-          settings = {
-            hooks = {
-              treefmt = {
-                enable = true;
-                packageOverrides.treefmt = pkgs.treefmt;
-                settings.formatters = [
-                  pkgs.alejandra
-                ];
+          pre-commit = {
+            settings = {
+              hooks = {
+                treefmt = {
+                  enable = true;
+                  packageOverrides.treefmt = pkgs.treefmt;
+                  settings.formatters = [
+                    pkgs.nixfmt
+                  ];
+                };
               };
             };
           };
-        };
-        # run by `nix fmt`
-        treefmt = {
-          projectRootFile = "flake.nix";
-          programs = {
-            alejandra.enable = true;
-            shellcheck.enable = true;
+          # run by `nix fmt`
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              nixfmt.enable = true;
+              shellcheck.enable = true;
+            };
           };
         };
-      };
       flake = {
         nix-health.default = {
           direnv = {

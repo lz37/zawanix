@@ -2,9 +2,11 @@
   pkgs,
   commonVSCVars,
   ...
-}: let
+}:
+let
   prettierExtStr = commonVSCVars.prettierExtStr;
-in {
+in
+{
   extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     esbenp.prettier-vscode
   ];

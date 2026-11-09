@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   boot = {
     loader = {
       # lanzaboote replaces the systemd-boot module but still installs a
@@ -26,5 +27,5 @@
       };
     };
   };
-  environment.systemPackages = [pkgs.sbctl];
+  environment.systemPackages = [ pkgs.sbctl ];
 }

@@ -2,8 +2,10 @@
   config,
   pkgs,
   ...
-}: let
-in {
+}:
+let
+in
+{
   services = {
     mpris-proxy.enable = true;
   };
@@ -86,7 +88,7 @@ in {
       enable = true;
       enableZshIntegration = true;
       config = {
-        whitelist.prefix = [config.zerozawa.path.code];
+        whitelist.prefix = [ config.zerozawa.path.code ];
       };
       nix-direnv.enable = true;
     };

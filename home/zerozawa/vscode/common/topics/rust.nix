@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   extensions = (
-    with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
+    with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace;
+    [
       rust-lang.rust-analyzer
       dustypomerleau.rust-syntax
       llvm-vs-code-extensions.lldb-dap

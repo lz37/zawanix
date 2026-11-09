@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # fonts
   fonts = {
     fontDir.enable = true;
@@ -10,10 +10,10 @@
           "Noto Color Emoji"
           "Twitter Color Emoji"
         ];
-        monospace = ["meslo-lgs-nf"];
-        sansSerif = ["Source Han Sans SC"];
+        monospace = [ "meslo-lgs-nf" ];
+        sansSerif = [ "Source Han Sans SC" ];
         # steam
-        serif = ["WenQuanYi Zen Hei"];
+        serif = [ "WenQuanYi Zen Hei" ];
       };
     };
     enableDefaultPackages = true;
