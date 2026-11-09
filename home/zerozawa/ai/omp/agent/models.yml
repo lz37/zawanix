@@ -4,7 +4,6 @@ providers:
     modelOverrides:
       MiniMax-M3.1-Flash:
         api: anthropic-messages
-        contextWindow: 512000
         thinking:
           mode: anthropic-adaptive
           efforts: [low, medium, high, xhigh, max]
