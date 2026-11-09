@@ -86,7 +86,10 @@
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # hyprland.url = "github:hyprwm/Hyprland/main";
+    # 跟上游 main：Hyprland 本体与 portal 都来自这里，不再用 nixpkgs 的包。
+    # 不要给 hyprland.inputs.nixpkgs 加 follows —— 会改变 nixpkgs commit，
+    # hyprland.cachix.org 的缓存随即失效，等于本地从零编译。
+    hyprland.url = "github:hyprwm/Hyprland";
     # hypr-dynamic-cursors = {
     #   url = "github:VirtCode/hypr-dynamic-cursors";
     #   inputs.nixpkgs.follows = "nixpkgs";

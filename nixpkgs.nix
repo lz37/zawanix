@@ -30,8 +30,29 @@ moduleArgs@{
         inputs.nix4vscode.overlays.default
         inputs.nix-cachyos-kernel.overlays.pinned
         inputs.llm-agents.overlays.shared-nixpkgs
-        # inputs.hyprland.overlays.default
-        # inputs.hyprland.overlays.hyprland-packages
+        # 让 pkgs.hyprland / xdg-desktop-portal-hyprland 全局来自 hyprland flake，
+        # grimblast 等传递依赖也随之同源（closure 里只有一个 hyprland）。
+        inputs.hyprland.overlays.default
+        # 上游打包 bug（hyprland main @ a1d7a78 + hyprutils 0.14.3）：share-picker 目标只
+        # 通过 pkg-config 声明 hyprtoolkit/hyprutils/libdrm，但 hyprutils 的 Region.hpp 需要
+        # pixman.h、hyprgraphics 的 CairoSurface.hpp 需要 cairo/cairo.h，该目标因此编译失败。
+        # 补 buildInputs，并把 pixman-1 加进同一处 pkg_check_modules。
+        (final: prev: {
+          xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.overrideAttrs (oa: {
+            buildInputs = (oa.buildInputs or [ ]) ++ [
+              final.pixman
+              final.cairo
+            ];
+            postPatch = (oa.postPatch or "") + ''
+              substituteInPlace hyprland-share-picker/CMakeLists.txt \
+                --replace-fail "  libdrm)" "  libdrm pixman-1)"
+            '';
+          });
+        })
+        # 连 hypr* 依赖一起换成 flake 锁的版本：aquamarine / hyprutils / hyprgraphics /
+        # hyprlang / hyprcursor / hyprtoolkit / hyprwire / hyprland-protocols /
+        # hyprland-guiutils / hyprwayland-scanner。插件与本体 ABI 因此同源。
+        inputs.hyprland.overlays.hyprland-packages
         (
           final: prev:
           let
