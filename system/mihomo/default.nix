@@ -42,7 +42,7 @@ let
       | .tun."route-exclude-address" = load("${routeExcludeAddressFile}")
     ' ${./mihomo.yaml} > "$out"
   '';
-  tunChanger = enable: ''
+  tunChanger = enable: /* bash */ ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.curl}/bin/curl -H "Content-Type: application/json" -X PATCH -d '{"tun":{"enable":${lib.boolToString enable}}}' http://${external-controller}/configs
 

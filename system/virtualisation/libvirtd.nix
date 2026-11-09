@@ -16,7 +16,7 @@ in
 
   # 修复 libvirtd 12.1.0 secret 加密密钥问题
   # 使用 systemd-creds encrypt 生成符合 LoadCredentialEncrypted 的加密格式
-  system.activationScripts.fix-libvirtd-secret = lib.stringAfter [ "var" ] ''
+  system.activationScripts.fix-libvirtd-secret = lib.stringAfter [ "var" ] /* bash */ ''
     # 创建 secrets 目录
     mkdir -p /var/lib/libvirt/secrets
 

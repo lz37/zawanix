@@ -6,7 +6,7 @@
 }:
 let
   zawanix = rec {
-    update = pkgs.writeScriptBin "zawanix.update" ''
+    update = pkgs.writeScriptBin "zawanix.update" /* bash */ ''
       #!${pkgs.bash}/bin/bash
       ${pkgs.nix}/bin/nix flake update --flake ${config.zerozawa.path.cfgRoot}
       ${pkgs.coreutils}/bin/echo -e "${

@@ -8,7 +8,7 @@ let
   fonts-dir = "${config.xdg.dataHome}/fonts";
 in
 {
-  home.activation.install-fonts = lib.hm.dag.entryAfter [ "installPackages" ] ''
+  home.activation.install-fonts = lib.hm.dag.entryAfter [ "installPackages" ] /* bash */ ''
     if [ -d "${fonts-dir}" ]; then
       ${pkgs.coreutils}/bin/rm -rf ${fonts-dir}
     fi

@@ -12,7 +12,7 @@ in
   nix = {
     package = pkgs.master.nix;
     # for nixd
-    extraOptions = ''
+    extraOptions = /* ini */ ''
       access-tokens = github.com=${config.zerozawa.github.access-token.pat}
     '';
     settings = {

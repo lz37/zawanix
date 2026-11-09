@@ -1,6 +1,6 @@
 { ... }: {
   xdg.configFile."openbox/environment" = {
-    text = ''
+    text = /* bash */ ''
       export XDG_CURRENT_DESKTOP="''${XDG_CURRENT_DESKTOP:-Openbox}"
       export DESKTOP_SESSION="''${DESKTOP_SESSION:-openbox}"
       export XDG_SESSION_TYPE="''${XDG_SESSION_TYPE:-x11}"

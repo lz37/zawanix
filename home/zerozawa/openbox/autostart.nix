@@ -6,7 +6,7 @@
 {
   xdg.configFile."openbox/autostart" = {
     executable = true;
-    text = ''
+    text = /* bash */ ''
       #!/bin/bash
       ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd \
         DISPLAY \

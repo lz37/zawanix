@@ -31,7 +31,7 @@ in
     wev
   ];
 
-  home.activation.deployHyprConfig = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+  home.activation.deployHyprConfig = lib.hm.dag.entryBefore [ "writeBoundary" ] /* bash */ ''
         # 1. Symlink lua/ from repo (writable for DMS and lux)
         if [ ! -L "$HOME/.config/hypr" ] && [ -d "$HOME/.config/hypr" ]; then
           mv "$HOME/.config/hypr" "$HOME/.config/hypr.bak.$(date +%s)"

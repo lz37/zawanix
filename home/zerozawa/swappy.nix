@@ -1,6 +1,6 @@
 { config, ... }: {
   xdg.configFile = {
-    "swappy/config".text = ''
+    "swappy/config".text = /* ini */ ''
       [Default]
       save_dir=${config.home.homeDirectory}/Pictures/Screenshots
       save_filename_format=swappy-%Y%m%d-%H%M%S.png

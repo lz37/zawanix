@@ -38,7 +38,7 @@ in
   #   package.json         bundle 列表
   #   pnpm-workspace.yaml  常量
   #   cordis.yml           dsh 每次启动重写的解析树，被 gitignore
-  home.activation.linkDshWebProfile = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.linkDshWebProfile = lib.hm.dag.entryAfter [ "writeBoundary" ] /* bash */ ''
     target="$HOME/.dsh/profiles/web"
     if [ ! -L "$target" ] && [ -d "$target" ]; then
       mv "$target" "$target.bak.$(date +%s)"

@@ -270,7 +270,7 @@
                 lsp.enable = true;
               };
             };
-            enterShell = ''
+            enterShell = /* bash */ ''
               ${config.nix-health.outputs.devShell.shellHook}
               ${config.pre-commit.installationScript}
               ${pkgs.coreutils}/bin/echo -e "${
