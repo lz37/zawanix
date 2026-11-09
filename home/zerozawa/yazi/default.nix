@@ -21,7 +21,7 @@ in
       smart-enter = pkgs.yaziPlugins.smart-enter;
     };
 
-    initLua = ''
+    initLua = /* lua */ ''
       require("full-border"):setup()
          require("git"):setup()
          require("smart-enter"):setup {

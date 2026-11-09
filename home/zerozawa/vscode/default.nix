@@ -51,6 +51,7 @@ in
         (import ./common/topics/python.nix)
         (import ./common/topics/go.nix)
         (import ./common/topics/rust.nix)
+        (import ./common/topics/lua.nix)
         (import ./common/topics/bash.nix)
         (import ./common/topics/cpp/clang.nix)
         (import ./common/topics/cpp/cmake.nix)
