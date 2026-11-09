@@ -3,7 +3,8 @@
   config,
   lib,
   ...
-} @ inputs: let
+}@inputs:
+let
   merge-vscode-modules = import ./common/utils.nix;
   merge-imports = merge-vscode-modules (
     {
@@ -15,7 +16,8 @@
     }
     // inputs
   );
-in {
+in
+{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
@@ -40,6 +42,7 @@ in {
         (import ./common/topics/settingfile/xml.nix)
         (import ./common/topics/settingfile/toml.nix)
         (import ./common/topics/settingfile/json5.nix)
+        (import ./common/topics/settingfile/pkl.nix)
         (import ./common/topics/ai.nix)
         (import ./common/topics/leetcode.nix)
         # ── 其余 topic（原各专项 profile 独有）───────────
@@ -73,7 +76,7 @@ in {
   };
   services.vscode-server.enable = true;
   home = {
-    activation.vscode-argv-patch = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    activation.vscode-argv-patch = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       #!${pkgs.bash}/bin/bash
       ARGV_JSON="${config.home.homeDirectory}/.vscode/argv.json"
       if [ ! -s "$ARGV_JSON" ]; then

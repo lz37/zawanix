@@ -1,4 +1,4 @@
-moduleArgs @ {
+moduleArgs@{
   config,
   lib,
   pkgs,
@@ -6,11 +6,12 @@ moduleArgs @ {
   ...
 }:
 (
-  {osConfig ? null, ...}: let
-    systemConfig =
-      if osConfig != null
-      then osConfig
-      else config;
+  {
+    osConfig ? null,
+    ...
+  }:
+  let
+    systemConfig = if osConfig != null then osConfig else config;
     hw = systemConfig.zerozawa.hardware;
     system = pkgs.stdenv.hostPlatform.system;
     nixpkgsConfig = {
@@ -19,7 +20,8 @@ moduleArgs @ {
       cudaSupport = hw.isNvidiaGPU;
       rocmSupport = hw.isAmdGPU;
     };
-  in {
+  in
+  {
     nixpkgs = {
       config = nixpkgsConfig;
       overlays = [
@@ -31,9 +33,11 @@ moduleArgs @ {
         # inputs.hyprland.overlays.default
         # inputs.hyprland.overlays.hyprland-packages
         (
-          final: prev: let
+          final: prev:
+          let
             pkgs = prev;
-          in rec {
+          in
+          rec {
             # 启用 NUR
             nur = import inputs.nur {
               nurpkgs = prev;
@@ -52,12 +56,10 @@ moduleArgs @ {
             };
             nogpu = import inputs.nixpkgs {
               inherit system;
-              config =
-                nixpkgsConfig
-                // {
-                  cudaSupport = false;
-                  rocmSupport = false;
-                };
+              config = nixpkgsConfig // {
+                cudaSupport = false;
+                rocmSupport = false;
+              };
               overlays = [
                 (final: prev: {
                   nur = import inputs.nur {
@@ -78,10 +80,36 @@ moduleArgs @ {
                 forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
                 forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
               };
-            intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
+            # vscode-selected 用 master 的 VS Code（1.144.0），上面按引擎版本过滤的集合会
+            # 丢掉只在旧版本声明过 `engines.vscode` 的扩展；而且并非所有扩展都发布到了
+            # 市场/Open VSX 数据集里（pkl-vscode 只发 GitHub release 的 vsix）。
+            # 这两个直接按固定版本 + hash 构建，不参与版本过滤。
+            vscode-extra = {
+              barsikus007.nix-injection = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+                mktplcRef = {
+                  publisher = "barsikus007";
+                  name = "nix-injection";
+                  version = "0.0.4";
+                  hash = "sha256-I5lk0lweByRskgobccVLufC8XD/RY72Y4VIqjRQNRzo=";
+                };
+              };
+              pkl.pkl-vscode = pkgs.vscode-utils.buildVscodeExtension {
+                pname = "pkl-vscode";
+                version = "0.24.0";
+                src = pkgs.fetchurl {
+                  url = "https://github.com/apple/pkl-vscode/releases/download/0.24.0/pkl-vscode-0.24.0.vsix";
+                  hash = "sha256-jIoGG+zxiH7EHMT1ohQQapg7czdY4vOTg0BVo5g0XgI=";
+                };
+                vscodeExtPublisher = "Pkl";
+                vscodeExtName = "pkl-vscode";
+                vscodeExtUniqueId = "Pkl.pkl-vscode";
+              };
+            };
+            intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
             quickshell = inputs.quickshell.packages.${system}.quickshell.withModules (
-              with pkgs.kdePackages; [
+              with pkgs.kdePackages;
+              [
                 kirigami
                 kirigami-addons
                 kirigami-gallery
@@ -89,13 +117,11 @@ moduleArgs @ {
             );
             # apm 0.34.0 的 METADATA 钉了 websockets<17，但代码只用 websockets.sync.client
             #（17 仍保留该 API），nixpkgs 已提供 17.0.1。
-            llm-agents =
-              prev.llm-agents
-              // {
-                apm = prev.llm-agents.apm.overrideAttrs (oa: {
-                  pythonRelaxDeps = (oa.pythonRelaxDeps or []) ++ ["websockets"];
-                });
-              };
+            llm-agents = prev.llm-agents // {
+              apm = prev.llm-agents.apm.overrideAttrs (oa: {
+                pythonRelaxDeps = (oa.pythonRelaxDeps or [ ]) ++ [ "websockets" ];
+              });
+            };
             # deal 的测试 import docstring_parser.tests，而 docstring-parser 0.18.0 的包
             # 剔除了 tests 目录 → pytest 收集期报错（依赖链 nix-alien → pylddwrap → icontract）。
             # nix-alien 的 overlay 用 `pkgs = prev` 独立求值，改全局 python3Packages 到不了它，
@@ -123,18 +149,22 @@ moduleArgs @ {
             # 优先，depmod 随后重建）。另外 xpad-noone 这类自定义 installPhase 的包不会安装
             # kmodigest 生成的 <module>.ko.cer，聚集器按 modules.dep 追加证书时会因缺文件
             # 失败，这里只追加真实存在的证书。
-            aggregateModules = modules:
+            aggregateModules =
+              modules:
               (prev.aggregateModules modules).override {
-                buildEnv = args:
-                  prev.buildEnv (args
+                buildEnv =
+                  args:
+                  prev.buildEnv (
+                    args
                     // {
                       ignoreCollisions = true;
                       postBuild =
                         lib.replaceStrings
-                        ["| xargs -d'\\n' cat >> modules.cer"]
-                        ["| while IFS= read -r cert; do [ -f \"$cert\" ] && cat \"$cert\"; done >> modules.cer"]
-                        (args.postBuild or "");
-                    });
+                          [ "| xargs -d'\\n' cat >> modules.cer" ]
+                          [ "| while IFS= read -r cert; do [ -f \"$cert\" ] && cat \"$cert\"; done >> modules.cer" ]
+                          (args.postBuild or "");
+                    }
+                  );
               };
             vivaldi = master.vivaldi.override {
               proprietaryCodecs = true;
@@ -147,4 +177,4 @@ moduleArgs @ {
     };
   }
 )
-moduleArgs
+  moduleArgs

@@ -1,7 +1,7 @@
-{pkgs, ...}: {
-  extensions = with pkgs.vscode-selected-extensionsCompatible.open-vsx; [
+{ pkgs, ... }: {
+  extensions = with pkgs.vscode-selected-extensionsCompatible.vscode-marketplace; [
     jnoortheen.nix-ide
-    barsikus007.nix-injection
+    pkgs.vscode-extra.barsikus007.nix-injection
   ];
   settings = {
     "[nix]" = {
