@@ -101,21 +101,6 @@ moduleArgs@{
                 forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
                 forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
               };
-            # pkl-vscode 只发 GitHub release 的 vsix（publisher 是 `Pkl`），
-            # marketplace 和 open-vsx 两套数据集里都没有，只能固定版本 + hash 构建。
-            vscode-extra = {
-              pkl.pkl-vscode = pkgs.vscode-utils.buildVscodeExtension {
-                pname = "pkl-vscode";
-                version = "0.24.0";
-                src = pkgs.fetchurl {
-                  url = "https://github.com/apple/pkl-vscode/releases/download/0.24.0/pkl-vscode-0.24.0.vsix";
-                  hash = "sha256-jIoGG+zxiH7EHMT1ohQQapg7czdY4vOTg0BVo5g0XgI=";
-                };
-                vscodeExtPublisher = "Pkl";
-                vscodeExtName = "pkl-vscode";
-                vscodeExtUniqueId = "Pkl.pkl-vscode";
-              };
-            };
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;
             quickshell = inputs.quickshell.packages.${system}.quickshell.withModules (

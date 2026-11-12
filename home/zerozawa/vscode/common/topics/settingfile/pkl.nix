@@ -1,5 +1,5 @@
 { pkgs, ... }: {
   extensions = [
-    pkgs.vscode-extra.pkl.pkl-vscode
+    pkgs.nur.repos.zerozawa.pkl-vscode
   ];
 }
