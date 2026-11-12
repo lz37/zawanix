@@ -22,6 +22,5 @@
       vscode-runner
       application-title-bar
       nur.repos.xddxdd.lyrica-plasmoid
-      valent
     ]);
 }
