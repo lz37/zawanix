@@ -75,7 +75,12 @@ in
         enableExtensionUpdateCheck = false;
       };
   };
-  services.vscode-server.enable = true;
+  # 不要用 nixos-vscode-server 的 patchelf 方案：它把 server/node 挪成 node.patched
+  # 再 patchelf 改 interpreter/rpath，glibc store path 一变就会二次 patch，
+  # patchelf 0.19.2 重写段表后出现重叠 PT_LOAD，.dynamic 被 map 成只读，
+  # glibc 在 dl_main 写 DT_DEBUG 时 SIGSEGV（code-server --version 退出 139）。
+  # 改为依赖 programs.nix-ld（/lib64/ld-linux-x86-64.so.2），原样二进制直接跑。
+  services.vscode-server.enable = false;
   home = {
     activation.vscode-argv-patch = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       #!${pkgs.bash}/bin/bash
