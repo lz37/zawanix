@@ -65,7 +65,6 @@ hl.bind("SUPER + Q", window.close())
 hl.bind("SUPER + F", window.fullscreen())
 hl.bind("SUPER + SHIFT + F", window.float())
 hl.bind("SUPER + CONTROL + F", window.fullscreen_state({ internal = 0, client = 3 }))
-hl.bind("SUPER + ALT + F", exec("hyprctl dispatch workspaceopt allfloat"))
 
 -- Move focus with arrows and HJKL
 hl.bind("SUPER + left", focus({ direction = "left" }))
