@@ -6,10 +6,7 @@
   },
   "private": true,
   "type": "module",
-  "workspaces": [
-    "home/zerozawa/ai/omp/agent/extensions",
-    "home/zerozawa/ai/omp/plugins"
-  ],
+  "packageManager": "pnpm@12.9.0",
   "dependencies": {
     "@oh-my-pi/pi-coding-agent": "^18.20.3",
     "@oh-my-pi/pi-natives": "^18.20.3"

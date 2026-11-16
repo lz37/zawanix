@@ -148,8 +148,8 @@ nix flake check      # 等效于 CI 中的 pre-commit 钩子
 ## Runtime/Tooling Preferences
 
 - **Nix**：Flake 模式，`flake-parts` 组织，最低 NixOS 25.05
-- **Node.js / TypeScript**：通过 Bun 运行（`bun.lock` + `@types/bun`），非 Node.js
-- **包管理器**：`pnpm`（OMP 插件），`bun`（OMP 扩展），`npm`（CI 产物）
+- **Node.js / TypeScript**：通过 Bun 运行（`pnpm-lock.yaml` + `@types/bun`），非 Node.js
+- **包管理器**：`pnpm`（全部 workspace，见 `pnpm-workspace.yaml`，devenv 负责 `pnpm install`）；`bun` 仅作运行时，不承担安装
 - **格式化**：`treefmt`（`nixfmt` for Nix + `shellcheck` for scripts），pre-commit 强制
 - **Shell**：ZSH + Powerlevel10k（`profile/.p10k.zsh` lean 风格）
 - **编辑器**：VS Code（20+ topic 扩展配置）+ Zed（轻量备选）

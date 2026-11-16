@@ -101,8 +101,8 @@ zawanix.rebuild
 #    或者
 nixos-rebuild --sudo
 
-# 3. 更新 Bun 依赖
-bun update -r
+# 3. 更新依赖（pnpm workspace）
+pnpm -r update
 
 # 4. 更新 APM 全局 skill
 apm update --global

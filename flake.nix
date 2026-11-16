@@ -261,10 +261,14 @@
             languages = {
               javascript = {
                 enable = true;
+                pnpm = {
+                  enable = true;
+                  install.enable = true;
+                };
+                # bun 只做运行时（OMP 扩展的 `bun test`），安装交给 pnpm
                 bun = {
                   enable = true;
                   package = inputs.nix-bun.packages.${system}.bun;
-                  install.enable = true;
                 };
               };
               lua = {

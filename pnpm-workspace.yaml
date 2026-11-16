@@ -1,0 +1,7 @@
+packages:
+  - home/zerozawa/ai/omp/agent/extensions
+  - home/zerozawa/ai/omp/plugins
+
+# pnpm 12 默认要求依赖发布满 24h 才允许安装（供应链投毒防护）。
+# 这里的依赖跟随 flake.lock + 手动 update 升级到最新版，故关闭该等待窗口。
+minimumReleaseAge: 0
