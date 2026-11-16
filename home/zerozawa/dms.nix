@@ -76,7 +76,6 @@ in
       steamFlagsPlugin.enable = true;
       hostnameWidget.enable = true;
       localServices.enable = true;
-      enderPulse.enable = true;
       modernClock.enable = true;
       nextBootSelector.enable = true;
     }
