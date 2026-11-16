@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   # Enable sound with pipewire.
   security.rtkit.enable = true;
   services = {
@@ -10,7 +10,9 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       socketActivation = true;
-      jack.enable = true;
+      # jack.enable 已弃用：它把 pipewire 的 libjack 塞进全局
+      # sessionVariables.LD_LIBRARY_PATH，污染所有进程。JACK 客户端一律用
+      # `pw-jack <client>` 启动（pw-jack 只在自身进程里设 LD_LIBRARY_PATH）。
       wireplumber = {
         enable = true;
         extraConfig = {
@@ -37,4 +39,7 @@
       };
     };
   };
+
+  # 提供 `pw-jack`：JACK 客户端按需用它启动，替代原先的全局 LD_LIBRARY_PATH。
+  environment.systemPackages = [ pkgs.pipewire.jack ];
 }

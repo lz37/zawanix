@@ -16,6 +16,9 @@ moduleArgs@{
     system = pkgs.stdenv.hostPlatform.system;
     nixpkgsConfig = {
       allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
+      permittedInsecurePackages = [
+        "lightnovel-crawler-4.14.0"
+      ];
       allowUnfree = true;
       cudaSupport = hw.isNvidiaGPU;
       rocmSupport = hw.isAmdGPU;
@@ -33,22 +36,6 @@ moduleArgs@{
         # 让 pkgs.hyprland / xdg-desktop-portal-hyprland 全局来自 hyprland flake，
         # grimblast 等传递依赖也随之同源（closure 里只有一个 hyprland）。
         inputs.hyprland.overlays.default
-        # 上游打包 bug（hyprland main @ a1d7a78 + hyprutils 0.14.3）：share-picker 目标只
-        # 通过 pkg-config 声明 hyprtoolkit/hyprutils/libdrm，但 hyprutils 的 Region.hpp 需要
-        # pixman.h、hyprgraphics 的 CairoSurface.hpp 需要 cairo/cairo.h，该目标因此编译失败。
-        # 补 buildInputs，并把 pixman-1 加进同一处 pkg_check_modules。
-        (final: prev: {
-          xdg-desktop-portal-hyprland = prev.xdg-desktop-portal-hyprland.overrideAttrs (oa: {
-            buildInputs = (oa.buildInputs or [ ]) ++ [
-              final.pixman
-              final.cairo
-            ];
-            postPatch = (oa.postPatch or "") + ''
-              substituteInPlace hyprland-share-picker/CMakeLists.txt \
-                --replace-fail "  libdrm)" "  libdrm pixman-1)"
-            '';
-          });
-        })
         # 连 hypr* 依赖一起换成 flake 锁的版本：aquamarine / hyprutils / hyprgraphics /
         # hyprlang / hyprcursor / hyprtoolkit / hyprwire / hyprland-protocols /
         # hyprland-guiutils / hyprwayland-scanner。插件与本体 ABI 因此同源。
@@ -59,12 +46,25 @@ moduleArgs@{
             pkgs = prev;
           in
           rec {
-            # 启用 NUR
+            # 启用 NUR。zerozawa 仓库必须用它自己的 nixpkgs rev 实例化，才能对上
+            # NUR CI 推到 zerozawa.cachix.org 的产物（用 prev 会换 stdenv → 全部 miss）。
+            # 但 `legacyPackages` 的 config 写死在 NUR flake 里（只有 allowUnfree），
+            # 消费侧 nixpkgs.config 到不了它，带 knownVulnerabilities 的包直接 refuse。
+            # 这里用同一个 rev 重建实例、config 与 CI 一致，只补上放行项；
+            # config 不参与 drv 哈希，缓存口径不变。
             nur = import inputs.nur {
               nurpkgs = prev;
               pkgs = prev;
               repoOverrides = {
-                zerozawa = inputs.zerozawa-nur.legacyPackages.${system};
+                zerozawa = import inputs.zerozawa-nur {
+                  pkgs = import inputs.zerozawa-nur.inputs.nixpkgs {
+                    inherit system;
+                    config = {
+                      allowUnfree = true;
+                      inherit (nixpkgsConfig) permittedInsecurePackages;
+                    };
+                  };
+                };
               };
             };
             stable = import inputs.nixpkgs-stable {
@@ -93,13 +93,19 @@ moduleArgs@{
             vscode-selected = master.vscode.override {
               # commandLineArgs = "--disable-features=WaylandWpColorManagerV1";
             };
+            # nixpkgs-master 把 vscode 版本写成两段式（"1.146"，下载时才 pad 到 1.146.0），
+            # 但 nix-vscode-extensions 的 forVSCodeVersion 用严格 SemVer 正则解析，两段式直接
+            # throw "Invalid SemVer"。这里统一 pad 成三段再交给选版逻辑。
             vscode-selected-extensionsCompatible =
-              ((pkgs.usingFixesFrom pkgs).forVSCodeVersion (lib.getVersion vscode-selected))
+              let
+                vscodeVersion = lib.versions.pad 3 (lib.getVersion vscode-selected);
+              in
+              ((pkgs.usingFixesFrom pkgs).forVSCodeVersion vscodeVersion)
               // {
-                forVscode = pkgs.nix4vscode.forVscodeVersion (lib.getVersion vscode-selected);
-                forVscodePrerelease = pkgs.nix4vscode.forVscodeVersionPrerelease (lib.getVersion vscode-selected);
-                forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion (lib.getVersion vscode-selected);
-                forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease (lib.getVersion vscode-selected);
+                forVscode = pkgs.nix4vscode.forVscodeVersion vscodeVersion;
+                forVscodePrerelease = pkgs.nix4vscode.forVscodeVersionPrerelease vscodeVersion;
+                forOpenVsx = pkgs.nix4vscode.forOpenVsxVersion vscodeVersion;
+                forOpenVsxPrerelease = pkgs.nix4vscode.forOpenVsxVersionPrerelease vscodeVersion;
               };
             intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
             nix_version_search_cli = inputs.nix_version_search_cli.packages.${system}.default;

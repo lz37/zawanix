@@ -14,7 +14,7 @@
       jq
       yq-go
       deno
-      pnpm
+      pnpm_12
       yarn
       go
       graalvmPackages.graalvm-ce

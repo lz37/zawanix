@@ -52,5 +52,8 @@
     upower
     efibootmgr
     file
+    perf
+    acpica-tools
+    wall
   ];
 }
