@@ -2011,11 +2011,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1794791510,
-        "narHash": "sha256-q7qwPTNm9C/UGZYjV542Svitp7srtlbNRFcXhkA8SE8=",
+        "lastModified": 1795044896,
+        "narHash": "sha256-/yL4l34pfboulZOlsnetYFQHtJk3jPNbVluWtZXNbOY=",
         "owner": "can1357",
         "repo": "oh-my-pi",
-        "rev": "90935366da0c368a437da4343ae748b03a2ffe97",
+        "rev": "57771ae562b9345e0579bceb2d68d585e3e6927e",
         "type": "github"
       },
       "original": {
@@ -2738,11 +2738,11 @@
     "zerozawa-private": {
       "flake": false,
       "locked": {
-        "lastModified": 1793594210,
-        "narHash": "sha256-Wtm9TaYTDvZydB3Cdqu/RKqQkPZbBLpuZ9BvwroumGE=",
+        "lastModified": 1795094032,
+        "narHash": "sha256-/L61LqZ0nGx6S0IzBazEHyuwMvAw407mUE6ULjrVndU=",
         "ref": "main",
-        "rev": "49334f20b05314749ce7b73deb3e8d3f512fd19e",
-        "revCount": 52,
+        "rev": "5c2a35394814cdbb400f3c290d2ccc3dc3fcbf81",
+        "revCount": 53,
         "type": "git",
         "url": "ssh://git@github.com/lz37/zawanix-private"
       },
