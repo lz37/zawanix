@@ -196,7 +196,8 @@ in
         "vm.dirty_ratio" = 10;
         "vm.dirty_background_ratio" = 5;
         "vm.vfs_cache_pressure" = 50;
-        "vm.swappiness" = 100; # 开zarm后可以抬高
+        # zswap/内存型 swap 比磁盘便宜：内核文档给的公式是 IO 快 2× 时取 200/1.5≈133
+        "vm.swappiness" = 133;
         "vm.page-cluster" = 0;
       }
       // (
