@@ -29,11 +29,12 @@ providers:
       # 改回 openai-responses，直接用 /v1/responses：原生加密 reasoning、
       # reasoning.effort 语义、以及 image_generation 等 Responses-only 工具。
       # thinking 档位仍来自 /model_group/info 的 reasoning_effort_levels 发现。
-      gpt-6.1-sol: &litellm_responses
+      # 非 Bedrock 的 openai-responses 不默认走 V2：需要模型级 v2StreamingEnabled。
+      # 只写 enabled 会连带放开 V1 /responses/compact，而 litellm 的 chatgpt 路由
+      # 没有该端点（实测上游 404），所以这里只开 V2。
+      gpt-6.2-sol: &litellm_responses
         api: openai-responses
-      gpt-6-astra: *litellm_responses
+        remoteCompaction:
+          v2StreamingEnabled: true
+      gpt-6.2-astra: *litellm_responses
       gpt-6-luna: *litellm_responses
-      # 网关侧 1M 窗口原样透传上游，本地按 256K 封顶（256*1024 = 262144，
-      # 与 kimi-code provider 的 k3.1-pro 覆盖同档），控制长上下文消耗。
-      kimi-k3.1-pro:
-        contextWindow: 262144

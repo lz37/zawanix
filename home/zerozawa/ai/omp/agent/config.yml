@@ -23,11 +23,11 @@ alarmClock:
 modelRoles:
   tiny: local/lfm2.5-230m
   judge: local/lfm2.5-230m
-  slow: litellm/kimi-k3.1-pro:max
-  smol: litellm/MiniMax-M3.1-Flash:max
-  default: litellm/deepseek-v4.1-flash:max
+  slow: litellm/gpt-6.2-astra:max
+  smol: litellm/deepseek-v4.1-flash:max
+  default: litellm/gpt-6.2-sol:max
   vision: litellm/gpt-6-luna:max
-  plan: litellm/gpt-6-astra:max
+  plan: litellm/gpt-6.2-astra:max
   advisor: litellm/deepseek-v4.1-flash:max
   task: litellm/deepseek-v4.1-flash:max
   commit: litellm/deepseek-v4.1-flash:max
@@ -37,9 +37,9 @@ task:
   enableLsp: true
   showResolvedModelBadge: true
   agentModelOverrides:
-    reviewer: litellm/kimi-k3.1-pro:max
-    scout: litellm/gpt-6-luna:max
-    security-reviewer: litellm/gpt-6.1-sol:max
+    reviewer: litellm/gpt-6.2-sol:max
+    scout: litellm/MiniMax-M3.1-Flash:max
+    security-reviewer: litellm/gpt-6.2-sol:max
     sonic: dspeak/peak=litellm/MiniMax-M3.1-Flash:max&default=litellm/deepseek-v4.1-flash:max
     task: litellm/deepseek-v4.1-flash:max
   eager: preferred
@@ -124,6 +124,5 @@ retry:
     web:
       - web/tavily
       - web/brave
-      - web/kimi
     judge:
       - local/lfm2.5-230m

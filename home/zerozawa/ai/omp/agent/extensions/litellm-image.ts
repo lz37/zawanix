@@ -14,9 +14,10 @@ import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
  * 图像角色在 config.yml 里指向 `litellm-image/gpt-image-2`；未设置这两个环境
  * 变量时本扩展不注册任何东西，角色自然不可解析（不会影响其他模型）。
  *
- * 上游行为（2026-10 实测，详见 skill litellm-image-generation）：Codex 的
- * images 路由忽略 size/quality，固定返回 ~1.57MP 画布，形状随 prompt 变化，
- * 需要精确像素时本地缩放。
+ * 上游行为（2026-11 实测，详见 skill litellm-image-generation）：Codex 的
+ * images 路由忽略 size/quality，固定返回 1536x1024（1.57MP）横图，需要精确
+ * 像素时本地缩放。网关侧 carrier 是订阅组 gpt-6.2-sol，本扩展不关心这个
+ * slug：模型 id 只对应 litellm 的 gpt-image-2 组。
  */
 export default function (pi: ExtensionAPI) {
 	const baseUrl = process.env.LITELLM_BASE_URL;
