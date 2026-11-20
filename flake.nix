@@ -277,7 +277,8 @@
                 lsp.enable = true;
               };
             };
-            enterShell = /* bash */ ''
+            # mkAfter：enterShell 是 types.lines，钉住本段在 languages.javascript 之后执行。
+            enterShell = lib.mkAfter /* bash */ ''
               ${config.nix-health.outputs.devShell.shellHook}
               ${config.pre-commit.installationScript}
               ${pkgs.coreutils}/bin/echo -e "${
@@ -288,6 +289,15 @@
                   kaomoji = "(ﾟ▽ﾟ*)ﾉ⌒☆";
                 }
               }"
+
+              # devenv 的 languages.javascript 模块无条件把 $DEVENV_ROOT/node_modules/.bin 前插到 PATH
+              # (devenv src/modules/languages/javascript.nix 的 enterShell)。仓库里那份 omp 不是 nix wrapper
+              # 构建的，在 NixOS 上缺 libstdc++ 预加载与 OMP_NATIVE_LIBRARY_PATH，等于坏件。
+              # 降级到 PATH 末尾：nix profile 的 omp 优先，node_modules 里独有的 tsc 仍可回退命中。
+              _devenv_nm_bin="$DEVENV_ROOT/node_modules/.bin"
+              PATH="$(printf '%s' "$PATH" | tr ':' '\n' | grep -vxF -- "$_devenv_nm_bin" | paste -sd:)"
+              export PATH="''${PATH:+$PATH:}$_devenv_nm_bin"
+              unset _devenv_nm_bin
             '';
           };
           pre-commit = {
