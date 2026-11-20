@@ -4,7 +4,7 @@
     ./locale.nix
     ./programs.nix
     ./services.nix
-    ./zram.nix
+    ./zswap.nix
     ./virtualisation
     ./nix.nix
     ./users.nix
