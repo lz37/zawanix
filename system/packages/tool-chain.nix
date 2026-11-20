@@ -36,6 +36,7 @@
       unblob
       spring-boot-cli
       efm-langserver
+      yt-dlp
     ])
     ++ (with pkgs.llm-agents; [
       spec-kit

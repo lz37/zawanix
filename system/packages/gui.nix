@@ -79,5 +79,6 @@ in
     grimblast
     wl-clipboard
     satty
+    lan-mouse
   ];
 }
