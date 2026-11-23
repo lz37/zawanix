@@ -2027,11 +2027,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1795128197,
-        "narHash": "sha256-0NEkF2Nk+PcMNIbk4mGVQ78rmcEw/N0R5QBc15mUNYc=",
+        "lastModified": 1795270626,
+        "narHash": "sha256-aBhxgL3d4R3a7Prfu/iZWyUgfCqId4XBiI2Aye1JxR0=",
         "owner": "can1357",
         "repo": "oh-my-pi",
-        "rev": "f40f335845f0b136453d12fec8d6057011082766",
+        "rev": "a7135b8f31826c878734388b648f52bed8da436e",
         "type": "github"
       },
       "original": {
