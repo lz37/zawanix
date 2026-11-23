@@ -99,6 +99,7 @@ in
       # cachyos-proton 仅发布 v1/v3/arm 变体（arm 用不到），按本机 microarch 就近选择
       extraCompatPackages = [
         cachyosProton
+        pkgs.dwproton-bin
       ];
       protontricks = {
         enable = true;

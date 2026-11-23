@@ -118,6 +118,10 @@
       flake = false;
     };
     nix-bun.url = "github:ryoppippi/nix-bun";
+    # 原生 Wayland 的 Wallpaper Engine 运行时（scene/video/web），替代 linux-wallpaperengine。
+    # 刻意不加 inputs.nixpkgs.follows：上游 flake 钉的 nixpkgs 就是已构建产物的哈希来源，
+    # follows 会换哈希 → 本地重编 Rust + renderer + CEF（~20min）。
+    we-layerd.url = "github:Aromatic05/we-layerd";
     llm-agents.url = "github:numtide/llm-agents.nix";
     # dsh 打包：跟踪 GitHub tag（alpha），源码构建 + expose-internals patch；勿 follows nixpkgs，否则 Cachix 全 miss
     deepseek-harness.url = "github:moraxyc/deepseek-harness.nix";
@@ -196,6 +200,7 @@
                 inputs.nixos-cli.nixosModules.nixos-cli
                 inputs.lanzaboote.nixosModules.lanzaboote
                 inputs.dank-greeter.nixosModules.default
+                inputs.we-layerd.nixosModules.default
                 ./network
                 ./hardware
                 ./system

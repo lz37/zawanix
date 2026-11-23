@@ -9,7 +9,11 @@ let
   host = config.zerozawa.host;
 in
 {
+  # we-layerd 只装不用：上游 Aromatic05/we-layerd#65 未修（Intel Arc 上 scene 竖条纹花屏；
+  # 本机 Arc B390/PTL 实测 video 也整屏透明）。修好后删掉这行，让它随服务自动启动。
+  systemd.user.services.we-layerd.wantedBy = lib.mkForce [ ];
   services = {
+    we-layerd.enable = true;
     hardware.openrgb = {
       enable = host.isGameMachine && !hw.isLaptop;
       motherboard =
