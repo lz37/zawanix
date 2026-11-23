@@ -17,6 +17,7 @@ moduleArgs@{
     nixpkgsConfig = {
       allowInsecurePredicate = pkgs: builtins.stringLength (lib.getName pkgs) <= 20;
       permittedInsecurePackages = [
+        "python3.14-python-jose-3.5.0"
         "lightnovel-crawler-4.14.0"
       ];
       allowUnfree = true;
@@ -140,27 +141,6 @@ moduleArgs@{
                 };
               };
             };
-            # Go 1.26 的 cgo 标志白名单拒绝 GNU ld 的 `-l:<file>` 语法，而 nixpkgs 的
-            # rdpclient.patch 仍打上 `#cgo linux LDFLAGS: -l:librdp_client.a`，导致
-            # teleport（withRdpClient，默认开）在 tool/teleport 包上直接报
-            # "invalid flag in #cgo LDFLAGS"。`-lrdp_client` 靠补丁里同一个
-            # -L${SRCDIR}/../../../../../lib 就能找到预置的 librdp_client.a。
-            teleport = prev.teleport.overrideAttrs (oa: {
-              postPatch = (oa.postPatch or "") + ''
-                sed -i 's/-l:librdp_client\.a/-lrdp_client/' \
-                  lib/srv/desktop/rdp/rdpclient/client.go
-              '';
-              # Go 1.26 还会拒绝 cgo LDFLAGS 里含 LLVM bitcode 的静态库
-              # （"disallowed LTO section"），Rust 编出的 librdp_client.a 每个目标文件
-              # 都带 .llvmbc/.llvmcmd。nixpkgs 的 preBuild 只是软链进 lib/，这里换成
-              # 实体副本再去掉这两节；符号表不动，链接结果等价。
-              preBuild = (oa.preBuild or "") + ''
-                cp --remove-destination "$(readlink -f lib/librdp_client.a)" lib/librdp_client.a
-                chmod u+w lib/librdp_client.a
-                objcopy --remove-section=.llvmbc --remove-section=.llvmcmd lib/librdp_client.a
-              '';
-              nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [ prev.binutils ];
-            });
             # khal 的 sphinxBuilders 是 list，structuredAttrs 下会变成 bash 数组，
             # sphinxHook 的 `eval "__sphinxBuilders=($sphinxBuilders)"` 因此只取到 "html"，
             # man 输出从未生成。传成空格分隔的字符串。
