@@ -6,5 +6,6 @@
     ./codex.nix
     ./dsh.nix
     ./skills.nix
+    ./agy.nix
   ];
 }
