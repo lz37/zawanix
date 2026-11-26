@@ -18,16 +18,21 @@ let
   # environment.systemPackages。真正的 Proton 工具树在 steamcompattool 输出里（nixos 的
   # steam 模块用的也是这个输出）。
   cachyosProtonDir = lib.getOutput "steamcompattool" cachyosProton;
+  dwprotonDir = lib.getOutput "steamcompattool" pkgs.dwproton-bin;
+  # 固定路径 /run/current-system/sw/share/<name>，给 Steam 之外的启动器用。
+  # 不能放 /etc：umu-run / Lutris 等 FHS 沙箱包装器把 /etc 换成 tmpfs + 白名单，
+  # 宿主 /etc 下的新条目在沙箱里看不见；而 /run /opt 这类顶层目录会被 bind 进屋。
+  mkProtonShare =
+    name: dir:
+    pkgs.runCommandLocal name { } ''
+      mkdir -p $out/share
+      ln -s ${dir} $out/share/${name}
+    '';
 in
 {
   environment.systemPackages = [
-    # 固定路径 /run/current-system/sw/share/proton-cachyos，给 Steam 之外的启动器用。
-    # 不能放 /etc：umu-run / Lutris 等 FHS 沙箱包装器把 /etc 换成 tmpfs + 白名单，
-    # 宿主 /etc 下的新条目在沙箱里看不见；而 /run /opt 这类顶层目录会被 bind 进屋。
-    (pkgs.runCommandLocal "proton-cachyos" { } ''
-      mkdir -p $out/share
-      ln -s ${cachyosProtonDir} $out/share/proton-cachyos
-    '')
+    (mkProtonShare "proton-cachyos" cachyosProtonDir)
+    (mkProtonShare "dwproton" dwprotonDir)
   ];
   programs = {
     dms-greeter = {
