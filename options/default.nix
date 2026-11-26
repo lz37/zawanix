@@ -219,10 +219,15 @@ in
         };
       };
       mihomo = {
-        proxy-providers = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-          default = {
-          };
+        patch-file = lib.mkOption {
+          type = lib.types.nullOr lib.types.path;
+          default = null;
+          description = ''
+            RFC 6902 JSON Patch (written as YAML) applied over mihomo.yaml
+            before the config is written. Carries provider URLs/tokens, landing
+            node credentials and host-specific values that must not live in
+            this repository.
+          '';
         };
       };
       atuin = {

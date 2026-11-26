@@ -11,8 +11,42 @@ proxy-providers-common: &proxy-providers-common
     timeout: 5000
     lazy: true
     expected-status: 204
-  exclude-filter: (?i)距离下次重置剩余|套餐到期|剩余流量|官网|GooglePlay|防失联|特殊时期|导航网址|倍率提示|不能用就更新|WanDaYun|最新网址|星云
+  exclude-filter: (?i)距离下次重置剩余|套餐到期|剩余流量|官网|GooglePlay|防失联|特殊时期|导航网址|倍率提示|不能用就更新|WanDaYun|最新网址|星云|随便用
 proxy-providers: {}
+
+rule-providers:
+  HuluJP:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/HuluJP/HuluJP.yaml"
+    path: ./providers/rule/HuluJP.yaml
+    interval: 86400
+    proxy: DIRECT
+  LineTV:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/LineTV/LineTV.yaml"
+    path: ./providers/rule/LineTV.yaml
+    interval: 86400
+    proxy: DIRECT
+  TaiWanGood:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/TaiWanGood/TaiWanGood.yaml"
+    path: ./providers/rule/TaiWanGood.yaml
+    interval: 86400
+    proxy: DIRECT
+  friDay:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/friDay/friDay.yaml"
+    path: ./providers/rule/friDay.yaml
+    interval: 86400
+    proxy: DIRECT
 
 url-test-common: &url-test-common
   type: url-test
@@ -26,199 +60,244 @@ url-smart-common: &url-smart-common
   prefer-asn: true
   sample-rate: 1.0
   collectdata: true
-
 select-url-test: &select-url-test
   type: select
   proxies: &select-proxies-url-test
-    - 🚀 节点选择
+    - "🚀 节点选择"
     - ♻️ 自动选择
-    - 🇭🇰 香港节点
-    - 🇹🇼 台湾节点
-    - 🇯🇵 日本节点
-    - 🇸🇬 新加坡节点
-    - 🇺🇸 美国节点
-    - 🚀 手动切换
-    - 🎯 全球直连
+    - "🇭🇰 香港节点"
+    - "🇹🇼 台湾节点"
+    - "🇯🇵 日本节点"
+    - "🇸🇬 新加坡节点"
+    - "🇺🇸 美国节点"
+    - "🇰🇷 韩国节点"
+    - "🚀 手动切换"
+    - "🎯 全球直连"
+proxies: []
+
 proxy-groups:
-  - name: 🚀 节点选择
+  - name: "🚀 节点选择"
     <<: *select-url-test
     proxies:
       - ♻️ 自动选择
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 新加坡节点
-      - 🇺🇸 美国节点
-      - 🚀 手动切换
-      - 🎯 全球直连
-  - name: 🐈‍⬛ GitHub
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🚀 手动切换"
+      - "🎯 全球直连"
+  - name: "🐈‍⬛ GitHub"
     <<: *select-url-test
-  - name: 🐟 docker
+  - name: "🐟 docker"
     <<: *select-url-test
-  - name: 💬 即时通讯
+  - name: "💬 即时通讯"
     <<: *select-url-test
-  - name: 🌐 社交媒体
+  - name: "🌐 社交媒体"
     <<: *select-url-test
-  - name: 🧑🏻‍💼 LinkedIn
-    <<: *select-url-test
-  - name: 🤖 AI服务
-    <<: *select-url-test
-  - name: 🎶 TikTok
-    <<: *select-url-test
-  - name: 📹 YouTube
-    <<: *select-url-test
-  - name: 🎥 Netflix
-    <<: *select-url-test
-  - name: 🎥 DisneyPlus
-    <<: *select-url-test
-  - name: 🎥 HBO
-    <<: *select-url-test
-  - name: 🎥 AppleTV+
-    <<: *select-url-test
-  - name: 🎥 PrimeVideo
-    <<: *select-url-test
-  - name: 🎻 Spotify
-    <<: *select-url-test
-  - name: 📺 Bahamut
+  - name: "🤖 AI海外"
     <<: *select-url-test
     proxies:
-      - 🇹🇼 台湾节点
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🎯 全球直连
-  - name: 🌏 非日本节点
+      - AI落地
+      - ♻️ 自动选择
+      - "🚀 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🚀 手动切换"
+      - "🎯 全球直连"
+  - name: "🤖 AI海外严格"
+    <<: *select-url-test
+    proxies:
+      - AI落地
+      - ♻️ 自动选择
+      - "🚀 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🚀 手动切换"
+      - "🎯 全球直连"
+  - name: "🎬 流媒体"
+    <<: *select-url-test
+    proxies:
+      - "🚀 节点选择"
+      - ♻️ 自动选择
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🚀 手动切换"
+      - "🎯 全球直连"
+  - name: "🎶 TikTok"
+    <<: *select-url-test
+  - name: "🌏 非日本节点"
     type: select
     proxies:
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇸🇬 新加坡节点
-      - 🇺🇸 美国节点
-  - name: 📺 国内媒体
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+  - name: "📺 国内媒体"
     <<: *select-url-test
     proxies:
-      - 🎯 全球直连
-      - 🇹🇼 台湾节点
-      - 🇭🇰 香港节点
-  - name: 🌎 国外媒体
+      - "🎯 全球直连"
+      - "🇹🇼 台湾节点"
+      - "🇭🇰 香港节点"
+  - name: "🛒 国外电商"
     <<: *select-url-test
-  - name: 🛒 国外电商
+  - name: "🇬 谷歌服务"
     <<: *select-url-test
-  - name: 📢 谷歌FCM
-    <<: *select-url-test
-  - name: 🇬 谷歌服务
-    <<: *select-url-test
-  - name: 🍎 苹果服务
+    proxies:
+      - "🚀 节点选择"
+      - ♻️ 自动选择
+      - "🇭🇰 香港节点"
+      - "🇹🇼 台湾节点"
+      - "🇯🇵 日本节点"
+      - "🇸🇬 新加坡节点"
+      - "🇺🇸 美国节点"
+      - "🇰🇷 韩国节点"
+      - "🚀 手动切换"
+      - "🎯 全球直连"
+  - name: "🍎 苹果服务"
     <<: *select-url-test
   - name: Ⓜ️ 微软服务
     <<: *select-url-test
-  - name: 🎮 游戏平台
+  - name: "🎮 游戏平台"
     <<: *select-url-test
-  - name: 🎮 Steam
+  - name: "🚀 测速工具"
     <<: *select-url-test
-  - name: 🚀 测速工具
+  - name: "🐟 漏网之鱼"
     <<: *select-url-test
-  - name: 🐟 漏网之鱼
-    <<: *select-url-test
-  - name: 🎯 全球直连
+  - name: "🎯 全球直连"
     type: select
     proxies:
       - DIRECT
-  - name: 🇭🇰 香港节点
+  - name: "🇭🇰 香港节点"
     <<: *url-smart-common
     filter: "(?i)港|HK|hk|Hong Kong|HongKong|hongkong|深港"
-  - name: 🇹🇼 台湾节点
+  - name: "🇹🇼 台湾节点"
     <<: *url-smart-common
     filter: "(?i)台|新北|彰化|TW|Taiwan"
-  - name: 🇯🇵 日本节点
+  - name: "🇯🇵 日本节点"
     <<: *url-smart-common
     filter: "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|🇯🇵"
-  - name: 🇸🇬 新加坡节点
+  - name: "🇸🇬 新加坡节点"
     <<: *url-smart-common
     filter: "(?i)新加坡|坡|狮城|SG|Singapore"
-  - name: 🇺🇸 美国节点
+  - name: "🇺🇸 美国节点"
     <<: *url-smart-common
     filter: "美国|🇺🇸"
+  - name: "🇰🇷 韩国节点"
+    <<: *url-smart-common
+    filter: "(?i)韩|Korea|🇰🇷"
   - name: ♻️ 自动选择
     <<: *url-smart-common
-  - name: 🚀 手动切换
+  - name: "🚀 手动切换"
     type: select
     include-all: true
-
+  - name: "🇺🇸 美国中转"
+    type: url-test
+    include-all: true
+    filter: "(?i)美国|US|United States|🇺🇸"
+    exclude-filter: "(?i)Cloudflare|0\\.1倍率|节点选择|自动选择|手动切换|全球直连|香港节点|台湾节点|日本节点|新加坡节点|美国节点|韩国节点"
+    # Probe endpoint is injected by patch (/proxy-groups/27/url).
+    interval: 300
+    tolerance: 50
+  - name: AI落地
+    type: url-test
+    # Landing node names are injected via patch (/proxy-groups/28/proxies).
+    proxies: []
+    url: https://cp.cloudflare.com/generate_204
+    interval: 180
+    tolerance: 50
 rules:
+  - "DOMAIN-REGEX,^.*-pa\\.googleapis\\.com$,🤖 AI海外严格"
+  - "DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI海外严格"
+  - "DOMAIN-SUFFIX,antigravity.google,🤖 AI海外严格"
   #- PROCESS-NAME,lucky,🎯 全球直连
-  - GEOSITE,private,🎯 全球直连
-  - GEOIP,private,🎯 全球直连,no-resolve
-  - PROCESS-NAME,tailscale,🎯 全球直连
-  - PROCESS-NAME,tailscaled,🎯 全球直连
-  - PROCESS-NAME,zerotier-one,🎯 全球直连
-  - AND,((NETWORK,UDP),(DST-PORT,123)),🎯 全球直连
+  - "GEOSITE,private,🎯 全球直连"
+  - "GEOIP,private,🎯 全球直连,no-resolve"
+  - "PROCESS-NAME,tailscale,🎯 全球直连"
+  - "PROCESS-NAME,tailscaled,🎯 全球直连"
+  - "PROCESS-NAME,zerotier-one,🎯 全球直连"
+  - "AND,((NETWORK,UDP),(DST-PORT,123)),🎯 全球直连"
   # STUN bypasses the proxy; it is not blocked.
-  - DST-PORT,3478,🎯 全球直连
-  - GEOSITE,category-stun,🎯 全球直连
+  - "DST-PORT,3478,🎯 全球直连"
+  - "GEOSITE,category-stun,🎯 全球直连"
   # Tracker endpoints stay direct; PT/index sites use the proxy.
-  - GEOSITE,category-public-tracker,🎯 全球直连
-  - GEOSITE,category-pt,🚀 节点选择
-  - GEOSITE,piratebay,🚀 节点选择
-  - GEOSITE,nyaa,🚀 节点选择
-  - GEOSITE,1337x,🚀 节点选择
-  - GEOSITE,flatpak,🚀 节点选择
-  - GEOSITE,google-play@cn,🎯 全球直连
-  - GEOSITE,google-cn,🇬 谷歌服务
-  - GEOSITE,npmjs,🎯 全球直连
-  - GEOSITE,category-games@cn,🎯 全球直连
-  - GEOSITE,category-game-accelerator-cn,🎯 全球直连
-  - GEOSITE,category-communication,💬 即时通讯
-  - GEOSITE,category-social-media-!cn,🌐 社交媒体
-  # Keep Ollama Cloud on a stable direct egress; rotating proxy exits truncate streams.
-  - DOMAIN-SUFFIX,ollama.com,🤖 AI服务
-  - GEOSITE,openai,🤖 AI服务
-  - GEOSITE,anthropic,🤖 AI服务
-  - GEOSITE,google-gemini,🤖 AI服务
-  - GEOSITE,docker,🐟 docker
-  - GEOSITE,github,🐈‍⬛ GitHub
-  - GEOSITE,linkedin@cn,🎯 全球直连
-  - GEOSITE,linkedin,🧑🏻‍💼 LinkedIn
-  - GEOSITE,category-speedtest,🚀 测速工具
-  - GEOSITE,youtube,📹 YouTube
-  - GEOSITE,apple-cn,🎯 全球直连
-  - GEOSITE,apple-tvplus,🎥 AppleTV+
-  - GEOSITE,apple,🍎 苹果服务
-  - GEOSITE,microsoft@cn,🎯 全球直连
-  - GEOSITE,onedrive,🎯 全球直连
+  - "GEOSITE,category-public-tracker,🎯 全球直连"
+  - "GEOSITE,category-pt,🚀 节点选择"
+  - "GEOSITE,piratebay,🚀 节点选择"
+  - "GEOSITE,nyaa,🚀 节点选择"
+  - "GEOSITE,1337x,🚀 节点选择"
+  - "GEOSITE,flatpak,🚀 节点选择"
+  - "GEOSITE,google-play@cn,🎯 全球直连"
+  - "GEOSITE,google-cn,🇬 谷歌服务"
+  - "GEOSITE,npmjs,🎯 全球直连"
+  - "GEOSITE,category-games@cn,🎯 全球直连"
+  - "GEOSITE,category-game-accelerator-cn,🎯 全球直连"
+  - "GEOSITE,abema,🇯🇵 日本节点"
+  - "GEOSITE,tver,🇯🇵 日本节点"
+  - "GEOSITE,unext,🇯🇵 日本节点"
+  - "GEOSITE,niconico,🇯🇵 日本节点"
+  - "GEOSITE,radiko,🇯🇵 日本节点"
+  - "RULE-SET,HuluJP,🇯🇵 日本节点"
+  - "GEOSITE,kktv,🇹🇼 台湾节点"
+  - "GEOSITE,litv,🇹🇼 台湾节点"
+  - "GEOSITE,hamivideo,🇹🇼 台湾节点"
+  - "GEOSITE,catchplay,🇹🇼 台湾节点"
+  - "GEOSITE,pchome,🇹🇼 台湾节点"
+  - "GEOSITE,momo,🇹🇼 台湾节点"
+  - "RULE-SET,LineTV,🇹🇼 台湾节点"
+  - "RULE-SET,TaiWanGood,🇹🇼 台湾节点"
+  - "RULE-SET,friDay,🇹🇼 台湾节点"
+  - "GEOSITE,category-communication,💬 即时通讯"
+  - "GEOSITE,category-social-media-!cn,🌐 社交媒体"
+  - "GEOSITE,openai,🤖 AI海外严格"
+  - "GEOSITE,anthropic,🤖 AI海外严格"
+  - "GEOSITE,google-gemini,🤖 AI海外严格"
+  - "GEOSITE,category-ai-!cn,🤖 AI海外"
+  - "GEOSITE,docker,🐟 docker"
+  - "GEOSITE,github,🐈‍⬛ GitHub"
+  - "GEOSITE,category-speedtest,🚀 测速工具"
+  - "GEOSITE,apple-cn,🎯 全球直连"
+  - "GEOSITE,apple,🍎 苹果服务"
+  - "GEOSITE,microsoft@cn,🎯 全球直连"
+  - "GEOSITE,onedrive,🎯 全球直连"
   - GEOSITE,microsoft,Ⓜ️ 微软服务
-  - GEOSITE,xiaomi,🎯 全球直连
-  - GEOSITE,googlefcm,📢 谷歌FCM
-  - GEOSITE,google,🇬 谷歌服务
-  - GEOSITE,dmm-porn,🇯🇵 日本节点
-  - GEOSITE,javdb,🌏 非日本节点
-  - GEOSITE,javbus,🌏 非日本节点
-  - GEOSITE,tiktok,🎶 TikTok
-  - GEOSITE,netflix,🎥 Netflix
-  - GEOSITE,disney,🎥 DisneyPlus
-  - GEOSITE,hbo,🎥 HBO
-  - GEOSITE,primevideo,🎥 PrimeVideo
-  - GEOSITE,spotify,🎻 Spotify
-  - GEOSITE,bahamut,📺 Bahamut
-  - GEOSITE,category-entertainment-cn,📺 国内媒体
-  - GEOSITE,amazon,🛒 国外电商
-  - GEOSITE,shopee,🛒 国外电商
-  - GEOSITE,ozon,🛒 国外电商
-  - GEOSITE,category-entertainment,🌎 国外媒体
-  - GEOSITE,category-ecommerce,🛒 国外电商
-  - GEOSITE,steam@cn,🎯 全球直连
-  - GEOSITE,steam,🎮 Steam
-  - GEOSITE,category-games,🎮 游戏平台
-  - GEOSITE,gfw,🚀 节点选择
-  - GEOIP,telegram,💬 即时通讯,no-resolve
-  - GEOIP,twitter,🌐 社交媒体,no-resolve
-  - GEOIP,facebook,🌐 社交媒体,no-resolve
-  - GEOIP,google,🇬 谷歌服务,no-resolve
-  - GEOIP,netflix,🎥 Netflix,no-resolve
-  - GEOSITE,geolocation-!cn,🚀 节点选择
-  - GEOSITE,cn,🎯 全球直连
-  - GEOIP,cn,🎯 全球直连,no-resolve
-  - MATCH,🐟 漏网之鱼
-
+  - "GEOSITE,xiaomi,🎯 全球直连"
+  - "GEOSITE,googlefcm,🇬 谷歌服务"
+  - "GEOSITE,google,🇬 谷歌服务"
+  - "GEOSITE,dmm,🇯🇵 日本节点"
+  - "GEOSITE,category-porn,🌏 非日本节点"
+  - "GEOSITE,tiktok,🎶 TikTok"
+  - "GEOSITE,bahamut,🇹🇼 台湾节点"
+  - "GEOSITE,category-entertainment-cn,📺 国内媒体"
+  - "GEOSITE,amazon,🛒 国外电商"
+  - "GEOSITE,steam@cn,🎯 全球直连"
+  - "GEOSITE,steam,🎮 游戏平台"
+  - "GEOSITE,category-games,🎮 游戏平台"
+  - "GEOSITE,category-entertainment,🎬 流媒体"
+  - "GEOSITE,category-ecommerce,🛒 国外电商"
+  - "GEOSITE,gfw,🚀 节点选择"
+  - "GEOIP,telegram,💬 即时通讯,no-resolve"
+  - "GEOIP,twitter,🌐 社交媒体,no-resolve"
+  - "GEOIP,facebook,🌐 社交媒体,no-resolve"
+  - "GEOIP,google,🇬 谷歌服务,no-resolve"
+  - "GEOIP,netflix,🎬 流媒体,no-resolve"
+  - "GEOSITE,geolocation-!cn,🚀 节点选择"
+  - "GEOSITE,cn,🎯 全球直连"
+  - "GEOIP,cn,🎯 全球直连,no-resolve"
+  - "MATCH,🐟 漏网之鱼"
 port: 7890
 socks-port: 7891
 allow-lan: true
@@ -250,7 +329,6 @@ profile:
   store-selected: true
   store-fake-ip: true
 dns:
-  enhanced-mode: redir-host
   enable: true
   ipv6: true
   listen: 0.0.0.0:7874
@@ -261,20 +339,10 @@ dns:
   # Foreign policies race two clients; regional groups do not fan out together.
   nameserver-policy:
     "geosite:category-stun": &direct-dns
-      - https://223.5.5.5/dns-query
-      - https://1.12.12.12/dns-query
+      - https://223.5.5.5/dns-query # 阿里 DoH
+      - https://1.12.12.12/dns-query # 腾讯 DoH
     "geosite:category-public-tracker": *direct-dns
-    "geosite:category-pt": &main-proxy-dns
-      - "https://1.1.1.1/dns-query#🚀 节点选择"
-      - "https://8.8.8.8/dns-query#🚀 节点选择"
-    "geosite:piratebay": *main-proxy-dns
-    "geosite:nyaa": *main-proxy-dns
-    "geosite:1337x": *main-proxy-dns
-    "geosite:flatpak": *main-proxy-dns
     "geosite:google-play@cn": *direct-dns
-    "geosite:google-cn": &google-dns
-      - "https://1.1.1.1/dns-query#🇬 谷歌服务"
-      - "https://8.8.8.8/dns-query#🇬 谷歌服务"
     "geosite:npmjs": *direct-dns
     "geosite:category-games@cn": *direct-dns
     "geosite:category-game-accelerator-cn": *direct-dns
@@ -284,9 +352,12 @@ dns:
     "geosite:category-social-media-!cn":
       - "https://1.1.1.1/dns-query#🌐 社交媒体"
       - "https://8.8.8.8/dns-query#🌐 社交媒体"
-    "+.ollama.com": &ai-dns
-      - "https://1.1.1.1/dns-query#🤖 AI服务"
-      - "https://8.8.8.8/dns-query#🤖 AI服务"
+    "geosite:openai,anthropic,google-gemini":
+      - "https://1.1.1.1/dns-query#🤖 AI海外严格"
+      - "https://8.8.8.8/dns-query#🤖 AI海外严格"
+    "geosite:category-ai-!cn":
+      - "https://1.1.1.1/dns-query#🤖 AI海外"
+      - "https://8.8.8.8/dns-query#🤖 AI海外"
     # E-IX ships its own resolvers; public DNS returns different addresses for
     # both its node hostnames and (after the 2026-09-25 upgrade) potentially its
     # subscription endpoint, so route both through these. The proxy-node slot
@@ -295,29 +366,16 @@ dns:
       - "https://zone.rlose.com:39933/api-query"
       - "https://radar.rlose.com/api-query"
     "+.usfoo.com": *eix-dns
-    "geosite:openai": *ai-dns
-    "geosite:anthropic": *ai-dns
-    "geosite:google-gemini": *ai-dns
     "geosite:docker":
       - "https://1.1.1.1/dns-query#🐟 docker"
       - "https://8.8.8.8/dns-query#🐟 docker"
     "geosite:github":
       - "https://1.1.1.1/dns-query#🐈‍⬛ GitHub"
       - "https://8.8.8.8/dns-query#🐈‍⬛ GitHub"
-    "geosite:linkedin@cn": *direct-dns
-    "geosite:linkedin":
-      - "https://1.1.1.1/dns-query#🧑🏻‍💼 LinkedIn"
-      - "https://8.8.8.8/dns-query#🧑🏻‍💼 LinkedIn"
     "geosite:category-speedtest":
       - "https://1.1.1.1/dns-query#🚀 测速工具"
       - "https://8.8.8.8/dns-query#🚀 测速工具"
-    "geosite:youtube":
-      - "https://1.1.1.1/dns-query#📹 YouTube"
-      - "https://8.8.8.8/dns-query#📹 YouTube"
     "geosite:apple-cn": *direct-dns
-    "geosite:apple-tvplus":
-      - "https://1.1.1.1/dns-query#🎥 AppleTV+"
-      - "https://8.8.8.8/dns-query#🎥 AppleTV+"
     "geosite:apple":
       - "https://1.1.1.1/dns-query#🍎 苹果服务"
       - "https://8.8.8.8/dns-query#🍎 苹果服务"
@@ -327,67 +385,51 @@ dns:
       - "https://1.1.1.1/dns-query#Ⓜ️ 微软服务"
       - "https://8.8.8.8/dns-query#Ⓜ️ 微软服务"
     "geosite:xiaomi": *direct-dns
-    "geosite:googlefcm":
-      - "https://1.1.1.1/dns-query#📢 谷歌FCM"
-      - "https://8.8.8.8/dns-query#📢 谷歌FCM"
-    "geosite:google": *google-dns
-    "geosite:dmm-porn":
+    "geosite:google-cn,googlefcm,google":
+      - "https://1.1.1.1/dns-query#🇬 谷歌服务"
+      - "https://8.8.8.8/dns-query#🇬 谷歌服务"
+    "geosite:dmm,abema,tver,unext,niconico,radiko":
       - "https://1.1.1.1/dns-query#🇯🇵 日本节点"
       - "https://8.8.8.8/dns-query#🇯🇵 日本节点"
-    "geosite:javdb": &non-jp-adult-dns
+    "rule-set:HuluJP":
+      - "https://1.1.1.1/dns-query#🇯🇵 日本节点"
+      - "https://8.8.8.8/dns-query#🇯🇵 日本节点"
+    "geosite:category-porn":
       - "https://1.1.1.1/dns-query#🌏 非日本节点"
       - "https://8.8.8.8/dns-query#🌏 非日本节点"
-    "geosite:javbus": *non-jp-adult-dns
     "geosite:tiktok":
       - "https://1.1.1.1/dns-query#🎶 TikTok"
       - "https://8.8.8.8/dns-query#🎶 TikTok"
-    "geosite:netflix":
-      - "https://1.1.1.1/dns-query#🎥 Netflix"
-      - "https://8.8.8.8/dns-query#🎥 Netflix"
-    "geosite:disney":
-      - "https://1.1.1.1/dns-query#🎥 DisneyPlus"
-      - "https://8.8.8.8/dns-query#🎥 DisneyPlus"
-    "geosite:hbo":
-      - "https://1.1.1.1/dns-query#🎥 HBO"
-      - "https://8.8.8.8/dns-query#🎥 HBO"
-    "geosite:primevideo":
-      - "https://1.1.1.1/dns-query#🎥 PrimeVideo"
-      - "https://8.8.8.8/dns-query#🎥 PrimeVideo"
-    "geosite:spotify":
-      - "https://1.1.1.1/dns-query#🎻 Spotify"
-      - "https://8.8.8.8/dns-query#🎻 Spotify"
-    "geosite:bahamut":
-      - "https://1.1.1.1/dns-query#📺 Bahamut"
-      - "https://8.8.8.8/dns-query#📺 Bahamut"
+    "geosite:bahamut,kktv,litv,hamivideo,catchplay,pchome,momo":
+      - "https://1.1.1.1/dns-query#🇹🇼 台湾节点"
+      - "https://8.8.8.8/dns-query#🇹🇼 台湾节点"
+    "rule-set:LineTV,TaiWanGood,friDay":
+      - "https://1.1.1.1/dns-query#🇹🇼 台湾节点"
+      - "https://8.8.8.8/dns-query#🇹🇼 台湾节点"
     "geosite:category-entertainment-cn": *direct-dns
-    "geosite:amazon": &ecommerce-dns
+    "geosite:category-entertainment": &global-media-dns
+      - "https://1.1.1.1/dns-query#🎬 流媒体"
+      - "https://8.8.8.8/dns-query#🎬 流媒体"
+    "geosite:amazon,category-ecommerce":
       - "https://1.1.1.1/dns-query#🛒 国外电商"
       - "https://8.8.8.8/dns-query#🛒 国外电商"
-    "geosite:shopee": *ecommerce-dns
-    "geosite:ozon": *ecommerce-dns
-    "geosite:category-entertainment": &global-media-dns
-      - "https://1.1.1.1/dns-query#🌎 国外媒体"
-      - "https://8.8.8.8/dns-query#🌎 国外媒体"
-    "geosite:category-ecommerce": *ecommerce-dns
     "geosite:steam@cn": *direct-dns
-    "geosite:steam":
-      - "https://1.1.1.1/dns-query#🎮 Steam"
-      - "https://8.8.8.8/dns-query#🎮 Steam"
-    "geosite:category-games":
+    "geosite:steam,category-games":
       - "https://1.1.1.1/dns-query#🎮 游戏平台"
       - "https://8.8.8.8/dns-query#🎮 游戏平台"
-    "geosite:gfw": *main-proxy-dns
-    "geosite:geolocation-!cn": *main-proxy-dns
+    "geosite:category-pt,piratebay,nyaa,1337x,flatpak,gfw,geolocation-!cn":
+      - "https://1.1.1.1/dns-query#🚀 节点选择"
+      - "https://8.8.8.8/dns-query#🚀 节点选择"
     "geosite:cn": *direct-dns
   nameserver:
     - "https://1.1.1.1/dns-query#🐟 漏网之鱼"
     - "https://8.8.8.8/dns-query#🐟 漏网之鱼"
   default-nameserver:
-    - https://223.5.5.5/dns-query
-    - https://1.12.12.12/dns-query
+    - https://223.5.5.5/dns-query # 阿里 DoH
+    - https://1.12.12.12/dns-query # 腾讯 DoH
   proxy-server-nameserver:
-    - https://223.5.5.5/dns-query
-    - https://1.12.12.12/dns-query
+    - https://223.5.5.5/dns-query # 阿里 DoH
+    - https://1.12.12.12/dns-query # 腾讯 DoH
   # E-IX resolves its node hostnames through its own resolvers; public
   # resolvers return different addresses that stop working after the
   # 2026-09-25 node upgrade. Scope the override to eixcloud.com so every
@@ -396,7 +438,7 @@ dns:
     "+.eixcloud.com": *eix-dns
     "+.nchc.cc":
       - https://223.5.5.5/dns-query
-      - https://119.29.29.29/dns-query
+      - https://1.12.12.12/dns-query
       - https://doh.dns.sb/dns-query
       - https://dns.cloudflare.com/dns-query
       - https://dns.twnic.tw/dns-query
@@ -435,20 +477,14 @@ sniffer:
     - geosite:category-public-tracker
     - geosite:category-stun
     - +.v2ex.com
-lgbm-auto-update: true
-lgbm-url: https://github.com/vernesong/mihomo/releases/download/LightGBM-Model/Model-large.bin
-lgbm-update-interval: 72
 tun:
   stack: system
   auto-route: true
   auto-detect-interface: true
   gso: true
   strict-route: false
-  exclude-interface:
-    - tun0
   # endpoint-independent-nat: true
   udp-timeout: 300
-  route-exclude-address: []
   dns-hijack:
     - any:53
     - tcp://any:53

@@ -7,41 +7,24 @@
 }:
 let
   mihomoConfig = config.zerozawa.mihomo;
-  zerotier = config.zerozawa.zerotier;
   external-controller = "127.0.0.1:9090";
-  proxyProvidersFile = pkgs.writeText "mihomo-proxy-providers.json" (
-    builtins.toJSON mihomoConfig.proxy-providers
-  );
-  proxyProviderPrefixesFile = pkgs.writeText "mihomo-proxy-provider-prefixes.json" (
-    builtins.toJSON {
-      xingyun = "xy";
-    }
-  );
-  routeExcludeAddressFile = pkgs.writeText "mihomo-route-exclude-address.json" (
-    builtins.toJSON [ zerotier.netmask ]
-  );
+
+  # The overlay is a standard RFC 6902 JSON Patch document (written as YAML for
+  # readability). It carries every secret: provider URLs/tokens, landing node
+  # credentials, host-specific tun routes.
+  patchFile =
+    if mihomoConfig.patch-file == null then
+      pkgs.writeText "mihomo-patch-empty.yaml" "[]\n"
+    else
+      mihomoConfig.patch-file;
+
   configFile = pkgs.runCommand "mihomo.yaml" { } ''
-    ${lib.getExe pkgs.yq-go} -oy '
-      . as $cfg
-      | load("${proxyProviderPrefixesFile}") as $prefixes
-      | ."proxy-providers" = (
-          load("${proxyProvidersFile}")
-          | with_entries(
-              . as $provider
-              | .value = (
-                  $cfg."proxy-providers-common"
-                  * {
-                    "url": $provider.value,
-                    "override": {
-                      "additional-prefix": ($prefixes[$provider.key] // $provider.key)
-                    }
-                  }
-                )
-            )
-        )
-      | .tun."route-exclude-address" = load("${routeExcludeAddressFile}")
-    ' ${./mihomo.yaml} > "$out"
+    ${lib.getExe pkgs.yq-go} -o=json ${./mihomo.yaml} > base.json
+    ${lib.getExe pkgs.yq-go} -o=json ${patchFile} > patch.json
+    ${lib.getExe pkgs.json-patch} -p patch.json < base.json > patched.json
+    ${lib.getExe pkgs.yq-go} -P patched.json > $out
   '';
+
   tunChanger = enable: /* bash */ ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.curl}/bin/curl -H "Content-Type: application/json" -X PATCH -d '{"tun":{"enable":${lib.boolToString enable}}}' http://${external-controller}/configs
@@ -51,7 +34,7 @@ let
         gothic = "𝔪𝔦𝔥𝔬𝔪𝔬";
         scope = if enable then "霊子通路" else "虚数回廊";
         action = if enable then "次元門展開" else "強制封印";
-        kaomoji = if enable then "( *¯ ³¯*)♡" else "( ´Д\\`)ﾉ≡";
+        kaomoji = if enable then "( *¯ ³¯*)♡" else "( ´Д\`)ﾉ≡";
         unicode = if enable then "🌀" else "💢🔒";
       }
     }"
